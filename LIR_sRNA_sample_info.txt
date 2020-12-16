@@ -1,0 +1,5 @@
+sample	condition	type
+WT_R1	WT	single-read
+WT_R2	WT	single-read
+Mut_R1	Mutant	single-read
+Mut_R2	Mutant	single-read
