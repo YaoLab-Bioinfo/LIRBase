@@ -8,10 +8,27 @@ LIR_Info_Title <- paste("Number_of_LIR: number of LIRs identified by IRF;",
                         "Indel_per: percentage of indels between the left and the right arm;",
                         sep = "<br>")
 
+Blast_Info_Title <- paste("qseqid: Query sequence ID;",
+                        "qlen: Query sequence length;",
+                        "sseqid: Subject sequence ID;",
+                        "slen: Subject sequence length;",
+                        "length: Alignment length;",
+                        "qstart: Start of alignment in query;",
+                        "qend: End of alignment in query;",
+                        "sstart: Start of alignment in subject;",
+                        "send: End of alignment in subject;",
+                        "mismatch: Number of mismatches;",
+                        "gapopen: Number of gap openings;",
+                        "pident: Percentage of identical matches;",
+                        "qcovhsp: Query Coverage Per HSP;",
+                        "evalue: Expect value;",
+                        "bitscore: Bit score;",
+                        sep = "<br>")
+
 shinyUI(
   navbarPage(
     title = "LIRBase", 
-    windowTitle = "A web server for comprehensive analysis of siRNAs derived from long inverted repeat in eukaryotic genomes",
+    windowTitle = "Welcome to LIRBase!",
     
     ## Home
     tabPanel("Home", 
@@ -43,8 +60,11 @@ shinyUI(
              ),
              
              icon = icon("home", class = NULL, lib = "font-awesome"),
-             htmlwidgets::getDependency('sparkline'),
-             dataTableOutput("IRFsummary")
+             
+             # htmlwidgets::getDependency('sparkline'),
+             # dataTableOutput("IRFsummary")
+             
+             includeMarkdown("Home.md")
     ),
     
     # Browse
@@ -118,11 +138,33 @@ shinyUI(
                              )
                            ),
                            
+                           br(),
+                           textOutput("IRFbrowse_title"),
+                           tags$head(tags$style("#IRFbrowse_title{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                           )),
                            dataTableOutput("IRFbrowse")
                   ),
                   
                   tabPanel("Details of the LIR selected",
+                           textOutput("LIR_info_title"),
+                           tags$head(tags$style("#LIR_info_title{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                           )),
                            dataTableOutput("LIR_info"),
+                           br(),
+                           
+                           textOutput("LIR_gene_op_title"),
+                           tags$head(tags$style("#LIR_gene_op_title{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                           )),
+                           dataTableOutput("LIR_gene_op"),
                            br(),
                            
                            fixedRow(
@@ -212,6 +254,15 @@ shinyUI(
                br(),
                
                fixedRow(
+                 textOutput("Search_reg_LIR_gene_op_title"),
+                 tags$head(tags$style("#Search_reg_LIR_gene_op_title{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                 )),
+                 dataTableOutput("Search_reg_LIR_gene_op"),
+                 br(),
+                 
                  column(6, 
                         textOutput("LIR_detail_search_reg_fasta_title"),
                         tags$head(tags$style("#LIR_detail_search_reg_fasta_title{color: red;
@@ -292,6 +343,15 @@ shinyUI(
                                     br(),
                                     
                                     fixedRow(
+                                      textOutput("Search_ID_LIR_gene_op_title"),
+                                      tags$head(tags$style("#Search_ID_LIR_gene_op_title{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                                      )),
+                                      dataTableOutput("Search_ID_LIR_gene_op"),
+                                      br(),
+                                      
                                       column(6, 
                                              textOutput("LIR_detail_search_ID_fasta_title"),
                                              tags$head(tags$style("#LIR_detail_search_ID_fasta_title{color: red;
@@ -321,6 +381,10 @@ shinyUI(
     tabPanel(
       "Blast",
       icon = icon("rocket", class = NULL, lib = "font-awesome"),
+      
+      tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Search LIRBase by sequence similarity using BLAST</b></font>'),
+               bsButton("qBlastTitle", label="", icon=icon("question"), style="info", size="small")),
+      bsPopover("qBlastTitle", title = Blast_Info_Title, content = NULL, trigger = "focus"),
       
       tabsetPanel(id = "BLAST_tab",
                   tabPanel("Input",
@@ -425,7 +489,20 @@ shinyUI(
                              )
                            ),
                            
+                           br(),
+                           
                            fixedRow(
+                             column(11,
+                                    textOutput("Blast_LIR_gene_op_title"),
+                                    tags$head(tags$style("#Blast_LIR_gene_op_title{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                                    )),
+                                    dataTableOutput("Blast_LIR_gene_op")
+                             ),
+                             br(),
+                             
                              column(6, 
                                     textOutput("LIR_detail_blast_fasta_title"),
                                     tags$head(tags$style("#LIR_detail_blast_fasta_title{color: red;
@@ -669,26 +746,58 @@ shinyUI(
                            
                            fixedRow(
                              column(6,
-                                    dataTableOutput("AlignResult")
-                             ),
-                             column(6,
+                                    textOutput("Quantify_table_2_title"),
+                                    tags$head(tags$style("#Quantify_table_2_title{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                                    )),
                                     dataTableOutput("LIRreadCount")
+                             ),
+                             
+                             column(6,
+                                    textOutput("Quantify_table_1_title"),
+                                    tags$head(tags$style("#Quantify_table_1_title{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                                    )),
+                                    withSpinner(dataTableOutput("AlignResult"))
                              )
                            ),
                            
                            br(),
                            
                            fixedRow(
+                             textOutput("Quantify_plot_1_title"),
+                             tags$head(tags$style("#Quantify_plot_1_title{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                             )),
+                             
                              column(4,
-                                    withSpinner(jqui_resizable(plotOutput("srna_size_align", height = "350px", width = '95%'))),
-                                    withSpinner(jqui_resizable(plotOutput("srna_reads_size_align", height = "300px", width = '95%')))
+                                    jqui_resizable(withSpinner(plotOutput("srna_size_align", height = "350px", width = '95%'))),
+                                    jqui_resizable(withSpinner(plotOutput("srna_reads_size_align", height = "300px", width = '95%')))
                              ),
                              column(8,
-                                    withSpinner(jqui_resizable(plotOutput("srna_expression", height = "700px", width = '95%')))
+                                    jqui_resizable(withSpinner(plotOutput("srna_expression", height = "700px", width = '95%')))
                              )
                            ),
+                           br(),
                            
                            fixedRow(
+                             column(11,
+                                    textOutput("Quantify_LIR_gene_op_title"),
+                                    tags$head(tags$style("#Quantify_LIR_gene_op_title{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                                    )),
+                                    dataTableOutput("Quantify_LIR_gene_op")
+                             ),
+                             br(),
+                             
                              column(6, 
                                     textOutput("LIR_detail_align_fasta_title"),
                                     tags$head(tags$style("#LIR_detail_align_fasta_title{color: red;
@@ -720,7 +829,7 @@ shinyUI(
       icon = icon("eercast", class = NULL, lib = "font-awesome"),
       
       sidebarPanel(
-        tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Detect differentially expressed LIRs</b></font>'),
+        tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Detect differentially expressed LIRs or sRNAs</b></font>'),
                  bsButton("qDESeqTitle", label="", icon=icon("question"), style="info", size="small")),
         bsPopover("qDESeqTitle", "The R package DESeq2 is used to detect differentially expressed LIRs between samples.", trigger = "focus"),
         
@@ -838,7 +947,7 @@ shinyUI(
     ## Help
     navbarMenu("Help", icon = icon("book", class = NULL, lib = "font-awesome"),
                tabPanel(h5("Tutorial"),
-                        includeMarkdown("About.md")
+                        includeMarkdown("Home.md")
                         ),
                tabPanel(h5("Installation"),
                         includeMarkdown("README.md")

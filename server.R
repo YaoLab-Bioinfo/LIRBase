@@ -3,17 +3,17 @@
 shinyServer(function(input, output, session) {
   
   # Home
-  observe({
-    # cb <- htmlwidgets::JS('function(){debugger;HTMLWidgets.staticRender();}')
-    
-    output$IRFsummary <- DT::renderDataTable(
-      dat.spark,
-      escape = FALSE, rownames= FALSE, selection="none",
-      options = list(
-        pageLength = 10, autoWidth = TRUE, bSort=FALSE
-      )
-    )
-  })
+  # observe({
+  #   # cb <- htmlwidgets::JS('function(){debugger;HTMLWidgets.staticRender();}')
+  #   
+  #   output$IRFsummary <- DT::renderDataTable(
+  #     dat.spark,
+  #     escape = FALSE, rownames= FALSE, selection="none",
+  #     options = list(
+  #       pageLength = 10, autoWidth = TRUE, bSort=FALSE
+  #     )
+  #   )
+  # })
   
   
   # Browse
@@ -54,31 +54,38 @@ shinyServer(function(input, output, session) {
           )
         )
         
-        par(mar=c(1.1, 2.1, 2.1, 1.1))
         output$Length <- renderPlot({
-          hist(dat.content$Left_len + dat.content$Right_len + dat.content$Loop_len, main = "Total length", xlab = "")
+          par(mar=c(2.9, 3.8, 2.1, 1.1))
+          hist(dat.content$Left_len + dat.content$Right_len + dat.content$Loop_len, 
+               main = "Total length", xlab = "", col="grey80")
         }, height = "auto", width = "auto")
         
         output$Left_len <- renderPlot({
-          hist(dat.content$Left_len, main = "Left arm length", xlab = "")
+          par(mar=c(2.1, 1.9, 2.1, 1.1))
+          hist(dat.content$Left_len, main = "Left arm length", xlab = "", col="grey80")
         }, height = "auto", width = "auto")
         
         output$Right_len <- renderPlot({
-          hist(dat.content$Right_len, main = "Right arm length", xlab = "")
+          par(mar=c(2.1, 1.9, 2.1, 1.1))
+          hist(dat.content$Right_len, main = "Right arm length", xlab = "", col="grey80")
         }, height = "auto", width = "auto")
         
         output$Loop_len <- renderPlot({
-          hist(dat.content$Loop_len, main = "Loop length", xlab = "")
+          par(mar=c(2.1, 1.9, 2.1, 1.1))
+          hist(dat.content$Loop_len, main = "Loop length", xlab = "", col="grey80")
         }, height = "auto", width = "auto")
         
         output$Match_per <- renderPlot({
-          hist(dat.content$Match_per, main = "Match percent", xlab = "")
+          par(mar=c(2.1, 1.9, 2.1, 1.1))
+          hist(dat.content$Match_per, main = "Match percent", xlab = "", col="grey80")
         }, height = "auto", width = "auto")
         
         output$Indel_per <- renderPlot({
-          hist(dat.content$Indel_per, main = "Indel percent", xlab = "")
+          par(mar=c(2.1, 1.9, 2.1, 1.1))
+          hist(dat.content$Indel_per, main = "Indel percent", xlab = "", col="grey80")
         }, height = "auto", width = "auto")
         
+        output$IRFbrowse_title <- renderText("List of all the LIRs identified by IRF:")
         output$IRFbrowse <- DT::renderDataTable(
           dat.content, extensions = 'Scroller',
           options = list(pageLength = 10, autoWidth = TRUE, lengthMenu = c(10, 20, 30, 50, 100), 
@@ -102,10 +109,31 @@ shinyServer(function(input, output, session) {
         HTML.file.path <- gsub("dat.gz", "IRFresult.RData", HTML.file.path)
         load(HTML.file.path)
         
+        LIR.gene.op.file.path <- gsub("IRFresult.RData", "LIR_gene_op.txt.gz", HTML.file.path)
+        LIR.gene.op.file.path <- gsub("HTML", "LIR_gene_op", LIR.gene.op.file.path)
+        
         # basic information
+        output$LIR_info_title <- renderText("Information of the selected LIR:")
         output$LIR_info <- DT::renderDataTable(
           dat.content[IRF.index[, 1], ], 
           options = list(paging = FALSE, searching = FALSE, autoWidth = TRUE, bSort=FALSE, dom = 't'), 
+          escape = FALSE, rownames= FALSE, selection="none"
+        )
+        
+        # Overlap between LIRs and genes
+        output$LIR_gene_op_title <- renderText("Overlaps between the selected LIR and genes:")
+        output$LIR_gene_op <- DT::renderDataTable({
+          if (file.exists(LIR.gene.op.file.path)) {
+            LIR.gene.op <- fread(LIR.gene.op.file.path, data.table=F)
+            LIR.gene.op <- LIR.gene.op[LIR.gene.op$ID %in% dat.content[IRF.index], ]
+            LIR.gene.op <- LIR.gene.op[, !colnames(LIR.gene.op) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
+            LIR.gene.op
+          } else {
+            LIR.gene.op <- data.frame("V1"="No data available!")
+            colnames(LIR.gene.op) <- ""
+            LIR.gene.op
+          }
+        }, options = list(paging = FALSE, searching = FALSE, autoWidth = TRUE, bSort=FALSE, dom = 't'), 
           escape = FALSE, rownames= FALSE, selection="none"
         )
         
@@ -167,6 +195,8 @@ shinyServer(function(input, output, session) {
     fasta.file <- paste0("www/Fasta/", fasta.file)
     HTML.file <- paste0(BLASTdb.fl$Division[BLASTdb.fl$Accession == input$chooseGenomeReg], "/", input$chooseGenomeReg, ".IRFresult.RData")
     HTML.file <- paste0("www/HTML/", HTML.file)
+    LIR.gene.op.file <- paste0(BLASTdb.fl$Division[BLASTdb.fl$Accession == input$chooseGenomeReg], "/", input$chooseGenomeReg, ".LIR_gene_op.txt.gz")
+    LIR.gene.op.file <- paste0("www/LIR_gene_op/", LIR.gene.op.file)
     
     if (file.exists(dat.file)) {
       dat.search.result <- fread(dat.file, data.table = FALSE)
@@ -176,7 +206,7 @@ shinyServer(function(input, output, session) {
       fasta.region <- readBStringSet(fasta.file)
       fasta.region <- fasta.region[dat.search.result$ID]
       load(HTML.file)
-      result <- list(dat.search.result, fasta.region, LIR.align)
+      result <- list(dat.search.result, fasta.region, LIR.align, LIR.gene.op.file)
     } else {
       result <- NULL
     }
@@ -214,6 +244,34 @@ shinyServer(function(input, output, session) {
       writeXStringSet(searchedRegResults()[[2]], file)
     }, contentType = 'text/plain'
   )
+  
+  ## Overlap between LIR and genes
+  output$Search_reg_LIR_gene_op_title <- renderText({
+    if (is.null(input$LIRsearchRegResult_rows_selected)) {
+      
+    } else {
+      "Overlaps between the selected LIR and genes:"
+    }
+  })
+  
+  output$Search_reg_LIR_gene_op <- DT::renderDataTable({
+    if (is.null(search.region.result()) || is.null(input$LIRsearchRegResult_rows_selected)) {
+      
+    } else {
+      if (file.exists(searchedRegResults()[[4]])) {
+        LIR.gene.op <- fread(searchedRegResults()[[4]], data.table=F)
+        LIR.ID <- searchedRegResults()[[1]]$ID[input$LIRsearchRegResult_rows_selected]
+        LIR.gene.op <- LIR.gene.op[LIR.gene.op$ID %in% LIR.ID, ]
+        LIR.gene.op <- LIR.gene.op[, !colnames(LIR.gene.op) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
+        LIR.gene.op
+      } else {
+        LIR.gene.op <- data.frame("V1"="No data available!")
+        colnames(LIR.gene.op) <- ""
+        LIR.gene.op
+      }
+    }
+  }, options = list(paging = FALSE, searching = FALSE, autoWidth = TRUE, bSort=FALSE, dom = 't'), 
+  escape = FALSE, rownames= FALSE, selection="none")
   
   ## Display LIR sequence
   output$LIR_detail_search_reg_fasta_title <- renderText({
@@ -263,6 +321,8 @@ shinyServer(function(input, output, session) {
       fasta.file <- paste0("www/Fasta/", fasta.file)
       HTML.file <- paste0(BLASTdb.fl$Division[BLASTdb.fl$Accession == input$chooseGenomeID], "/", input$chooseGenomeID, ".IRFresult.RData")
       HTML.file <- paste0("www/HTML/", HTML.file)
+      LIR.gene.op.file <- paste0(BLASTdb.fl$Division[BLASTdb.fl$Accession == input$chooseGenomeID], "/", input$chooseGenomeID, ".LIR_gene_op.txt.gz")
+      LIR.gene.op.file <- paste0("www/LIR_gene_op/", LIR.gene.op.file)
       
       LIR.id <- unlist(strsplit(input$LIRID, split="\\n"))
       LIR.id <- gsub("^\\s+", "", LIR.id)
@@ -285,7 +345,7 @@ shinyServer(function(input, output, session) {
             fasta.ID <- fasta.ID[LIR.id]
             load(HTML.file)
             
-            result <- list(dat.search.result, fasta.ID, LIR.align)
+            result <- list(dat.search.result, fasta.ID, LIR.align, LIR.gene.op.file)
           } else {
             sendSweetAlert(
               session = session,
@@ -355,6 +415,34 @@ shinyServer(function(input, output, session) {
     }, contentType = 'text/plain'
   )
   
+  ## Overlap between LIR and genes
+  output$Search_ID_LIR_gene_op_title <- renderText({
+    if (is.null(input$LIRsearchIDResult_rows_selected)) {
+      
+    } else {
+      "Overlaps between the selected LIR and genes:"
+    }
+  })
+  
+  output$Search_ID_LIR_gene_op <- DT::renderDataTable({
+    if (is.null(search.ID.result()) || is.null(input$LIRsearchIDResult_rows_selected)) {
+      
+    } else {
+      if (file.exists(searchedIDResults()[[4]])) {
+        LIR.gene.op <- fread(searchedIDResults()[[4]], data.table=F)
+        LIR.ID <- searchedIDResults()[[1]]$ID[input$LIRsearchIDResult_rows_selected]
+        LIR.gene.op <- LIR.gene.op[LIR.gene.op$ID %in% LIR.ID, ]
+        LIR.gene.op <- LIR.gene.op[, !colnames(LIR.gene.op) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
+        LIR.gene.op
+      } else {
+        LIR.gene.op <- data.frame("V1"="No data available!")
+        colnames(LIR.gene.op) <- ""
+        LIR.gene.op
+      }
+    }
+  }, options = list(paging = FALSE, searching = FALSE, autoWidth = TRUE, bSort=FALSE, dom = 't'), 
+  escape = FALSE, rownames= FALSE, selection="none")
+  
   ## Display LIR sequence
   output$LIR_detail_search_ID_fasta_title <- renderText({
     if (is.null(input$LIRsearchIDResult_rows_selected) || is.null(search.ID.result())) {
@@ -403,7 +491,8 @@ shinyServer(function(input, output, session) {
     if (input$searchIDExam >0) {
       isolate({
         updatePickerInput(session, "chooseGenomeID", selected = "Drosophila_melanogaster")
-        updateTextAreaInput(session, "LIRID", value = paste(c("drmm.2L:1776370--1781782,1795872--1801274", 
+        updateTextAreaInput(session, "LIRID", value = paste(c("drmm.2L:983450--984514,996778--997842",
+          "drmm.2L:1776370--1781782,1795872--1801274", "drmm.2R:1523505--1525931,1527463--1529891",
                                                   "drmm.2L:6431564--6436015,6440661--6445112",
                                                   "drmm.2L:12731893--12735820,12739226--12743092",
                                                   "drmm.3R:56--7751,8029--15736",
@@ -509,6 +598,10 @@ shinyServer(function(input, output, session) {
       paste0(BLASTdb.fl$Division[BLASTdb.fl$Accession == x], "/", x, ".IRFresult.RData")
     })
     HTML.file <- paste0("www/HTML/", HTML.file)
+    LIR.gene.op.file <- sapply(input$BLASTdb, function(x) {
+      paste0(BLASTdb.fl$Division[BLASTdb.fl$Accession == x], "/", x, ".LIR_gene_op.txt.gz")
+    })
+    LIR.gene.op.file <- paste0("www/LIR_gene_op/", LIR.gene.op.file)
     
     dat.search.result <- lapply(dat.file, function(x) {
       if (file.exists(x)) {
@@ -535,7 +628,16 @@ shinyServer(function(input, output, session) {
     })
     html.blast <- do.call(c, html.blast)
     
-    result <- list(dat.search.result, fasta.blast, html.blast)
+    LIR.gene.op <- lapply(LIR.gene.op.file, function(x) {
+      if (file.exists(x)) {
+        y <- fread(x, data.table = FALSE)
+        return(y)
+      } else {NULL}
+    })
+    LIR.gene.op <- rbindlist(LIR.gene.op)
+    class(LIR.gene.op) <- "data.frame"
+    
+    result <- list(dat.search.result, fasta.blast, html.blast, LIR.gene.op)
   }, ignoreNULL= T)
   
   blastdbResults <- reactive({
@@ -650,6 +752,34 @@ shinyServer(function(input, output, session) {
     }
   })
   
+  ## Overlap between LIR and genes
+  output$Blast_LIR_gene_op_title <- renderText({
+    if (is.null(input$BLASTresult_rows_selected)) {
+      
+    } else {
+      "Overlaps between the selected LIR and genes:"
+    }
+  })
+  
+  output$Blast_LIR_gene_op <- DT::renderDataTable({
+    if ( is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
+      
+    } else {
+      if ( nrow(blastdbResults()[[4]])>0 ) {
+        LIR.gene.op <- blastdbResults()[[4]]
+        LIR.ID <- blastedResults()$sseqid[input$BLASTresult_rows_selected]
+        LIR.gene.op <- LIR.gene.op[LIR.gene.op$ID %in% LIR.ID, ]
+        LIR.gene.op <- LIR.gene.op[, !colnames(LIR.gene.op) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
+        LIR.gene.op
+      } else {
+        LIR.gene.op <- data.frame("V1"="No data available!")
+        colnames(LIR.gene.op) <- ""
+        LIR.gene.op
+      }
+    }
+  }, options = list(paging = FALSE, searching = FALSE, autoWidth = TRUE, bSort=FALSE, dom = 't'), 
+  escape = FALSE, rownames= FALSE, selection="none")
+  
   ## Display LIR sequence
   output$LIR_detail_blast_fasta_title <- renderText({
     if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
@@ -746,7 +876,7 @@ shinyServer(function(input, output, session) {
 	        pre.MaxLoop <- input$MaxLoop
 	        pre.flankLen <- input$flankSeqLen
 	        
-	        irf.cmds <- paste("irf307.dos.exe", irf.in.file, pre.Match, pre.Mismatch, pre.Delta, pre.PM,
+	        irf.cmds <- paste("irf305.linux.exe", irf.in.file, pre.Match, pre.Mismatch, pre.Delta, pre.PM,
 	                          pre.PI, pre.Minscore, pre.MaxLength, pre.MaxLoop, "-d -f", pre.flankLen)
 	        system(irf.cmds, ignore.stdout = TRUE, ignore.stderr = TRUE)
 	        
@@ -979,7 +1109,10 @@ shinyServer(function(input, output, session) {
 	      bowtie.out.1$sRNA_size <- nchar(bowtie.out.1$sRNA)
 	      bowtie.out.2 <- bowtie.out.1 %>% dplyr::group_by(LIR) %>% dplyr::distinct(sRNA, .keep_all = TRUE)
 	      bowtie.out.3 <- bowtie.out.2 %>% dplyr::group_by(LIR, sRNA_size) %>% dplyr::summarise(sRNA_number = dplyr::n(), sRNA_read_number = sum(sRNA_read_number))
-	      result <- list(bowtie.out.1, bowtie.out.3, sum(srna.rc$sRNA_read_number))
+	      LIR.rc <- bowtie.out.3 %>% dplyr::group_by(LIR) %>% dplyr::summarise(sRNA_read_count = sum(sRNA_read_number))
+	      names(LIR.rc) <- c("LIR", "sRNA_read_count")
+	      LIR.rc <- LIR.rc %>% arrange(desc(sRNA_read_count))
+	      result <- list(bowtie.out.1, bowtie.out.3, sum(srna.rc$sRNA_read_number), LIR.rc)
 	    } else {
 	      sendSweetAlert(
 	        session = session,
@@ -999,27 +1132,47 @@ shinyServer(function(input, output, session) {
 	  }
 	})
 	
-	output$AlignResult <- DT::renderDataTable({
+	output$Quantify_table_2_title <- renderText({
 	  if (is.null(align.result())) {
-	    NULL
+	    
 	  } else {
-	    alignedResults()[[2]]
+	    "Read count of all sRNAs aligned to each LIR:"
 	  }
-	}, escape = FALSE, rownames= FALSE, selection="single",
-	  options = list(pageLength = 10, autoWidth = TRUE, bSort=FALSE)
-	)
+	})
 	
 	output$LIRreadCount <- DT::renderDataTable({
 	  if (is.null(align.result())) {
 	    NULL
 	  } else {
-	    LIR.align.res <- alignedResults()[[2]]
-	    LIR.rc <- LIR.align.res %>% dplyr::group_by(LIR) %>% dplyr::summarise(sRNA_read_count = sum(sRNA_read_number))
-	    names(LIR.rc) <- c("LIR", "sRNA_read_count")
-	    LIR.rc
+	    alignedResults()[[4]]
+	  }
+	}, escape = FALSE, rownames= FALSE, selection="single",
+	options = list(pageLength = 10, autoWidth = TRUE, bSort=TRUE)
+	)
+	
+	output$Quantify_table_1_title <- renderText({
+	  if (is.null(align.result())) {
+	    
+	  } else {
+	    "Summary of sRNAs aligned to each LIR:"
+	  }
+	})
+	
+	output$AlignResult <- DT::renderDataTable({
+	  if (is.null(align.result())) {
+	    NULL
+	  } else {
+	    if (!is.null(input$LIRreadCount_rows_selected)) {
+	      align.srna.size <- alignedResults()[[2]]
+	      LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
+	      align.srna.size <- align.srna.size[align.srna.size$LIR %in% LIR.ID, ]
+	      align.srna.size
+	    } else {
+	      alignedResults()[[2]]
+	    }
 	  }
 	}, escape = FALSE, rownames= FALSE, selection="none",
-	options = list(pageLength = 10, autoWidth = TRUE, bSort=TRUE)
+	  options = list(pageLength = 10, autoWidth = TRUE, bSort=FALSE)
 	)
 	
 	# Update Tab Panel
@@ -1065,10 +1218,7 @@ shinyServer(function(input, output, session) {
 	output$sRNAalignLIRrc.txt <- downloadHandler(
 	  filename <- function() { paste('LIR_sRNA_read_count.txt') },
 	  content <- function(file) {
-	    LIR.align.res <- alignedResults()[[2]]
-	    LIR.rc <- LIR.align.res %>% dplyr::group_by(LIR) %>% dplyr::summarise(sRNA_read_count = sum(sRNA_read_number))
-	    names(LIR.rc) <- c("LIR", "sRNA_read_count")
-	    fwrite(LIR.rc, file, sep="\t", quote=F)
+	    fwrite(alignedResults()[[4]], file, sep="\t", quote=F)
 	  }, contentType = 'text/plain'
 	)
 	
@@ -1080,12 +1230,14 @@ shinyServer(function(input, output, session) {
 	  fasta.file <- paste0("www/Fasta/", fasta.file)
 	  HTML.file <- paste0(BLASTdb.fl$Division[BLASTdb.fl$Accession == input$Aligndb], "/", input$Aligndb, ".IRFresult.RData")
 	  HTML.file <- paste0("www/HTML/", HTML.file)
+	  LIR.gene.op.file <- paste0(BLASTdb.fl$Division[BLASTdb.fl$Accession == input$Aligndb], "/", input$Aligndb, ".LIR_gene_op.txt.gz")
+	  LIR.gene.op.file <- paste0("www/LIR_gene_op/", LIR.gene.op.file)
 	  
 	  if (file.exists(dat.file)) {
 	    dat.search.result <- fread(dat.file, data.table = FALSE)
 	    fasta.align <- readBStringSet(fasta.file)
 	    load(HTML.file)
-	    result <- list(dat.search.result, fasta.align, LIR.align)
+	    result <- list(dat.search.result, fasta.align, LIR.align, LIR.gene.op.file)
 	  } else {
 	    result <- NULL
 	  }
@@ -1100,11 +1252,19 @@ shinyServer(function(input, output, session) {
 	})
 	
 	## Distribution of sRNAs of varying length
-	output$srna_size_align <- renderPlot({
-	  if (is.null(input$AlignResult_rows_selected)) {
+	output$Quantify_plot_1_title <- renderText({
+	  if (is.null(align.result()) || is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    LIR.ID <- alignedResults()[[2]]$LIR[input$AlignResult_rows_selected]
+	    "Lengths and expression levels of all sRNAs aligned to the chosen LIR:"
+	  }
+	})
+	
+	output$srna_size_align <- renderPlot({
+	  if (is.null(input$LIRreadCount_rows_selected)) {
+	    
+	  } else {
+	    LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
 	    align.selected <- alignedResults()[[2]]
 	    align.selected <- align.selected[align.selected$LIR == LIR.ID, ]
 	    my_bar <- barplot(align.selected$sRNA_number, names.arg = align.selected$sRNA_size, ylab = "Number of sRNA",
@@ -1117,10 +1277,10 @@ shinyServer(function(input, output, session) {
 	})
 	
 	output$srna_reads_size_align <- renderPlot({
-	  if (is.null(input$AlignResult_rows_selected)) {
+	  if (is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    LIR.ID <- alignedResults()[[2]]$LIR[input$AlignResult_rows_selected]
+	    LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
 	    align.selected <- alignedResults()[[2]]
 	    align.selected <- align.selected[align.selected$LIR == LIR.ID, ]
 	    my_bar <- barplot(align.selected$sRNA_read_number, names.arg = align.selected$sRNA_size, ylab = "Number of sRNA read",
@@ -1133,10 +1293,10 @@ shinyServer(function(input, output, session) {
 	})
 	
 	output$srna_expression <- renderPlot({
-	  if (is.null(input$AlignResult_rows_selected)) {
+	  if (is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    LIR.ID <- alignedResults()[[2]]$LIR[input$AlignResult_rows_selected]
+	    LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
 	    align.selected <- alignedResults()[[1]]
 	    align.selected <- align.selected[align.selected$LIR == LIR.ID, ]
 	    
@@ -1162,21 +1322,53 @@ shinyServer(function(input, output, session) {
 	    p1 <- ggplot(align.selected) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)))
 	    p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-1, xend=y.df$end[1], yend=-1), 
 	                            lineend = "round", linejoin = "round", color = "red",
-	                            size = 1.3, arrow = arrow(length = unit(0.3, "inches")))
+	                            size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
 	    p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-1, xend=y.df$start[2], yend=-1), 
 	                            lineend = "round", linejoin = "round", color = "red",
-	                            size = 1.3, arrow = arrow(length = unit(0.3, "inches")))
+	                            size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
 	    p1 <- p1 + scale_colour_hue(name = "sRNA size (nt)")
-	    p1 <- p1 + ylab("Expression level (TPM)") + xlab("")
-	    p1 <- p1 + theme(axis.text=element_text(size=12),
-	                     axis.title=element_text(size=14, face="bold"))
+	    p1 <- p1 + ylab("Expression level of sRNAs (TPM)") + xlab("Position")
+	    p1 <- p1 + theme_classic()
+	    p1 <- p1 + theme(axis.text=element_text(size=14),
+	                     axis.title=element_text(size=18, face="bold"), 
+	                     legend.title=element_text(size=12), 
+	                     legend.text=element_text(size=13)
+	                     )
 	    p1
 	  }
 	})
 	
+	## Overlap between LIR and genes
+	output$Quantify_LIR_gene_op_title <- renderText({
+	  if (is.null(input$LIRreadCount_rows_selected)) {
+	    
+	  } else {
+	    "Overlaps between the selected LIR and genes:"
+	  }
+	})
+	
+	output$Quantify_LIR_gene_op <- DT::renderDataTable({
+	  if ( is.null(input$LIRreadCount_rows_selected) ) {
+	    
+	  } else {
+	    if ( file.exists(alignedLIRResults()[[4]]) ) {
+	      LIR.gene.op <- fread(alignedLIRResults()[[4]], data.table = F)
+	      LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
+	      LIR.gene.op <- LIR.gene.op[LIR.gene.op$ID %in% LIR.ID, ]
+	      LIR.gene.op <- LIR.gene.op[, !colnames(LIR.gene.op) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
+	      LIR.gene.op
+	    } else {
+	      LIR.gene.op <- data.frame("V1"="No data available!")
+	      colnames(LIR.gene.op) <- ""
+	      LIR.gene.op
+	    }
+	  }
+	}, options = list(paging = FALSE, searching = FALSE, autoWidth = TRUE, bSort=FALSE, dom = 't'),
+	escape = FALSE, rownames= FALSE, selection="none")
+	
 	## Display LIR sequence
 	output$LIR_detail_align_fasta_title <- renderText({
-	  if (is.null(input$AlignResult_rows_selected)) {
+	  if (is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
 	    "Sequence of the LIR:"
@@ -1184,10 +1376,10 @@ shinyServer(function(input, output, session) {
 	})
 	
 	output$LIR_detail_align_fasta <- renderText({
-	  if (is.null(input$AlignResult_rows_selected)) {
+	  if (is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    LIR.ID <- alignedResults()[[2]]$LIR[input$AlignResult_rows_selected]
+	    LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
 	    tmp.fl <- file.path(tempdir(), "t4.fa")
 	    writeXStringSet(alignedLIRResults()[[2]][LIR.ID], file = tmp.fl)
 	    readLines(tmp.fl)
@@ -1196,7 +1388,7 @@ shinyServer(function(input, output, session) {
 	
 	## Display LIR alignment
 	output$LIR_detail_align_title <- renderText({
-	  if (is.null(input$AlignResult_rows_selected)) {
+	  if (is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
 	    "Alignment of the left arm against the right arm:"
@@ -1204,10 +1396,10 @@ shinyServer(function(input, output, session) {
 	})
 	
 	output$LIR_detail_align <- renderText({
-	  if (is.null(input$AlignResult_rows_selected)) {
+	  if (is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    LIR.ID <- alignedResults()[[2]]$LIR[input$AlignResult_rows_selected]
+	    LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
 	    alignedLIRResults()[[3]][[LIR.ID]]
 	  }
 	}, sep = "\n")
