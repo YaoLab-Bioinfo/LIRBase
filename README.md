@@ -83,6 +83,12 @@ devtools::install_github("venyao/ShinySky", force=TRUE)
 **Step 6: Upload source files of LIRBase**
 
 >Put the directory containing the code and data of LIRBase to /srv/shiny-server.  
+The BLASTN database files downloaded from the **Download menu of LIRBase** should be placed in the **LIRBase_blastdb** directory under the **www** directory of LIRBase.  
+The downloaded Bowtie index files downloaded from the **Download menu of LIRBase** should be placed in the **LIRBase_bowtiedb** directory under the **www** directory of LIRBase.  
+The downloaded **Inverted_repeat_structure** files downloaded from the **Download menu of LIRBase** should be placed in the **Table** directory under the **www** directory of LIRBase.  
+The downloaded **Inverted_repeat_sequence** files downloaded from the **Download menu of LIRBase** should be placed in the **Fasta** directory under the **www** directory of LIRBase.  
+The downloaded **IRF_stem_alignment** files downloaded from the **Download menu of LIRBase** should be placed in the **HTML** directory under the **www** directory of LIRBase.
+
 
 **Step 7: Configure shiny server (/etc/shiny-server/shiny-server.conf)**
 
