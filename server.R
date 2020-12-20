@@ -716,7 +716,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
       
     } else {
-      "Alignment of a specific query sequence and an LIR in the database"
+      "Alignment of a specific query sequence and a LIR in the database"
     }
   })
   

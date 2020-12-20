@@ -4,7 +4,6 @@ options(max.print=10000)
 options(shiny.maxRequestSize=6000*1024^2)
 
 library(data.table)
-library(dplyr)
 library(DT)
 library(ggplot2)
 library(grid)
@@ -26,6 +25,7 @@ library(DESeq2)
 library(IRanges)
 
 library(shinysky)
+library(dplyr)
 
 load("genome.info.RData")
 load("dat.summary.RData")

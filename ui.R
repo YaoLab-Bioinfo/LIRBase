@@ -672,7 +672,7 @@ shinyUI(
                              column(6,
                                     pickerInput(
                                       inputId = "Aligndb",
-                                      label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose an LIR database to align the sRNA data</font>'),
+                                      label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose a LIR database to align the sRNA data</font>'),
                                                        bsButton("qAligndb", label="", icon=icon("question"), style="info", size="small")),
                                       selected = NULL, width = '100%',
                                       choices = list(
@@ -857,7 +857,7 @@ shinyUI(
         selected = "paste"),
         bsPopover("qDeseqInTable", "The sample in the count matrix and the sample in the information table must be in the same order. Check the example data for the format of a sample information table.", trigger = "focus"),
         conditionalPanel(condition="input.In_deseq_table == 'paste'", 
-                         textAreaInput("DeseqTablePaste", label = h4("Input count matrix"),
+                         textAreaInput("DeseqTablePaste", label = h4("Input sample information table"),
                                        value = "", resize = "vertical", height='180px', width = '100%',
                                        placeholder = "A sample information table in correct format")
         ),
