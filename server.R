@@ -1590,7 +1590,10 @@ shinyServer(function(input, output, session) {
 	  genomes
 	}, options = list(lengthMenu = c(20, 30, 50), pageLength = 20, 
 	                    searching = TRUE, autoWidth = TRUE, bSort=FALSE), escape = FALSE)
-
+	
+	output$pdfview <- renderUI({
+	  tags$iframe(style = "height:900px; width:100%; scrolling=yes", src = "Tutorial.pdf")
+	})
 
 })
 

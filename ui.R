@@ -891,7 +891,7 @@ shinyUI(
       ),
       
       mainPanel(
-        downloadButton("DESeq2_result_table.txt", "Differentially expressed LIRs identified by DESeq2", style = "width:50%;", class = "buttDown"),
+        downloadButton("DESeq2_result_table.txt", "Differentially expressed LIRs/sRNAs", style = "width:50%;", class = "buttDown"),
         br(),br(),
         dataTableOutput("DESeqResult"),
         br(),
@@ -939,7 +939,7 @@ shinyUI(
       "Genomes",
       icon = icon("info", class = NULL, lib = "font-awesome"),
       
-      h4("Information of 424 genomes collected in this database."),
+      h4("Information of 424 genomes collected in LIRBase."),
       shiny::dataTableOutput("genomeTable"), width='100%'
     ),
     
@@ -947,7 +947,7 @@ shinyUI(
     ## Help
     navbarMenu("Help", icon = icon("book", class = NULL, lib = "font-awesome"),
                tabPanel(h5("Tutorial"),
-                        includeMarkdown("Home.md")
+                        uiOutput("pdfview")
                         ),
                tabPanel(h5("Installation"),
                         includeMarkdown("README.md")
