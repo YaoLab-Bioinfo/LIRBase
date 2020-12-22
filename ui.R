@@ -198,7 +198,7 @@ shinyUI(
       "Search",
       icon = icon("search", class = NULL, lib = "font-awesome"),
       
-      tabPanel(h5("Search by genomic location"),
+      tabPanel(h5("Search by genomic location"), 
                fixedRow(
                  column(6,
                         tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Search by genomic region</b></font>'),
@@ -947,12 +947,15 @@ shinyUI(
     ## Help
     navbarMenu("Help", icon = icon("book", class = NULL, lib = "font-awesome"),
                tabPanel(h5("Tutorial"),
-                        uiOutput("pdfview")
-                        ),
+                        includeMarkdown("Tutorial.md")
+               ),
                tabPanel(h5("Installation"),
                         includeMarkdown("README.md")
-             )
-             
+               ),
+               tabPanel(h5("Contact"),
+                        includeMarkdown("Contact.md")
+               )
+               
     )
     
   )
