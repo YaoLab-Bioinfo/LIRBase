@@ -241,11 +241,11 @@ shinyUI(
                br(),
                fluidRow(
                  column(6,
-                        downloadButton("searchRegDownIRFresult.txt", "Download the structure of LIRs in the search result", style = "width:95%;", class = "buttDown"),
-                        tags$head(tags$style(".buttDown{background-color:black; color: white; font-size: 20px;}"))
+                        downloadButton("searchRegDownIRFresult.txt", "Structure of LIRs in the search result", style = "width:95%;", class = "buttDown"),
+                        tags$head(tags$style(".buttDown{background-color:black; color: white; font-size: 16px;}"))
                  ),
                  column(6,
-                        downloadButton("searchRegDownIRFfasta.txt", "Download the sequence of LIRs in the search result", style = "width:95%;", class = "buttDown")
+                        downloadButton("searchRegDownIRFfasta.txt", "Sequence of LIRs in the search result", style = "width:95%;", class = "buttDown")
                  )
                ),
                
@@ -331,10 +331,10 @@ shinyUI(
                            tabPanel("Output",
                                     fluidRow(
                                       column(6,
-                                             downloadButton("searchIDDownIRFresult.txt", "Download structure of LIRs in the search result", style = "width:100%;", class = "buttDown"),
+                                             downloadButton("searchIDDownIRFresult.txt", "Structure of LIRs in the search result", style = "width:100%;", class = "buttDown"),
                                       ),
                                       column(6,
-                                             downloadButton("searchIDDownIRFfasta.txt", "Download sequence of LIRs in the search result", style = "width:100%;", class = "buttDown")
+                                             downloadButton("searchIDDownIRFfasta.txt", "Sequence of LIRs in the search result", style = "width:100%;", class = "buttDown")
                                       )
                                     ),
                                     
@@ -405,7 +405,7 @@ shinyUI(
                                     conditionalPanel(condition="input.In_blast == 'upload'", 
                                                      fileInput("BlastSeqUpload",
                                                                label = h4("Upload file"), multiple = FALSE, width = "100%"),
-                                                     downloadButton("BLAST_Input.txt", "Download example BLAST input data", style = "width:100%;", class = "buttDown")
+                                                     downloadButton("BLAST_Input.txt", "Example BLAST input data", style = "width:100%;", class = "buttDown")
                                     )
                              ),
                              column(4,
@@ -455,13 +455,13 @@ shinyUI(
                   tabPanel("Output",
                            fixedRow(
                              column(4,
-                                    downloadButton("BLASTresult.txt", "Download the BLAST result", style = "width:100%;", class = "buttDown")
+                                    downloadButton("BLASTresult.txt", "BLAST result", style = "width:100%;", class = "buttDown")
                              ),
                              column(4,
-                                    downloadButton("blastDownIRFresult.txt", "Download structure of LIRs in the BLAST result", style = "width:100%;", class = "buttDown")
+                                    downloadButton("blastDownIRFresult.txt", "Structure of LIRs in the BLAST result", style = "width:100%;", class = "buttDown")
                              ),
                              column(4,
-                                    downloadButton("blastDownIRFfasta.txt", "Download sequence of LIRs in the BLAST result", style = "width:100%;", class = "buttDown")
+                                    downloadButton("blastDownIRFfasta.txt", "Sequence of LIRs in the BLAST result", style = "width:100%;", class = "buttDown")
                              )
                            ),
                            
@@ -535,7 +535,7 @@ shinyUI(
       sidebarPanel(width=4,
                    tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Annotate LIRs in user-uploaded DNA sequences</b></font>'),
                             bsButton("qAnnotateTitle", label="", icon=icon("question"), style="info", size="small")),
-                   bsPopover("qAnnotateTitle", "Detect long inverted repeats using IRF (https://tandem.bu.edu/irf/irf.download.html)!", trigger = "focus"),
+                   bsPopover("qAnnotateTitle", "Detect long inverted repeats using IRF <br/> (https://tandem.bu.edu/irf/irf.download.html)!", trigger = "focus"),
                    
                    selectInput("In_predict", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Paste or upload input data?</font>'),
                                                               bsButton("qPredictIn", label="", icon=icon("question"), style="info", size="small")
@@ -551,7 +551,7 @@ shinyUI(
                    conditionalPanel(condition="input.In_predict == 'upload'", 
                                     fileInput("PreSeqUpload",
                                               label = h4("Upload file"), multiple = FALSE, width = "100%"),
-                                    downloadButton("Annotate_Input.txt", "Download example input data", style = "width:100%;", class = "buttDown")
+                                    downloadButton("Annotate_Input.txt", "Example input data", style = "width:100%;", class = "buttDown")
                    ),
                    
                    br(),
@@ -665,7 +665,7 @@ shinyUI(
                                     conditionalPanel(condition="input.In_align == 'upload'", 
                                                      fileInput("AlignInFile",
                                                                label = h4("Upload sRNA read count file"), multiple = FALSE, width = "100%"),
-                                                     downloadButton("Quantify_Input.txt", "Download example input data", style = "width:100%;", class = "buttDown")
+                                                     downloadButton("Quantify_Input.txt", "Example input data", style = "width:100%;", class = "buttDown")
                                     )
                              ),
                              
@@ -732,13 +732,13 @@ shinyUI(
                   tabPanel("Output",
                            fixedRow(
                              column(4,
-                                    downloadButton("sRNAalignSummary.txt", "Download sRNA alignment summary", style = "width:100%;", class = "buttDown")
+                                    downloadButton("sRNAalignSummary.txt", "sRNA alignment summary", style = "width:100%;", class = "buttDown")
                              ),
                              column(4,
-                                    downloadButton("sRNAalignResult.txt", "Download sRNA alignment result", style = "width:100%;", class = "buttDown")
+                                    downloadButton("sRNAalignResult.txt", "sRNA alignment result", style = "width:100%;", class = "buttDown")
                              ),
                              column(4,
-                                    downloadButton("sRNAalignLIRrc.txt", "Download sRNA read count of aligned LIRs", style = "width:100%;", class = "buttDown")
+                                    downloadButton("sRNAalignLIRrc.txt", "sRNA read count of aligned LIRs", style = "width:100%;", class = "buttDown")
                              )
                            ),
                            
@@ -847,7 +847,7 @@ shinyUI(
         conditionalPanel(condition="input.In_deseq == 'upload'", 
                          fileInput("DeseqUpload",
                                    label = h4("Upload file"), multiple = FALSE, width = "100%"),
-                         downloadButton("Count_matrix_Input.txt", "Download example count matrix", style = "width:100%;", class = "buttDown")
+                         downloadButton("Count_matrix_Input.txt", "Example count matrix", style = "width:100%;", class = "buttDown")
         ),
         
         selectInput("In_deseq_table", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Paste or upload a sample information table?</font>'),
@@ -864,7 +864,7 @@ shinyUI(
         conditionalPanel(condition="input.In_deseq_table == 'upload'", 
                          fileInput("DeseqTableUpload",
                                    label = h4("Upload file"), multiple = FALSE, width = "100%"),
-                         downloadButton("Sample_info_table_Input.txt", "Download example sample information table", style = "width:100%;", class = "buttDown")
+                         downloadButton("Sample_info_table_Input.txt", "Example sample information table", style = "width:100%;", class = "buttDown")
         ),
         
         sliderInput("MinReadcount", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Min read count required for a row of the count matrix</font>'),

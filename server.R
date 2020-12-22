@@ -92,6 +92,7 @@ shinyServer(function(input, output, session) {
                          searchHighlight = TRUE, scrollY = 300, scroller = TRUE),
           rownames= FALSE, filter = 'top', selection=list(mode="single", target="cell")
         )
+        
         updateTabsetPanel(session, 'browser_1', selected = 'LIRs annotated by IRF')
       } else {
         NULL
@@ -146,14 +147,14 @@ shinyServer(function(input, output, session) {
         writeXStringSet(LIR.seq.select, file = tmp.fl)
         LIR.seq.select <- readLines(tmp.fl)
         
-        output$LIR_sequence_title <- renderText("Sequence of the LIR:")
+        output$LIR_sequence_title <- renderText("Sequence of the selected LIR:")
         output$LIR_sequence <- renderText(
           LIR.seq.select, sep = "\n"
         )
         
         # alignment of left against right arm
         LIR.align.select <- LIR.align[[dat.content[IRF.index]]]
-        output$LIR_detail_title <- renderText("Alignment of the left arm against the right arm:")
+        output$LIR_detail_title <- renderText("Alignment of the left and right arms of the selected LIR:")
         output$LIR_detail <- renderText(
           LIR.align.select, sep = "\n"
         )
@@ -278,7 +279,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchRegResult_rows_selected)) {
       
     } else {
-      "Sequence of the LIR:"
+      "Sequence of the selected LIR:"
     }
   })
   
@@ -298,7 +299,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchRegResult_rows_selected)) {
       
     } else {
-      "Alignment of the left arm against the right arm:"
+      "Alignment of the left and right arms of the selected LIR:"
     }
   })
   
@@ -448,7 +449,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchIDResult_rows_selected) || is.null(search.ID.result())) {
       
     } else {
-      "Sequence of the LIR:"
+      "Sequence of the selected LIR:"
     }
   })
   
@@ -468,7 +469,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchIDResult_rows_selected) || is.null(search.ID.result())) {
       
     } else {
-      "Alignment of the left arm against the right arm:"
+      "Alignment of the left and right arms of the selected LIR:"
     }
   })
   
@@ -785,7 +786,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
       
     } else {
-      "Sequence of the LIR:"
+      "Sequence of the selected LIR:"
     }
   })
   
@@ -805,7 +806,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
       
     } else {
-      "Alignment of the left arm against the right arm of the LIR:"
+      "Alignment of the left and right arms of the selected LIR:"
     }
   })
   
@@ -1371,7 +1372,7 @@ shinyServer(function(input, output, session) {
 	  if (is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    "Sequence of the LIR:"
+	    "Sequence of the selected LIR:"
 	  }
 	})
 	
@@ -1391,7 +1392,7 @@ shinyServer(function(input, output, session) {
 	  if (is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    "Alignment of the left arm against the right arm:"
+	    "Alignment of the left and right arms of the selected LIR:"
 	  }
 	})
 	
