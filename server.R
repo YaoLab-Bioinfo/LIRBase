@@ -1138,14 +1138,6 @@ shinyServer(function(input, output, session) {
 	  }
 	})
 	
-	output$Quantify_table_2_title <- renderText({
-	  if (is.null(align.result())) {
-	    
-	  } else {
-	    "Read count of all sRNAs aligned to each LIR:"
-	  }
-	})
-	
 	output$LIRreadCount <- DT::renderDataTable({
 	  if (is.null(align.result())) {
 	    NULL
@@ -1262,7 +1254,7 @@ shinyServer(function(input, output, session) {
 	  if (is.null(align.result()) || is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    "Lengths and expression levels of all sRNAs aligned to the chosen LIR:"
+	    "Lengths and expression levels of all sRNAs aligned to the selected LIR:"
 	  }
 	})
 	
@@ -1274,13 +1266,31 @@ shinyServer(function(input, output, session) {
 	    align.selected <- alignedResults()[[2]]
 	    align.selected <- align.selected[align.selected$LIR == LIR.ID, ]
 	    my_bar <- barplot(align.selected$sRNA_number, names.arg = align.selected$sRNA_size, ylab = "Number of sRNA",
-	            xlab = "sRNA size (nt)", cex.lab = 1.5, cex.names = 1.4, cex.axis = 1.2,
+	            xlab = "sRNA size (nt)", cex.lab = input$srnasize_axis_label_size, cex.names = input$srnasize_bar_name_size, cex.axis = input$srnasize_axis_tick_size,
 	            ylim = c(0, max(align.selected$sRNA_number) * 1.15))
 	    my_perc <- round(align.selected$sRNA_number / sum(align.selected$sRNA_number) * 100, 1)
 	    my_perc <- paste0(my_perc, "%")
 	    text(my_bar, align.selected$sRNA_number + max(align.selected$sRNA_number)/15, my_perc, cex=1)
 	  }
 	})
+	
+	output$srnasize_plot.pdf <- downloadHandler(
+	  filename <- function() {
+	    paste('sRNA_size_barplot.pdf')
+	  },
+	  content <- function(file) {
+	    pdf(file, width = input$srnasize_plot_width / 72, height = input$srnasize_plot_height / 72)
+	    LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
+	    align.selected <- alignedResults()[[2]]
+	    align.selected <- align.selected[align.selected$LIR == LIR.ID, ]
+	    my_bar <- barplot(align.selected$sRNA_number, names.arg = align.selected$sRNA_size, ylab = "Number of sRNA",
+	                      xlab = "sRNA size (nt)", cex.lab = input$srnasize_axis_label_size, cex.names = input$srnasize_bar_name_size, cex.axis = input$srnasize_axis_tick_size,
+	                      ylim = c(0, max(align.selected$sRNA_number) * 1.15))
+	    my_perc <- round(align.selected$sRNA_number / sum(align.selected$sRNA_number) * 100, 1)
+	    my_perc <- paste0(my_perc, "%")
+	    text(my_bar, align.selected$sRNA_number + max(align.selected$sRNA_number)/15, my_perc, cex=1)
+	    dev.off()
+	  }, contentType = 'application/pdf')
 	
 	output$srna_reads_size_align <- renderPlot({
 	  if (is.null(input$LIRreadCount_rows_selected)) {
@@ -1290,13 +1300,31 @@ shinyServer(function(input, output, session) {
 	    align.selected <- alignedResults()[[2]]
 	    align.selected <- align.selected[align.selected$LIR == LIR.ID, ]
 	    my_bar <- barplot(align.selected$sRNA_read_number, names.arg = align.selected$sRNA_size, ylab = "Number of sRNA read",
-	            xlab = "sRNA size (nt)", cex.lab = 1.5, cex.names = 1.4, cex.axis = 1.2,
+	            xlab = "sRNA size (nt)", cex.lab = input$readsize_axis_label_size, cex.names = input$readsize_bar_name_size, cex.axis = input$readsize_axis_tick_size,
 	            ylim = c(0, max(align.selected$sRNA_read_number) * 1.15))
 	    my_perc <- round(align.selected$sRNA_read_number / sum(align.selected$sRNA_read_number) * 100, 1)
 	    my_perc <- paste0(my_perc, "%")
 	    text(my_bar, align.selected$sRNA_read_number + max(align.selected$sRNA_read_number)/15, my_perc, cex=1)
 	  }
 	})
+	
+	output$readsize_plot.pdf <- downloadHandler(
+	  filename <- function() {
+	    paste('sRNA_read_size_barplot.pdf')
+	  },
+	  content <- function(file) {
+	    pdf(file, width = input$readsize_plot_width / 72, height = input$readsize_plot_height / 72)
+	    LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
+	    align.selected <- alignedResults()[[2]]
+	    align.selected <- align.selected[align.selected$LIR == LIR.ID, ]
+	    my_bar <- barplot(align.selected$sRNA_read_number, names.arg = align.selected$sRNA_size, ylab = "Number of sRNA read",
+	                      xlab = "sRNA size (nt)", cex.lab = input$readsize_axis_label_size, cex.names = input$readsize_bar_name_size, cex.axis = input$readsize_axis_tick_size,
+	                      ylim = c(0, max(align.selected$sRNA_read_number) * 1.15))
+	    my_perc <- round(align.selected$sRNA_read_number / sum(align.selected$sRNA_read_number) * 100, 1)
+	    my_perc <- paste0(my_perc, "%")
+	    text(my_bar, align.selected$sRNA_read_number + max(align.selected$sRNA_read_number)/15, my_perc, cex=1)
+	    dev.off()
+	  }, contentType = 'application/pdf')
 	
 	output$srna_expression <- renderPlot({
 	  if (is.null(input$LIRreadCount_rows_selected)) {
@@ -1325,7 +1353,7 @@ shinyServer(function(input, output, session) {
 	    y.df$start <- y.df$start + LIR.start.pos - LIT.start.pos.in
 	    y.df$end <- y.df$end + LIR.start.pos - LIT.start.pos.in
 	    
-	    p1 <- ggplot(align.selected) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)))
+	    p1 <- ggplot(align.selected) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)), size = input$srnaexp_point_size)
 	    p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-1, xend=y.df$end[1], yend=-1), 
 	                            lineend = "round", linejoin = "round", color = "red",
 	                            size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
@@ -1335,14 +1363,62 @@ shinyServer(function(input, output, session) {
 	    p1 <- p1 + scale_colour_hue(name = "sRNA size (nt)")
 	    p1 <- p1 + ylab("Expression level of sRNAs (TPM)") + xlab("Position")
 	    p1 <- p1 + theme_classic()
-	    p1 <- p1 + theme(axis.text=element_text(size=14),
-	                     axis.title=element_text(size=18, face="bold"), 
-	                     legend.title=element_text(size=12), 
-	                     legend.text=element_text(size=13)
+	    p1 <- p1 + theme(axis.text=element_text(size=input$srnaexp_axis_tick_size),
+	                     axis.title=element_text(size=input$srnaexp_axis_label_size, face="bold"), 
+	                     legend.title=element_text(size=input$srnaexp_legend_title_size), 
+	                     legend.text=element_text(size=input$srnaexp_legend_text_size)
 	                     )
 	    p1
 	  }
 	})
+	
+	output$srnaexp_plot.pdf <- downloadHandler(
+	  filename <- function() {
+	    paste('sRNA_expression_plot.pdf')
+	  },
+	  content <- function(file) {
+	    pdf(file, width = input$srnaexp_plot_width / 72, height = input$srnaexp_plot_height / 72)
+	    LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
+	    align.selected <- alignedResults()[[1]]
+	    align.selected <- align.selected[align.selected$LIR == LIR.ID, ]
+	    
+	    fa <- alignedLIRResults()[[2]][LIR.ID]
+	    fa.c <- as.character(fa)
+	    fa.len <- width(fa)
+	    x <- str_locate_all(fa.c, "[ACGT]")
+	    y <- x[[1]][,1]
+	    y.ir <- IRanges(y, y)
+	    y.df <- as.data.frame(reduce(y.ir))
+	    
+	    lib.read.count <- alignedResults()[[3]]
+	    
+	    align.selected$TPM <- round(align.selected$sRNA_read_number / lib.read.count * 1e6, 2)
+	    LIR.start.pos <- gsub(".+:", "", align.selected$LIR[1])
+	    LIR.start.pos <- as.integer(gsub("--.+", "", LIR.start.pos))
+	    LIT.start.pos.in <- y.df$start[1]
+	    align.selected$Position <- align.selected$Position + LIR.start.pos - LIT.start.pos.in
+	    
+	    y.df$start <- y.df$start + LIR.start.pos - LIT.start.pos.in
+	    y.df$end <- y.df$end + LIR.start.pos - LIT.start.pos.in
+	    
+	    p1 <- ggplot(align.selected) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)), size = input$srnaexp_point_size)
+	    p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-1, xend=y.df$end[1], yend=-1), 
+	                            lineend = "round", linejoin = "round", color = "red",
+	                            size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
+	    p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-1, xend=y.df$start[2], yend=-1), 
+	                            lineend = "round", linejoin = "round", color = "red",
+	                            size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
+	    p1 <- p1 + scale_colour_hue(name = "sRNA size (nt)")
+	    p1 <- p1 + ylab("Expression level of sRNAs (TPM)") + xlab("Position")
+	    p1 <- p1 + theme_classic()
+	    p1 <- p1 + theme(axis.text=element_text(size=input$srnaexp_axis_tick_size),
+	                     axis.title=element_text(size=input$srnaexp_axis_label_size, face="bold"), 
+	                     legend.title=element_text(size=input$srnaexp_legend_title_size), 
+	                     legend.text=element_text(size=input$srnaexp_legend_text_size)
+	    )
+	    grid.draw(p1)
+	    dev.off()
+	  }, contentType = 'application/pdf')
 	
 	## Overlap between LIR and genes
 	output$Quantify_LIR_gene_op_title <- renderText({

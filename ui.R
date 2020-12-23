@@ -275,13 +275,15 @@ shinyUI(
                br(),
                
                fixedRow(
-                 textOutput("Search_reg_LIR_gene_op_title"),
-                 tags$head(tags$style("#Search_reg_LIR_gene_op_title{color: red;
+                 column(12,
+                        textOutput("Search_reg_LIR_gene_op_title"),
+                        tags$head(tags$style("#Search_reg_LIR_gene_op_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
-                 )),
-                 dataTableOutput("Search_reg_LIR_gene_op"),
+                        )),
+                        dataTableOutput("Search_reg_LIR_gene_op")
+                 ),
                  br(),
                  
                  column(6, 
@@ -369,30 +371,32 @@ shinyUI(
                                     br(),
                                     
                                     fixedRow(
-                                      textOutput("Search_ID_LIR_gene_op_title"),
-                                      tags$head(tags$style("#Search_ID_LIR_gene_op_title{color: red;
-                                       font-size: 22px;
-                                       font-style: bold;
-                                      }"
-                                      )),
-                                      dataTableOutput("Search_ID_LIR_gene_op"),
+                                      column(12,
+                                             textOutput("Search_ID_LIR_gene_op_title"),
+                                             tags$head(tags$style("#Search_ID_LIR_gene_op_title{color: red;
+                                                            font-size: 22px;
+                                                            font-style: bold;
+                                                        }"
+                                             )),
+                                             dataTableOutput("Search_ID_LIR_gene_op")
+                                      ),
                                       br(),
                                       
                                       column(6, 
                                              textOutput("LIR_detail_search_ID_fasta_title"),
                                              tags$head(tags$style("#LIR_detail_search_ID_fasta_title{color: red;
-                                       font-size: 22px;
-                                       font-style: bold;
-                                      }"
+                                                            font-size: 22px;
+                                                            font-style: bold;
+                                                          }"
                                              )),
                                              verbatimTextOutput("LIR_detail_search_ID_fasta")
                                       ),
                                       column(6, 
                                              textOutput("LIR_detail_search_ID_title"),
                                              tags$head(tags$style("#LIR_detail_search_ID_title{color: red;
-                                       font-size: 22px;
-                                       font-style: bold;
-                                      }"
+                                                              font-size: 22px;
+                                                              font-style: bold;
+                                                            }"
                                              )),
                                              verbatimTextOutput("LIR_detail_search_ID")
                                       )
@@ -492,7 +496,15 @@ shinyUI(
                            ),
                            
                            br(),
+                           
+                           conditionalPanel(condition="input.submitBLAST > 0", 
+                                            tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>BLAST output</b></font>'),
+                                                     bsButton("qBLASTresultHelp", label="", icon=icon("question"), style="info", size="small")),
+                                            bsPopover("qBLASTresultHelp", title = "Click on a row to check the details of the LIR and the BLAST alignment!", trigger = "focus", content = NULL)
+                           ),
+                           
                            dataTableOutput("BLASTresult"),
+                           br(),
                            
                            div(
                              column(6,
@@ -515,7 +527,7 @@ shinyUI(
                              )
                            ),
                            
-                           br(),
+                           br(),br(),
                            
                            fixedRow(
                              column(11,
@@ -525,9 +537,9 @@ shinyUI(
                                        font-style: bold;
                                       }"
                                     )),
-                                    dataTableOutput("Blast_LIR_gene_op")
+                                    withSpinner(dataTableOutput("Blast_LIR_gene_op"))
                              ),
-                             br(),
+                             br(),br(),
                              
                              column(6, 
                                     textOutput("LIR_detail_blast_fasta_title"),
@@ -772,12 +784,11 @@ shinyUI(
                            
                            fixedRow(
                              column(6,
-                                    textOutput("Quantify_table_2_title"),
-                                    tags$head(tags$style("#Quantify_table_2_title{color: red;
-                                       font-size: 22px;
-                                       font-style: bold;
-                                      }"
-                                    )),
+                                    conditionalPanel(condition="input.submitAlign > 0", 
+                                                     tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Number of sRNA reads aligned to each LIR</b></font>'),
+                                                              bsButton("qLIRreadCountHelp", label="", icon=icon("question"), style="info", size="small")),
+                                                     bsPopover("qLIRreadCountHelp", title = "Click on a row to check the details of the LIR and the alignment of sRNAs!", trigger = "focus", content = NULL)
+                                    ),
                                     dataTableOutput("LIRreadCount")
                              ),
                              
@@ -795,19 +806,32 @@ shinyUI(
                            br(),
                            
                            fixedRow(
-                             textOutput("Quantify_plot_1_title"),
-                             tags$head(tags$style("#Quantify_plot_1_title{color: red;
+                             column(8,
+                                    conditionalPanel(condition="input.submitAlign > 0", 
+                                                     actionBttn("srna_expression_plot_options", "Options for sRNA expression level plot", 
+                                                                icon = icon("cogs", class = NULL, lib = "font-awesome"),
+                                                                block = FALSE, size = "sm", style="unite", color="default"),
+                                                     actionBttn("srna_size_plot_options", "Options for sRNA size barplot", 
+                                                                icon = icon("cogs", class = NULL, lib = "font-awesome"),
+                                                                block = FALSE, size = "sm", style="unite", color="default"),
+                                                     actionBttn("read_size_plot_options", "Options for sRNA read size barplot", 
+                                                                icon = icon("cogs", class = NULL, lib = "font-awesome"),
+                                                                block = FALSE, size = "sm", style="unite", color="default")
+                                    ),
+                                    
+                                    textOutput("Quantify_plot_1_title"),
+                                    tags$head(tags$style("#Quantify_plot_1_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
-                             )),
+                                    )),
+                                    
+                                    withSpinner(plotOutput("srna_expression", height = "600px", width = '95%'))
+                             ),
                              
                              column(4,
-                                    jqui_resizable(withSpinner(plotOutput("srna_size_align", height = "350px", width = '95%'))),
-                                    jqui_resizable(withSpinner(plotOutput("srna_reads_size_align", height = "300px", width = '95%')))
-                             ),
-                             column(8,
-                                    jqui_resizable(withSpinner(plotOutput("srna_expression", height = "700px", width = '95%')))
+                                    withSpinner(plotOutput("srna_size_align", height = "350px", width = '95%')),
+                                    withSpinner(plotOutput("srna_reads_size_align", height = "350px", width = '95%'))
                              )
                            ),
                            br(),
@@ -820,7 +844,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                                     )),
-                                    dataTableOutput("Quantify_LIR_gene_op")
+                                    withSpinner(dataTableOutput("Quantify_LIR_gene_op"))
                              ),
                              br(),
                              
@@ -842,7 +866,74 @@ shinyUI(
                                     )),
                                     withSpinner(verbatimTextOutput("LIR_detail_align"))
                              )
-                           )
+                           ),
+                           
+                           jqui_draggable(bsModal("srnaexpplotoptions", "Expression of sRNAs aligned to the LIR", "srna_expression_plot_options", size = "large", 
+                                                  fixedRow(
+                                                    column(6,
+                                                           sliderInput("srnaexp_point_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Point size</font>')),
+                                                                       min=0, max=10, value=2, step=0.01),
+                                                           sliderInput("srnaexp_axis_tick_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis tick font size</font>')),
+                                                                       min=0, max=30, value=15, step=0.01),
+                                                           sliderInput("srnaexp_axis_label_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis label font size</font>')),
+                                                                       min=0, max=30, value=19, step=0.01),
+                                                           sliderInput("srnaexp_legend_title_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Legend title font size</font>')),
+                                                                       min=0, max=30, value=13, step=0.01),
+                                                           sliderInput("srnaexp_legend_text_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Legend text font size</font>')),
+                                                                       min=0, max=30, value=14, step=0.01)
+                                                    ),
+                                                    column(6,
+                                                           numericInput("srnaexp_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
+                                                                        value = 550),
+                                                           numericInput("srnaexp_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
+                                                                        value = 850),
+                                                           br(),
+                                                           downloadButton("srnaexp_plot.pdf", "Download PDF-file")
+                                                    )
+                                                  )
+                           )),
+                           
+                           jqui_draggable(bsModal("srnasizeplotoptions", "Size of all sRNAs aligned to the LIR", "srna_size_plot_options", size = "large", 
+                                                  fixedRow(
+                                                    column(6,
+                                                           sliderInput("srnasize_axis_tick_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis tick font size</font>')),
+                                                                       min=0, max=3, value=1.2, step=0.01),
+                                                           sliderInput("srnasize_axis_label_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis label font size</font>')),
+                                                                       min=0, max=3, value=1.5, step=0.01),
+                                                           sliderInput("srnasize_bar_name_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Bar name font size</font>')),
+                                                                       min=0, max=3, value=1.4, step=0.01)
+                                                    ),
+                                                    column(6,
+                                                           numericInput("srnasize_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
+                                                                        value = 350),
+                                                           numericInput("srnasize_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
+                                                                        value = 450),
+                                                           br(),
+                                                           downloadButton("srnasize_plot.pdf", "Download PDF-file")
+                                                    )
+                                                  )
+                           )),
+                           
+                           jqui_draggable(bsModal("readsizeplotoptions", "Size of all sRNA reads aligned to the LIR", "read_size_plot_options", size = "large", 
+                                                  fixedRow(
+                                                    column(6,
+                                                           sliderInput("readsize_axis_tick_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis tick font size</font>')),
+                                                                       min=0, max=3, value=1.2, step=0.01),
+                                                           sliderInput("readsize_axis_label_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis label font size</font>')),
+                                                                       min=0, max=3, value=1.5, step=0.01),
+                                                           sliderInput("readsize_bar_name_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Bar name font size</font>')),
+                                                                       min=0, max=3, value=1.4, step=0.01)
+                                                    ),
+                                                    column(6,
+                                                           numericInput("readsize_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
+                                                                        value = 350),
+                                                           numericInput("readsize_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
+                                                                        value = 450),
+                                                           br(),
+                                                           downloadButton("readsize_plot.pdf", "Download PDF-file")
+                                                    )
+                                                  )
+                           ))
                   )
         
       )
