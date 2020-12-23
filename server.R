@@ -209,6 +209,11 @@ shinyServer(function(input, output, session) {
       load(HTML.file)
       result <- list(dat.search.result, fasta.region, LIR.align, LIR.gene.op.file)
     } else {
+      sendSweetAlert(
+        session = session,
+        title = "No LIR found!", type = "error",
+        text = "Please choose a genome to search against."
+      )
       result <- NULL
     }
   }, ignoreNULL= T)
@@ -228,7 +233,7 @@ shinyServer(function(input, output, session) {
       searchedRegResults()[[1]]
     }
   }, options = list(paging = TRUE, searching = TRUE, searchHighlight = TRUE), 
-  rownames= FALSE, selection = "single", extensions = 'Scroller')
+  rownames= FALSE, selection = "single")
   
   ## Download structure of LIRs in user searching result
   output$searchRegDownIRFresult.txt <- downloadHandler(
@@ -398,7 +403,7 @@ shinyServer(function(input, output, session) {
       } else {
         searchedIDResults()[[1]]
       }
-    }, options = list(paging = TRUE, searching = FALSE), rownames= FALSE, selection = "single")
+    }, options = list(paging = TRUE, searching = TRUE, searchHighlight = TRUE), rownames= FALSE, selection = "single")
   
   ## Download structure of LIRs in user searching result
   output$searchIDDownIRFresult.txt <- downloadHandler(
@@ -1486,10 +1491,33 @@ shinyServer(function(input, output, session) {
 	         options = list(pageLength = 5, autoWidth = TRUE, bSort=TRUE)
 	      )
 	      
+	      output$DESeq2_result_table.txt <- downloadHandler(
+	        filename <- function() { paste('DESeq2_result.txt') },
+	        content <- function(file) {
+	          if (nrow(DESeq2.res.table) == 0) {
+	            NULL
+	          } else {
+	            fwrite(DESeq2.res.table.dt, file, sep="\t", quote=F)
+	          }
+	        }, contentType = 'text/plain'
+	      )
+	      
+	      # MA plot
 	      output$MA_plot <- renderPlot({
-	        plotMA(DESeq2.res.LFC, ylim=c(-2,2), main = "MA-plot")
+	        plotMA(DESeq2.res.LFC, ylim = c(input$MA_Y_axis[1], input$MA_Y_axis[2]), main = "MA-plot", cex = input$MA_point_size)
 	      })
 	      
+	      output$MA_plot.pdf <- downloadHandler(
+	        filename <- function() {
+	          paste('MA_plot.pdf')
+	        },
+	        content <- function(file) {
+	          pdf(file, width = input$MA_plot_width / 72, height = input$MA_plot_height / 72)
+	          plotMA(DESeq2.res.LFC, ylim = c(input$MA_Y_axis[1], input$MA_Y_axis[2]), main = "MA-plot", cex = input$MA_point_size)
+	          dev.off()
+	        }, contentType = 'application/pdf')
+	      
+	      # Sample distance plot
 	      output$sample_dist <- renderPlot({
 	        sampleDists <- dist(t(assay(DESeq2.res.vsd)))
 	        
@@ -1503,13 +1531,26 @@ shinyServer(function(input, output, session) {
 	                 col = colors, main = "Sample-to-sample distances")
 	      })
 	      
-	      output$DESeq2_result_table.txt <- downloadHandler(
-	        filename <- function() { paste('DESeq2_result.txt') },
+	      output$sample_dist_plot.pdf <- downloadHandler(
+	        filename <- function() {
+	          paste('sample_dist_plot.pdf')
+	        },
 	        content <- function(file) {
-	          fwrite(DESeq2.res.table.dt, file, sep="\t", quote=F)
-	        }, contentType = 'text/plain'
-	      )
+	          pdf(file, width = input$dist_plot_width / 72, height = input$dist_plot_height / 72)
+	          sampleDists <- dist(t(assay(DESeq2.res.vsd)))
+	          
+	          sampleDistMatrix <- as.matrix(sampleDists)
+	          rownames(sampleDistMatrix) <- paste(DESeq2.res.vsd$condition, DESeq2.res.vsd$type, sep="-")
+	          colnames(sampleDistMatrix) <- NULL
+	          colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
+	          pheatmap(sampleDistMatrix,
+	                   clustering_distance_rows = sampleDists,
+	                   clustering_distance_cols = sampleDists,
+	                   col = colors, main = "Sample-to-sample distances")
+	          dev.off()
+	        }, contentType = 'application/pdf')
 	      
+	      # volcano plot
 	      DESeq2.res.table.dt.vp <- DESeq2.res.table.dt
 	      DESeq2.res.table.dt.vp$col <- "black"
 	      DESeq2.res.table.dt.vp$col[DESeq2.res.table.dt.vp$padj <= 0.05] <- "red"
@@ -1517,8 +1558,23 @@ shinyServer(function(input, output, session) {
 	        plot(x=DESeq2.res.table.dt.vp$log2FoldChange, y= -log10(DESeq2.res.table.dt.vp$padj),
 	             xlab = "log2 of fold change", ylab = "-log10 of adjusted P value", col = DESeq2.res.table.dt.vp$col, pch=21,
 	             xlim = c(input$sliderFoldchange[1], input$sliderFoldchange[2]), ylim = c(input$sliderPvalue[1], input$sliderPvalue[2]),
-	             main = "Visualization of DESeq2 result\n with volcano plot")
+	             main = "Visualization of DESeq2 result\n with volcano plot", cex = input$volcano_point_size,
+	             cex.axis = input$volcano_axis_tick_size, cex.lab = input$volcano_axis_label_size)
 	      })
+	      
+	      output$volcano_plot.pdf <- downloadHandler(
+	        filename <- function() {
+	          paste('volcano_plot.pdf')
+	        },
+	        content <- function(file) {
+	          pdf(file, width = input$volcano_plot_width / 72, height = input$volcano_plot_height / 72)
+	          plot(x=DESeq2.res.table.dt.vp$log2FoldChange, y= -log10(DESeq2.res.table.dt.vp$padj),
+	               xlab = "log2 of fold change", ylab = "-log10 of adjusted P value", col = DESeq2.res.table.dt.vp$col, pch=21,
+	               xlim = c(input$sliderFoldchange[1], input$sliderFoldchange[2]), ylim = c(input$sliderPvalue[1], input$sliderPvalue[2]),
+	               main = "Visualization of DESeq2 result\n with volcano plot", cex = input$volcano_point_size,
+	               cex.axis = input$volcano_axis_tick_size, cex.lab = input$volcano_axis_label_size)
+	          dev.off()
+	        }, contentType = 'application/pdf')
 	      
 	    })
 	  }

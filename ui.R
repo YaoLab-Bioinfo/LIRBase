@@ -1,7 +1,23 @@
 
 LIR_Info_Title <- paste("Number_of_LIR: number of LIRs identified by IRF;",
                         "Length: length of a LIR;",
+                        "Left_start: start coordinate of the left arm of a LIR;",
+                        "Left_end: end coordinate of the left arm of a LIR;",
                         "Left_len: length of the left arm of a LIR;",
+                        "Right_start: start coordinate of the right arm of a LIR;",
+                        "Right_end: end coordinate of the right arm of a LIR;",
+                        "Right_len: length of the right arm of a LIR;",
+                        "Loop_len: length of the loop between the left and the right arm;",
+                        "Match_per: percentage of sequence matches between the left and the right arm;",
+                        "Indel_per: percentage of indels between the left and the right arm;",
+                        sep = "<br>")
+
+search_help_Title <- paste("Click on a row to check the details of the LIR!",
+                           "Left_start: start coordinate of the left arm of a LIR;",
+                           "Left_end: end coordinate of the left arm of a LIR;",
+                        "Left_len: length of the left arm of a LIR;",
+                        "Right_start: start coordinate of the right arm of a LIR;",
+                        "Right_end: end coordinate of the right arm of a LIR;",
                         "Right_len: length of the right arm of a LIR;",
                         "Loop_len: length of the loop between the left and the right arm;",
                         "Match_per: percentage of sequence matches between the left and the right arm;",
@@ -250,6 +266,11 @@ shinyUI(
                ),
                
                br(),
+               conditionalPanel(condition="input.submitSearchReg > 0", 
+                                tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Search result</b></font>'),
+                                         bsButton("qSearchRegHelp", label="", icon=icon("question"), style="info", size="small")),
+                                bsPopover("qSearchRegHelp", title = search_help_Title, trigger = "focus", content = NULL)
+                                ),
                dataTableOutput("LIRsearchRegResult"),
                br(),
                
@@ -339,6 +360,11 @@ shinyUI(
                                     ),
                                     
                                     br(),
+                                    conditionalPanel(condition="input.submitSearchID > 0", 
+                                                     tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Search result</b></font>'),
+                                                              bsButton("qSearchIDHelp", label="", icon=icon("question"), style="info", size="small")),
+                                                     bsPopover("qSearchIDHelp", title = search_help_Title, trigger = "focus", content = NULL)
+                                    ),
                                     dataTableOutput("LIRsearchIDResult"),
                                     br(),
                                     
@@ -831,7 +857,7 @@ shinyUI(
       sidebarPanel(
         tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Detect differentially expressed LIRs or sRNAs</b></font>'),
                  bsButton("qDESeqTitle", label="", icon=icon("question"), style="info", size="small")),
-        bsPopover("qDESeqTitle", "The R package DESeq2 is used to detect differentially expressed LIRs between samples.", trigger = "focus"),
+        bsPopover("qDESeqTitle", "The R package DESeq2 is used to detect differentially expressed LIRs/sRNAs between samples.", trigger = "focus"),
         
         selectInput("In_deseq", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Paste or upload a count matrix?</font>'),
                                                    bsButton("qDeseqIn", label="", icon=icon("question"), style="info", size="small")
@@ -884,10 +910,18 @@ shinyUI(
                   trigger = "focus"),
         br(),br(),
         
-        sliderInput("sliderFoldchange", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">X axis limits of the volcano plot</font>')), 
-                    min = -10, max = 10, value = c(-2, 2)),
-        sliderInput("sliderPvalue", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Y axis limits of the volcano plot</font>')), 
-                    min = 0, max = 30, value = c(0, 10))
+        actionBttn("MA_plot_options", "Options for MA plot", 
+                   icon = icon("cogs", class = NULL, lib = "font-awesome"),
+                   block = TRUE, size = "sm", style="unite", color="default"),
+        
+        actionBttn("volcano_plot_options", "Options for volcano plot", 
+                   icon = icon("cogs", class = NULL, lib = "font-awesome"),
+                   block = TRUE, size = "sm", style="unite", color="default"),
+        
+        actionBttn("sample_dist_options", "Options for sample-to-sample distance plot", 
+                   icon = icon("cogs", class = NULL, lib = "font-awesome"),
+                   block = TRUE, size = "sm", style="unite", color="default")
+        
       ),
       
       mainPanel(
@@ -910,7 +944,68 @@ shinyUI(
           column(6,
                  jqui_resizable(plotOutput("sample_dist", height = "350px", width = '450px'))
           )
-        )
+        ),
+        
+        jqui_draggable(bsModal("MAplotoptions", "MA plot", "MA_plot_options", size = "large", 
+                fixedRow(
+                  column(6,
+                         sliderInput("MA_point_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Point size</font>')),
+                                     min=0, max=3, value=1, step=0.01),
+                         sliderInput("MA_Y_axis", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Y axis limits</font>')), 
+                                     min = -10, max = 10, value = c(-2, 2))
+                  ),
+                  column(6,
+                         numericInput("MA_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
+                                      value = 550),
+                         numericInput("MA_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
+                                      value = 550),
+                         br(),
+                         downloadButton("MA_plot.pdf", "Download PDF-file")
+                  )
+                )
+        )),
+        
+        br(),br(),
+        
+        jqui_draggable(bsModal("Volcanoplotoptions", "Volcano plot", "volcano_plot_options", size = "large", 
+                               fixedRow(
+                                 column(6,
+                                        sliderInput("sliderFoldchange", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">X axis limits of the volcano plot</font>')), 
+                                                    min = -10, max = 10, value = c(-2, 2)),
+                                        sliderInput("sliderPvalue", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Y axis limits of the volcano plot</font>')), 
+                                                    min = 0, max = 30, value = c(0, 10)),
+                                        sliderInput("volcano_point_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Point size</font>')),
+                                                    min=0, max=3, value=1, step=0.01),
+                                        sliderInput("volcano_axis_tick_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis tick font size</font>')),
+                                                    min=0, max=3, value=1, step=0.01),
+                                        sliderInput("volcano_axis_label_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis label font size</font>')),
+                                                    min=0, max=3, value=1, step=0.01)
+                                 ),
+                                 column(6,
+                                        numericInput("volcano_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
+                                                     value = 550),
+                                        numericInput("volcano_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
+                                                     value = 550),
+                                        br(),
+                                        downloadButton("volcano_plot.pdf", "Download PDF-file")
+                                 )
+                               )
+        )),
+        
+        tags$head(tags$style("#sampledistoptions .modal-dialog{ width:400px}")),
+        jqui_draggable(bsModal("sampledistoptions", "Sample-to-sample distance plot", "sample_dist_options", size = "large", 
+                               fixedRow(
+                                 column(10,
+                                        numericInput("dist_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
+                                                     value = 425),
+                                        numericInput("dist_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
+                                                     value = 550),
+                                        br(),
+                                        downloadButton("sample_dist_plot.pdf", "Download PDF-file")
+                                 )
+                               )
+        ))
+        
       )
     ),
     
