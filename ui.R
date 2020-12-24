@@ -871,6 +871,7 @@ shinyUI(
                            jqui_draggable(bsModal("srnaexpplotoptions", "Expression of sRNAs aligned to the LIR", "srna_expression_plot_options", size = "large", 
                                                   fixedRow(
                                                     column(6,
+                                                           checkboxInput("select_LIR_only", "Hide other LIRs overlap with the selected LIR", TRUE),
                                                            sliderInput("srnaexp_point_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Point size</font>')),
                                                                        min=0, max=10, value=2, step=0.01),
                                                            sliderInput("srnaexp_axis_tick_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis tick font size</font>')),

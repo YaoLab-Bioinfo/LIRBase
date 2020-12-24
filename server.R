@@ -1332,7 +1332,9 @@ shinyServer(function(input, output, session) {
 	  } else {
 	    LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
 	    align.selected <- alignedResults()[[1]]
-	    align.selected <- align.selected[align.selected$LIR == LIR.ID, ]
+	    lib.read.count <- alignedResults()[[3]]
+	    
+	    align.LIR <- align.selected[align.selected$LIR == LIR.ID, ]
 	    
 	    fa <- alignedLIRResults()[[2]][LIR.ID]
 	    fa.c <- as.character(fa)
@@ -1342,33 +1344,79 @@ shinyServer(function(input, output, session) {
 	    y.ir <- IRanges(y, y)
 	    y.df <- as.data.frame(reduce(y.ir))
 	    
-	    lib.read.count <- alignedResults()[[3]]
-	    
-	    align.selected$TPM <- round(align.selected$sRNA_read_number / lib.read.count * 1e6, 2)
-	    LIR.start.pos <- gsub(".+:", "", align.selected$LIR[1])
+	    LIR.start.pos <- gsub(".+:", "", align.LIR$LIR[1])
 	    LIR.start.pos <- as.integer(gsub("--.+", "", LIR.start.pos))
 	    LIT.start.pos.in <- y.df$start[1]
-	    align.selected$Position <- align.selected$Position + LIR.start.pos - LIT.start.pos.in
+	    LIR.ID.chr <- gsub(":.+", "", LIR.ID)
+	    LIR.ID.chr <- substr(LIR.ID.chr, 6, 100)
 	    
 	    y.df$start <- y.df$start + LIR.start.pos - LIT.start.pos.in
 	    y.df$end <- y.df$end + LIR.start.pos - LIT.start.pos.in
 	    
-	    p1 <- ggplot(align.selected) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)), size = input$srnaexp_point_size)
-	    p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-1, xend=y.df$end[1], yend=-1), 
-	                            lineend = "round", linejoin = "round", color = "red",
-	                            size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	    p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-1, xend=y.df$start[2], yend=-1), 
-	                            lineend = "round", linejoin = "round", color = "red",
-	                            size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	    p1 <- p1 + scale_colour_hue(name = "sRNA size (nt)")
-	    p1 <- p1 + ylab("Expression level of sRNAs (TPM)") + xlab("Position")
-	    p1 <- p1 + theme_classic()
-	    p1 <- p1 + theme(axis.text=element_text(size=input$srnaexp_axis_tick_size),
-	                     axis.title=element_text(size=input$srnaexp_axis_label_size, face="bold"), 
-	                     legend.title=element_text(size=input$srnaexp_legend_title_size), 
-	                     legend.text=element_text(size=input$srnaexp_legend_text_size)
-	                     )
-	    p1
+	    LIR.ir <- IRanges(y.df$start[1], y.df$end[2])
+	    
+	    dat <- alignedLIRResults()[[1]]
+	    dat <- dat[dat$ID != LIR.ID & dat$chr == LIR.ID.chr, ]
+	    dat.ir <- IRanges(dat$Left_start, dat$Right_end)
+	    dat.op <- dat[unique(subjectHits(findOverlaps(LIR.ir, dat.ir))), ]
+	    
+	    if (input$select_LIR_only || nrow(dat.op) == 0) {
+	      align.LIR$Position <- align.LIR$Position + LIR.start.pos - LIT.start.pos.in
+	      align.LIR$TPM <- round(align.LIR$sRNA_read_number / lib.read.count * 1e6, 2)
+	      
+	      p1 <- ggplot(align.LIR) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)), size = input$srnaexp_point_size)
+	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-1, xend=y.df$end[1], yend=-1), 
+	                              lineend = "round", linejoin = "round", color = "red",
+	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-1, xend=y.df$start[2], yend=-1), 
+	                              lineend = "round", linejoin = "round", color = "red",
+	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + geom_segment(aes(x=y.df$end[1]+1, y=-1, xend=y.df$start[2]-1, yend=-1), 
+	                              size = 0.6, color="grey60")
+	      p1 <- p1 + scale_colour_hue(name = "sRNA size (nt)")
+	      p1 <- p1 + ylab("Expression level of sRNAs (TPM)") + xlab("Position")
+	      p1 <- p1 + theme_classic()
+	      p1 <- p1 + theme(axis.text=element_text(size=input$srnaexp_axis_tick_size),
+	                       axis.title=element_text(size=input$srnaexp_axis_label_size, face="bold"), 
+	                       legend.title=element_text(size=input$srnaexp_legend_title_size), 
+	                       legend.text=element_text(size=input$srnaexp_legend_text_size)
+	      )
+	      p1
+	    } else {
+	      align.selected <- align.selected[align.selected$LIR %in% c(LIR.ID, dat.op$ID), ]
+	      align.selected$Position <- align.selected$Position + LIR.start.pos - LIT.start.pos.in
+	      align.selected$TPM <- round(align.selected$sRNA_read_number / lib.read.count * 1e6, 2)
+	      
+	      dat.op$yval <- -1 * (1:nrow(dat.op)) * max(align.selected$TPM)/100
+	      
+	      p1 <- ggplot(align.selected) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)),  size = input$srnaexp_point_size)
+	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-1, xend=y.df$end[1], yend=-1), 
+	                              lineend = "round", linejoin = "round", color = "red",
+	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-1, xend=y.df$start[2], yend=-1), 
+	                              lineend = "round", linejoin = "round", color = "red",
+	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + geom_segment(aes(x=y.df$end[1]+1, y=-1, xend=y.df$start[2]-1, yend=-1), 
+	                              size = 0.6, color="grey60")
+	      p1 <- p1 + geom_segment(data=dat.op, aes(x=Left_start, y=yval, xend=Left_end, yend=yval), 
+	                              lineend = "round", linejoin = "round", color = "blue",
+	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + geom_segment(data=dat.op, aes(x=Right_end, y=yval, xend=Right_start, yend=yval), 
+	                              lineend = "round", linejoin = "round", color = "blue",
+	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + geom_segment(data=dat.op, aes(x=Left_end+1, y=yval, xend=Right_start-1, yend=yval), 
+	                              size = 0.6, color="grey60")
+	      p1 <- p1 + scale_colour_hue(name = "sRNA size (nt)")
+	      p1 <- p1 + scale_y_continuous(breaks = round(seq(0, max(align.selected$TPM)*1.1, length.out = 5)))
+	      p1 <- p1 + ylab("Expression level of sRNAs (TPM)") + xlab("Position")
+	      p1 <- p1 + theme_classic()
+	      p1 <- p1 + theme(axis.text=element_text(size=input$srnaexp_axis_tick_size),
+	                       axis.title=element_text(size=input$srnaexp_axis_label_size, face="bold"), 
+	                       legend.title=element_text(size=input$srnaexp_legend_title_size), 
+	                       legend.text=element_text(size=input$srnaexp_legend_text_size)
+	      )
+	      p1
+	    }
 	  }
 	})
 	
@@ -1380,7 +1428,9 @@ shinyServer(function(input, output, session) {
 	    pdf(file, width = input$srnaexp_plot_width / 72, height = input$srnaexp_plot_height / 72)
 	    LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
 	    align.selected <- alignedResults()[[1]]
-	    align.selected <- align.selected[align.selected$LIR == LIR.ID, ]
+	    lib.read.count <- alignedResults()[[3]]
+	    
+	    align.LIR <- align.selected[align.selected$LIR == LIR.ID, ]
 	    
 	    fa <- alignedLIRResults()[[2]][LIR.ID]
 	    fa.c <- as.character(fa)
@@ -1390,32 +1440,77 @@ shinyServer(function(input, output, session) {
 	    y.ir <- IRanges(y, y)
 	    y.df <- as.data.frame(reduce(y.ir))
 	    
-	    lib.read.count <- alignedResults()[[3]]
-	    
-	    align.selected$TPM <- round(align.selected$sRNA_read_number / lib.read.count * 1e6, 2)
-	    LIR.start.pos <- gsub(".+:", "", align.selected$LIR[1])
+	    LIR.start.pos <- gsub(".+:", "", align.LIR$LIR[1])
 	    LIR.start.pos <- as.integer(gsub("--.+", "", LIR.start.pos))
 	    LIT.start.pos.in <- y.df$start[1]
-	    align.selected$Position <- align.selected$Position + LIR.start.pos - LIT.start.pos.in
+	    LIR.ID.chr <- gsub(":.+", "", LIR.ID)
+	    LIR.ID.chr <- substr(LIR.ID.chr, 6, 100)
 	    
 	    y.df$start <- y.df$start + LIR.start.pos - LIT.start.pos.in
 	    y.df$end <- y.df$end + LIR.start.pos - LIT.start.pos.in
 	    
-	    p1 <- ggplot(align.selected) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)), size = input$srnaexp_point_size)
-	    p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-1, xend=y.df$end[1], yend=-1), 
-	                            lineend = "round", linejoin = "round", color = "red",
-	                            size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	    p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-1, xend=y.df$start[2], yend=-1), 
-	                            lineend = "round", linejoin = "round", color = "red",
-	                            size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	    p1 <- p1 + scale_colour_hue(name = "sRNA size (nt)")
-	    p1 <- p1 + ylab("Expression level of sRNAs (TPM)") + xlab("Position")
-	    p1 <- p1 + theme_classic()
-	    p1 <- p1 + theme(axis.text=element_text(size=input$srnaexp_axis_tick_size),
-	                     axis.title=element_text(size=input$srnaexp_axis_label_size, face="bold"), 
-	                     legend.title=element_text(size=input$srnaexp_legend_title_size), 
-	                     legend.text=element_text(size=input$srnaexp_legend_text_size)
-	    )
+	    LIR.ir <- IRanges(y.df$start[1], y.df$end[2])
+	    
+	    dat <- alignedLIRResults()[[1]]
+	    dat <- dat[dat$ID != LIR.ID & dat$chr == LIR.ID.chr, ]
+	    dat.ir <- IRanges(dat$Left_start, dat$Right_end)
+	    dat.op <- dat[unique(subjectHits(findOverlaps(LIR.ir, dat.ir))), ]
+	    
+	    if (input$select_LIR_only || nrow(dat.op) == 0) {
+	      align.LIR$Position <- align.LIR$Position + LIR.start.pos - LIT.start.pos.in
+	      align.LIR$TPM <- round(align.LIR$sRNA_read_number / lib.read.count * 1e6, 2)
+	      
+	      p1 <- ggplot(align.LIR) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)), size = input$srnaexp_point_size)
+	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-1, xend=y.df$end[1], yend=-1), 
+	                              lineend = "round", linejoin = "round", color = "red",
+	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-1, xend=y.df$start[2], yend=-1), 
+	                              lineend = "round", linejoin = "round", color = "red",
+	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + geom_segment(aes(x=y.df$end[1]+1, y=-1, xend=y.df$start[2]-1, yend=-1), 
+	                              size = 0.6, color="grey60")
+	      p1 <- p1 + scale_colour_hue(name = "sRNA size (nt)")
+	      p1 <- p1 + ylab("Expression level of sRNAs (TPM)") + xlab("Position")
+	      p1 <- p1 + theme_classic()
+	      p1 <- p1 + theme(axis.text=element_text(size=input$srnaexp_axis_tick_size),
+	                       axis.title=element_text(size=input$srnaexp_axis_label_size, face="bold"), 
+	                       legend.title=element_text(size=input$srnaexp_legend_title_size), 
+	                       legend.text=element_text(size=input$srnaexp_legend_text_size)
+	      )
+	    } else {
+	      align.selected <- align.selected[align.selected$LIR %in% c(LIR.ID, dat.op$ID), ]
+	      align.selected$Position <- align.selected$Position + LIR.start.pos - LIT.start.pos.in
+	      align.selected$TPM <- round(align.selected$sRNA_read_number / lib.read.count * 1e6, 2)
+	      
+	      dat.op$yval <- -1 * (1:nrow(dat.op)) * max(align.selected$TPM)/100
+	      
+	      p1 <- ggplot(align.selected) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)),  size = input$srnaexp_point_size)
+	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-1, xend=y.df$end[1], yend=-1), 
+	                              lineend = "round", linejoin = "round", color = "red",
+	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-1, xend=y.df$start[2], yend=-1), 
+	                              lineend = "round", linejoin = "round", color = "red",
+	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + geom_segment(aes(x=y.df$end[1]+1, y=-1, xend=y.df$start[2]-1, yend=-1), 
+	                              size = 0.6, color="grey60")
+	      p1 <- p1 + geom_segment(data=dat.op, aes(x=Left_start, y=yval, xend=Left_end, yend=yval), 
+	                              lineend = "round", linejoin = "round", color = "blue",
+	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + geom_segment(data=dat.op, aes(x=Right_end, y=yval, xend=Right_start, yend=yval), 
+	                              lineend = "round", linejoin = "round", color = "blue",
+	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + geom_segment(data=dat.op, aes(x=Left_end+1, y=yval, xend=Right_start-1, yend=yval), 
+	                              size = 0.6, color="grey60")
+	      p1 <- p1 + scale_colour_hue(name = "sRNA size (nt)")
+	      p1 <- p1 + scale_y_continuous(breaks = round(seq(0, max(align.selected$TPM)*1.1, length.out = 5)))
+	      p1 <- p1 + ylab("Expression level of sRNAs (TPM)") + xlab("Position")
+	      p1 <- p1 + theme_classic()
+	      p1 <- p1 + theme(axis.text=element_text(size=input$srnaexp_axis_tick_size),
+	                       axis.title=element_text(size=input$srnaexp_axis_label_size, face="bold"), 
+	                       legend.title=element_text(size=input$srnaexp_legend_title_size), 
+	                       legend.text=element_text(size=input$srnaexp_legend_text_size)
+	      )
+	    }
 	    grid.draw(p1)
 	    dev.off()
 	  }, contentType = 'application/pdf')
