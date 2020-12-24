@@ -3,13 +3,13 @@
 
 <i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Functionalities of LIRBase</b></font>  
 
->1. **Browse long inverted repeats (LIR) identified in 424 eukaryotic genomes** for the sequences, structures of LIRs and the overlaps between LIRs and genes.  
+>1. **Browse long inverted repeats (LIR, longer than 800 nt) identified in 424 eukaryotic genomes** for the sequences, structures of LIRs and the overlaps between LIRs and genes.  
 >2. **Search** LIRBase for **long inverted repeats** in a specific genome **by genomic regions**.  
 >3. **Search** LIRBase for **long inverted repeats** in a specific genome **by the identifiers** of long inverted repeats.  
 >4. Search LIRBase by sequence similarity using **BLAST**.  
 >5. **Detect and annotate long inverted repeats** in user-uploaded DNA sequences.  
 >6. **Align small RNA sequencing data to long inverted repeats** of a specific genome to detect the origination of small RNAs from long inverted repeats and quantify the expression level of small RNAs and long inverted repeats.  
->7. Perform **differential expression analysis of long inverted repeats and small RNAs** between different biological samples/tissues.  
+>7. Perform **differential expression analysis of long inverted repeats or small RNAs** between different biological samples/tissues.  
 
 >A typical long inverted repeat and the small RNAs originated from the LIR analyzed utilizing LIRBase are demonstrated in the following image.  
 
