@@ -14,6 +14,7 @@ library(RColorBrewer)
 library(shiny)
 library(shinyBS)
 library(shinycssloaders)
+library(shinydashboard)
 library(shinyjqui)
 library(shinyWidgets)
 library(stringr)
@@ -26,6 +27,9 @@ library(IRanges)
 
 library(shinysky)
 library(dplyr)
+
+source("box_format.R")
+source("Homepage.R")
 
 load("genome.info.RData")
 load("dat.summary.RData")

@@ -75,12 +75,12 @@ shinyUI(
                tags$script(HTML('Shiny.addCustomMessageHandler("jsCode",function(message) {eval(message.value);});'))
              ),
              
+             Homepage,
+             
              icon = icon("home", class = NULL, lib = "font-awesome"),
              
              # htmlwidgets::getDependency('sparkline'),
              # dataTableOutput("IRFsummary")
-             
-             includeMarkdown("Home.md")
     ),
     
     # Browse
@@ -217,9 +217,9 @@ shinyUI(
       tabPanel(h5("Search by genomic location"), 
                fixedRow(
                  column(6,
-                        tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Search by genomic region</b></font>'),
+                        tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Search by genomic location</b></font>'),
                                  bsButton("qSearchRegTitle", label="", icon=icon("question"), style="info", size="small")),
-                        bsPopover("qSearchRegTitle", "Search for the information of long inverted repeats identified in any of the 424 genomes by genomic regions!", trigger = "focus")
+                        bsPopover("qSearchRegTitle", "Search for the information of long inverted repeats identified in any of the 424 genomes by genomic locations!", trigger = "focus")
                  )
                ),
                
