@@ -1,15 +1,15 @@
 LIRBase
 ========
 
->A total of 424 eukaryote genomes were collected and the **long inverted repeats** in these genomes were systematically identified. The following functionalities are implemented in LIRBase.  
+>A total of 424 eukaryote genomes were collected and the **long inverted repeats (longer than 800 nt)** in these genomes were systematically identified. The following functionalities are implemented in LIRBase.  
 
->1. **Browse long inverted repeats (LIR) identified in 424 eukaryotic genomes** for the sequences, structures of LIRs and the overlaps between LIRs and genes.  
->2. **Search** LIRBase for **long inverted repeats** in a specific genome **by genomic regions**.  
+>1. **Browse long inverted repeats (LIR) identified in 424 eukaryotic genomes** for the sequences, structures of LIRs, and the overlaps between LIRs and genes.  
+>2. **Search** LIRBase for **long inverted repeats** in a specific genome **by genomic locations**.  
 >3. **Search** LIRBase for **long inverted repeats** in a specific genome **by the identifiers** of long inverted repeats.  
 >4. Search LIRBase by sequence similarity using **BLAST**.  
 >5. **Detect and annotate long inverted repeats** in user-uploaded DNA sequences.  
 >6. **Align small RNA sequencing data to long inverted repeats** of a specific genome to detect the origination of small RNAs from long inverted repeats and quantify the expression level of small RNAs and long inverted repeats.  
->7. Perform **differential expression analysis of long inverted repeats and small RNAs** between different biological samples/tissues.  
+>7. Perform **differential expression analysis of long inverted repeats or small RNAs** between different biological samples/tissues.  
 
 *****
 
@@ -32,7 +32,6 @@ LIRBase
 ```
 # try an http CRAN mirror if https CRAN mirror doesn't work  
 install.packages("data.table")
-install.packages("dplyr")
 install.packages("DT")
 install.packages("ggplot2")
 install.packages("grid")
@@ -43,10 +42,12 @@ install.packages("RColorBrewer")
 install.packages("shiny")
 install.packages("shinyBS")
 install.packages("shinycssloaders")
+install.packages("shinydashboard")
 install.packages("shinyjqui")
 install.packages("shinyWidgets")
 install.packages("stringr")
 install.packages("tidyr")
+install.packages("dplyr")
 
 install.packages("BiocManager")
 BiocManager::install("apeglm")
