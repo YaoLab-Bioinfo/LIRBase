@@ -1028,7 +1028,7 @@ shinyServer(function(input, output, session) {
 	  if (input$clear1>0) {
 	    isolate({
 	      updateSelectInput(session, "In_predict", selected = "paste")
-	      updateTextInput(session, "PreSeqPaste", value="")
+	      updateTextAreaInput(session, "PreSeqPaste", value="")
 	    })
 	  } else {NULL}
 	})
