@@ -1116,7 +1116,7 @@ shinyUI(
                                                                  bsButton("qVisualizePaste", label="", icon=icon("question"), style="info", size="small")),
                                  value = "", resize = "vertical", height='220px', width = '100%',
                                  placeholder = "The sequence must be in fasta format"),
-                   bsPopover("qVisualizePaste", "The input data must be a single DNA sequence in fasta format. The sequence should have a proper ID start with >.", trigger = "focus"),
+                   bsPopover("qVisualizePaste", "The input data must be a single DNA sequence in fasta format. The sequence should have a proper ID start with >. A very long sequence will take a long time to calculate.", trigger = "focus"),
                    
                    br(),
                    actionButton("submitVisualize", strong("Submit!",

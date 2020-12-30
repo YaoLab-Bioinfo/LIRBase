@@ -1821,6 +1821,7 @@ shinyServer(function(input, output, session) {
 	        rnafold.in.file <- gsub("\\s+", "-", Sys.time())
 	        rnafold.in.file <- gsub(":", "-", rnafold.in.file)
 	        rnafold.in.file <- paste0(rnafold.in.file, ".fasta")
+	        rnafold.in.file <- file.path(tempdir(), rnafold.in.file)
 	        writeLines(vis.Seq, con=rnafold.in.file)
 	        
 	        vis.Seq.fa <- readDNAStringSet(rnafold.in.file)
@@ -1831,18 +1832,15 @@ shinyServer(function(input, output, session) {
 	        }
 	        vis.Seq.fa.name <- gsub("\\s.+", "", names(vis.Seq.fa))
 	        
-	        pre.Match <- input$Match
-	        
-	        RNAfold.cmds <- paste0("RNAfold -i ", rnafold.in.file, " -o ", rnafold.in.file, " -T ", input$temperature)
+	        RNAfold.cmds <- paste0("cat ", rnafold.in.file, " | RNAfold ", " -T ", input$temperature)
 	        if (input$noGU) {
 	          RNAfold.cmds <- paste0(RNAfold.cmds, " --noGU")
 	        }
 	        if (input$noClosingGU) {
 	          RNAfold.cmds <- paste0(RNAfold.cmds, " --noClosingGU")
 	        }
-	        system(RNAfold.cmds)
 	        
-	        rnafold.out.file <- paste0(rnafold.in.file, "_", vis.Seq.fa.name, ".fold")
+	        rnafold.out <- system(RNAfold.cmds, intern = TRUE)
 	        
 	        ps.file <- paste0(vis.Seq.fa.name, "_ss.ps")
 	        system(paste0("ps2pdf ", ps.file))
@@ -1851,7 +1849,7 @@ shinyServer(function(input, output, session) {
 	        file.remove(pdf.file)
 	        
 	        # RNAfold result file
-	        if (!file.exists(rnafold.out.file)) {
+	        if (length(rnafold.out) < 3) {
 	          sendSweetAlert(
 	            session = session,
 	            title = "Wrong input data!", type = "error",
@@ -1864,7 +1862,7 @@ shinyServer(function(input, output, session) {
 	          })
 	          
 	          output$RNAfold_2nd_structure_text <- renderText({
-	            readLines(rnafold.out.file)
+	            rnafold.out
 	          }, sep = "\n")
 	          
 	          output$RNAfold_pdfview <- renderUI({
@@ -1875,12 +1873,7 @@ shinyServer(function(input, output, session) {
 	          output$downloadLIRstrText <- downloadHandler(
 	            filename <- function() { paste('LIR_hpRNA_2nd_structure.txt') },
 	            content <- function(file) {
-	              if (file.exists(rnafold.out.file)) {
-	                LIR.RNAfold.out <- readLines(rnafold.out.file)
-	                writeLines(LIR.RNAfold.out, file)
-	              } else {
-	                NULL
-	              }
+	               writeLines(rnafold.out, file)
 	            }, contentType = 'text/plain'
 	          )
 	          
