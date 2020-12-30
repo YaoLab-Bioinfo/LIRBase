@@ -866,6 +866,12 @@ shinyServer(function(input, output, session) {
 	          title = "No input data received!", type = "error",
 	          text = NULL
 	        )
+	      } else if (substr(pre.Seq, 1, 1) != ">") {
+	          sendSweetAlert(
+	            session = session,
+	            title = "'>' expected at beginning of line 1 to indicate the ID of the input sequence!", type = "error",
+	            text = NULL
+	          )
 	      } else {
 	        irf.in.file <- gsub("\\s+", "-", Sys.time())
 	        irf.in.file <- gsub(":", "-", irf.in.file)
@@ -1786,6 +1792,129 @@ shinyServer(function(input, output, session) {
 	      updateSelectInput(session, "In_deseq_table", selected = "paste")
 	      updateTextAreaInput(session, "DeseqPaste", value = paste(readLines("LIR_sRNA_read_count_matrix.txt"), collapse = "\n"))
 	      updateTextAreaInput(session, "DeseqTablePaste", value = paste(readLines("LIR_sRNA_sample_info.txt"), collapse = "\n"))
+	    })
+	  } else {NULL}
+	})
+	
+	
+	# Visualization
+	observe({
+	  if (input$submitVisualize>0) {
+	    isolate({
+	      vis.Seq <- input$VisualizePaste
+	      vis.Seq <- gsub("^\\s+", "", vis.Seq)
+	      vis.Seq <- gsub("\\s+$", "", vis.Seq)
+	      
+	      if ((length(vis.Seq) == 1) && (vis.Seq == "")) {
+	        sendSweetAlert(
+	          session = session,
+	          title = "No input data received!", type = "error",
+	          text = NULL
+	        )
+	      } else if (substr(vis.Seq, 1, 1) != ">") {
+	        sendSweetAlert(
+	          session = session,
+	          title = "'>' expected at beginning of line 1 to indicate the ID of the input sequence!", type = "error",
+	          text = NULL
+	        )
+	      } else {
+	        rnafold.in.file <- gsub("\\s+", "-", Sys.time())
+	        rnafold.in.file <- gsub(":", "-", rnafold.in.file)
+	        rnafold.in.file <- paste0(rnafold.in.file, ".fasta")
+	        writeLines(vis.Seq, con=rnafold.in.file)
+	        
+	        vis.Seq.fa <- readDNAStringSet(rnafold.in.file)
+	        if (names(vis.Seq.fa) == "") {
+	          names(vis.Seq.fa) <- gsub(".fasta$", "", rnafold.in.file)
+	          writeXStringSet(vis.Seq.fa, file=rnafold.in.file)
+	          vis.Seq.fa <- readDNAStringSet(rnafold.in.file)
+	        }
+	        vis.Seq.fa.name <- gsub("\\s.+", "", names(vis.Seq.fa))
+	        
+	        pre.Match <- input$Match
+	        
+	        RNAfold.cmds <- paste0("RNAfold -i ", rnafold.in.file, " -o ", rnafold.in.file, " -T ", input$temperature)
+	        if (input$noGU) {
+	          RNAfold.cmds <- paste0(RNAfold.cmds, " --noGU")
+	        }
+	        if (input$noClosingGU) {
+	          RNAfold.cmds <- paste0(RNAfold.cmds, " --noClosingGU")
+	        }
+	        system(RNAfold.cmds)
+	        
+	        rnafold.out.file <- paste0(rnafold.in.file, "_", vis.Seq.fa.name, ".fold")
+	        
+	        ps.file <- paste0(vis.Seq.fa.name, "_ss.ps")
+	        system(paste0("ps2pdf ", ps.file))
+	        pdf.file <- paste0(vis.Seq.fa.name, "_ss.pdf")
+	        file.copy(from=pdf.file, to="www")
+	        file.remove(pdf.file)
+	        
+	        # RNAfold result file
+	        if (!file.exists(rnafold.out.file)) {
+	          sendSweetAlert(
+	            session = session,
+	            title = "Wrong input data!", type = "error",
+	            text = "Please check the content and the format of your input data!"
+	          )
+	        } else {
+	          ## Display RNAfold result in text
+	          output$RNAfold_2nd_structure_text_title <- renderText({
+	              "Predicted secondary structure of the potential RNA encoded by the LIR:"
+	          })
+	          
+	          output$RNAfold_2nd_structure_text <- renderText({
+	            readLines(rnafold.out.file)
+	          }, sep = "\n")
+	          
+	          output$RNAfold_pdfview <- renderUI({
+	              tags$iframe(style = "height:900px; width:100%; scrolling=yes", src = pdf.file)
+	          })
+
+	          ## Download
+	          output$downloadLIRstrText <- downloadHandler(
+	            filename <- function() { paste('LIR_hpRNA_2nd_structure.txt') },
+	            content <- function(file) {
+	              if (file.exists(rnafold.out.file)) {
+	                LIR.RNAfold.out <- readLines(rnafold.out.file)
+	                writeLines(LIR.RNAfold.out, file)
+	              } else {
+	                NULL
+	              }
+	            }, contentType = 'text/plain'
+	          )
+	          
+	          output$downloadLIRstrPS <- downloadHandler(
+	            filename <- function() { paste('LIR_hpRNA_2nd_structure.ps') },
+	            content <- function(file) {
+	              if (file.exists(ps.file)) {
+	                file.copy(ps.file, file)
+	              } else {
+	                NULL
+	              }
+	            }, contentType = NULL
+	          )
+	          
+	        }
+	      }
+	    })
+	  } else {
+	    NULL
+	  }
+	})
+	
+	observe({
+	  if (input$clearVisualize >0) {
+	    isolate({
+	      updateTextAreaInput(session, "VisualizePaste", value="")
+	    })
+	  } else {NULL}
+	})
+	
+	observe({
+	  if (input$VisualizeExam >0) {
+	    isolate({
+	      updateTextAreaInput(session, "VisualizePaste", value = paste(exam3.fa, collapse = "\n"))
 	    })
 	  } else {NULL}
 	})

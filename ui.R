@@ -1101,6 +1101,67 @@ shinyUI(
       )
     ),
     
+    
+    # Visualization
+    tabPanel(
+      "Visualize",
+      icon = icon("bullseye", class = NULL, lib = "font-awesome"),
+      
+      sidebarPanel(width=4,
+                   tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Visualize potential long hpRNA encoded by LIR</b></font>'),
+                            bsButton("qVisualizeTitle", label="", icon=icon("question"), style="info", size="small")),
+                   bsPopover("qVisualizeTitle", "Predict and visualize the second structure of potential long hpRNA encoded by the LIR!", trigger = "focus"),
+                   
+                   textAreaInput("VisualizePaste", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Paste input sequence?</font>'),
+                                                                 bsButton("qVisualizePaste", label="", icon=icon("question"), style="info", size="small")),
+                                 value = "", resize = "vertical", height='220px', width = '100%',
+                                 placeholder = "The sequence must be in fasta format"),
+                   bsPopover("qVisualizePaste", "The input data must be a single DNA sequence in fasta format. The sequence should have a proper ID start with >.", trigger = "focus"),
+                   
+                   br(),
+                   actionButton("submitVisualize", strong("Submit!",
+                                                  bsButton("qsubmitVisualize", label="", icon=icon("question"), style="info", size="small")
+                   ), styleclass = "success"),
+                   actionButton("clearVisualize", strong("Clear"), styleclass = "warning"),
+                   actionButton("VisualizeExam", strong("Load example"), styleclass = "info"),
+                   conditionalPanel(condition="input.submitVisualize != '0'", busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
+                   bsPopover("qsubmitVisualize", "Click this button to start the prediction!", trigger = "focus"),
+                   br(),br(),
+                   
+                   checkboxInput("noGU", label = tags$div(HTML('<font size="4" color="red">Do not allow GU pairs</font>')), value = FALSE),
+                   checkboxInput("noClosingGU", label = tags$div(HTML('<font size="4" color="red">Do not allow GU pairs at the end of helices</font>')), value = FALSE),
+                   
+                   numericInput("temperature", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="4" color="red">Rescale energy parameters to a temperature</font>'),
+                                                               bsButton("qtemperature", label="", icon=icon("question"), style="info", size="small")),
+                               value = 37, min = -200, max = 1000, step = NA
+                   ),
+                   bsPopover("qtemperature", "Rescale energy parameters to a temperature of temp C. Default is 37C.", trigger = "focus")
+                   
+      ),
+      
+      mainPanel(
+        fixedRow(
+          column(6,
+                 downloadButton("downloadLIRstrText", "Secondary structure in plain text file", style = "width:100%;", class = "buttDown")
+          ),
+          column(6,
+                 downloadButton("downloadLIRstrPS", "Secondary structure in PostScript file", style = "width:100%;", class = "buttDown")
+          )
+        ),
+        
+        column(11, 
+               textOutput("RNAfold_2nd_structure_text_title"),
+               tags$head(tags$style("#RNAfold_2nd_structure_text_title{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+               )),
+               verbatimTextOutput("RNAfold_2nd_structure_text"),
+               uiOutput("RNAfold_pdfview")
+        )
+      )
+    ),
+      
 
     # Download
     tabPanel(
