@@ -31,16 +31,16 @@ messageBox <- function(...) {
 
 module_Box <- function(..., title, imgSrc, text) {
   box(
-    ...,
+    ..., 
     title = span(title, style = "font-size:20px"),
     solidHeader = TRUE, status = "primary",
     fluidRow(
       column(
-        width = 4,
-        div(style = "margin-left:5px;margin-right:0px;margin-top:0px;",shiny::img(src = imgSrc, width = "100%"))
+        width = 5,
+        div(style = "margin-left:5px;margin-right:0px;margin-top:0px;",shiny::img(src = imgSrc, width = "100%", height = "100%"))
       ),
       column(
-        width = 8,
+        width = 7,
         span(text, style = "font-size:18px"),
       )
     )

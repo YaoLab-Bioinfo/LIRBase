@@ -26,7 +26,7 @@ Homepage <- dashboardPage(
       offset = 1,
       textBox(
         width = 12,
-        p("An inverted repeat is a single stranded nucleotide sequence followed by its reverse complement at the downstream. The intervening sequence between the initial sequence and the reverse complement can be any length including zero. When transcribed,", strong("long inverted repeat can form long hairpin RNA genes (hpRNAs),"), "which are much longer than typical animal or plant pre-miRNAs. Okamura et al. reported the ", strong("biogenesis of 21-22-nucleotide small interfering RNAs (siRNAs) from long hpRNAs"), " in ", em("Drosophila"), "for the first time [1]. They found that Dicer-2, Hen1 and Argonaute 2 played vital roles in this siRNA biogenesis pathway. This siRNA biogenesis pathway was soon reported and verified in", em("Arabidopsis"), "(Dunoyer et al. 2010) [2].")
+        p("An inverted repeat is a single stranded nucleotide sequence followed by its reverse complement at the downstream. The intervening sequence between the initial sequence and the reverse complement can be any length including zero. When transcribed,", strong("long inverted repeat can form long hairpin RNA genes (hpRNAs),"), "which are much longer than typical animal or plant pre-miRNAs. Henderson et al. reported the biogenesis of small interfering RNAs (siRNAs) from long inverted repeat in ", em("Arabidopsis thaliana"), "for the first time [1].", "Okamura et al. systematacially charactized the ", strong("biogenesis pathway of 21-22-nucleotide siRNAs from long hpRNAs encoded by LIRs"), " in ", em("Drosophila"), "[2]. They found that Dicer-2, Hen1 and Argonaute 2 played vital roles in this siRNA biogenesis pathway. This siRNA biogenesis pathway was further charactized in", em("Arabidopsis"), " soon (Dunoyer et al. 2010) [3].")
       )
     ),
 
@@ -55,55 +55,59 @@ Homepage <- dashboardPage(
         title = "Functionalities of LIRBase",
           fluidRow(
             module_Box(
-              width = 6,
+              width = 4, height='210px',
               title = "Browse",
               imgSrc = "Browse.png",
               text = "Browse long inverted repeats identified in 424 eukaryotic genomes for the sequences, structures of LIRs and the overlaps between LIRs and genes."
             ),
             module_Box(
-              width = 6,
+              width = 4, height='210px',
               title = "Search by genomic location",
               imgSrc = "SearchByReg.png",
               text = "Search LIRBase for long inverted repeats in a specific genome by genomic locations."
-            )
-          ),
-          fluidRow(
-            module_Box(
-              width = 6,
+            ),
+			module_Box(
+              width = 4, height='210px',
               title = "Search by LIR identifier",
               imgSrc = "SearchByLIRID.png",
               text = "Search LIRBase for long inverted repeats in a specific genome by the identifiers of long inverted repeats."
-            ),
-            module_Box(
-              width = 6,
-              title = "BLAST",
-              imgSrc = "BLAST.png",
-              text = "Search LIRBase by sequence similarity using BLAST."
             )
           ),
           fluidRow(
             module_Box(
-              width = 6,
+              width = 4, height='230px',
+              title = "BLAST",
+              imgSrc = "BLAST.png",
+              text = "Search LIRBase by sequence similarity using BLAST."
+            ),
+			module_Box(
+              width = 4, height='230px',
               title = "Annotate",
               imgSrc = "Annotate.png",
               text = "Detect and annotate long inverted repeats in user-uploaded DNA sequences."
             ),
 			module_Box(
-              width = 6,
+              width = 4, height='230px',
               title = "Quantify",
               imgSrc = "Quantify.png",
-              text = "Align small RNA sequencing data to long inverted repeats of a specific genome to detect the origination of small RNAs from long inverted repeats and quantify the expression level of small RNAs and long inverted repeats."
+              text = "Align small RNA sequencing data to LIRs of a specific genome to detect the origination of small RNAs from LIRs and quantify the expression level of small RNAs and LIRs."
             )
           ),
 		  fluidRow(
             module_Box(
-              width = 6,
+              width = 4, height='210px',
               title = "DESeq",
               imgSrc = "DESeq.png",
               text = "Perform differential expression analysis of long inverted repeats or small RNAs between different biological samples/tissues."
             ),
 			module_Box(
-              width = 6,
+              width = 4, height='210px',
+              title = "Visualize",
+              imgSrc = "Visualize.png",
+              text = "Predict and visualize the secondary structure of potential long hpRNA encoded by a long inverted repeat."
+            ),
+			module_Box(
+              width = 4, height='210px',
               title = "Download",
               imgSrc = "Download.png",
               text = "Download LIRs of 424 eukaryotic genomes, as well as the BLAST database and the Bowtie index database of LIRs."
@@ -117,7 +121,7 @@ Homepage <- dashboardPage(
         width = 10,
         offset = 1,
         box(
-          title = span(strong("Why LIRBase?"), style = "font-size:20px"),
+          title = span(strong("Why LIR and LIRBase?"), style = "font-size:20px"),
           width = 12,
           solidHeader = TRUE,
           collapsible = FALSE,
