@@ -31,17 +31,17 @@
 <div align=center><img src="Fig4.png" width="85%" height="85%" align=center /></div>
 <div align=center><font color=blue size=4>Figure 4. Detailed information of a selected LIR.</font></div>  
 
-## **2. Search LIRBase for LIRs in a specific genome by genomic regions**
+## **2. Search LIRBase for LIRs in a specific genome by genomic locations**
 
->&emsp;&emsp;LIRBase allows searching for LIRs of any of the 424 eukaryotic genomes by genomic regions (Figure 5). The detailed steps are shown in Figure 6.
+>&emsp;&emsp;LIRBase allows searching for LIRs of any of the 424 eukaryotic genomes by genomic locations (Figure 5). The detailed steps are shown in Figure 6.
 
 <div align=center><img src="Fig5.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=4>Figure 5. The &quot;Search by genomic region&quot; submenu of the &quot;Search&quot; menu.</font></div>  
+<div align=center><font color=blue size=4>Figure 5. The &quot;Search by genomic location&quot; submenu of the &quot;Search&quot; menu.</font></div>  
 
 <br/>
 
 <div align=center><img src="Fig6.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=4>Figure 6. Steps to search LIRBase by genomic region.</font></div>  
+<div align=center><font color=blue size=4>Figure 6. Steps to search LIRBase by genomic location.</font></div>  
 
 ## **3. Search LIRBase for LIRs in a specific genome by the identifiers of LIRs**
 
@@ -90,7 +90,7 @@
 
 ## **6. Annotate and quantify the expression level of LIRs using sRNA sequencing data**
 
->&emsp;&emsp;When transcribed, long inverted repeat can form long hairpin RNA genes (hpRNAs), which are much longer than typical animal or plant pre-miRNAs. Okamura et al. (2008) reported the biogenesis of 21–22-nucleotide small interfering RNAs (siRNAs) from long hpRNAs in _Drosophila_ for the first time. This siRNA biogenesis pathway was soon reported in _Arabidopsis_ (Dunoyer et al. 2010).
+>&emsp;&emsp;When transcribed, long inverted repeat can form long hairpin RNA genes (hpRNAs), which are much longer than typical animal or plant pre-miRNAs. Henderson et al. (2006) reported the biogenesis of small interfering RNAs (siRNAs) from long inverted repeat in _Arabidopsis thaliana_ for the first time. This siRNA biogenesis pathway was soon reported and verified in other animals and plants.
 
 >&emsp;&emsp;To facilitate the annotation of small RNAs derived from LIRs archived in LIRBase, we implemented a functionality in LIRBase allowing alignment of user-uploaded small RNA sequencing data to all the identified LIRs of a genome (Figure 14). The input data should be read count of small RNAs rather than the raw small sequencing data as shown in Figure 14. The input small RNA read count data can be pasted in a text area provided or be uploaded from a local text file.
 
@@ -113,23 +113,30 @@
 <div align=center><img src="Fig16.png" width="85%" height="85%" align=center /></div>
 <div align=center><font color=blue size=4>Figure 16. The &quot;DESeq&quot; menu of LIRBase to perform differential expression analysis of LIRs/sRNAs.</font></div>  
 
-## **8. Download LIRs of 424 eukaryotic genomes, the BLAST database and the Bowtie index database**
+## **8. Predict and visualize the secondary structure of the potential hpRNA encoded by a LIR**
 
->&emsp;&emsp;In addition to be used online at [http://venyao.xyz/lirbase/](http://venyao.xyz/lirbase/), LIRBase can be deployed on a personal local or web Linux server. Deployment of LIRBase is platform independent, i.e., LIRBase can be deployed on any platform with the R environment available. The detailed steps are described in the &quot;Installation&quot; submenu of the &quot;Help&quot; menu of LIRBase (Figure 17). The source code of LIRBase is deposited in GitHub ([https://github.com/venyao/LIRBase](https://github.com/venyao/LIRBase)). As the file size of identified LIRs and the corresponding BLAST/Bowtie databases of the 424 eukaryotic genomes are too large, these datasets were not uploaded to GitHub. Instead, these data can be downloaded from [http://venyao.xyz/lirbase/](http://venyao.xyz/lirbase/) through the &quot;Download&quot; menu (Figure 18).
+>We utilized the RNAfold software to predict and visualize the secondary structure of the potential hpRNA encoded by a LIR (Figure 17). The DNA sequence of a single LIR should be inputted at a time. The secondary structure in dot-bracket notation and the secondary structure in PDF image are displayed in the output, which can also be downloaded.
 
 <div align=center><img src="Fig17.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=4>Figure 17. The &quot;Installation&quot; submenu of the &quot;Help&quot; menu of LIRBase.</font></div>  
+<div align=center><font color=blue size=4>Figure 17. The 'Visualize' menu of LIRBase.</font></div>  
+
+## **9. Download LIRs of 424 eukaryotic genomes, the BLAST database and the Bowtie index database**
+
+>&emsp;&emsp;In addition to be used online at [http://venyao.xyz/lirbase/](http://venyao.xyz/lirbase/), LIRBase can be deployed on a personal local or web Linux server. Deployment of LIRBase is platform independent, i.e., LIRBase can be deployed on any platform with the R environment available. The detailed steps are described in the &quot;Installation&quot; submenu of the &quot;Help&quot; menu of LIRBase (Figure 18). The source code of LIRBase is deposited in GitHub ([https://github.com/venyao/LIRBase](https://github.com/venyao/LIRBase)). As the file size of identified LIRs and the corresponding BLAST/Bowtie databases of the 424 eukaryotic genomes are too large, these datasets were not uploaded to GitHub. Instead, these data can be downloaded from [http://venyao.xyz/lirbase/](http://venyao.xyz/lirbase/) through the &quot;Download&quot; menu (Figure 19).
+
+<div align=center><img src="Fig18.png" width="85%" height="85%" align=center /></div>
+<div align=center><font color=blue size=4>Figure 18. The &quot;Installation&quot; submenu of the &quot;Help&quot; menu of LIRBase.</font></div>  
 
 <br/>
 
-<div align=center><img src="Fig18.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=4>Figure 18. The &quot;Download&quot; menu of LIRBase.</font></div>  
-
-## **9. Information of 424 genomes collected in LIRBase**
-
->&emsp;&emsp;The information of 424 genomes collected in LIRBase is displayed in the &quot;Genomes&quot; menu of LIRBase (Figure 19).
-
 <div align=center><img src="Fig19.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=4>Figure 19. The &quot;Genomes&quot; menu of LIRBase.</font></div>  
+<div align=center><font color=blue size=4>Figure 19. The &quot;Download&quot; menu of LIRBase.</font></div>  
+
+## **10. Information of 424 genomes collected in LIRBase**
+
+>&emsp;&emsp;The information of 424 genomes collected in LIRBase is displayed in the &quot;Genomes&quot; menu of LIRBase (Figure 20).
+
+<div align=center><img src="Fig20.png" width="85%" height="85%" align=center /></div>
+<div align=center><font color=blue size=4>Figure 20. The &quot;Genomes&quot; menu of LIRBase.</font></div>  
 
 <br/>
