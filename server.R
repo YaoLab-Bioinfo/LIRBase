@@ -1868,8 +1868,17 @@ shinyServer(function(input, output, session) {
 	              "Predicted secondary structure of the potential RNA encoded by the LIR:"
 	            })
 	            
+	            output$RNAfold_textview <- renderUI({
+	              verbatimTextOutput("RNAfold_2nd_structure_text")
+	            })
+	            
 	            output$RNAfold_2nd_structure_text <- renderText({
-	              rnafold.out
+	              tmp.fl <- file.path(tempdir(), "rnafold.out.fa")
+	              rnafold.out.BS <- BStringSet(rnafold.out)
+	              writeXStringSet(rnafold.out.BS, file = tmp.fl, width = 120)
+	              rnafold.out.format <- readLines(tmp.fl)
+	              rnafold.out.format <- rnafold.out.format[rnafold.out.format != ">"]
+	              rnafold.out.format
 	            }, sep = "\n")
 	            
 	            output$RNAfold_pdfview <- renderUI({

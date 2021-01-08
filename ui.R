@@ -608,7 +608,7 @@ shinyUI(
                      actionButton("submitP", strong("Submit!",
                                                     bsButton("qp10", label="", icon=icon("question"), style="info", size="small")
                      ), styleclass = "success"),
-                     actionButton("clear1", strong("Clear"), styleclass = "warning"),
+                     actionButton("clear1", strong("Reset"), styleclass = "warning"),
                      actionButton("predictExam", strong("Load example"), styleclass = "info"),
                      conditionalPanel(condition="input.submitP != '0'", busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
                      bsPopover("qp10", "Click this button to start the annotation!",
@@ -1007,7 +1007,7 @@ shinyUI(
           actionButton("submitDeseq", strong("Submit!",
                                              bsButton("qsubmitDeseq", label="", icon=icon("question"), style="info", size="small")
           ), styleclass = "success"),
-          actionButton("clearDeseq", strong("Clear"), styleclass = "warning"),
+          actionButton("clearDeseq", strong("Reset"), styleclass = "warning"),
           actionButton("deseqExam", strong("Load example"), styleclass = "info"),
           conditionalPanel(condition="input.submitDeseq != '0'", busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
           bsPopover("qsubmitDeseq", "Click this button to start the calculation!",
@@ -1168,7 +1168,16 @@ shinyUI(
                                        font-style: bold;
                                       }"
                  )),
-                 verbatimTextOutput("RNAfold_2nd_structure_text"),
+                 
+                 tags$head(tags$style("#RNAfold_2nd_structure_text {
+                    width: 100%; 
+                    padding: 6px 12px; 
+                    white-space: pre-wrap;
+                    height: 300px;
+                    }"
+                 )),
+                 
+                 uiOutput("RNAfold_textview"),
                  uiOutput("RNAfold_pdfview")
           )
         )
