@@ -1221,6 +1221,9 @@ shinyUI(
                  tabPanel(h5("Installation"),
                           includeMarkdown("README.md")
                  ),
+				 tabPanel(h5("Links"),
+                          includeMarkdown("Links.md")
+                 ),
                  tabPanel(h5("Contact"),
                           includeMarkdown("Contact.md")
                  )
