@@ -21,8 +21,8 @@ shinyServer(function(input, output, session) {
     HTML.tab <- read.table("icon.tab.txt", head=F, as.is=T, fill=NA, sep="\t")
     colnames(HTML.tab) <- rep("", 8)
     output$HTMLtable <- DT::renderDataTable(HTML.tab,
-                                            options = list(pageLength = 55, dom = 't',
-                                                           searching = FALSE, autoWidth = TRUE, bSort=FALSE),
+                                            options = list(pageLength = 55, dom = 't', scrollX = TRUE,
+                                                           searching = FALSE, autoWidth = FALSE, bSort=FALSE),
                                             escape = FALSE, selection=list(mode="single", target="cell"), 
                                             rownames= FALSE
     )
@@ -48,10 +48,9 @@ shinyServer(function(input, output, session) {
         
         output$LIR_info_num <- DT::renderDataTable(
           dat.spark.target,
-          escape = FALSE, rownames= FALSE, selection="none",
           options = list(
-            pageLength = 10, autoWidth = TRUE, bSort=FALSE, dom = 't'
-          )
+            pageLength = 10, dom = 't', scrollX = TRUE, searching = FALSE, autoWidth = FALSE, bSort=FALSE
+          ), escape = FALSE, rownames= FALSE, selection="none"
         )
         
         output$Length <- renderPlot({
@@ -88,7 +87,7 @@ shinyServer(function(input, output, session) {
         output$IRFbrowse_title <- renderText("List of all the LIRs identified by IRF:")
         output$IRFbrowse <- DT::renderDataTable(
           dat.content, extensions = 'Scroller',
-          options = list(pageLength = 10, autoWidth = TRUE, lengthMenu = c(10, 20, 30, 50, 100), 
+          options = list(pageLength = 10, autoWidth = FALSE, lengthMenu = c(10, 20, 30, 50, 100), 
                          searchHighlight = TRUE, scrollY = 300, scroller = TRUE),
           rownames= FALSE, filter = 'top', selection=list(mode="single", target="cell")
         )
@@ -117,7 +116,7 @@ shinyServer(function(input, output, session) {
         output$LIR_info_title <- renderText("Information of the selected LIR:")
         output$LIR_info <- DT::renderDataTable(
           dat.content[IRF.index[, 1], ], 
-          options = list(paging = FALSE, searching = FALSE, autoWidth = TRUE, bSort=FALSE, dom = 't'), 
+          options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE), 
           escape = FALSE, rownames= FALSE, selection="none"
         )
         
@@ -134,7 +133,7 @@ shinyServer(function(input, output, session) {
             colnames(LIR.gene.op) <- ""
             LIR.gene.op
           }
-        }, options = list(paging = FALSE, searching = FALSE, autoWidth = TRUE, bSort=FALSE, dom = 't'), 
+        }, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE), 
           escape = FALSE, rownames= FALSE, selection="none"
         )
         
@@ -232,7 +231,7 @@ shinyServer(function(input, output, session) {
     } else {
       searchedRegResults()[[1]]
     }
-  }, options = list(paging = TRUE, searching = TRUE, searchHighlight = TRUE), 
+  }, options = list(paging = TRUE, searching = TRUE, searchHighlight = TRUE, scrollX = TRUE, autoWidth = FALSE), 
   rownames= FALSE, selection = "single")
   
   ## Download structure of LIRs in user searching result
@@ -276,7 +275,7 @@ shinyServer(function(input, output, session) {
         LIR.gene.op
       }
     }
-  }, options = list(paging = FALSE, searching = FALSE, autoWidth = TRUE, bSort=FALSE, dom = 't'), 
+  }, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE), 
   escape = FALSE, rownames= FALSE, selection="none")
   
   ## Display LIR sequence
@@ -403,7 +402,8 @@ shinyServer(function(input, output, session) {
       } else {
         searchedIDResults()[[1]]
       }
-    }, options = list(paging = TRUE, searching = TRUE, searchHighlight = TRUE), rownames= FALSE, selection = "single")
+    }, options = list(paging = TRUE, searching = TRUE, searchHighlight = TRUE, scrollX = TRUE, autoWidth = FALSE), 
+    rownames= FALSE, selection = "single")
   
   ## Download structure of LIRs in user searching result
   output$searchIDDownIRFresult.txt <- downloadHandler(
@@ -446,7 +446,7 @@ shinyServer(function(input, output, session) {
         LIR.gene.op
       }
     }
-  }, options = list(paging = FALSE, searching = FALSE, autoWidth = TRUE, bSort=FALSE, dom = 't'), 
+  }, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE), 
   escape = FALSE, rownames= FALSE, selection="none")
   
   ## Display LIR sequence
@@ -575,7 +575,7 @@ shinyServer(function(input, output, session) {
     } else {
       blastedResults()
     }
-  }, escape = FALSE, rownames= FALSE, selection="single", options = list(pageLength = 10, autoWidth = TRUE, bSort=FALSE))
+  }, escape = FALSE, rownames= FALSE, selection="single", options = list(pageLength = 10, autoWidth = FALSE, bSort=FALSE, scrollX = TRUE))
   
   # Update Tab Panel
   observe({
@@ -783,7 +783,7 @@ shinyServer(function(input, output, session) {
         LIR.gene.op
       }
     }
-  }, options = list(paging = FALSE, searching = FALSE, autoWidth = TRUE, bSort=FALSE, dom = 't'), 
+  }, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE), 
   escape = FALSE, rownames= FALSE, selection="none")
   
   ## Display LIR sequence
@@ -1546,7 +1546,7 @@ shinyServer(function(input, output, session) {
 	      LIR.gene.op
 	    }
 	  }
-	}, options = list(paging = FALSE, searching = FALSE, autoWidth = TRUE, bSort=FALSE, dom = 't'),
+	}, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE),
 	escape = FALSE, rownames= FALSE, selection="none")
 	
 	## Display LIR sequence
@@ -1665,7 +1665,7 @@ shinyServer(function(input, output, session) {
 	          DESeq2.res.table.dt
 	        }
 	      }, escape = FALSE, rownames= FALSE, selection="none",
-	         options = list(pageLength = 5, autoWidth = TRUE, bSort=TRUE)
+	         options = list(pageLength = 5, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE)
 	      )
 	      
 	      output$DESeq2_result_table.txt <- downloadHandler(
@@ -1934,20 +1934,20 @@ shinyServer(function(input, output, session) {
 	output$downloadTable = shiny::renderDataTable({
 	  IRF_result <- read.csv("IRF_result.csv", head=T, as.is=T)
 	  IRF_result
-	}, options = list(lengthMenu = c(20, 30, 50), pageLength = 20, 
-	                  searching = TRUE, autoWidth = TRUE, bSort=FALSE), escape = FALSE)
+	}, options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
+	                  searching = TRUE, autoWidth = FALSE, bSort=FALSE), escape = FALSE)
   
 	output$BLASTdbdownloadTable = shiny::renderDataTable({
 	  BLAST_db_down <- read.table("BLASTdb_download.txt", head=T, as.is=T, sep="\t")
 	  BLAST_db_down
-	}, options = list(lengthMenu = c(20, 30, 50), pageLength = 20, 
-	                  searching = TRUE, autoWidth = TRUE, bSort=FALSE), escape = FALSE)
+	}, options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
+	                  searching = TRUE, autoWidth = FALSE, bSort=FALSE), escape = FALSE)
 	
 	output$BowtiedbdownloadTable = shiny::renderDataTable({
 	  Bowtie_db_down <- read.table("Bowtiedb_download.txt", head=T, as.is=T, sep="\t")
 	  Bowtie_db_down
-	}, options = list(lengthMenu = c(20, 30, 50), pageLength = 20, 
-	                  searching = TRUE, autoWidth = TRUE, bSort=FALSE), escape = FALSE)
+	}, options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
+	                  searching = TRUE, autoWidth = FALSE, bSort=FALSE), escape = FALSE)
 	
 	# Information of 424 genomes
 	output$genomeTable = shiny::renderDataTable({
@@ -1955,8 +1955,8 @@ shinyServer(function(input, output, session) {
 	  genomes$Source <- paste0("<a href='", genomes$Source,"' target='_blank'>", genomes$Source,"</a>")
 	  genomes$Publication <- paste0("<a href='https://doi.org/", genomes$Publication,"' target='_blank'>", genomes$Publication,"</a>")
 	  genomes
-	}, options = list(lengthMenu = c(20, 30, 50), pageLength = 20, 
-	                    searching = TRUE, autoWidth = TRUE, bSort=FALSE), escape = FALSE)
+	}, options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
+	                    searching = TRUE, autoWidth = FALSE, bSort=FALSE), escape = FALSE)
 	
 	# output$pdfview <- renderUI({
 	#   tags$iframe(style = "height:900px; width:100%; scrolling=yes", src = "Tutorial.pdf")

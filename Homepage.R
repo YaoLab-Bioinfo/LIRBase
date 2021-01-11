@@ -55,19 +55,19 @@ Homepage <- dashboardPage(
         title = "Functionalities of LIRBase",
           fluidRow(
             module_Box(
-              width = 4, height='210px',
+              width = 4, height='230px',
               title = "Browse",
               imgSrc = "Browse.png",
               text = "Browse long inverted repeats identified in 424 eukaryotic genomes for the sequences, structures of LIRs and the overlaps between LIRs and genes."
             ),
             module_Box(
-              width = 4, height='210px',
+              width = 4, height='230px',
               title = "Search by genomic location",
               imgSrc = "SearchByReg.png",
               text = "Search LIRBase for long inverted repeats in a specific genome by genomic locations."
             ),
 			module_Box(
-              width = 4, height='210px',
+              width = 4, height='230px',
               title = "Search by LIR identifier",
               imgSrc = "SearchByLIRID.png",
               text = "Search LIRBase for long inverted repeats in a specific genome by the identifiers of long inverted repeats."
@@ -75,19 +75,19 @@ Homepage <- dashboardPage(
           ),
           fluidRow(
             module_Box(
-              width = 4, height='230px',
+              width = 4, height='250px',
               title = "BLAST",
               imgSrc = "BLAST.png",
               text = "Search LIRBase by sequence similarity using BLAST."
             ),
 			module_Box(
-              width = 4, height='230px',
+              width = 4, height='250px',
               title = "Annotate",
               imgSrc = "Annotate.png",
               text = "Detect and annotate long inverted repeats in user-uploaded DNA sequences."
             ),
 			module_Box(
-              width = 4, height='230px',
+              width = 4, height='250px',
               title = "Quantify",
               imgSrc = "Quantify.png",
               text = "Align small RNA sequencing data to LIRs of a specific genome to detect the origination of small RNAs from LIRs and quantify the expression level of small RNAs and LIRs."
@@ -95,19 +95,19 @@ Homepage <- dashboardPage(
           ),
 		  fluidRow(
             module_Box(
-              width = 4, height='210px',
+              width = 4, height='230px',
               title = "DESeq",
               imgSrc = "DESeq.png",
               text = "Perform differential expression analysis of long inverted repeats or small RNAs between different biological samples/tissues."
             ),
 			module_Box(
-              width = 4, height='210px',
+              width = 4, height='230px',
               title = "Visualize",
               imgSrc = "Visualize.png",
               text = "Predict and visualize the secondary structure of potential long hpRNA encoded by a long inverted repeat."
             ),
 			module_Box(
-              width = 4, height='210px',
+              width = 4, height='230px',
               title = "Download",
               imgSrc = "Download.png",
               text = "Download LIRs of 424 eukaryotic genomes, as well as the BLAST database and the Bowtie index database of LIRs."
