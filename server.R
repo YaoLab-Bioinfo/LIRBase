@@ -88,7 +88,7 @@ shinyServer(function(input, output, session) {
         output$IRFbrowse <- DT::renderDataTable(
           dat.content, extensions = 'Scroller',
           options = list(pageLength = 10, autoWidth = FALSE, lengthMenu = c(10, 20, 30, 50, 100), 
-                         searchHighlight = TRUE, scrollY = 300, scroller = TRUE),
+                         searchHighlight = TRUE, scrollY = 300, scroller = TRUE, scrollCollapse = TRUE),
           rownames= FALSE, filter = 'top', selection=list(mode="single", target="cell")
         )
         
@@ -1151,7 +1151,7 @@ shinyServer(function(input, output, session) {
 	    alignedResults()[[4]]
 	  }
 	}, escape = FALSE, rownames= FALSE, selection="single",
-	options = list(pageLength = 10, autoWidth = TRUE, bSort=TRUE)
+	options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE)
 	)
 	
 	output$Quantify_table_1_title <- renderText({
@@ -1176,7 +1176,7 @@ shinyServer(function(input, output, session) {
 	    }
 	  }
 	}, escape = FALSE, rownames= FALSE, selection="none",
-	  options = list(pageLength = 10, autoWidth = TRUE, bSort=FALSE)
+	  options = list(pageLength = 10, autoWidth = FALSE, bSort=FALSE, scrollX=TRUE)
 	)
 	
 	# Update Tab Panel
