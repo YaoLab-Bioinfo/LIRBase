@@ -144,6 +144,7 @@ shinyUI(
                              ),
                              
                              dataTableOutput("LIR_info_num"),
+                             br(),
                              
                              fixedRow(
                                column(2,
@@ -165,15 +166,16 @@ shinyUI(
                                       plotOutput("Indel_per", height = "200px", width = "200px")
                                )
                              ),
-                             
                              br(),
+                             
                              textOutput("IRFbrowse_title"),
                              tags$head(tags$style("#IRFbrowse_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
                              )),
-                             dataTableOutput("IRFbrowse")
+                             dataTableOutput("IRFbrowse"),
+                             br()
                     ),
                     
                     tabPanel("Details of the LIR selected",
@@ -295,9 +297,10 @@ shinyUI(
                                       }"
                           )),
                           dataTableOutput("Search_reg_LIR_gene_op")
-                   ),
+                   )),
                    br(),
-                   
+                 
+                 fixedRow(
                    column(6, 
                           textOutput("LIR_detail_search_reg_fasta_title"),
                           tags$head(tags$style("#LIR_detail_search_reg_fasta_title{color: red;
@@ -391,9 +394,10 @@ shinyUI(
                                                         }"
                                                )),
                                                dataTableOutput("Search_ID_LIR_gene_op")
-                                        ),
+                                        )),
                                         br(),
                                         
+                                      fixedRow(
                                         column(6, 
                                                textOutput("LIR_detail_search_ID_fasta_title"),
                                                tags$head(tags$style("#LIR_detail_search_ID_fasta_title{color: red;
@@ -542,7 +546,7 @@ shinyUI(
                              br(),br(),
                              
                              fixedRow(
-                               column(11,
+                               column(12,
                                       textOutput("Blast_LIR_gene_op_title"),
                                       tags$head(tags$style("#Blast_LIR_gene_op_title{color: red;
                                        font-size: 22px;
@@ -550,9 +554,10 @@ shinyUI(
                                       }"
                                       )),
                                       withSpinner(dataTableOutput("Blast_LIR_gene_op"))
-                               ),
-                               br(),br(),
-                               
+                               )),
+                               br(),
+                             
+                             fixedRow(
                                column(6, 
                                       textOutput("LIR_detail_blast_fasta_title"),
                                       tags$head(tags$style("#LIR_detail_blast_fasta_title{color: red;
@@ -849,7 +854,7 @@ shinyUI(
                              br(),
                              
                              fixedRow(
-                               column(11,
+                               column(12,
                                       textOutput("Quantify_LIR_gene_op_title"),
                                       tags$head(tags$style("#Quantify_LIR_gene_op_title{color: red;
                                        font-size: 22px;
@@ -857,9 +862,10 @@ shinyUI(
                                       }"
                                       )),
                                       withSpinner(dataTableOutput("Quantify_LIR_gene_op"))
-                               ),
+                               )),
                                br(),
-                               
+                            
+                             fixedRow(   
                                column(6, 
                                       textOutput("LIR_detail_align_fasta_title"),
                                       tags$head(tags$style("#LIR_detail_align_fasta_title{color: red;

@@ -84,11 +84,11 @@ shinyServer(function(input, output, session) {
           hist(dat.content$Indel_per, main = "Indel percent", xlab = "", col="grey80")
         }, height = "auto", width = "auto")
         
-        output$IRFbrowse_title <- renderText("List of all the LIRs identified by IRF:")
+        output$IRFbrowse_title <- renderText("List of all the LIRs identified by IRF (Click on the ID of a LIR to check its details):")
         output$IRFbrowse <- DT::renderDataTable(
           dat.content, extensions = 'Scroller',
           options = list(pageLength = 10, autoWidth = FALSE, lengthMenu = c(10, 20, 30, 50, 100), 
-                         searchHighlight = TRUE, scrollY = 300, scroller = TRUE, scrollCollapse = TRUE),
+                         searchHighlight = TRUE, scrollX = TRUE),
           rownames= FALSE, filter = 'top', selection=list(mode="single", target="cell")
         )
         
@@ -146,14 +146,14 @@ shinyServer(function(input, output, session) {
         writeXStringSet(LIR.seq.select, file = tmp.fl)
         LIR.seq.select <- readLines(tmp.fl)
         
-        output$LIR_sequence_title <- renderText("Sequence of the selected LIR:")
+        output$LIR_sequence_title <- renderText("Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm in upper case - right flanking seq in lower case):")
         output$LIR_sequence <- renderText(
           LIR.seq.select, sep = "\n"
         )
         
         # alignment of left against right arm
         LIR.align.select <- LIR.align[[dat.content[IRF.index]]]
-        output$LIR_detail_title <- renderText("Alignment of the left and right arms of the selected LIR:")
+        output$LIR_detail_title <- renderText("Alignment of the left and right arms of the selected LIR (* indicates complementary):")
         output$LIR_detail <- renderText(
           LIR.align.select, sep = "\n"
         )
@@ -232,7 +232,7 @@ shinyServer(function(input, output, session) {
       searchedRegResults()[[1]]
     }
   }, options = list(paging = TRUE, searching = TRUE, searchHighlight = TRUE, scrollX = TRUE, autoWidth = FALSE), 
-  rownames= FALSE, selection = "single")
+  rownames= FALSE, filter = 'top', selection = "single")
   
   ## Download structure of LIRs in user searching result
   output$searchRegDownIRFresult.txt <- downloadHandler(
@@ -283,7 +283,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchRegResult_rows_selected)) {
       
     } else {
-      "Sequence of the selected LIR:"
+      "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm in upper case - right flanking seq in lower case):"
     }
   })
   
@@ -303,7 +303,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchRegResult_rows_selected)) {
       
     } else {
-      "Alignment of the left and right arms of the selected LIR:"
+      "Alignment of the left and right arms of the selected LIR (* indicates complementary):"
     }
   })
   
@@ -454,7 +454,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchIDResult_rows_selected) || is.null(search.ID.result())) {
       
     } else {
-      "Sequence of the selected LIR:"
+      "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm in upper case - right flanking seq in lower case):"
     }
   })
   
@@ -474,7 +474,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchIDResult_rows_selected) || is.null(search.ID.result())) {
       
     } else {
-      "Alignment of the left and right arms of the selected LIR:"
+      "Alignment of the left and right arms of the selected LIR (* indicates complementary):"
     }
   })
   
@@ -791,7 +791,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
       
     } else {
-      "Sequence of the selected LIR:"
+      "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm in upper case - right flanking seq in lower case):"
     }
   })
   
@@ -811,7 +811,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
       
     } else {
-      "Alignment of the left and right arms of the selected LIR:"
+      "Alignment of the left and right arms of the selected LIR (* indicates complementary):"
     }
   })
   
@@ -1150,7 +1150,7 @@ shinyServer(function(input, output, session) {
 	  } else {
 	    alignedResults()[[4]]
 	  }
-	}, escape = FALSE, rownames= FALSE, selection="single",
+	}, escape = FALSE, rownames= FALSE, selection="single", filter = 'top',
 	options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE)
 	)
 	
@@ -1389,13 +1389,12 @@ shinyServer(function(input, output, session) {
 	      )
 	      p1
 	    } else {
-	      align.selected <- align.selected[align.selected$LIR %in% c(LIR.ID, dat.op$ID), ]
-	      align.selected$Position <- align.selected$Position + LIR.start.pos - LIT.start.pos.in
-	      align.selected$TPM <- round(align.selected$sRNA_read_number / lib.read.count * 1e6, 2)
+	      align.LIR$Position <- align.LIR$Position + LIR.start.pos - LIT.start.pos.in
+	      align.LIR$TPM <- round(align.LIR$sRNA_read_number / lib.read.count * 1e6, 2)
 	      
-	      dat.op$yval <- -1 * (1:nrow(dat.op)) * max(align.selected$TPM)/100
+	      dat.op$yval <- -1 * (1:nrow(dat.op)) * max(align.LIR$TPM)/100
 	      
-	      p1 <- ggplot(align.selected) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)),  size = input$srnaexp_point_size)
+	      p1 <- ggplot(align.LIR) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)),  size = input$srnaexp_point_size)
 	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-1, xend=y.df$end[1], yend=-1), 
 	                              lineend = "round", linejoin = "round", color = "red",
 	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
@@ -1413,7 +1412,7 @@ shinyServer(function(input, output, session) {
 	      p1 <- p1 + geom_segment(data=dat.op, aes(x=Left_end+1, y=yval, xend=Right_start-1, yend=yval), 
 	                              size = 0.6, color="grey60")
 	      p1 <- p1 + scale_colour_hue(name = "sRNA size (nt)")
-	      p1 <- p1 + scale_y_continuous(breaks = round(seq(0, max(align.selected$TPM)*1.1, length.out = 5)))
+	      p1 <- p1 + scale_y_continuous(breaks = round(seq(0, max(align.LIR$TPM)*1.1, length.out = 5)))
 	      p1 <- p1 + ylab("Expression level of sRNAs (TPM)") + xlab("Position")
 	      p1 <- p1 + theme_classic()
 	      p1 <- p1 + theme(axis.text=element_text(size=input$srnaexp_axis_tick_size),
@@ -1484,13 +1483,12 @@ shinyServer(function(input, output, session) {
 	                       legend.text=element_text(size=input$srnaexp_legend_text_size)
 	      )
 	    } else {
-	      align.selected <- align.selected[align.selected$LIR %in% c(LIR.ID, dat.op$ID), ]
-	      align.selected$Position <- align.selected$Position + LIR.start.pos - LIT.start.pos.in
-	      align.selected$TPM <- round(align.selected$sRNA_read_number / lib.read.count * 1e6, 2)
+	      align.LIR$Position <- align.LIR$Position + LIR.start.pos - LIT.start.pos.in
+	      align.LIR$TPM <- round(align.LIR$sRNA_read_number / lib.read.count * 1e6, 2)
 	      
-	      dat.op$yval <- -1 * (1:nrow(dat.op)) * max(align.selected$TPM)/100
+	      dat.op$yval <- -1 * (1:nrow(dat.op)) * max(align.LIR$TPM)/100
 	      
-	      p1 <- ggplot(align.selected) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)),  size = input$srnaexp_point_size)
+	      p1 <- ggplot(align.LIR) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)),  size = input$srnaexp_point_size)
 	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-1, xend=y.df$end[1], yend=-1), 
 	                              lineend = "round", linejoin = "round", color = "red",
 	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
@@ -1508,7 +1506,7 @@ shinyServer(function(input, output, session) {
 	      p1 <- p1 + geom_segment(data=dat.op, aes(x=Left_end+1, y=yval, xend=Right_start-1, yend=yval), 
 	                              size = 0.6, color="grey60")
 	      p1 <- p1 + scale_colour_hue(name = "sRNA size (nt)")
-	      p1 <- p1 + scale_y_continuous(breaks = round(seq(0, max(align.selected$TPM)*1.1, length.out = 5)))
+	      p1 <- p1 + scale_y_continuous(breaks = round(seq(0, max(align.LIR$TPM)*1.1, length.out = 5)))
 	      p1 <- p1 + ylab("Expression level of sRNAs (TPM)") + xlab("Position")
 	      p1 <- p1 + theme_classic()
 	      p1 <- p1 + theme(axis.text=element_text(size=input$srnaexp_axis_tick_size),
@@ -1554,7 +1552,7 @@ shinyServer(function(input, output, session) {
 	  if (is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    "Sequence of the selected LIR:"
+	    "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm in upper case - right flanking seq in lower case):"
 	  }
 	})
 	
@@ -1574,7 +1572,7 @@ shinyServer(function(input, output, session) {
 	  if (is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    "Alignment of the left and right arms of the selected LIR:"
+	    "Alignment of the left and right arms of the selected LIR (* indicates complementary):"
 	  }
 	})
 	
