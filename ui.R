@@ -1184,6 +1184,7 @@ shinyUI(
                  )),
                  
                  uiOutput("RNAfold_textview"),
+                 br(),
                  uiOutput("RNAfold_pdfview")
           )
         )

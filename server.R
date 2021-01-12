@@ -21,8 +21,8 @@ shinyServer(function(input, output, session) {
     HTML.tab <- read.table("icon.tab.txt", head=F, as.is=T, fill=NA, sep="\t")
     colnames(HTML.tab) <- rep("", 8)
     output$HTMLtable <- DT::renderDataTable(HTML.tab,
-                                            options = list(pageLength = 55, dom = 't', scrollX = TRUE,
-                                                           searching = FALSE, autoWidth = FALSE, bSort=FALSE),
+                                            options = list(pageLength = 10, scrollX = TRUE, lengthMenu = c(5, 10, 20, 30, 50, 55), 
+                                                           searchHighlight = TRUE, autoWidth = FALSE, bSort=FALSE),
                                             escape = FALSE, selection=list(mode="single", target="cell"), 
                                             rownames= FALSE
     )
@@ -146,7 +146,7 @@ shinyServer(function(input, output, session) {
         writeXStringSet(LIR.seq.select, file = tmp.fl)
         LIR.seq.select <- readLines(tmp.fl)
         
-        output$LIR_sequence_title <- renderText("Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm in upper case - right flanking seq in lower case):")
+        output$LIR_sequence_title <- renderText("Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm seq in upper case - right flanking seq in lower case):")
         output$LIR_sequence <- renderText(
           LIR.seq.select, sep = "\n"
         )
@@ -283,7 +283,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchRegResult_rows_selected)) {
       
     } else {
-      "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm in upper case - right flanking seq in lower case):"
+      "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm seq in upper case - right flanking seq in lower case):"
     }
   })
   
@@ -454,7 +454,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchIDResult_rows_selected) || is.null(search.ID.result())) {
       
     } else {
-      "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm in upper case - right flanking seq in lower case):"
+      "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm seq in upper case - right flanking seq in lower case):"
     }
   })
   
@@ -791,7 +791,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
       
     } else {
-      "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm in upper case - right flanking seq in lower case):"
+      "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm seq in upper case - right flanking seq in lower case):"
     }
   })
   
@@ -1552,7 +1552,7 @@ shinyServer(function(input, output, session) {
 	  if (is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm in upper case - right flanking seq in lower case):"
+	    "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm seq in upper case - right flanking seq in lower case):"
 	  }
 	})
 	
