@@ -41,6 +41,18 @@ Blast_Info_Title <- paste("qseqid: Query sequence ID;",
                         "bitscore: Bit score;",
                         sep = "<br>")
 
+Align_Info_Title <- paste("Click on a row to check the details of the LIR and the alignment!",
+                          "Set the values of each column to identify potential LIRs encoding hpRNA;",
+                          "sRNA_number: number of sRNAs aligned to the LIR;",
+                          "sRNA_21_22_percent: percentage of 21-nt and 22-nt sRNAs among all sRNAs aligned to the LIR;",
+                          "sRNA_24_percent: percentage of 24-nt sRNAs among all sRNAs aligned to the LIR;",
+                          "sRNA_in_arm_percent: percentage of sRNAs aligned to the arms of the LIR among all sRNAs aligned to the LIR;",
+                          "sRNA_in_loop_percent: percentage of sRNAs aligned to the loop of the LIR among all sRNAs aligned to the LIR;",
+                          "sRNA_in_flank_percent: percentage of sRNAs aligned to the flanking sequences of the LIR among all sRNAs aligned to the LIR;",
+                          "sRNA_read_number: number of sRNA sequencing reads aligned to the LIR;",
+                          sep = "<br>")
+
+
 shinyUI(
   fluidPage(
     disconnectMessage(
@@ -800,24 +812,24 @@ shinyUI(
                              br(),
                              
                              fixedRow(
-                               column(6,
+                               column(12,
                                       conditionalPanel(condition="input.submitAlign > 0", 
-                                                       tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Number of sRNA reads aligned to each LIR</b></font>'),
+                                                       tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment summary of sRNA sequencing data to each LIR</b></font>'),
                                                                 bsButton("qLIRreadCountHelp", label="", icon=icon("question"), style="info", size="small")),
-                                                       bsPopover("qLIRreadCountHelp", title = "Click on a row to check the details of the LIR and the alignment of sRNAs!", trigger = "focus", content = NULL)
+                                                       bsPopover("qLIRreadCountHelp", title = Align_Info_Title, trigger = "focus", content = NULL)
                                       ),
                                       dataTableOutput("LIRreadCount")
-                               ),
-                               
-                               column(6,
-                                      textOutput("Quantify_table_1_title"),
-                                      tags$head(tags$style("#Quantify_table_1_title{color: red;
-                                       font-size: 22px;
-                                       font-style: bold;
-                                      }"
-                                      )),
-                                      withSpinner(dataTableOutput("AlignResult"))
                                )
+                               
+                               # column(6,
+                               #        textOutput("Quantify_table_1_title"),
+                               #        tags$head(tags$style("#Quantify_table_1_title{color: red;
+                               #         font-size: 22px;
+                               #         font-style: bold;
+                               #        }"
+                               #        )),
+                               #        withSpinner(dataTableOutput("AlignResult"))
+                               # )
                              ),
                              
                              br(),

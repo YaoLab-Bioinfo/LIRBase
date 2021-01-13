@@ -24,7 +24,7 @@ library(tidyr)
 library(apeglm)
 library(Biostrings)
 library(DESeq2)
-library(IRanges)
+library(GenomicRanges)
 
 library(shinysky)
 library(dplyr)

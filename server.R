@@ -1122,9 +1122,102 @@ shinyServer(function(input, output, session) {
 	      bowtie.out.2 <- bowtie.out.1 %>% dplyr::group_by(LIR) %>% dplyr::distinct(sRNA, .keep_all = TRUE)
 	      bowtie.out.3 <- bowtie.out.2 %>% dplyr::group_by(LIR, sRNA_size) %>% dplyr::summarise(sRNA_number = dplyr::n(), sRNA_read_number = sum(sRNA_read_number))
 	      LIR.rc <- bowtie.out.3 %>% dplyr::group_by(LIR) %>% dplyr::summarise(sRNA_read_count = sum(sRNA_read_number))
-	      names(LIR.rc) <- c("LIR", "sRNA_read_count")
-	      LIR.rc <- LIR.rc %>% arrange(desc(sRNA_read_count))
-	      result <- list(bowtie.out.1, bowtie.out.3, sum(srna.rc$sRNA_read_number), LIR.rc)
+	      names(LIR.rc) <- c("LIR", "sRNA_read_number")
+	      LIR.rc <- LIR.rc %>% arrange(desc(sRNA_read_number))
+	      
+	      # sRNA length, percent
+	      LIR_read_summary <- bowtie.out.3 %>% group_by(LIR) %>% summarise(sRNA_num = sum(sRNA_number), sRNA_21_22_num = sum(sRNA_number[sRNA_size %in% c(21, 22)]),
+	                                                                             sRNA_24_num = sum(sRNA_number[sRNA_size ==24])
+	      )
+	      
+	      LIR_table <- merge(LIR.rc, LIR_read_summary, by = "LIR")
+	      LIR_table$sRNA_21_22_percent <- round(LIR_table$sRNA_21_22_num / LIR_table$sRNA_num * 100, 2)
+	      LIR_table$sRNA_24_percent <- round(LIR_table$sRNA_24_num / LIR_table$sRNA_num * 100, 2)
+	      
+	      LIR_table <- LIR_table[, c("LIR", "sRNA_num", "sRNA_21_22_percent", "sRNA_24_percent", 
+	                                 "sRNA_read_number")]
+	      names(LIR_table)[2] <- "sRNA_number"
+	      
+	      # sRNA in arm, loop and flank, percent
+	      d3 <- bowtie.out.1
+	      fasta.file <- paste0(BLASTdb.fl$Division[BLASTdb.fl$Accession == input$Aligndb], "/", input$Aligndb, ".LIR.fa.gz")
+	      fasta.file <- paste0("www/Fasta/", fasta.file)
+	      fa <- readBStringSet(fasta.file)
+	      fa <- fa[names(fa) %in% LIR_table$LIR]
+	      fa.len <- width(fa)
+	      names(fa.len) <- names(fa)
+	      
+	      fa.L <- str_locate_all(as.character(fa), "[ACGT]")
+	      fa.L.nrow <- sapply(fa.L, nrow)
+	      fa.L.df <- do.call(rbind, fa.L)
+	      fa.L.df <- data.frame(fa.L.df, stringsAsFactors = FALSE)
+	      fa.L.df$LIR <- rep(names(fa), fa.L.nrow)
+	      
+	      fa.gr <- GRanges(fa.L.df$LIR, IRanges(fa.L.df$start, fa.L.df$end))
+	      fa.arm <- as.data.frame(reduce(fa.gr))
+	      fa.arm <- fa.arm[, 1:3]
+	      names(fa.arm) <- c("LIR", "arm_start", "arm_end")
+	      fa.arm$length <- fa.len[fa.arm$LIR]
+	      
+	      fa.flank <- fa.arm %>% group_by(LIR) %>% summarise(flank_start = c(1, max(arm_end) + 1), flank_end = c(min(arm_start) - 1, max(length)))
+	      
+	      fa.loop <- fa.arm %>% group_by(LIR) %>% summarise(loop_start = min(arm_end)+1, loop_end = max(arm_start)-1)
+	      fa.loop <- fa.loop[fa.loop$loop_start < fa.loop$loop_end, ]
+	      
+	      d3.gr <- GRanges(d3$LIR, IRanges(d3$Position, d3$Position))
+	      d3$sub <- 1:nrow(d3)
+	      
+	      fa.arm$que <- 1:nrow(fa.arm)
+	      fa.arm.gr <- GRanges(fa.arm$LIR, IRanges(fa.arm$arm_start, fa.arm$arm_end))
+	      fa.arm.d3.op <- findOverlaps(fa.arm.gr, d3.gr)
+	      fa.arm.d3.op.df <- as.data.frame(fa.arm.d3.op)
+	      names(fa.arm.d3.op.df) <- c("que", "sub")
+	      fa.arm.cnt <- merge(fa.arm, fa.arm.d3.op.df, by="que")
+	      fa.arm.cnt <- merge(fa.arm.cnt, d3, by = "sub")
+	      fa.arm.cnt <- fa.arm.cnt %>% group_by(LIR.x) %>% dplyr::distinct(sRNA, .keep_all = TRUE) %>% 
+	        summarise(sRNA_in_arm = n())
+	      names(fa.arm.cnt)[1] <- "LIR"
+	      
+	      fa.loop$que <- 1:nrow(fa.loop)
+	      fa.loop.gr <- GRanges(fa.loop$LIR, IRanges(fa.loop$loop_start, fa.loop$loop_end))
+	      fa.loop.d3.op <- findOverlaps(fa.loop.gr, d3.gr)
+	      fa.loop.d3.op.df <- as.data.frame(fa.loop.d3.op)
+	      names(fa.loop.d3.op.df) <- c("que", "sub")
+	      fa.loop.cnt <- merge(fa.loop, fa.loop.d3.op.df, by="que")
+	      fa.loop.cnt <- merge(fa.loop.cnt, d3, by = "sub")
+	      fa.loop.cnt <- fa.loop.cnt %>% group_by(LIR.x) %>% dplyr::distinct(sRNA, .keep_all = TRUE) %>% 
+	        summarise(sRNA_in_loop = n())
+	      names(fa.loop.cnt)[1] <- "LIR"
+	      
+	      fa.flank$que <- 1:nrow(fa.flank)
+	      fa.flank.gr <- GRanges(fa.flank$LIR, IRanges(fa.flank$flank_start, fa.flank$flank_end))
+	      fa.flank.d3.op <- findOverlaps(fa.flank.gr, d3.gr)
+	      fa.flank.d3.op.df <- as.data.frame(fa.flank.d3.op)
+	      names(fa.flank.d3.op.df) <- c("que", "sub")
+	      fa.flank.cnt <- merge(fa.flank, fa.flank.d3.op.df, by="que")
+	      fa.flank.cnt <- merge(fa.flank.cnt, d3, by = "sub")
+	      fa.flank.cnt <- fa.flank.cnt %>% group_by(LIR.x) %>% dplyr::distinct(sRNA, .keep_all = TRUE) %>% 
+	        summarise(sRNA_in_flank = n())
+	      names(fa.flank.cnt)[1] <- "LIR"
+	      
+	      fa.whole.cnt <- Reduce(function(...)merge(..., by="LIR", all=T), list(fa.arm.cnt, fa.loop.cnt, fa.flank.cnt))
+	      
+	      fa.whole.cnt$sRNA_in_arm[is.na(fa.whole.cnt$sRNA_in_arm)] <- 0
+	      fa.whole.cnt$sRNA_in_loop[is.na(fa.whole.cnt$sRNA_in_loop)] <- 0
+	      fa.whole.cnt$sRNA_in_flank[is.na(fa.whole.cnt$sRNA_in_flank)] <- 0
+	      
+	      fa.whole.cnt$sRNA_in_arm_percent <- round(fa.whole.cnt$sRNA_in_arm / (fa.whole.cnt$sRNA_in_arm + fa.whole.cnt$sRNA_in_loop + fa.whole.cnt$sRNA_in_flank) * 100, 2)
+	      fa.whole.cnt$sRNA_in_loop_percent <- round(fa.whole.cnt$sRNA_in_loop / (fa.whole.cnt$sRNA_in_arm + fa.whole.cnt$sRNA_in_loop + fa.whole.cnt$sRNA_in_flank) * 100, 2)
+	      fa.whole.cnt$sRNA_in_flank_percent <- round(fa.whole.cnt$sRNA_in_flank / (fa.whole.cnt$sRNA_in_arm + fa.whole.cnt$sRNA_in_loop + fa.whole.cnt$sRNA_in_flank) * 100, 2)
+	      
+	      LIR_table <- merge(LIR_table, fa.whole.cnt, by = "LIR")
+	      LIR_table <- LIR_table[, c("LIR", "sRNA_number", "sRNA_21_22_percent", "sRNA_24_percent",
+	                                 "sRNA_in_arm_percent", "sRNA_in_loop_percent", "sRNA_in_flank_percent",
+	                                 "sRNA_read_number"
+	      )]
+	      LIR_table <- LIR_table[order(-LIR_table$sRNA_read_number), ]
+	      
+	      result <- list(bowtie.out.1, bowtie.out.3, sum(srna.rc$sRNA_read_number), LIR_table)
 	    } else {
 	      sendSweetAlert(
 	        session = session,
@@ -1151,33 +1244,33 @@ shinyServer(function(input, output, session) {
 	    alignedResults()[[4]]
 	  }
 	}, escape = FALSE, rownames= FALSE, selection="single", filter = 'top',
-	options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE)
+	options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE)
 	)
 	
-	output$Quantify_table_1_title <- renderText({
-	  if (is.null(align.result())) {
-	    
-	  } else {
-	    "Summary of sRNAs aligned to each LIR:"
-	  }
-	})
-	
-	output$AlignResult <- DT::renderDataTable({
-	  if (is.null(align.result())) {
-	    NULL
-	  } else {
-	    if (!is.null(input$LIRreadCount_rows_selected)) {
-	      align.srna.size <- alignedResults()[[2]]
-	      LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
-	      align.srna.size <- align.srna.size[align.srna.size$LIR %in% LIR.ID, ]
-	      align.srna.size
-	    } else {
-	      alignedResults()[[2]]
-	    }
-	  }
-	}, escape = FALSE, rownames= FALSE, selection="none",
-	  options = list(pageLength = 10, autoWidth = FALSE, bSort=FALSE, scrollX=TRUE)
-	)
+	# output$Quantify_table_1_title <- renderText({
+	#   if (is.null(align.result())) {
+	#     
+	#   } else {
+	#     "Summary of sRNAs aligned to each LIR:"
+	#   }
+	# })
+	# 
+	# output$AlignResult <- DT::renderDataTable({
+	#   if (is.null(align.result())) {
+	#     NULL
+	#   } else {
+	#     if (!is.null(input$LIRreadCount_rows_selected)) {
+	#       align.srna.size <- alignedResults()[[2]]
+	#       LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
+	#       align.srna.size <- align.srna.size[align.srna.size$LIR %in% LIR.ID, ]
+	#       align.srna.size
+	#     } else {
+	#       alignedResults()[[2]]
+	#     }
+	#   }
+	# }, escape = FALSE, rownames= FALSE, selection="none",
+	#   options = list(pageLength = 10, autoWidth = FALSE, bSort=FALSE, scrollX=TRUE)
+	# )
 	
 	# Update Tab Panel
 	observe({
