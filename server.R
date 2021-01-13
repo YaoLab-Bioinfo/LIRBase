@@ -575,7 +575,8 @@ shinyServer(function(input, output, session) {
     } else {
       blastedResults()
     }
-  }, escape = FALSE, rownames= FALSE, selection="single", options = list(pageLength = 10, autoWidth = FALSE, bSort=FALSE, scrollX = TRUE))
+  }, escape = FALSE, rownames= FALSE, selection="single", filter = 'top',
+  options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE))
   
   # Update Tab Panel
   observe({
