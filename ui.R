@@ -710,7 +710,7 @@ shinyUI(
         "Quantify",
         icon = icon("upload", class = NULL, lib = "font-awesome"),
         
-        tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Identify LIRs encoding candidate long hpRNAs by aligning sRNA sequencing data to LIRs</b></font>'),
+        tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Identify candidate LIRs encoding long hpRNAs by aligning sRNA sequencing data to LIRs</b></font>'),
                  bsButton("qQuantifyTitle", label="", icon=icon("question"), style="info", size="small")),
         bsPopover("qQuantifyTitle", "Align sRNA sequencing data to all the LIRs of a genome using Bowtie.", trigger = "focus"),
         

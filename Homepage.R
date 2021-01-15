@@ -90,7 +90,7 @@ Homepage <- dashboardPage(
               width = 4, height='250px',
               title = "Quantify",
               imgSrc = "Quantify.png",
-              text = "Identify LIRs encoding candidate long hpRNAs by aligning sRNA sequencing data to LIRs."
+              text = "Identify candidate LIRs encoding long hpRNAs by aligning sRNA sequencing data to LIRs."
             )
           ),
 		  fluidRow(

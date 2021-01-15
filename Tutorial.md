@@ -88,7 +88,7 @@
 <div align=center><img src="Fig13.png" width="85%" height="85%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 13. The LIRs identified by IRF viewed in HTML pages.</font></div>  
 
-## **6. Identify LIRs encoding candidate long hpRNAs by aligning sRNA sequencing data to LIRs**
+## **6. Identify candidate LIRs encoding long hpRNAs by aligning sRNA sequencing data to LIRs**
 
 >&emsp;&emsp;When transcribed, long inverted repeat can form long hairpin RNA genes (hpRNAs), which are much longer than typical animal or plant pre-miRNAs. Henderson et al. (2006) reported the biogenesis of small interfering RNAs (siRNAs) from long inverted repeat in _Arabidopsis thaliana_ for the first time. This siRNA biogenesis pathway was soon reported and verified in other animals and plants.
 
