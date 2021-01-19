@@ -1118,7 +1118,9 @@ shinyServer(function(input, output, session) {
 	      bowtie.out <- fread(srna.bowtie, data.table=F, head=F, select=c(1, 3, 4))
 	      names(bowtie.out) <- c("ID", "LIR", "Position")
 	      srna.rc$ID <- 1:nrow(srna.rc)
-	      bowtie.out.1 <- merge(bowtie.out, srna.rc, by="ID")
+	      bowtie.out.1 <- bowtie.out
+	      bowtie.out.1$sRNA <- srna.rc$sRNA[bowtie.out.1$ID]
+	      bowtie.out.1$sRNA_read_number <- srna.rc$sRNA_read_number[bowtie.out.1$ID]
 	      bowtie.out.1$sRNA_size <- nchar(bowtie.out.1$sRNA)
 	      bowtie.out.2 <- bowtie.out.1 %>% dplyr::group_by(LIR) %>% dplyr::distinct(sRNA, .keep_all = TRUE)
 	      bowtie.out.3 <- bowtie.out.2 %>% dplyr::group_by(LIR, sRNA_size) %>% dplyr::summarise(sRNA_number = dplyr::n(), sRNA_read_number = sum(sRNA_read_number))
@@ -1140,7 +1142,6 @@ shinyServer(function(input, output, session) {
 	      names(LIR_table)[2] <- "sRNA_number"
 	      
 	      # sRNA in arm, loop and flank, percent
-	      d3 <- bowtie.out.1
 	      fasta.file <- paste0(BLASTdb.fl$Division[BLASTdb.fl$Accession == input$Aligndb], "/", input$Aligndb, ".LIR.fa.gz")
 	      fasta.file <- paste0("www/Fasta/", fasta.file)
 	      fa <- readBStringSet(fasta.file)
@@ -1148,58 +1149,36 @@ shinyServer(function(input, output, session) {
 	      fa.len <- width(fa)
 	      names(fa.len) <- names(fa)
 	      
-	      fa.L <- str_locate_all(as.character(fa), "[ACGT]")
+	      fa.L <- str_locate_all(as.character(fa), "[ACGT]+")
 	      fa.L.nrow <- sapply(fa.L, nrow)
-	      fa.L.df <- do.call(rbind, fa.L)
-	      fa.L.df <- data.frame(fa.L.df, stringsAsFactors = FALSE)
-	      fa.L.df$LIR <- rep(names(fa), fa.L.nrow)
-	      
-	      fa.gr <- GRanges(fa.L.df$LIR, IRanges(fa.L.df$start, fa.L.df$end))
-	      fa.arm <- as.data.frame(reduce(fa.gr))
-	      fa.arm <- fa.arm[, 1:3]
-	      names(fa.arm) <- c("LIR", "arm_start", "arm_end")
+	      fa.arm <- do.call(rbind, fa.L)
+	      fa.arm <- data.frame(fa.arm, stringsAsFactors = FALSE)
+	      fa.arm$LIR <- rep(names(fa), fa.L.nrow)
 	      fa.arm$length <- fa.len[fa.arm$LIR]
+	      fa.arm <- fa.arm[, c("LIR", "start", "end", "length")]
+	      names(fa.arm) <- c("LIR", "arm_start", "arm_end", "length")
 	      
 	      fa.flank <- fa.arm %>% group_by(LIR) %>% summarise(flank_start = c(1, max(arm_end) + 1), flank_end = c(min(arm_start) - 1, max(length)))
 	      
 	      fa.loop <- fa.arm %>% group_by(LIR) %>% summarise(loop_start = min(arm_end)+1, loop_end = max(arm_start)-1)
 	      fa.loop <- fa.loop[fa.loop$loop_start < fa.loop$loop_end, ]
 	      
-	      d3.gr <- GRanges(d3$LIR, IRanges(d3$Position, d3$Position))
-	      d3$sub <- 1:nrow(d3)
+	      d2.gr <- GRanges(bowtie.out.2$LIR, IRanges(bowtie.out.2$Position, bowtie.out.2$Position))
 	      
-	      fa.arm$que <- 1:nrow(fa.arm)
 	      fa.arm.gr <- GRanges(fa.arm$LIR, IRanges(fa.arm$arm_start, fa.arm$arm_end))
-	      fa.arm.d3.op <- findOverlaps(fa.arm.gr, d3.gr)
-	      fa.arm.d3.op.df <- as.data.frame(fa.arm.d3.op)
-	      names(fa.arm.d3.op.df) <- c("que", "sub")
-	      fa.arm.cnt <- merge(fa.arm, fa.arm.d3.op.df, by="que")
-	      fa.arm.cnt <- merge(fa.arm.cnt, d3, by = "sub")
-	      fa.arm.cnt <- fa.arm.cnt %>% group_by(LIR.x) %>% dplyr::distinct(sRNA, .keep_all = TRUE) %>% 
-	        summarise(sRNA_in_arm = n())
-	      names(fa.arm.cnt)[1] <- "LIR"
+	      fa.arm.cnt <- fa.arm
+	      fa.arm.cnt$sRNA_in_arm <- countOverlaps(fa.arm.gr, d2.gr)
+	      fa.arm.cnt <- fa.arm.cnt %>% group_by(LIR) %>% summarise(sRNA_in_arm = sum(sRNA_in_arm))
 	      
-	      fa.loop$que <- 1:nrow(fa.loop)
 	      fa.loop.gr <- GRanges(fa.loop$LIR, IRanges(fa.loop$loop_start, fa.loop$loop_end))
-	      fa.loop.d3.op <- findOverlaps(fa.loop.gr, d3.gr)
-	      fa.loop.d3.op.df <- as.data.frame(fa.loop.d3.op)
-	      names(fa.loop.d3.op.df) <- c("que", "sub")
-	      fa.loop.cnt <- merge(fa.loop, fa.loop.d3.op.df, by="que")
-	      fa.loop.cnt <- merge(fa.loop.cnt, d3, by = "sub")
-	      fa.loop.cnt <- fa.loop.cnt %>% group_by(LIR.x) %>% dplyr::distinct(sRNA, .keep_all = TRUE) %>% 
-	        summarise(sRNA_in_loop = n())
-	      names(fa.loop.cnt)[1] <- "LIR"
+	      fa.loop.cnt <- fa.loop
+	      fa.loop.cnt$sRNA_in_loop <- countOverlaps(fa.loop.gr, d2.gr)
+	      fa.loop.cnt <- fa.loop.cnt %>% group_by(LIR) %>% summarise(sRNA_in_loop = sum(sRNA_in_loop))
 	      
-	      fa.flank$que <- 1:nrow(fa.flank)
 	      fa.flank.gr <- GRanges(fa.flank$LIR, IRanges(fa.flank$flank_start, fa.flank$flank_end))
-	      fa.flank.d3.op <- findOverlaps(fa.flank.gr, d3.gr)
-	      fa.flank.d3.op.df <- as.data.frame(fa.flank.d3.op)
-	      names(fa.flank.d3.op.df) <- c("que", "sub")
-	      fa.flank.cnt <- merge(fa.flank, fa.flank.d3.op.df, by="que")
-	      fa.flank.cnt <- merge(fa.flank.cnt, d3, by = "sub")
-	      fa.flank.cnt <- fa.flank.cnt %>% group_by(LIR.x) %>% dplyr::distinct(sRNA, .keep_all = TRUE) %>% 
-	        summarise(sRNA_in_flank = n())
-	      names(fa.flank.cnt)[1] <- "LIR"
+	      fa.flank.cnt <- fa.flank
+	      fa.flank.cnt$sRNA_in_flank <- countOverlaps(fa.flank.gr, d2.gr)
+	      fa.flank.cnt <- fa.flank.cnt %>% group_by(LIR) %>% summarise(sRNA_in_flank = sum(sRNA_in_flank))
 	      
 	      fa.whole.cnt <- Reduce(function(...)merge(..., by="LIR", all=T), list(fa.arm.cnt, fa.loop.cnt, fa.flank.cnt))
 	      
@@ -1304,13 +1283,13 @@ shinyServer(function(input, output, session) {
 	)
 	
 	output$sRNAalignResult.txt <- downloadHandler(
-	  filename <- function() { paste('sRNA_alignment_detail.txt') },
+	  filename <- function() { paste('sRNA_alignment_detail.txt.gz') },
 	  content <- function(file) {
 	    sRNA.align.detail <- alignedResults()[[1]]
 	    sRNA.align.detail <- sRNA.align.detail[, -1]
 	    sRNA.align.detail <- sRNA.align.detail[order(sRNA.align.detail$LIR, sRNA.align.detail$Position), ]
-	    fwrite(sRNA.align.detail, file, sep="\t", quote=F)
-	  }, contentType = 'text/plain'
+	    fwrite(sRNA.align.detail, file, sep="\t", quote=F, compress = "gzip")
+	  }, contentType = 'application/gzip'
 	)
 	
 	output$sRNAalignLIRrc.txt <- downloadHandler(

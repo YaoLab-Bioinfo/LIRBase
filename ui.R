@@ -42,7 +42,7 @@ Blast_Info_Title <- paste("qseqid: Query sequence ID;",
                         sep = "<br>")
 
 Align_Info_Title <- paste("Click on a row to check the details of the LIR and the alignment!",
-                          "Set the values of each column to identify potential LIRs encoding hpRNA;",
+                          "Set the values of each column to identify candidate LIRs encoding hpRNA;",
                           "sRNA_number: number of sRNAs aligned to the LIR;",
                           "sRNA_21_22_percent: percentage of 21-nt and 22-nt sRNAs among all sRNAs aligned to the LIR;",
                           "sRNA_24_percent: percentage of 24-nt sRNAs among all sRNAs aligned to the LIR;",
@@ -723,7 +723,7 @@ shinyUI(
                                       ), choices = list("Paste input data" = "paste", 
                                                         "Upload input data" = "upload"),
                                       selected = "paste"),
-                                      bsPopover("qAlignIn", "The input data must be a table with two columns. The 1st column is the sequence of sRNAs and the 2nd column is the read count of each sRNA. The column name is optional.", trigger = "focus"),
+                                      bsPopover("qAlignIn", "The input data must be a table with two columns. The 1st column is the sequence of sRNAs and the 2nd column is the read count of each sRNA. The column name is optional. <br> The uploaded data can be a gzip compressed file.", trigger = "focus"),
                                       conditionalPanel(condition="input.In_align == 'paste'", 
                                                        textAreaInput("AlignInPaste", label = h4("Paste sRNA read count"),
                                                                      value = "", resize = "vertical", height='400px', width = '100%',
