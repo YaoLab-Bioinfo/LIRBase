@@ -520,43 +520,59 @@ shinyServer(function(input, output, session) {
       blast.in.seq <- readLines(input$BlastSeqUpload$datapath)
     }
     
-    blast.in.file <- gsub("\\s+", "-", Sys.time())
-    blast.in.file <- gsub(":", "-", blast.in.file)
-    blast.in.file <- paste0(blast.in.file, ".fasta")
-    blast.in.file <- file.path(tempdir(), blast.in.file)
-    writeLines(blast.in.seq, con = blast.in.file)
-    
-    blast.db <- input$BLASTdb
-    blast.db <- paste0("www/LIRBase_blastdb/", blast.db)
-    blast.db.fl <- paste0(blast.db, ".nhr")
-    
-    if (!file.exists(blast.db.fl)) {
+    if ((length(blast.in.seq) == 1) && (blast.in.seq == "")) {
       sendSweetAlert(
         session = session,
-        title = "BLAST database not found!", type = "error",
+        title = "No input data received!", type = "error",
         text = NULL
       )
-      NULL
     } else {
-      blast.out.file <- paste0(blast.in.file, ".blast.out")
+      blast.in.file <- gsub("\\s+", "-", Sys.time())
+      blast.in.file <- gsub(":", "-", blast.in.file)
+      blast.in.file <- paste0(blast.in.file, ".fasta")
+      blast.in.file <- file.path(tempdir(), blast.in.file)
+      writeLines(blast.in.seq, con = blast.in.file)
       
-      blast.cmds <- paste0("blastn -query ", blast.in.file, " -db ", '"', paste(blast.db, sep=" ", collapse = " "), '"', 
-                           " -evalue ", input$BLASTev, " -outfmt ", '"6 qseqid qlen sseqid slen length qstart qend sstart send mismatch gapopen pident qcovhsp evalue bitscore"', " -out ", blast.out.file)
-      system(blast.cmds, ignore.stdout = TRUE, ignore.stderr = TRUE)
+      blast.db <- input$BLASTdb
+      blast.db <- paste0("www/LIRBase_blastdb/", blast.db)
+      blast.db.fl <- paste0(blast.db, ".nhr")
       
-      if (file.size(blast.out.file) > 0) {
-        blast.out <- read.table(blast.out.file, head=F, as.is=T)
-        names(blast.out) <- c("qseqid", "qlen", "sseqid", "slen", "length", "qstart", "qend", "sstart", "send", "mismatch", "gapopen", "pident", "qcovhsp", "evalue", "bitscore")
-        blast.out
-      } else {
+      if (!all(file.exists(blast.db.fl))) {
         sendSweetAlert(
           session = session,
-          title = "No BLAST hits found!", type = "info",
+          title = "BLAST database not found!", type = "error",
           text = NULL
         )
         NULL
+      } else if (length(blast.db.fl) > 10) {
+        sendSweetAlert(
+          session = session,
+          title = "No more than 10 BLAST databases are allowed!", type = "error",
+          text = NULL
+        )
+        NULL
+      } else {
+        blast.out.file <- paste0(blast.in.file, ".blast.out")
+        
+        blast.cmds <- paste0("blastn -query ", blast.in.file, " -db ", '"', paste(blast.db, sep=" ", collapse = " "), '"', 
+                             " -evalue ", input$BLASTev, " -outfmt ", '"6 qseqid qlen sseqid slen length qstart qend sstart send mismatch gapopen pident qcovhsp evalue bitscore"', " -out ", blast.out.file)
+        system(blast.cmds, ignore.stdout = TRUE, ignore.stderr = TRUE)
+        
+        if (file.size(blast.out.file) > 0) {
+          blast.out <- read.table(blast.out.file, head=F, as.is=T)
+          names(blast.out) <- c("qseqid", "qlen", "sseqid", "slen", "length", "qstart", "qend", "sstart", "send", "mismatch", "gapopen", "pident", "qcovhsp", "evalue", "bitscore")
+          blast.out
+        } else {
+          sendSweetAlert(
+            session = session,
+            title = "No BLAST hits found!", type = "info",
+            text = NULL
+          )
+          NULL
+        }
       }
     }
+    
   }, ignoreNULL= T)
   
   blastedResults <- reactive({
