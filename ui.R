@@ -1003,7 +1003,7 @@ shinyUI(
           ), choices = list("Paste input data" = "paste", 
                             "Upload input data" = "upload"), 
           selected = "paste"),
-          bsPopover("qDeseqInTable", "The sample in the count matrix and the sample in the information table must be in the same order. Check the example data for the format of a sample information table.", trigger = "focus"),
+          bsPopover("qDeseqInTable", "The sample in the count matrix and the sample in the information table must be in the same order. Only two different conditions are allowed. Check the example data for the format of a sample information table.", trigger = "focus"),
           conditionalPanel(condition="input.In_deseq_table == 'paste'", 
                            textAreaInput("DeseqTablePaste", label = h4("Input sample information table"),
                                          value = "", resize = "vertical", height='180px', width = '100%',
