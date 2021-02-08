@@ -1301,10 +1301,12 @@ shinyServer(function(input, output, session) {
 	output$sRNAalignResult.txt <- downloadHandler(
 	  filename <- function() { paste('sRNA_alignment_detail.txt.gz') },
 	  content <- function(file) {
-	    sRNA.align.detail <- alignedResults()[[1]]
-	    sRNA.align.detail <- sRNA.align.detail[, -1]
-	    sRNA.align.detail <- sRNA.align.detail[order(sRNA.align.detail$LIR, sRNA.align.detail$Position), ]
-	    fwrite(sRNA.align.detail, file, sep="\t", quote=F, compress = "gzip")
+	    withProgress(message = 'Downloading..', value = 0, detail = 'This may take a while...', {
+	      sRNA.align.detail <- alignedResults()[[1]]
+	      sRNA.align.detail <- sRNA.align.detail[, -1]
+	      sRNA.align.detail <- sRNA.align.detail[order(sRNA.align.detail$LIR, sRNA.align.detail$Position), ]
+	      fwrite(sRNA.align.detail, file, sep="\t", quote=F, compress = "gzip")
+	    })
 	  }, contentType = 'application/gzip'
 	)
 	
