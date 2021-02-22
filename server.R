@@ -1894,6 +1894,10 @@ shinyServer(function(input, output, session) {
 	      vis.Seq <- gsub("^\\s+", "", vis.Seq)
 	      vis.Seq <- gsub("\\s+$", "", vis.Seq)
 	      
+	      vis.Seq <- gsub(":+", "_", vis.Seq)
+	      vis.Seq <- gsub(",+", "_", vis.Seq)
+	      vis.Seq <- gsub("-+", "_", vis.Seq)
+	      
 	      if ((length(vis.Seq) == 1) && (vis.Seq == "")) {
 	        sendSweetAlert(
 	          session = session,
