@@ -1243,31 +1243,6 @@ shinyServer(function(input, output, session) {
 	options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE)
 	)
 	
-	# output$Quantify_table_1_title <- renderText({
-	#   if (is.null(align.result())) {
-	#     
-	#   } else {
-	#     "Summary of sRNAs aligned to each LIR:"
-	#   }
-	# })
-	# 
-	# output$AlignResult <- DT::renderDataTable({
-	#   if (is.null(align.result())) {
-	#     NULL
-	#   } else {
-	#     if (!is.null(input$LIRreadCount_rows_selected)) {
-	#       align.srna.size <- alignedResults()[[2]]
-	#       LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
-	#       align.srna.size <- align.srna.size[align.srna.size$LIR %in% LIR.ID, ]
-	#       align.srna.size
-	#     } else {
-	#       alignedResults()[[2]]
-	#     }
-	#   }
-	# }, escape = FALSE, rownames= FALSE, selection="none",
-	#   options = list(pageLength = 10, autoWidth = FALSE, bSort=FALSE, scrollX=TRUE)
-	# )
-	
 	# Update Tab Panel
 	observe({
 	  if (input$submitAlign >0) {
@@ -1885,6 +1860,97 @@ shinyServer(function(input, output, session) {
 	  } else {NULL}
 	})
 	
+	
+	# Target
+	observe({
+	  if (input$submitTarget>0) {
+	    isolate({
+	      target.Seq <- input$TargetPaste
+	      target.Seq <- gsub("^\\s+", "", target.Seq)
+	      target.Seq <- gsub("\\s+$", "", target.Seq)
+	      
+	      if (target.Seq == "") {
+	        sendSweetAlert(
+	          session = session,
+	          title = "No input data received!", type = "error",
+	          text = NULL
+	        )
+	        NULL
+	      } else {
+	        srna.tin.name <- gsub("\\s+", "-", Sys.time())
+	        srna.tin.name <- gsub(":", "-", srna.tin.name)
+	        srna.tin.name <- paste0(srna.tin.name, ".fasta")
+	        srna.tin.name.file <- file.path(tempdir(), srna.tin.name)
+
+	        if (grepl(">", target.Seq)) {
+	          writeLines(target.Seq, con = srna.tin.name.file)
+	        } else {
+	          target.Seq.fa <- DNAStringSet(unlist(strsplit(target.Seq, split="\n")))
+	          names(target.Seq.fa) <- 1:length(target.Seq.fa)
+	          writeXStringSet(target.Seq.fa, file = srna.tin.name.file)
+	        }
+
+	        bowtie.cDNA.db <- paste0("www/LIRBase_cDNA_bowtiedb/", input$Targetdb)
+	        srna.cDNA.bowtie <- paste0(srna.tin.name.file, ".bowtie")
+
+	        bowtie.cDNA.cmd <- paste0("bowtie -x ", bowtie.cDNA.db, " -f ", srna.tin.name.file, " -v ", input$MaxTargetMismatch, " -p 5 -k ", input$MaxTargetHit, " > ", srna.cDNA.bowtie)
+	        system(bowtie.cDNA.cmd, wait = TRUE, timeout = 0)
+
+	        if (file.exists(srna.cDNA.bowtie) && file.size(srna.cDNA.bowtie) >0) {
+	          bowtie.cDNA.out <- fread(srna.cDNA.bowtie, data.table=F, head=F, select=c(2, 3, 5))
+	          names(bowtie.cDNA.out) <- c("strand", "mRNA", "sRNA")
+	          bowtie.cDNA.out <- bowtie.cDNA.out[bowtie.cDNA.out$strand == "-", ]
+	          bowtie.cDNA.out <- unique(bowtie.cDNA.out)
+	          bowtie.cDNA.out$size <- nchar(bowtie.cDNA.out$sRNA)
+	          bowtie.cDNA.out.summ <- bowtie.cDNA.out %>% group_by(mRNA) %>% summarise(sRNA_num = n(), sRNA_21_num = length(size[size==21]),
+	                                                                                   sRNA_22_num = length(size[size==22]), sRNA_24_num = length(size[size==24])
+	                                                                                   ) %>% arrange(desc(sRNA_num))
+	        } else {
+	          bowtie.cDNA.out.summ <- NULL
+	        }
+
+	        output$sRNATargetResult <- DT::renderDataTable({
+	          if (is.null(bowtie.cDNA.out.summ)) {
+	            bowtie.cDNA.out.summ <- data.frame("V1"="No targets found for the input small RNAs!")
+	            colnames(bowtie.cDNA.out.summ) <- ""
+	            bowtie.cDNA.out.summ
+	          } else {
+	            bowtie.cDNA.out.summ
+	          }
+	        }, escape = FALSE, rownames= FALSE, selection="none", filter = 'top',
+	        options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE, scrollX = FALSE))
+	        
+	        output$downloadTargetResult <- downloadHandler(
+	          filename <- function() { paste('gene_targets_of_sRNAs_encoded_by_a_LIR.txt') },
+	          content <- function(file) {
+	            fwrite(bowtie.cDNA.out.summ, file, sep="\t", quote=F)
+	          }, contentType = 'text/plain'
+	        )
+	        
+	      }
+	    })
+	  } else {
+	    NULL
+	  }
+	})
+	
+	observe({
+	  if (input$clearTarget>0) {
+	    isolate({
+	      updateTextAreaInput(session, "TargetPaste", value="")
+	      updatePickerInput(session, "Targetdb", selected = character(0))
+	    })
+	  } else {NULL}
+	})
+	
+	observe({
+	  if (input$TargetExam >0) {
+	    isolate({
+	      updateTextAreaInput(session, "TargetPaste", value = paste(readLines("exam_sRNA_4_target.txt"), collapse = "\n"))
+	      updatePickerInput(session, "Targetdb", selected = "Oryza_sativa.MH63")
+	    })
+	  } else {NULL}
+	})
 	
 	# Visualization
 	observe({

@@ -52,6 +52,14 @@ Align_Info_Title <- paste("Click on a row to check the details of the LIR and th
                           "sRNA_read_number: number of sRNA sequencing reads aligned to the LIR;",
                           sep = "<br>")
 
+Target_Info_Title <- paste("Identify protein-coding genes targeted by the small RNAs derived from a LIR.",
+                          "Complementary alignments of small RNAs to the cDNA sequence of protein-coding genes are investigated to identify targets of small RNAs;",
+                          "sRNA_number: number of sRNAs complementary aligned to the cDNA;",
+                          "sRNA_21_number: number of 21-nt sRNAs complementary aligned to the cDNA;",
+                          "sRNA_22_number: number of 22-nt sRNAs complementary aligned to the cDNA;",
+                          "sRNA_24_number: number of 24-nt sRNAs complementary aligned to the cDNA;",
+                          sep = "<br>")
+
 
 shinyUI(
   fluidPage(
@@ -1131,18 +1139,84 @@ shinyUI(
         )
       ),
       
+      # Target
+      tabPanel(
+        "Target",
+        icon = icon("bullseye", class = NULL, lib = "font-awesome"),
+        
+        sidebarPanel(width=4,
+                     tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Identify targets of small RNAs encoded by a LIR</b></font>'),
+                              bsButton("qTargetTitle", label="", icon=icon("question"), style="info", size="small")),
+                     bsPopover("qTargetTitle", title = Target_Info_Title, content = NULL, trigger = "focus"),
+                     
+                     textAreaInput("TargetPaste", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Paste input small RNA sequences</font>'),
+                                                                      bsButton("qTargetPaste", label="", icon=icon("question"), style="info", size="small")),
+                                   value = "", resize = "vertical", height='220px', width = '100%',
+                                   placeholder = "FASTA format or sequence only"),
+                     bsPopover("qTargetPaste", "The input data should be small RNA sequences in FASTA format or only the small RNA sequences. The sequence of sRNA should be encoded in DNA format. Check the example data for details.", trigger = "focus"),
+                     
+                     pickerInput(
+                       inputId = "Targetdb",
+                       label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose a cDNA database</font>'),
+                                        bsButton("qTargetdb", label="", icon=icon("question"), style="info", size="small")),
+                       selected = NULL, width = '100%',
+                       choices = list(
+                         Metazoa = Bowtiedb.fl$Accession[Bowtiedb.fl$Division == "Metazoa"],
+                         Plant = Bowtiedb.fl$Accession[Bowtiedb.fl$Division == "Plant"],
+                         Vertebrate = Bowtiedb.fl$Accession[Bowtiedb.fl$Division == "Vertebrate"]
+                       ),
+                       options = list(
+                         `live-search` = TRUE
+                       )
+                     ),
+                     bsPopover("qTargetdb", "Choose a single cDNA database to align the small RNA sequences.",
+                               trigger = "focus"),
+                     
+                     sliderInput("MaxTargetHit", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Max number of complementary alignment hits for each sRNA</font>'),
+                                                                 bsButton("qMAH", label="", icon=icon("question"), style="info", size="small")
+                     ), value = 50, min = 1, step = 1, max = 100),
+                     bsPopover("qMAH", "Max number of complementary alignment hits of each small RNA to report.",
+                               trigger = "focus"),
+                     
+                     sliderInput("MaxTargetMismatch", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Max number of mismatches allowed</font>'),
+                                                                  bsButton("qMaxTargetMismatch", label="", icon=icon("question"), style="info", size="small")
+                     ), value = 0, min = 0, step = 1, max = 1),
+                     bsPopover("qMaxTargetMismatch", "Max number of mismatches allowed for the alignment of each small RNA.",
+                               trigger = "focus"),
+                     
+                     br(),
+                     actionButton("submitTarget", strong("Submit!",
+                                                            bsButton("qsubmitTarget", label="", icon=icon("question"), style="info", size="small")
+                     ), styleclass = "success"),
+                     actionButton("clearTarget", strong("Clear"), styleclass = "warning"),
+                     actionButton("TargetExam", strong("Load example"), styleclass = "info"),
+                     conditionalPanel(condition="input.submitTarget != '0'", busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
+                     bsPopover("qsubmitTarget", "Click this button to start the prediction!", trigger = "focus")
+        ),
+        
+        mainPanel(
+          fixedRow(
+            column(6,
+                   downloadButton("downloadTargetResult", "Predicted targets of small RNAs encoded by a LIR", style = "width:100%;", class = "buttDown")
+            )
+          ),
+          
+          dataTableOutput("sRNATargetResult")
+        )
+      ),
+      
       
       # Visualization
       tabPanel(
         "Visualize",
-        icon = icon("bullseye", class = NULL, lib = "font-awesome"),
+        icon = icon("file-image-o", class = NULL, lib = "font-awesome"),
         
         sidebarPanel(width=4,
                      tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Visualize potential long hpRNA encoded by LIR</b></font>'),
                               bsButton("qVisualizeTitle", label="", icon=icon("question"), style="info", size="small")),
                      bsPopover("qVisualizeTitle", "Predict and visualize the secondary structure of potential long hpRNA encoded by the LIR!", trigger = "focus"),
                      
-                     textAreaInput("VisualizePaste", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Paste input sequence?</font>'),
+                     textAreaInput("VisualizePaste", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Paste input LIR sequence</font>'),
                                                                       bsButton("qVisualizePaste", label="", icon=icon("question"), style="info", size="small")),
                                    value = "", resize = "vertical", height='220px', width = '100%',
                                    placeholder = "The sequence must be in fasta format"),

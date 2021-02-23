@@ -10,4 +10,5 @@
 - **ViennaRNA**: <a href="https://www.tbi.univie.ac.at/RNA/" target="_blank">stand-alone programs for the prediction and comparison of RNA secondary structures.</a>  
 - **RNAfold web server**: <a href="http://rna.tbi.univie.ac.at/cgi-bin/RNAWebSuite/RNAfold.cgi" target="_blank">predict secondary structures of single stranded RNA or DNA sequences online.</a>  
 - **miRBase**: <a href="http://www.mirbase.org/" target="_blank">the microRNA database.</a>  
+- **psRNATarget**: <a href="http://plantgrn.noble.org/psRNATarget" target="_blank">a plant small RNA target analysis server.</a>  
 </font>
