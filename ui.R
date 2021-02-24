@@ -52,8 +52,7 @@ Align_Info_Title <- paste("Click on a row to check the details of the LIR and th
                           "sRNA_read_number: number of sRNA sequencing reads aligned to the LIR;",
                           sep = "<br>")
 
-Target_Info_Title <- paste("Identify protein-coding genes targeted by the small RNAs derived from a LIR.",
-                          "Complementary alignments of small RNAs to the cDNA sequence of protein-coding genes are investigated to identify targets of small RNAs;",
+Target_Info_Title <- paste("Identify protein-coding genes targeted by the small RNAs derived from a LIR by detect the complementary matches between small RNAs and the cDNA sequence of protein-coding genes.",
                           "sRNA_number: number of sRNAs complementary aligned to the cDNA;",
                           "sRNA_21_number: number of 21-nt sRNAs complementary aligned to the cDNA;",
                           "sRNA_22_number: number of 22-nt sRNAs complementary aligned to the cDNA;",
@@ -1145,7 +1144,7 @@ shinyUI(
         icon = icon("bullseye", class = NULL, lib = "font-awesome"),
         
         sidebarPanel(width=4,
-                     tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Identify targets of small RNAs encoded by a LIR</b></font>'),
+                     tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Identify gene targets of small RNAs encoded by a LIR</b></font>'),
                               bsButton("qTargetTitle", label="", icon=icon("question"), style="info", size="small")),
                      bsPopover("qTargetTitle", title = Target_Info_Title, content = NULL, trigger = "focus"),
                      
@@ -1153,7 +1152,7 @@ shinyUI(
                                                                       bsButton("qTargetPaste", label="", icon=icon("question"), style="info", size="small")),
                                    value = "", resize = "vertical", height='220px', width = '100%',
                                    placeholder = "FASTA format or sequence only"),
-                     bsPopover("qTargetPaste", "The input data should be small RNA sequences in FASTA format or only the small RNA sequences. The sequence of sRNA should be encoded in DNA format. Check the example data for details.", trigger = "focus"),
+                     bsPopover("qTargetPaste", "The input data should be small RNA sequences in FASTA format or only the small RNA sequences. The sequence of small RNAs should be encoded in DNA format. Check the example data for details.", trigger = "focus"),
                      
                      pickerInput(
                        inputId = "Targetdb",
@@ -1173,14 +1172,14 @@ shinyUI(
                                trigger = "focus"),
                      
                      sliderInput("MaxTargetHit", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Max number of complementary alignment hits for each sRNA</font>'),
-                                                                 bsButton("qMAH", label="", icon=icon("question"), style="info", size="small")
+                                                                 bsButton("qMaxTargetHit", label="", icon=icon("question"), style="info", size="small")
                      ), value = 50, min = 1, step = 1, max = 100),
-                     bsPopover("qMAH", "Max number of complementary alignment hits of each small RNA to report.",
+                     bsPopover("qMaxTargetHit", "Max number of complementary alignment hits of each small RNA to report.",
                                trigger = "focus"),
                      
                      sliderInput("MaxTargetMismatch", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Max number of mismatches allowed</font>'),
                                                                   bsButton("qMaxTargetMismatch", label="", icon=icon("question"), style="info", size="small")
-                     ), value = 0, min = 0, step = 1, max = 1),
+                     ), value = 0, min = 0, step = 1, max = 4),
                      bsPopover("qMaxTargetMismatch", "Max number of mismatches allowed for the alignment of each small RNA.",
                                trigger = "focus"),
                      
