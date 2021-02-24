@@ -52,7 +52,7 @@ Align_Info_Title <- paste("Click on a row to check the details of the LIR and th
                           "sRNA_read_number: number of sRNA sequencing reads aligned to the LIR;",
                           sep = "<br>")
 
-Target_Info_Title <- paste("Identify protein-coding genes targeted by the small RNAs derived from a LIR by detect the complementary matches between small RNAs and the cDNA sequence of protein-coding genes.",
+Target_Info_Title <- paste("Identify protein-coding genes targeted by the small RNAs derived from a LIR through detecting the complementary matches between small RNAs and the cDNA sequence of protein-coding genes.",
                           "sRNA_number: number of sRNAs complementary aligned to the cDNA;",
                           "sRNA_21_number: number of 21-nt sRNAs complementary aligned to the cDNA;",
                           "sRNA_22_number: number of 22-nt sRNAs complementary aligned to the cDNA;",
