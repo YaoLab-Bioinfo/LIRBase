@@ -1161,9 +1161,9 @@ shinyUI(
                                         bsButton("qTargetdb", label="", icon=icon("question"), style="info", size="small")),
                        selected = NULL, width = '100%',
                        choices = list(
-                         Metazoa = Bowtiedb.fl$Accession[Bowtiedb.fl$Division == "Metazoa"],
-                         Plant = Bowtiedb.fl$Accession[Bowtiedb.fl$Division == "Plant"],
-                         Vertebrate = Bowtiedb.fl$Accession[Bowtiedb.fl$Division == "Vertebrate"]
+                         Metazoa = Bowtiedb.cDNA.fl$Accession[Bowtiedb.cDNA.fl$Division == "Metazoa"],
+                         Plant = Bowtiedb.cDNA.fl$Accession[Bowtiedb.cDNA.fl$Division == "Plant"],
+                         Vertebrate = Bowtiedb.cDNA.fl$Accession[Bowtiedb.cDNA.fl$Division == "Vertebrate"]
                        ),
                        options = list(
                          `live-search` = TRUE

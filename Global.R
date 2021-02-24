@@ -37,6 +37,7 @@ load("dat.summary.RData")
 
 BLASTdb.fl <- read.table("BLASTdb.txt", head=T, as.is=T)
 Bowtiedb.fl <- read.table("Bowtiedb.txt", head=T, as.is=T)
+Bowtiedb.cDNA.fl <- read.table("Bowtiedb_cDNA.txt", head=T, as.is=T)
 exam1.fa <- readLines("exam1.fa")
 exam2.fa <- readLines("exam2.fa")
 exam3.fa <- readLines("exam3.fa")
