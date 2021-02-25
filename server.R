@@ -1905,6 +1905,11 @@ shinyServer(function(input, output, session) {
 	          bowtie.cDNA.out.summ <- bowtie.cDNA.out %>% group_by(mRNA) %>% summarise(sRNA_num = n(), sRNA_21_num = length(size[size==21]),
 	                                                                                   sRNA_22_num = length(size[size==22]), sRNA_24_num = length(size[size==24])
 	                                                                                   ) %>% arrange(desc(sRNA_num))
+	          
+	          cDNA.info <- fread(paste0("www/LIRBase_cDNA_bowtiedb/", input$Targetdb, ".cDNA.info.gz"), data.table = F)
+	          bowtie.cDNA.out.summ <- merge(bowtie.cDNA.out.summ, cDNA.info, by.x="mRNA", by.y="gene")
+	          bowtie.cDNA.out.summ <- bowtie.cDNA.out.summ[order(-bowtie.cDNA.out.summ$sRNA_num), ]
+	          names(bowtie.cDNA.out.summ)[6] <- "mRNA_annotation"
 	        } else {
 	          bowtie.cDNA.out.summ <- NULL
 	        }
@@ -1918,7 +1923,7 @@ shinyServer(function(input, output, session) {
 	            bowtie.cDNA.out.summ
 	          }
 	        }, escape = FALSE, rownames= FALSE, selection="none", filter = 'top',
-	        options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE, scrollX = FALSE))
+	        options = list(pageLength = 15, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE))
 	        
 	        output$downloadTargetResult <- downloadHandler(
 	          filename <- function() { paste('gene_targets_of_sRNAs_encoded_by_a_LIR.txt') },
