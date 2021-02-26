@@ -111,37 +111,44 @@
 
 ## **7. Differential expression analysis of long inverted repeats and small RNAs**
 
->&emsp;&emsp;By aligning small RNA sequencing data to a LIRBase, we can obtain the small RNA read count for each LIR in a genome. With multiple biological samples/tissues, we can perform differential expression analysis of long inverted repeats between different biological samples/tissues (Figure 17). The R package DESeq2 ([http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html](http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html)) was utilized to perform differential expression analysis. A read count matrix and a sample information table are required as input data for the differential expression analysis. The sample in the count matrix and the sample in the information table must be in the same order. Check the example data provided by LIRBase for the format of a sample information table.
+>&emsp;&emsp;By aligning small RNA sequencing data to LIRBase, we can obtain the small RNA read count for each LIR in a genome. With multiple biological samples/tissues, we can perform differential expression analysis of long inverted repeats between different biological samples/tissues (Figure 17). The R package DESeq2 ([http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html](http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html)) was utilized to perform differential expression analysis. A read count matrix and a sample information table are required as input data for the differential expression analysis. The sample in the count matrix and the sample in the information table must be in the same order. Check the example data provided by LIRBase for the format of a sample information table.
 
 >&emsp;&emsp;The results of DESeq2 can be downloaded as a plain text file or can be viewed in a data table in the HTML page (Figure 17). In addition, the MA-plot and the volcano plot showing the identified differentially expressed LIRs/sRNAs are also generated. A heatmap displaying the sample-to-sample distance is shown at the bottom of the &quot;DESeq&quot; menu.
 
 <div align=center><img src="Fig17.png" width="85%" height="85%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 17. The &quot;DESeq&quot; menu of LIRBase to perform differential expression analysis of LIRs/sRNAs.</font></div>  
 
-## **8. Predict and visualize the secondary structure of the potential hpRNA encoded by a LIR**
+## **8. Predict mRNA targets of small RNAs encoded by a LIR**
 
->We utilized the RNAfold software to predict and visualize the secondary structure of the potential hpRNA encoded by a LIR (Figure 18). The DNA sequence of a single LIR should be inputted at a time. The secondary structure in dot-bracket notation and the secondary structure in PDF image are displayed in the output, which can also be downloaded.
+>&emsp;&emsp;An analysis module was implemented to predict the mRNA targets of small RNAs encoded by a LIR through the detection of complementary matches between small RNAs and the cDNA sequence of protein-coding genes. The input should be all the small RNAs encoded by a LIR in FASTA format or sequences only (Figure 18). Then the small RNA sequences were aligned to the cDNA sequences of a specific genome by BOWTIE. The alignments were processed to identify complementary matches between small RNAs and the cDNA sequences. An example output is shown in Figure 18.
 
 <div align=center><img src="Fig18.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 18. The 'Visualize' menu of LIRBase.</font></div>  
+<div align=center><font color=blue size=5>Figure 18. The 'Target' menu of LIRBase.</font></div>  
 
-## **9. Download LIRs of 424 eukaryotic genomes, the BLAST database and the Bowtie index database**
+## **9. Predict and visualize the secondary structure of the potential hpRNA encoded by a LIR**
 
->&emsp;&emsp;In addition to be used online at [http://venyao.xyz/lirbase/](http://venyao.xyz/lirbase/), LIRBase can be deployed on a personal local or web Linux server. Deployment of LIRBase is platform independent, i.e., LIRBase can be deployed on any platform with the R environment available. The detailed steps are described in the &quot;Installation&quot; submenu of the &quot;Help&quot; menu of LIRBase (Figure 19). The source code of LIRBase is deposited in GitHub ([https://github.com/venyao/LIRBase](https://github.com/venyao/LIRBase)). As the file size of identified LIRs and the corresponding BLAST/Bowtie databases of the 424 eukaryotic genomes are too large, these datasets were not uploaded to GitHub. Instead, these data can be downloaded from [http://venyao.xyz/lirbase/](http://venyao.xyz/lirbase/) through the &quot;Download&quot; menu (Figure 20).
+>&emsp;&emsp;We utilized the RNAfold software to predict and visualize the secondary structure of the potential hpRNA encoded by a LIR (Figure 19). The DNA sequence of a single LIR should be inputted at a time. The secondary structure in dot-bracket notation and the secondary structure in PDF image are displayed in the output, which can also be downloaded.
 
 <div align=center><img src="Fig19.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 19. The &quot;Installation&quot; submenu of the &quot;Help&quot; menu of LIRBase.</font></div>  
+<div align=center><font color=blue size=5>Figure 19. The 'Visualize' menu of LIRBase.</font></div>  
+
+## **10. Download LIRs of 424 eukaryotic genomes, the BLAST database and the Bowtie index database**
+
+>&emsp;&emsp;In addition to be used online at [http://venyao.xyz/lirbase/](http://venyao.xyz/lirbase/), LIRBase can be deployed on a personal local or web Linux server. Deployment of LIRBase is platform independent, i.e., LIRBase can be deployed on any platform with the R environment available. The detailed steps are described in the &quot;Installation&quot; submenu of the &quot;Help&quot; menu of LIRBase (Figure 20). The source code of LIRBase is deposited in GitHub ([https://github.com/venyao/LIRBase](https://github.com/venyao/LIRBase)). As the file size of identified LIRs and the corresponding BLAST/Bowtie databases of the 424 eukaryotic genomes are too large, these datasets were not uploaded to GitHub. Instead, these data can be downloaded from [http://venyao.xyz/lirbase/](http://venyao.xyz/lirbase/) through the &quot;Download&quot; menu (Figure 21).
+
+<div align=center><img src="Fig20.png" width="85%" height="85%" align=center /></div>
+<div align=center><font color=blue size=5>Figure 20. The &quot;Installation&quot; submenu of the &quot;Help&quot; menu of LIRBase.</font></div>  
 
 <br/>
 
-<div align=center><img src="Fig20.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 20. The &quot;Download&quot; menu of LIRBase.</font></div>  
-
-## **10. Information of 424 genomes collected in LIRBase**
-
->&emsp;&emsp;The information of 424 genomes collected in LIRBase is displayed in the &quot;Genomes&quot; menu of LIRBase (Figure 21).
-
 <div align=center><img src="Fig21.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 21. The &quot;Genomes&quot; menu of LIRBase.</font></div>  
+<div align=center><font color=blue size=5>Figure 21. The &quot;Download&quot; menu of LIRBase.</font></div>  
+
+## **11. Information of 424 genomes collected in LIRBase**
+
+>&emsp;&emsp;The information of 424 genomes collected in LIRBase is displayed in the &quot;Genomes&quot; menu of LIRBase (Figure 22).
+
+<div align=center><img src="Fig22.png" width="85%" height="85%" align=center /></div>
+<div align=center><font color=blue size=5>Figure 22. The &quot;Genomes&quot; menu of LIRBase.</font></div>  
 
 <br/>

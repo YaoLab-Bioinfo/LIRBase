@@ -100,17 +100,17 @@ Homepage <- dashboardPage(
               imgSrc = "DESeq.png",
               text = "Perform differential expression analysis of LIRs or small RNAs between different biological samples/tissues."
             ),
+            module_Box(
+              width = 4, height='230px',
+              title = "Target",
+              imgSrc = "Target.png",
+              text = "Identify protein-coding genes targeted by the small RNAs derived from a LIR."
+            ),
 			module_Box(
               width = 4, height='230px',
               title = "Visualize",
               imgSrc = "Visualize.png",
               text = "Predict and visualize the secondary structure of potential long hpRNA encoded by a LIR."
-            ),
-			module_Box(
-              width = 4, height='230px',
-              title = "Download",
-              imgSrc = "Download.png",
-              text = "Download LIRs of 424 eukaryotic genomes, as well as the BLAST and Bowtie index database."
             )
           )
       )

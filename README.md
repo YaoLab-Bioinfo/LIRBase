@@ -10,7 +10,8 @@ LIRBase
 >5. **Detect and annotate long inverted repeats** in user-uploaded DNA sequences.  
 >6. **Align small RNA sequencing data to long inverted repeats** of a specific genome to detect the origination of small RNAs from long inverted repeats and quantify the expression level of small RNAs and long inverted repeats.  
 >7. Perform **differential expression analysis of long inverted repeats or small RNAs** between different biological samples/tissues.  
->8. Predict and visualize the **secondary structure of potential hpRNA encoded by a LIR** using RNAfold.  
+>8. **Identify protein-coding genes targeted by the small RNAs derived from a LIR** through detecting the complementary matches between small RNAs and the cDNA sequence of protein-coding genes.  
+>9. Predict and visualize the **secondary structure of potential hpRNA encoded by a LIR** using RNAfold.  
 
 *****
 
