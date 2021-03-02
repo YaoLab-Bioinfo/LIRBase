@@ -17,7 +17,7 @@ LIRBase
 
 #	Use LIRBase online
 
->LIRBase is deployed at <a href="http://venyao.xyz/lirbase/" target="_blank">venyao.xyz/lirbase/</a> for online use.  
+>LIRBase is deployed at <a href="https://venyao.xyz/lirbase/" target="_blank">venyao.xyz/lirbase/</a> for online use.  
 
 *****
 
