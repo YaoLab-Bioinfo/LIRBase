@@ -704,10 +704,50 @@ shinyUI(
         
         mainPanel(
           fixedRow(
-            column(6, uiOutput("downloadIRFresult")),
-            column(6, uiOutput("downloadIRFfasta"))
+            column(6, downloadButton("downloadIRFresult.txt", "Download structure of predicted LIRs", style = "width:100%;", class = "buttDown")),
+            column(6, downloadButton("downloadIRFfasta.txt", "Download sequence of predicted LIRs", style = "width:100%;", class = "buttDown"))
           ),
-          htmlOutput("prediction")
+          dataTableOutput("prediction"),
+          
+          br(),
+          
+          column(12, 
+                 textOutput("LIR_detail_annotate_fasta_title"),
+                 tags$head(tags$style("#LIR_detail_annotate_fasta_title{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                 )),
+                 verbatimTextOutput("LIR_detail_annotate_fasta"),
+                 tags$head(tags$style("#LIR_detail_annotate_fasta {
+                    width: 100%; 
+                    padding: 6px 12px; 
+                    white-space: pre-wrap;
+                    height: 400px;
+                    background: white;
+                    }"
+                 ))
+          ),
+          
+          br(),
+          
+          column(12, 
+                 textOutput("LIR_detail_annotate_title"),
+                 tags$head(tags$style("#LIR_detail_annotate_title{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                 )),
+                 verbatimTextOutput("LIR_detail_annotate"),
+                 tags$head(tags$style("#LIR_detail_annotate {
+                    width: 100%; 
+                    padding: 6px 12px; 
+                    white-space: pre-wrap;
+                    height: 400px;
+                    background: white;
+                    }"
+                 ))
+          )
         )
       ),
       
@@ -884,7 +924,7 @@ shinyUI(
                                )),
                                br(),
                             
-                             fixedRow(   
+                             fixedRow(
                                column(6, 
                                       textOutput("LIR_detail_align_fasta_title"),
                                       tags$head(tags$style("#LIR_detail_align_fasta_title{color: red;

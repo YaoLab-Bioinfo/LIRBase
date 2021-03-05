@@ -865,179 +865,225 @@ shinyServer(function(input, output, session) {
   
 	
 	# Annotate
-	observe({
-	  if (input$submitP>0) {
-	    isolate({
-	      pre.Seq <- ""
-	      if (input$In_predict == "paste") {
-	        pre.Seq <- input$PreSeqPaste
-	        pre.Seq <- gsub("^\\s+", "", pre.Seq)
-	        pre.Seq <- gsub("\\s+$", "", pre.Seq)
-	      } else if (input$In_predict == "upload") {
-	        pre.Seq <- readLines(input$PreSeqUpload$datapath)
-	      }
-	      
-	      if ((length(pre.Seq) == 1) && (pre.Seq == "")) {
-	        sendSweetAlert(
-	          session = session,
-	          title = "No input data received!", type = "error",
-	          text = NULL
-	        )
-	      } else if (substr(pre.Seq, 1, 1) != ">") {
-	          sendSweetAlert(
-	            session = session,
-	            title = "'>' expected at beginning of line 1 to indicate the ID of the input sequence!", type = "error",
-	            text = NULL
-	          )
-	      } else {
-	        irf.in.file <- gsub("\\s+", "-", Sys.time())
-	        irf.in.file <- gsub(":", "-", irf.in.file)
-	        irf.in.file <- paste0(irf.in.file, ".fasta")
-	        writeLines(pre.Seq, con=irf.in.file)
-	        
-	        pre.Match <- input$Match
-	        pre.Mismatch <- input$Mismatch
-	        pre.Delta <- input$Delta
-	        pre.PM <- input$PM
-	        pre.PI <- input$PI
-	        pre.Minscore <- input$Minscore
-	        pre.MaxLength <- input$MaxLength
-	        pre.MaxLoop <- input$MaxLoop
-	        pre.flankLen <- input$flankSeqLen
-	        
-	        irf.cmds <- paste("irf305.linux.exe", irf.in.file, pre.Match, pre.Mismatch, pre.Delta, pre.PM,
-	                          pre.PI, pre.Minscore, pre.MaxLength, pre.MaxLoop, "-d -f", pre.flankLen)
-	        system(irf.cmds, ignore.stdout = TRUE, ignore.stderr = TRUE)
-	        
-	        # The result .dat file
-	        dat.file <- paste(irf.in.file, pre.Match, pre.Mismatch, pre.Delta, pre.PM,
-	                          pre.PI, pre.Minscore, pre.MaxLength, pre.MaxLoop, "dat", sep=".")
-	        
-	        if (!file.exists(dat.file)) {
-	          sendSweetAlert(
-	            session = session,
-	            title = "Wrong input data!", type = "error",
-	            text = "Please check the content and the format of your input data!"
-	          )
-	        } else {
-	          dat <- readLines(dat.file)
-	          dat <- dat[-c(1:8)]
-	          dat.seq.idx <- which(grepl("^Sequence:", dat))
-	          dat.seq.idx <- c(dat.seq.idx, length(dat) + 1)
-	          
-	          dat.cont <- lapply(1:(length(dat.seq.idx)-1), function(i){
-	            i.seq.id <- dat[dat.seq.idx[i]]
-	            i.seq.id <- gsub("Sequence:\\s", "", i.seq.id)
-	            i.cont <- dat[dat.seq.idx[i]:(dat.seq.idx[i+1] - 1)]
-	            i.cont <- i.cont[grepl("^\\d", i.cont)]
-	            if (length(i.cont)>=1) {
-	              i.cont <- cbind(i.seq.id, i.cont)
-	              return(i.cont)
-	            } else {
-	              return(NULL)
-	            }
-	          })
-	          
-	          dat.cont.df <- do.call(rbind, dat.cont)
-	          
-	          if (file.exists(dat.file) && !is.null(dat.cont.df) && nrow(dat.cont.df) > 0) {
-	            # process the HTML file
-	            html.file <- paste(irf.in.file, pre.Match, pre.Mismatch, pre.Delta, pre.PM,
-	                               pre.PI, pre.Minscore, pre.MaxLength, pre.MaxLoop, "1.html", sep=".")
-	            if (!file.exists(html.file)) {
-	              html.file <- paste(irf.in.file, pre.Match, pre.Mismatch, pre.Delta, pre.PM,
-	                                 pre.PI, pre.Minscore, pre.MaxLength, pre.MaxLoop, "summary.html", sep=".")
-	            }
-	            file.copy(from=list.files(pattern="*.html$"), to="www")
-	            file.remove(list.files(pattern="*.html$"))
-	            
-	            getPage <- function() {
-	              return(includeHTML(paste0("www/", html.file)))
-	            }
-	            output$prediction <- renderUI({getPage()})
-	            
-	            # process the dat file
-	            write.table(dat.cont.df, file=dat.file, sep="\t", quote=F, row.names=F, col.names=F)
-	            dat.cont.df <- read.table(dat.file, head=F, as.is=T)
-	            dat.cont.df <- dat.cont.df[, c(1:11)]
-	            names(dat.cont.df) <- c("chr", "Left_start", "Left_end", "Left_len", "Right_start", "Right_end", "Right_len",
-	                                    "Loop_len", "Match_per", "Indel_per", "Score")
-	            dat.cont.df.bak <- dat.cont.df
-	            
-	            output$downloadIRFresult <- renderUI({
-	              req(dat.cont.df)
-	              downloadButton("downloadIRFresult.txt", "Download structure of predicted LIRs", style = "width:100%;", class = "buttDown")
-	            })
-	            
-	            output$downloadIRFresult.txt <- downloadHandler(
-	              filename <- function() { paste('LIRs_strucutre_by_IRF.txt') },
-	              content <- function(file) {
-	                write.table(dat.cont.df.bak, file, sep="\t", quote=F, row.names = F)
-	              }, contentType = 'text/plain'
-	            )
-	            
-	            unlink(dat.file)
-	            
-	            # extract the fasta sequence
-	            fa <- readDNAStringSet(irf.in.file)
-	            dat.cont.df$Loop_start <- dat.cont.df$Left_end + 1
-	            dat.cont.df$Loop_end <- dat.cont.df$Right_start - 1
-	            
-	            fa.len <- width(fa)
-	            names(fa.len) <- names(fa)
-	            dat.cont.df$chr_len <- fa.len[dat.cont.df$chr]
-	            
-	            dat.cont.df$Left_start_N <- pmax(1, dat.cont.df$Left_start - pre.flankLen)
-	            dat.cont.df$Right_end_N <- pmin(dat.cont.df$chr_len, dat.cont.df$Right_end + pre.flankLen)
-	            
-	            dat.cont.df.LF <- subseq(fa[dat.cont.df$chr], dat.cont.df$Left_start_N, dat.cont.df$Left_start - 1)
-	            dat.cont.df.RF <- subseq(fa[dat.cont.df$chr], dat.cont.df$Right_end + 1, dat.cont.df$Right_end_N)
-	            dat.cont.df.LF <- tolower(dat.cont.df.LF)
-	            dat.cont.df.RF <- tolower(dat.cont.df.RF)
-	            dat.cont.df.L <- subseq(fa[dat.cont.df$chr], dat.cont.df$Left_start, dat.cont.df$Left_end)
-	            dat.cont.df.R <- subseq(fa[dat.cont.df$chr], dat.cont.df$Right_start, dat.cont.df$Right_end)
-	            dat.cont.df.Loop <- subseq(fa[dat.cont.df$chr], dat.cont.df$Loop_start, dat.cont.df$Loop_end)
-	            dat.cont.df.Loop <- tolower(dat.cont.df.Loop)
-	            
-	            dat.cont.df.fa <- paste0(dat.cont.df.LF, dat.cont.df.L, dat.cont.df.Loop, dat.cont.df.R, dat.cont.df.RF)
-	            dat.cont.df.fa <- BStringSet(dat.cont.df.fa)
-	            names(dat.cont.df.fa) <- paste0(dat.cont.df$chr, ":", dat.cont.df$Left_start, "--", dat.cont.df$Left_end, ",",
-	                                            dat.cont.df$Right_start, "--", dat.cont.df$Right_end)
-	            
-	            output$downloadIRFfasta <- renderUI({
-	              req(dat.cont.df.fa)
-	              downloadButton("downloadIRFfasta.txt", "Download sequence of predicted LIRs", style = "width:100%;", class = "buttDown")
-	            })
-	            
-	            output$downloadIRFfasta.txt <- downloadHandler(
-	              filename <- function() { paste('LIRs_sequence_by_IRF.txt') },
-	              content <- function(file) {
-	                writeXStringSet(dat.cont.df.fa, file)
-	              }, contentType = 'text/plain'
-	            )
-	          } else {
-	            # process the HTML file
-	            html.file <- paste(irf.in.file, pre.Match, pre.Mismatch, pre.Delta, pre.PM,
-	                               pre.PI, pre.Minscore, pre.MaxLength, pre.MaxLoop, "1.html", sep=".")
-	            if (!file.exists(html.file)) {
-	              html.file <- paste(irf.in.file, pre.Match, pre.Mismatch, pre.Delta, pre.PM,
-	                                 pre.PI, pre.Minscore, pre.MaxLength, pre.MaxLoop, "summary.html", sep=".")
-	            }
-	            file.copy(from=list.files(pattern="*.html$"), to="www")
-	            file.remove(list.files(pattern="*.html$"))
-	            
-	            getPage <- function() {
-	              return(includeHTML(paste0("www/", html.file)))
-	            }
-	            output$prediction <- renderUI({getPage()})
-	          }
-	        }
-	      }
-	    })
-	  } else {
-	    NULL
-	  }
-	})
+  annotate.result <- eventReactive(input$submitP, {
+    pre.Seq <- ""
+    if (input$In_predict == "paste") {
+      pre.Seq <- input$PreSeqPaste
+      pre.Seq <- gsub("^\\s+", "", pre.Seq)
+      pre.Seq <- gsub("\\s+$", "", pre.Seq)
+    } else if (input$In_predict == "upload") {
+      pre.Seq <- readLines(input$PreSeqUpload$datapath)
+    }
+    
+    if ((length(pre.Seq) == 1) && (pre.Seq == "")) {
+      sendSweetAlert(
+        session = session,
+        title = "No input data received!", type = "error",
+        text = NULL
+      )
+    } else if (substr(pre.Seq, 1, 1) != ">") {
+      sendSweetAlert(
+        session = session,
+        title = "'>' expected at beginning of line 1 to indicate the ID of the input sequence!", type = "error",
+        text = NULL
+      )
+    } else {
+      irf.in.file <- gsub("\\s+", "-", Sys.time())
+      irf.in.file <- gsub(":", "-", irf.in.file)
+      irf.in.file <- paste0(irf.in.file, ".fasta")
+      writeLines(pre.Seq, con=irf.in.file)
+      
+      pre.Match <- input$Match
+      pre.Mismatch <- input$Mismatch
+      pre.Delta <- input$Delta
+      pre.PM <- input$PM
+      pre.PI <- input$PI
+      pre.Minscore <- input$Minscore
+      pre.MaxLength <- input$MaxLength
+      pre.MaxLoop <- input$MaxLoop
+      pre.flankLen <- input$flankSeqLen
+      
+      irf.cmds <- paste("irf305.linux.exe", irf.in.file, pre.Match, pre.Mismatch, pre.Delta, pre.PM,
+                        pre.PI, pre.Minscore, pre.MaxLength, pre.MaxLoop, "-d -f", pre.flankLen)
+      system(irf.cmds, ignore.stdout = TRUE, ignore.stderr = TRUE)
+      
+      # The result .dat file
+      dat.file <- paste(irf.in.file, pre.Match, pre.Mismatch, pre.Delta, pre.PM,
+                        pre.PI, pre.Minscore, pre.MaxLength, pre.MaxLoop, "dat", sep=".")
+      
+      if (!file.exists(dat.file)) {
+        sendSweetAlert(
+          session = session,
+          title = "Wrong input data!", type = "error",
+          text = "Please check the content and the format of your input data!"
+        )
+      } else {
+        dat <- readLines(dat.file)
+        dat <- dat[-c(1:8)]
+        dat.seq.idx <- which(grepl("^Sequence:", dat))
+        dat.seq.idx <- c(dat.seq.idx, length(dat) + 1)
+        
+        dat.cont <- lapply(1:(length(dat.seq.idx)-1), function(i){
+          i.seq.id <- dat[dat.seq.idx[i]]
+          i.seq.id <- gsub("Sequence:\\s", "", i.seq.id)
+          i.cont <- dat[dat.seq.idx[i]:(dat.seq.idx[i+1] - 1)]
+          i.cont <- i.cont[grepl("^\\d", i.cont)]
+          if (length(i.cont)>=1) {
+            i.cont <- cbind(i.seq.id, i.cont)
+            return(i.cont)
+          } else {
+            return(NULL)
+          }
+        })
+        
+        dat.cont.df <- do.call(rbind, dat.cont)
+        
+        if (file.exists(dat.file) && !is.null(dat.cont.df) && nrow(dat.cont.df) > 0) {
+          # process the HTML file
+          html.lst <- list.files(patter=paste0(irf.in.file, ".*.txt.html$"), full=T)
+          html.all.lst <- list.files(patter=paste0(irf.in.file, ".*.html$"), full=T)
+          
+          dat.html <- sapply(html.lst, function(i) {
+            d <- readLines(i)
+            x.name <- which(grepl("NAME=", d))
+            x.stat <- which(grepl("Statistics", d))
+            x.chr.id <- gsub("Sequence: ", "", d[10])
+            
+            LIR.align <- lapply(1:length(x.name), function(i) {
+              i.con <- d[(x.name[i] + 5) : (x.stat[i]-4)]
+              return(i.con)
+            })
+            
+            x.name <- d[x.name + 1]
+            x.name <- gsub("\\s+Loop:.+", "", x.name)
+            x.name <- gsub(".+\\s", "", x.name)
+            names(LIR.align) <- x.name
+            names(LIR.align) <- paste0(x.chr.id, ":", names(LIR.align))
+            
+            return(LIR.align)
+          }, USE.NAMES = FALSE)
+          dat.html <- do.call(c, dat.html)
+          unlink(html.all.lst)
+          
+          # process the dat file
+          write.table(dat.cont.df, file=dat.file, sep="\t", quote=F, row.names=F, col.names=F)
+          dat.cont.df <- read.table(dat.file, head=F, as.is=T)
+          dat.cont.df <- dat.cont.df[, c(1:11)]
+          names(dat.cont.df) <- c("chr", "Left_start", "Left_end", "Left_len", "Right_start", "Right_end", "Right_len",
+                                  "Loop_len", "Match_per", "Indel_per", "Score")
+          dat.cont.df.bak <- dat.cont.df
+          dat.cont.df.bak$ID = paste0(dat.cont.df.bak$chr, ":", dat.cont.df.bak$Left_start, "--", dat.cont.df.bak$Left_end, ",",
+                                      dat.cont.df.bak$Right_start, "--", dat.cont.df.bak$Right_end)
+          dat.cont.df.bak <- dat.cont.df.bak[, c(12, 1:11)]
+          dat.cont.df.bak <- dat.cont.df.bak[dat.cont.df.bak$Left_len >= 400 & dat.cont.df.bak$Right_len >= 400, ]
+          
+          unlink(dat.file)
+          
+          # extract the fasta sequence
+          fa <- readDNAStringSet(irf.in.file)
+          dat.cont.df$Loop_start <- dat.cont.df$Left_end + 1
+          dat.cont.df$Loop_end <- dat.cont.df$Right_start - 1
+          
+          fa.len <- width(fa)
+          names(fa.len) <- names(fa)
+          dat.cont.df$chr_len <- fa.len[dat.cont.df$chr]
+          
+          dat.cont.df$Left_start_N <- pmax(1, dat.cont.df$Left_start - pre.flankLen)
+          dat.cont.df$Right_end_N <- pmin(dat.cont.df$chr_len, dat.cont.df$Right_end + pre.flankLen)
+          
+          dat.cont.df.LF <- subseq(fa[dat.cont.df$chr], dat.cont.df$Left_start_N, dat.cont.df$Left_start - 1)
+          dat.cont.df.RF <- subseq(fa[dat.cont.df$chr], dat.cont.df$Right_end + 1, dat.cont.df$Right_end_N)
+          dat.cont.df.LF <- tolower(dat.cont.df.LF)
+          dat.cont.df.RF <- tolower(dat.cont.df.RF)
+          dat.cont.df.L <- subseq(fa[dat.cont.df$chr], dat.cont.df$Left_start, dat.cont.df$Left_end)
+          dat.cont.df.R <- subseq(fa[dat.cont.df$chr], dat.cont.df$Right_start, dat.cont.df$Right_end)
+          dat.cont.df.Loop <- subseq(fa[dat.cont.df$chr], dat.cont.df$Loop_start, dat.cont.df$Loop_end)
+          dat.cont.df.Loop <- tolower(dat.cont.df.Loop)
+          
+          dat.cont.df.fa <- paste0(dat.cont.df.LF, dat.cont.df.L, dat.cont.df.Loop, dat.cont.df.R, dat.cont.df.RF)
+          dat.cont.df.fa <- BStringSet(dat.cont.df.fa)
+          names(dat.cont.df.fa) <- paste0(dat.cont.df$chr, ":", dat.cont.df$Left_start, "--", dat.cont.df$Left_end, ",",
+                                          dat.cont.df$Right_start, "--", dat.cont.df$Right_end)
+          dat.cont.df.fa <- dat.cont.df.fa[names(dat.cont.df.fa) %in% dat.cont.df.bak$ID, ]
+          
+          return(list(dat.cont.df.bak, dat.cont.df.fa, dat.html))
+        } else {
+          return(NULL)
+        }
+      }
+    }
+    
+  })
+  
+  annotateResults <- reactive({
+    if (is.null(annotate.result())){
+      
+    } else {
+      result <- annotate.result()
+    }
+  })
+  
+  output$prediction <- DT::renderDataTable({
+    if (is.null(annotate.result())) {
+      NULL
+    } else {
+      annotateResults()[[1]]
+    }
+  }, escape = FALSE, rownames= FALSE, selection="single", 
+  options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE)
+  )
+  
+  output$downloadIRFresult.txt <- downloadHandler(
+    filename <- function() { paste('LIRs_strucutre_by_IRF.txt') },
+    content <- function(file) {
+      write.table(annotateResults()[[1]], file, sep="\t", quote=F, row.names = F)
+    }, contentType = 'text/plain'
+  )
+  
+  output$downloadIRFfasta.txt <- downloadHandler(
+    filename <- function() { paste('LIRs_sequence_by_IRF.txt') },
+    content <- function(file) {
+      writeXStringSet(annotateResults()[[2]], file)
+    }, contentType = 'text/plain'
+  )
+  
+  ## Display LIR sequence
+  output$LIR_detail_annotate_fasta_title <- renderText({
+    if (is.null(input$prediction_rows_selected)) {
+      
+    } else {
+      "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm seq in upper case - right flanking seq in lower case):"
+    }
+  })
+  
+  output$LIR_detail_annotate_fasta <- renderText({
+    if (is.null(input$prediction_rows_selected)) {
+      
+    } else {
+      LIR.ID <- annotateResults()[[1]]$ID[input$prediction_rows_selected]
+      tmp.fl <- file.path(tempdir(), "Anno1.fa")
+      writeXStringSet(annotateResults()[[2]][LIR.ID], file = tmp.fl)
+      readLines(tmp.fl)
+    }
+  }, sep = "\n")
+  
+  ## Display LIR alignment
+  output$LIR_detail_annotate_title <- renderText({
+    if (is.null(input$prediction_rows_selected)) {
+      
+    } else {
+      "Alignment of the left and right arms of the selected LIR (* indicates complementary):"
+    }
+  })
+  
+  output$LIR_detail_annotate <- renderText({
+    if (is.null(input$prediction_rows_selected)) {
+      
+    } else {
+      LIR.ID <- annotateResults()[[1]]$ID[input$prediction_rows_selected]
+      annotateResults()[[3]][[LIR.ID]]
+    }
+  }, sep = "\n")
 	
 	## Download example input data
 	output$Annotate_Input.txt <- downloadHandler(
