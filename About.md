@@ -1,4 +1,14 @@
 
+
+<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Long inverted repeat, long hpRNA and siRNA</b></font>  
+>An inverted repeat is a single stranded nucleotide sequence followed by its reverse complement at the downstream. 
+>The intervening sequence between the initial sequence and the reverse complement can be any length including zero. 
+>When transcribed, **long inverted repeat can form long hairpin RNA genes (hpRNAs)**, which are much longer than typical animal or plant pre-miRNAs. 
+>Henderson et al. reported the biogenesis of small interfering RNAs (siRNAs) from long inverted repeat in *Arabidopsis thaliana* for the first time [1].
+>Okamura et al. systematically characterized the **biogenesis pathway of 21-22-nucleotide siRNAs from long hpRNAs encoded by LIRs** in *Drosophila* [2]. 
+>They found that Dicer-2, Hen1 and Argonaute 2 played vital roles in this siRNA biogenesis pathway. 
+>This siRNA biogenesis pathway was further characterized in *Arabidopsis* soon (Dunoyer et al. 2010) [3]
+
 >A typical long inverted repeat and the small RNAs originated from the LIR analyzed utilizing LIRBase are demonstrated in the following image.  
 
 <p class="aligncenter"><img src="LIR_rice.png" width="85%" height="70%" /></p>

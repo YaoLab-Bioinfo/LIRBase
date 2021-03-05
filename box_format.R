@@ -33,7 +33,7 @@ module_Box <- function(..., title, imgSrc, text) {
   box(
     ..., 
     title = span(title, style = "font-size:20px"),
-    solidHeader = TRUE, status = "primary",
+    solidHeader = TRUE, status = "primary", color="blue",
     fluidRow(
       column(
         width = 5,

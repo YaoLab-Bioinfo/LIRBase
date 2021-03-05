@@ -1347,6 +1347,9 @@ shinyUI(
       
       ## Help
       navbarMenu("Help", icon = icon("book", class = NULL, lib = "font-awesome"),
+                 tabPanel(h5("About"),
+                          includeMarkdown("About.md")
+                 ),
                  tabPanel(h5("Tutorial"),
                           includeMarkdown("Tutorial.md")
                  ),

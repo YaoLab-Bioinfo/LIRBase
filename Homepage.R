@@ -1,7 +1,10 @@
 Homepage <- dashboardPage(
   dashboardHeader(disable = T),
   dashboardSidebar(disable = T),
+  
   dashboardBody(
+  tags$head(tags$style("section.content { overflow-y: hidden; }")),
+  
     column(
       width = 10,
       offset = 1,
@@ -15,20 +18,6 @@ Homepage <- dashboardPage(
         p("We identified a total of 6,619,473", strong("long inverted repeats (LIR, longer than 800 nt)"), "in 424 eukaryotic genomes and implemented various functionalities for analysis of LIRs and small RNAs derived from LIRs.")
       )
     ),
-    
-    column(
-      width = 10,
-      offset = 1,
-      titleBox(title = "Long inverted repeat, long hpRNA and siRNA")
-    ),
-    column(
-      width = 10,
-      offset = 1,
-      textBox(
-        width = 12,
-        p("An inverted repeat is a single stranded nucleotide sequence followed by its reverse complement at the downstream. The intervening sequence between the initial sequence and the reverse complement can be any length including zero. When transcribed,", strong("long inverted repeat can form long hairpin RNA genes (hpRNAs),"), "which are much longer than typical animal or plant pre-miRNAs. Henderson et al. reported the biogenesis of small interfering RNAs (siRNAs) from long inverted repeat in ", em("Arabidopsis thaliana"), "for the first time [1].", "Okamura et al. systematically characterized the ", strong("biogenesis pathway of 21-22-nucleotide siRNAs from long hpRNAs encoded by LIRs"), " in ", em("Drosophila"), "[2]. They found that Dicer-2, Hen1 and Argonaute 2 played vital roles in this siRNA biogenesis pathway. This siRNA biogenesis pathway was further characterized in", em("Arabidopsis"), " soon (Dunoyer et al. 2010) [3].")
-      )
-    ),
 
     column(
       width = 10,
@@ -36,14 +25,14 @@ Homepage <- dashboardPage(
       sectionBox(
         title = "Statistics",
         fluidRow(
-          valueBox("6,619,473", "Long inverted repeats", width = 4),
-          valueBox("424", "Eukaryotic genomes", color = "purple", width = 4),
-          valueBox(374, "Species", color = "yellow", width = 4)
+          valueBox("6,619,473", "Long inverted repeats", width = 4, color="blue"),
+          valueBox("424", "Eukaryotic genomes", width = 4, color="blue"),
+          valueBox(374, "Species", width = 4, color="blue")
         ),
         fluidRow(
-          valueBox("297,317", "LIRs in 77 metazoa genomes", color = "fuchsia", width = 4),
-          valueBox("1,731,978", "LIRs in 139 plant genomes", color = "navy", width = 4),
-          valueBox("4,590,178", "LIRs in 208 vertebrate genomes", color = "olive", width = 4),
+          valueBox("297,317", "LIRs in 77 metazoa genomes", width = 4, color="blue"),
+          valueBox("1,731,978", "LIRs in 139 plant genomes", width = 4, color="blue"),
+          valueBox("4,590,178", "LIRs in 208 vertebrate genomes", width = 4, color="blue"),
         )
       )
     ),
@@ -55,7 +44,7 @@ Homepage <- dashboardPage(
         title = "Functionalities of LIRBase",
           fluidRow(
             module_Box(
-              width = 4, height='230px',
+              width = 4, height='230px', color="blue",
               title = "Browse",
               imgSrc = "Browse.png",
               text = "Browse LIRs identified in 424 eukaryotic genomes for the sequences, structures of LIRs and the overlaps between LIRs and genes."
@@ -114,21 +103,7 @@ Homepage <- dashboardPage(
             )
           )
       )
-    ),
-
-    fluidRow(
-      column(
-        width = 10,
-        offset = 1,
-        box(
-          title = span(strong("Why LIR and LIRBase?"), style = "font-size:20px"),
-          width = 12,
-          solidHeader = TRUE,
-          collapsible = FALSE,
-          status = "warning",
-          includeMarkdown("Home.md")
-        )
-      )
     )
+
   )
 )
