@@ -20,6 +20,7 @@ library(shinyjqui)
 library(shinyWidgets)
 library(stringr)
 library(tidyr)
+library(XML)
 
 library(apeglm)
 library(Biostrings)

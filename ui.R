@@ -28,17 +28,15 @@ Blast_Info_Title <- paste("qseqid: Query sequence ID;",
                         "qlen: Query sequence length;",
                         "sseqid: Subject sequence ID;",
                         "slen: Subject sequence length;",
-                        "length: Alignment length;",
                         "qstart: Start of alignment in query;",
                         "qend: End of alignment in query;",
                         "sstart: Start of alignment in subject;",
                         "send: End of alignment in subject;",
-                        "mismatch: Number of mismatches;",
-                        "gapopen: Number of gap openings;",
-                        "pident: Percentage of identical matches;",
-                        "qcovhsp: Query Coverage Per HSP;",
-                        "evalue: Expect value;",
                         "bitscore: Bit score;",
+                        "evalue: Expect value;",
+                        "gaps: Number of gaps;",
+                        "pident: Percentage of identical matches;",
+                        "length: Alignment length;",
                         sep = "<br>")
 
 Align_Info_Title <- paste("Click on a row to check the details of the LIR and the alignment!",
@@ -596,28 +594,42 @@ shinyUI(
                              dataTableOutput("BLASTresult"),
                              br(),
                              
-                             div(
-                               column(6,
-                                      textOutput("BLAST_plot_1_title"),
-                                      tags$head(tags$style("#BLAST_plot_1_title{color: red;
-                                       font-size: 22px;
-                                       font-style: bold;
-                                      }"
-                                      )),
-                                      withSpinner(plotOutput("BLAST_plot_1", height = "500px", width = "95%"))
+                             fixedRow(
+                               htmlOutput("BLAST_hit_detail_title"),
+                               tags$head(tags$style("#BLAST_hit_detail_title {
+                                          color: red;
+                                          font-size: 22px;
+                                          font-style: bold;
+                                        }"
+                               ))
+                             ),
+                             
+                             fixedRow(
+                               column(5,
+                                      tableOutput("BLAST_hit_summary"),
+                                      tags$head(tags$style("#BLAST_hit_summary {
+                                          width = 100%;
+                                          padding: 6px 12px;
+                                          white-space: pre-wrap;
+                                          height: 400px;
+                                        }"
+                                      ))
                                ),
-                               column(6,
-                                      textOutput("BLAST_plot_2_title"),
-                                      tags$head(tags$style("#BLAST_plot_2_title{color: red;
-                                       font-size: 22px;
-                                       font-style: bold;
-                                      }"
-                                      )),
-                                      withSpinner(plotOutput("BLAST_plot_2", height = "500px", width = "95%"))
+                               
+                               column(7,
+                                      withSpinner(verbatimTextOutput("BLAST_hit_detail")),
+                                      tags$head(tags$style("#BLAST_hit_detail {
+                                          width: 100%; 
+                                          padding: 6px 12px; 
+                                          white-space: pre-wrap;
+                                          height: 400px;
+                                          background: white;
+                                        }"
+                                      ))
                                )
                              ),
                              
-                             br(),br(),
+                             br(),
                              
                              fixedRow(
                                column(12,

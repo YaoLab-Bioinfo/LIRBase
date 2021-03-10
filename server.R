@@ -565,13 +565,11 @@ shinyServer(function(input, output, session) {
         blast.out.file <- paste0(blast.in.file, ".blast.out")
         
         blast.cmds <- paste0("blastn -query ", blast.in.file, " -db ", '"', paste(blast.db, sep=" ", collapse = " "), '"', 
-                             " -evalue ", input$BLASTev, " -outfmt ", '"6 qseqid qlen sseqid slen length qstart qend sstart send mismatch gapopen pident qcovhsp evalue bitscore"', " -out ", blast.out.file)
+                             " -evalue ", input$BLASTev, " -outfmt 5", " -out ", blast.out.file)
         system(blast.cmds, ignore.stdout = TRUE, ignore.stderr = TRUE)
         
         if (file.size(blast.out.file) > 0) {
-          blast.out <- read.table(blast.out.file, head=F, as.is=T)
-          names(blast.out) <- c("qseqid", "qlen", "sseqid", "slen", "length", "qstart", "qend", "sstart", "send", "mismatch", "gapopen", "pident", "qcovhsp", "evalue", "bitscore")
-          blast.out
+          xmlParse(blast.out.file)
         } else {
           sendSweetAlert(
             session = session,
@@ -589,7 +587,35 @@ shinyServer(function(input, output, session) {
     if (is.null(blast.result())){
       
     } else {
-      results <- blast.result()
+      xmltop = xmlRoot(blast.result())
+      
+      #the first chunk is for multi-fastas
+      x <- which(sapply(blast.result()["//Iteration//Iteration_hits//Hit//Hsp//Hsp_num"], xmlValue) == "1")
+      y <- sapply(blast.result()["//Iteration//Iteration_hits//Hit//Hit_def"], xmlValue)
+      x1 <- c(x[-1], length(sapply(blast.result()["//Iteration//Iteration_hits//Hit//Hsp//Hsp_num"], xmlValue)) + 1)
+      z <- sapply(blast.result()["//Iteration//Iteration_hits//Hit//Hit_def"], xmlValue)
+      d <- sapply(blast.result()["//Iteration//Iteration_hits//Hit//Hit_len"], xmlValue)
+      
+      results <- xpathApply(blast.result(), '//Iteration',function(row){
+        qseqid <- getNodeSet(row, 'Iteration_query-def') %>% sapply(., xmlValue)
+        qlen <- getNodeSet(row, 'Iteration_query-len') %>% sapply(., xmlValue)
+        qstart <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_query-from')  %>% sapply(., xmlValue)
+        qend <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_query-to')  %>% sapply(., xmlValue)
+        sseqid <- rep(z, x1-x)
+        sslen <- rep(d, x1-x)
+        sstart <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_hit-from')  %>% sapply(., xmlValue)
+        send <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_hit-to')  %>% sapply(., xmlValue)
+        bitscore <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_bit-score')  %>% sapply(., xmlValue)
+        evalue <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_evalue')  %>% sapply(., xmlValue)
+        gaps <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_gaps')  %>% sapply(., xmlValue)
+        length <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_align-len')  %>% sapply(., xmlValue)
+        identity <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_identity')  %>% sapply(., xmlValue)
+        pident <- round(as.integer(identity) / as.integer(length) * 100, 2)
+        cbind(qseqid, qlen, sseqid, sslen, qstart, qend, sstart, send, bitscore, evalue, gaps, pident, length)
+      })
+      
+      #this ensures that NAs get added for no hits
+      results <-  rbind.fill(lapply(results, function(y) {as.data.frame((y), stringsAsFactors=FALSE)} ))
     }
   })
   
@@ -602,7 +628,7 @@ shinyServer(function(input, output, session) {
       blastedResults()
     }
   }, escape = FALSE, rownames= FALSE, selection="single", filter = 'top',
-  options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE))
+  options = list(pageLength = 5, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE))
   
   # Update Tab Panel
   observe({
@@ -691,7 +717,7 @@ shinyServer(function(input, output, session) {
   
   ## Download BLAST result
   output$BLASTresult.txt <- downloadHandler(
-    filename <- function() { paste('BLAST_Input.txt') },
+    filename <- function() { paste('BLAST_Result.txt') },
     content <- function(file) {
       fwrite(blastedResults(), file, sep="\t", quote=F)
     }, contentType = 'text/plain'
@@ -715,75 +741,57 @@ shinyServer(function(input, output, session) {
     }, contentType = 'text/plain'
   )
   
-  ## Visualization of BLAST result
-  output$BLAST_plot_1_title <- renderText({
+  #this chunk gets the alignment information from a clicked row
+  output$BLAST_hit_summary <- shiny::renderTable({
+    if(is.null(input$BLASTresult_rows_selected)){}
+    else{
+      clicked = input$BLASTresult_rows_selected
+      tableout<- data.frame(blastedResults()[clicked,])
+      tableout <- t(tableout)
+      names(tableout) <- c("")
+      rownames(tableout) <- c("query ID","query length", "subject ID", "subject length", "query start", "query end", 
+                              "subject start", "subject end", "bit-score", "e-value", "gaps", "percentage of identical matches", "alignment length")
+      colnames(tableout) <- NULL
+      data.frame(tableout)
+    }
+  }, rownames =T, colnames =F)
+  
+  output$BLAST_hit_detail_title <- renderText({
     if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
-      
     } else {
-      "Overview of the BLAST output"
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>The detailed alignment for the selected BLAST hit:</b></font>')
     }
   })
   
-  output$BLAST_plot_1 <- renderPlot({
-    if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
+  output$BLAST_hit_detail <- renderText({
+    if(is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ){
+      NULL
+    }
+    else{
+      xmltop = xmlRoot(blast.result())
       
-    } else {
-      query.ID <- blastedResults()$qseqid[input$BLASTresult_rows_selected]
-      blast.selected <- blastedResults()
-      blast.selected <- blast.selected[blast.selected$qseqid == query.ID, ]
-      blast.selected <- blast.selected[order(-blast.selected$bitscore), ]
-      if (nrow(blast.selected) >= 30) {
-        blast.selected <- blast.selected[1:30, ]
-      }
+      clicked = input$BLASTresult_rows_selected
+      #loop over the xml to get the alignments
+      align <- xpathApply(blast.result(), '//Iteration',function(row){
+        top <- getNodeSet(row, 'Iteration_hits//Hit//Hit_hsps//Hsp//Hsp_qseq') %>% sapply(., xmlValue)
+        mid <- getNodeSet(row, 'Iteration_hits//Hit//Hit_hsps//Hsp//Hsp_midline') %>% sapply(., xmlValue)
+        bottom <- getNodeSet(row, 'Iteration_hits//Hit//Hit_hsps//Hsp//Hsp_hseq') %>% sapply(., xmlValue)
+        rbind(top,mid,bottom)
+      })
       
-      blast.selected$pos <- 0 - (1:nrow(blast.selected))
-      p1 <- ggplot(blast.selected) + geom_segment(aes(x=1, y=0, xend=blast.selected$qlen[1], yend=0), color="black", size=1.5)
-      p1 <- p1 + geom_segment(aes(x=qstart, y=pos, xend=qend, yend=pos), color="red", size=1.5)
-      p1 <- p1 + theme_void()
-      p1 <- p1 + ggtitle(query.ID) + theme(plot.title = element_text(size = 20, face = "bold", lineheight=0.7, hjust = 0.5))
-      p1
+      #split the alignments every 100 carachters to get a "wrapped look"
+      alignx <- do.call("cbind", align)
+      splits <- strsplit(gsub("(.{100})", "\\1,", alignx[1:3,clicked]),",")
+      
+      #paste them together with returns '\n' on the breaks
+      split_out <- lapply(1:length(splits[[1]]),function(i){
+        rbind(paste0("Q: ", splits[[1]][i],"\n"), paste0("M: ",splits[[2]][i],"\n"), paste0("S: ",splits[[3]][i], "\n"), "\n")
+      })
+      split_out[[1]][1] <- paste0(" ", split_out[[1]][1])
+      unlist(split_out)
     }
   })
   
-  output$BLAST_plot_2_title <- renderText({
-    if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
-      
-    } else {
-      "Alignment of a specific query sequence and a LIR in the database"
-    }
-  })
-  
-  output$BLAST_plot_2 <- renderPlot({
-    if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
-      
-    } else {
-      LIR.ID <- blastedResults()$sseqid[input$BLASTresult_rows_selected]
-      blast.selected <- blastedResults()
-      blast.selected <- blast.selected[blast.selected$sseqid == LIR.ID, ]
-      
-      fa <- blastdbResults()[[2]][LIR.ID]
-      fa1 <- as.character(fa)
-      x <- str_locate_all(fa1, "[ACGT]")
-      y <- x[[1]][,1]
-      y.ir <- IRanges(y, y)
-      y.df <- as.data.frame(reduce(y.ir))
-      
-      p1 <- ggplot(blast.selected) + geom_segment(aes(x=sstart, y=qstart, xend=send, yend=qend), size = 1.1)
-      p1 <- p1 + xlim(c(1, blast.selected$slen[1])) + ylim(c(-10, blast.selected$qlen[1]))
-      p1 <- p1 + xlab(blast.selected$sseqid[1]) + ylab(blast.selected$qseqid[1])
-      
-      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-10, xend=y.df$end[1], yend=-10), 
-                              lineend = "round", linejoin = "round", color = "red",
-                              size = 1.3, arrow = arrow(length = unit(0.3, "inches")))
-      p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-10, xend=y.df$start[2], yend=-10), 
-                              lineend = "round", linejoin = "round", color = "red",
-                              size = 1.3, arrow = arrow(length = unit(0.3, "inches")))
-      p1 <- p1 + theme_classic()
-      p1 <- p1 + theme(axis.text=element_text(size=12),
-                       axis.title=element_text(size=14, face="bold"))
-      p1
-    }
-  })
   
   ## Overlap between LIR and genes
   output$Blast_LIR_gene_op_title <- renderText({
