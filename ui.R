@@ -187,7 +187,7 @@ shinyUI(
                              ),
                              br(),
                              
-                             textOutput("IRFbrowse_title"),
+                             htmlOutput("IRFbrowse_title"),
                              tags$head(tags$style("#IRFbrowse_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
@@ -198,7 +198,7 @@ shinyUI(
                     ),
                     
                     tabPanel("Details of the LIR selected",
-                             textOutput("LIR_info_title"),
+                             htmlOutput("LIR_info_title"),
                              tags$head(tags$style("#LIR_info_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
@@ -207,7 +207,7 @@ shinyUI(
                              dataTableOutput("LIR_info"),
                              br(),
                              
-                             textOutput("LIR_gene_op_title"),
+                             htmlOutput("LIR_gene_op_title"),
                              tags$head(tags$style("#LIR_gene_op_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
@@ -217,23 +217,40 @@ shinyUI(
                              br(),
                              
                              fixedRow(
-                               column(6,
-                                      textOutput("LIR_sequence_title"),
+                               column(12,
+                                      htmlOutput("LIR_sequence_title"),
                                       tags$head(tags$style("#LIR_sequence_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
                                       )),
-                                      verbatimTextOutput("LIR_sequence", placeholder = FALSE)
+                                      verbatimTextOutput("LIR_sequence", placeholder = FALSE),
+                                      tags$head(tags$style("#LIR_sequence {
+                                        width: 100%; 
+                                        padding: 6px 12px; 
+                                        white-space: pre-wrap;
+                                        height: 400px;
+                                        background: white;
+                                      }"
+                                      ))
                                ),
-                               column(6,
-                                      textOutput("LIR_detail_title"),
+                               br(),
+                               column(12,
+                                      htmlOutput("LIR_detail_title"),
                                       tags$head(tags$style("#LIR_detail_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
                                       )),
-                                      verbatimTextOutput("LIR_detail")
+                                      verbatimTextOutput("LIR_detail"),
+                                      tags$head(tags$style("#LIR_detail {
+                                        width: 100%; 
+                                        padding: 6px 12px; 
+                                        white-space: pre-wrap;
+                                        height: 400px;
+                                        background: white;
+                                      }"
+                                      ))
                                )
                              )
                     )
@@ -309,7 +326,7 @@ shinyUI(
                  
                  fixedRow(
                    column(12,
-                          textOutput("Search_reg_LIR_gene_op_title"),
+                          htmlOutput("Search_reg_LIR_gene_op_title"),
                           tags$head(tags$style("#Search_reg_LIR_gene_op_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
@@ -320,23 +337,42 @@ shinyUI(
                    br(),
                  
                  fixedRow(
-                   column(6, 
-                          textOutput("LIR_detail_search_reg_fasta_title"),
+                   column(12, 
+                          htmlOutput("LIR_detail_search_reg_fasta_title"),
                           tags$head(tags$style("#LIR_detail_search_reg_fasta_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
                           )),
-                          verbatimTextOutput("LIR_detail_search_reg_fasta")
+                          verbatimTextOutput("LIR_detail_search_reg_fasta"),
+                          tags$head(tags$style("#LIR_detail_search_reg_fasta {
+                              width: 100%; 
+                              padding: 6px 12px; 
+                              white-space: pre-wrap;
+                              height: 400px;
+                              background: white;
+                            }"
+                          ))
                    ),
-                   column(6, 
-                          textOutput("LIR_detail_search_reg_title"),
+                   
+                   br(),
+                   
+                   column(12, 
+                          htmlOutput("LIR_detail_search_reg_title"),
                           tags$head(tags$style("#LIR_detail_search_reg_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
                           )),
-                          verbatimTextOutput("LIR_detail_search_reg")
+                          verbatimTextOutput("LIR_detail_search_reg"),
+                          tags$head(tags$style("#LIR_detail_search_reg {
+                              width: 100%; 
+                              padding: 6px 12px; 
+                              white-space: pre-wrap;
+                              height: 400px;
+                              background: white;
+                            }"
+                          ))
                    )
                  )
         ),
@@ -406,7 +442,7 @@ shinyUI(
                                       
                                       fixedRow(
                                         column(12,
-                                               textOutput("Search_ID_LIR_gene_op_title"),
+                                               htmlOutput("Search_ID_LIR_gene_op_title"),
                                                tags$head(tags$style("#Search_ID_LIR_gene_op_title{color: red;
                                                             font-size: 22px;
                                                             font-style: bold;
@@ -417,23 +453,42 @@ shinyUI(
                                         br(),
                                         
                                       fixedRow(
-                                        column(6, 
-                                               textOutput("LIR_detail_search_ID_fasta_title"),
+                                        column(12, 
+                                               htmlOutput("LIR_detail_search_ID_fasta_title"),
                                                tags$head(tags$style("#LIR_detail_search_ID_fasta_title{color: red;
                                                             font-size: 22px;
                                                             font-style: bold;
                                                           }"
                                                )),
-                                               verbatimTextOutput("LIR_detail_search_ID_fasta")
+                                               verbatimTextOutput("LIR_detail_search_ID_fasta"),
+                                               tags$head(tags$style("#LIR_detail_search_ID_fasta {
+                                                    width: 100%; 
+                                                    padding: 6px 12px; 
+                                                    white-space: pre-wrap;
+                                                    height: 400px;
+                                                    background: white;
+                                                  }"
+                                               ))
                                         ),
-                                        column(6, 
-                                               textOutput("LIR_detail_search_ID_title"),
+                                        
+                                        br(),
+                                        
+                                        column(12, 
+                                               htmlOutput("LIR_detail_search_ID_title"),
                                                tags$head(tags$style("#LIR_detail_search_ID_title{color: red;
                                                               font-size: 22px;
                                                               font-style: bold;
                                                             }"
                                                )),
-                                               verbatimTextOutput("LIR_detail_search_ID")
+                                               verbatimTextOutput("LIR_detail_search_ID"),
+                                               tags$head(tags$style("#LIR_detail_search_ID {
+                                                    width: 100%; 
+                                                    padding: 6px 12px; 
+                                                    white-space: pre-wrap;
+                                                    height: 400px;
+                                                    background: white;
+                                                }"
+                                               ))
                                         )
                                       )
                              )
@@ -566,7 +621,7 @@ shinyUI(
                              
                              fixedRow(
                                column(12,
-                                      textOutput("Blast_LIR_gene_op_title"),
+                                      htmlOutput("Blast_LIR_gene_op_title"),
                                       tags$head(tags$style("#Blast_LIR_gene_op_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
@@ -577,23 +632,42 @@ shinyUI(
                                br(),
                              
                              fixedRow(
-                               column(6, 
-                                      textOutput("LIR_detail_blast_fasta_title"),
+                               column(12, 
+                                      htmlOutput("LIR_detail_blast_fasta_title"),
                                       tags$head(tags$style("#LIR_detail_blast_fasta_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
                                       )),
-                                      withSpinner(verbatimTextOutput("LIR_detail_blast_fasta"))
+                                      withSpinner(verbatimTextOutput("LIR_detail_blast_fasta")),
+                                      tags$head(tags$style("#LIR_detail_blast_fasta {
+                                          width: 100%; 
+                                          padding: 6px 12px; 
+                                          white-space: pre-wrap;
+                                          height: 400px;
+                                          background: white;
+                                        }"
+                                      ))
                                ),
-                               column(6, 
-                                      textOutput("LIR_detail_blast_title"),
+                               
+                               br(),
+                               
+                               column(12, 
+                                      htmlOutput("LIR_detail_blast_title"),
                                       tags$head(tags$style("#LIR_detail_blast_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
                                       )),
-                                      withSpinner(verbatimTextOutput("LIR_detail_blast"))
+                                      withSpinner(verbatimTextOutput("LIR_detail_blast")),
+                                      tags$head(tags$style("#LIR_detail_blast {
+                                          width: 100%; 
+                                          padding: 6px 12px; 
+                                          white-space: pre-wrap;
+                                          height: 400px;
+                                          background: white;
+                                        }"
+                                      ))
                                )
                              )
                     )
@@ -712,7 +786,7 @@ shinyUI(
           br(),
           
           column(12, 
-                 textOutput("LIR_detail_annotate_fasta_title"),
+                 htmlOutput("LIR_detail_annotate_fasta_title"),
                  tags$head(tags$style("#LIR_detail_annotate_fasta_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
@@ -732,7 +806,7 @@ shinyUI(
           br(),
           
           column(12, 
-                 textOutput("LIR_detail_annotate_title"),
+                 htmlOutput("LIR_detail_annotate_title"),
                  tags$head(tags$style("#LIR_detail_annotate_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
@@ -895,7 +969,7 @@ shinyUI(
                                                                   block = FALSE, size = "sm", style="unite", color="default")
                                       ),
                                       
-                                      textOutput("Quantify_plot_1_title"),
+                                      htmlOutput("Quantify_plot_1_title"),
                                       tags$head(tags$style("#Quantify_plot_1_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
@@ -914,7 +988,7 @@ shinyUI(
                              
                              fixedRow(
                                column(12,
-                                      textOutput("Quantify_LIR_gene_op_title"),
+                                      htmlOutput("Quantify_LIR_gene_op_title"),
                                       tags$head(tags$style("#Quantify_LIR_gene_op_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
@@ -925,23 +999,40 @@ shinyUI(
                                br(),
                             
                              fixedRow(
-                               column(6, 
-                                      textOutput("LIR_detail_align_fasta_title"),
+                               column(12, 
+                                      htmlOutput("LIR_detail_align_fasta_title"),
                                       tags$head(tags$style("#LIR_detail_align_fasta_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
                                       )),
-                                      withSpinner(verbatimTextOutput("LIR_detail_align_fasta"))
+                                      withSpinner(verbatimTextOutput("LIR_detail_align_fasta")),
+                                      tags$head(tags$style("#LIR_detail_align_fasta {
+                                          width: 100%; 
+                                          padding: 6px 12px; 
+                                          white-space: pre-wrap;
+                                          height: 400px;
+                                          background: white;
+                                        }"
+                                      ))
                                ),
-                               column(6, 
-                                      textOutput("LIR_detail_align_title"),
+                               br(),
+                               column(12, 
+                                      htmlOutput("LIR_detail_align_title"),
                                       tags$head(tags$style("#LIR_detail_align_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
                                       )),
-                                      withSpinner(verbatimTextOutput("LIR_detail_align"))
+                                      withSpinner(verbatimTextOutput("LIR_detail_align")),
+                                      tags$head(tags$style("#LIR_detail_align {
+                                          width: 100%; 
+                                          padding: 6px 12px; 
+                                          white-space: pre-wrap;
+                                          height: 400px;
+                                          background: white;
+                                        }"
+                                      ))
                                )
                              ),
                              
@@ -1293,7 +1384,7 @@ shinyUI(
           ),
           
           column(11, 
-                 textOutput("RNAfold_2nd_structure_text_title"),
+                 htmlOutput("RNAfold_2nd_structure_text_title"),
                  tags$head(tags$style("#RNAfold_2nd_structure_text_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;

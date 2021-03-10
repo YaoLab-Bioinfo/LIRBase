@@ -84,7 +84,9 @@ shinyServer(function(input, output, session) {
           hist(dat.content$Indel_per, main = "Indel percent", xlab = "", col="grey80")
         }, height = "auto", width = "auto")
         
-        output$IRFbrowse_title <- renderText("List of all the LIRs identified by IRF (Click on the ID of a LIR to check its details):")
+        output$IRFbrowse_title <- renderText(
+          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>List of all the LIRs identified by IRF (Click on the ID of a LIR to check its details):</b></font>')
+          )
         output$IRFbrowse <- DT::renderDataTable(
           dat.content, extensions = 'Scroller',
           options = list(pageLength = 10, autoWidth = FALSE, lengthMenu = c(10, 20, 30, 50, 100), 
@@ -113,7 +115,9 @@ shinyServer(function(input, output, session) {
         LIR.gene.op.file.path <- gsub("HTML", "LIR_gene_op", LIR.gene.op.file.path)
         
         # basic information
-        output$LIR_info_title <- renderText("Information of the selected LIR:")
+        output$LIR_info_title <- renderText(
+          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Information of the selected LIR:</b></font>')
+          )
         output$LIR_info <- DT::renderDataTable(
           dat.content[IRF.index[, 1], ], 
           options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE), 
@@ -121,7 +125,9 @@ shinyServer(function(input, output, session) {
         )
         
         # Overlap between LIRs and genes
-        output$LIR_gene_op_title <- renderText("Overlaps between the selected LIR and genes:")
+        output$LIR_gene_op_title <- renderText(
+          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Overlaps between the selected LIR and genes:</b></font>')
+          )
         output$LIR_gene_op <- DT::renderDataTable({
           if (file.exists(LIR.gene.op.file.path)) {
             LIR.gene.op <- fread(LIR.gene.op.file.path, data.table=F)
@@ -146,14 +152,18 @@ shinyServer(function(input, output, session) {
         writeXStringSet(LIR.seq.select, file = tmp.fl)
         LIR.seq.select <- readLines(tmp.fl)
         
-        output$LIR_sequence_title <- renderText("Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm seq in upper case - right flanking seq in lower case):")
+        output$LIR_sequence_title <- renderText(
+          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop seq in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
+          )
         output$LIR_sequence <- renderText(
           LIR.seq.select, sep = "\n"
         )
         
         # alignment of left against right arm
         LIR.align.select <- LIR.align[[dat.content[IRF.index]]]
-        output$LIR_detail_title <- renderText("Alignment of the left and right arms of the selected LIR (* indicates complementary):")
+        output$LIR_detail_title <- renderText(
+          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary):</b></font>')
+          )
         output$LIR_detail <- renderText(
           LIR.align.select, sep = "\n"
         )
@@ -255,7 +265,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchRegResult_rows_selected)) {
       
     } else {
-      "Overlaps between the selected LIR and genes:"
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Overlaps between the selected LIR and genes:</b></font>')
     }
   })
   
@@ -283,7 +293,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchRegResult_rows_selected)) {
       
     } else {
-      "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm seq in upper case - right flanking seq in lower case):"
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop seq in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
     }
   })
   
@@ -303,7 +313,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchRegResult_rows_selected)) {
       
     } else {
-      "Alignment of the left and right arms of the selected LIR (* indicates complementary):"
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary):</b></font>')
     }
   })
   
@@ -426,7 +436,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchIDResult_rows_selected)) {
       
     } else {
-      "Overlaps between the selected LIR and genes:"
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Overlaps between the selected LIR and genes:</b></font>')
     }
   })
   
@@ -454,7 +464,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchIDResult_rows_selected) || is.null(search.ID.result())) {
       
     } else {
-      "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm seq in upper case - right flanking seq in lower case):"
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop seq in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
     }
   })
   
@@ -474,7 +484,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchIDResult_rows_selected) || is.null(search.ID.result())) {
       
     } else {
-      "Alignment of the left and right arms of the selected LIR (* indicates complementary):"
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary):</b></font>')
     }
   })
   
@@ -780,7 +790,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$BLASTresult_rows_selected)) {
       
     } else {
-      "Overlaps between the selected LIR and genes:"
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Overlaps between the selected LIR and genes:</b></font>')
     }
   })
   
@@ -808,7 +818,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
       
     } else {
-      "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm seq in upper case - right flanking seq in lower case):"
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop seq in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
     }
   })
   
@@ -828,7 +838,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
       
     } else {
-      "Alignment of the left and right arms of the selected LIR (* indicates complementary):"
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary):</b></font>')
     }
   })
   
@@ -1052,7 +1062,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$prediction_rows_selected)) {
       
     } else {
-      "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm seq in upper case - right flanking seq in lower case):"
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop seq in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
     }
   })
   
@@ -1072,7 +1082,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$prediction_rows_selected)) {
       
     } else {
-      "Alignment of the left and right arms of the selected LIR (* indicates complementary):"
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary):</b></font>')
     }
   })
   
@@ -1372,7 +1382,7 @@ shinyServer(function(input, output, session) {
 	  if (is.null(align.result()) || is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    "Lengths and expression levels of all sRNAs aligned to the selected LIR:"
+	    HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Lengths and expression levels of all sRNAs aligned to the selected LIR:</b></font>')
 	  }
 	})
 	
@@ -1636,7 +1646,7 @@ shinyServer(function(input, output, session) {
 	  if (is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    "Overlaps between the selected LIR and genes:"
+	    HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Overlaps between the selected LIR and genes:</b></font>')
 	  }
 	})
 	
@@ -1664,7 +1674,7 @@ shinyServer(function(input, output, session) {
 	  if (is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    "Sequence of the selected LIR (left flanking seq in lower case - left arm seq in upper case - loop seq in lower case - right arm seq in upper case - right flanking seq in lower case):"
+	    HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop seq in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
 	  }
 	})
 	
@@ -1684,7 +1694,7 @@ shinyServer(function(input, output, session) {
 	  if (is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    "Alignment of the left and right arms of the selected LIR (* indicates complementary):"
+	    HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary):</b></font>')
 	  }
 	})
 	
@@ -2075,7 +2085,7 @@ shinyServer(function(input, output, session) {
 	          } else {
 	            ## Display RNAfold result in text
 	            output$RNAfold_2nd_structure_text_title <- renderText({
-	              "Predicted secondary structure of the potential RNA encoded by the LIR:"
+	              HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Predicted secondary structure of the potential RNA encoded by the LIR:</b></font>')
 	            })
 	            
 	            output$RNAfold_textview <- renderUI({

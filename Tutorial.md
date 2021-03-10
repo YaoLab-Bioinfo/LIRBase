@@ -1,12 +1,12 @@
 <div align='center' ><font size='70'>Tutorial of LIRBase</font></div>
 
 - <font size=4>**Source code**: [https://github.com/venyao/LIRBase](https://github.com/venyao/LIRBase)</font>
-- <font size=4>**Online use**: [http://venyao.xyz/lirbase/](http://venyao.xyz/lirbase/)</font>
+- <font size=4>**Online use**: [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/)</font>
 - <font size=4>**Contact:** [yaowen@henau.edu.cn](mailto:yaowen@henau.edu.cn)</font>
 
 >&emsp;&emsp;**LIRBase** is a web server for comprehensive analysis of **siRNAs** (small interfering RNA) derived from **long inverted repeat** in eukaryotic genomes.
 
->&emsp;&emsp;Using IRF ([https://tandem.bu.edu/irf/irf.download.html](https://tandem.bu.edu/irf/irf.download.html)), we identified a total of 6,619,473 long inverted repeats in the whole genomes of 424 eukaryotes, including 297,317 LIRs in 77 metazoa genomes, 1,731,978 LIRs in 139 plant genomes and 4,585,178 LIRs in 208 vertebrate genomes. LIRBase is deployed at [http://venyao.xyz/lirbase/](http://venyao.xyz/lirbase/) for online use.
+>&emsp;&emsp;Using IRF ([https://tandem.bu.edu/irf/irf.download.html](https://tandem.bu.edu/irf/irf.download.html)), we identified a total of 6,619,473 long inverted repeats in the whole genomes of 424 eukaryotes, including 297,317 LIRs in 77 metazoa genomes, 1,731,978 LIRs in 139 plant genomes and 4,585,178 LIRs in 208 vertebrate genomes. LIRBase is deployed at [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/) for online use.
 
 >&emsp;&emsp;The homepage of **LIRBase** displays the main functionalities of LIRBase (Figure 1). The definition of long inverted repeat, the biogenesis pathway of siRNAs from long inverted repeat and the biological roles of siRNAs generated in this pathway are elaborated in the homepage of LIRBase. These results implied that a platform for comprehensive annotation and analysis of siRNAs derived from long inverted repeat is in urgent need.
 
@@ -134,7 +134,7 @@
 
 ## **10. Download LIRs of 424 eukaryotic genomes, the BLAST database and the Bowtie index database**
 
->&emsp;&emsp;In addition to be used online at [http://venyao.xyz/lirbase/](http://venyao.xyz/lirbase/), LIRBase can be deployed on a personal local or web Linux server. Deployment of LIRBase is platform independent, i.e., LIRBase can be deployed on any platform with the R environment available. The detailed steps are described in the &quot;Installation&quot; submenu of the &quot;Help&quot; menu of LIRBase (Figure 20). The source code of LIRBase is deposited in GitHub ([https://github.com/venyao/LIRBase](https://github.com/venyao/LIRBase)). As the file size of identified LIRs and the corresponding BLAST/Bowtie databases of the 424 eukaryotic genomes are too large, these datasets were not uploaded to GitHub. Instead, these data can be downloaded from [http://venyao.xyz/lirbase/](http://venyao.xyz/lirbase/) through the &quot;Download&quot; menu (Figure 21).
+>&emsp;&emsp;In addition to be used online at [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/), LIRBase can be deployed on a personal local or web Linux server. Deployment of LIRBase is platform independent, i.e., LIRBase can be deployed on any platform with the R environment available. The detailed steps are described in the &quot;Installation&quot; submenu of the &quot;Help&quot; menu of LIRBase (Figure 20). The source code of LIRBase is deposited in GitHub ([https://github.com/venyao/LIRBase](https://github.com/venyao/LIRBase)). As the file size of identified LIRs and the corresponding BLAST/Bowtie databases of the 424 eukaryotic genomes are too large, these datasets were not uploaded to GitHub. Instead, these data can be downloaded from [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/) through the &quot;Download&quot; menu (Figure 21).
 
 <div align=center><img src="Fig20.png" width="85%" height="85%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 20. The &quot;Installation&quot; submenu of the &quot;Help&quot; menu of LIRBase.</font></div>  
