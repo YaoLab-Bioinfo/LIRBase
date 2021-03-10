@@ -8,7 +8,7 @@
 
 >&emsp;&emsp;Using IRF ([https://tandem.bu.edu/irf/irf.download.html](https://tandem.bu.edu/irf/irf.download.html)), we identified a total of 6,619,473 long inverted repeats in the whole genomes of 424 eukaryotes, including 297,317 LIRs in 77 metazoa genomes, 1,731,978 LIRs in 139 plant genomes and 4,585,178 LIRs in 208 vertebrate genomes. LIRBase is deployed at [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/) for online use.
 
->&emsp;&emsp;The homepage of **LIRBase** displays the main functionalities of LIRBase (Figure 1). The definition of long inverted repeat, the biogenesis pathway of siRNAs from long inverted repeat and the biological roles of siRNAs generated in this pathway are elaborated in the homepage of LIRBase. These results implied that a platform for comprehensive annotation and analysis of siRNAs derived from long inverted repeat is in urgent need.
+>&emsp;&emsp;The homepage of **LIRBase** displays the main functionalities of LIRBase (Figure 1).
 
 <div align=center><img src="Fig1.png" width="85%" height="85%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 1. The homepage of LIRBase.</font></div>  
@@ -78,77 +78,81 @@
 
 >&emsp;&emsp;The software IRF ([https://tandem.bu.edu/irf/irf.download.html](https://tandem.bu.edu/irf/irf.download.html)) was utilized to identify long inverted repeats in the 424 eukaryotic genomes collected in LIRBase. IRF can only be used in the command line. We implemented a graphical interface for users to annotate long inverted repeats in user-uploaded DNA sequences by IRF (Figure 12). The detailed steps to annotate LIRs in user-uploaded DNA sequences are shown in Figure 12. The input DNA sequences for IRF can be pasted in a text area provided or be uploaded from a local text file. The input data must be DNA sequence in fasta format. Each sequence should have a unique ID start with ">".
 
+>&emsp;&emsp;The sequences and structures of LIRs identified by IRF can be downloaded as text files (Figure 12). The result of IRF are listed in a data table (Figure 12). Each row shows the structure of an identified long inverted repeat. The sequence and the sequence alignment of the two arms of a LIR can be viewed by clicking the corrsponding row of the LIR (Figure 12).
+
 <div align=center><img src="Fig12.png" width="85%" height="85%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 12. The &quot;Annotate&quot; menu of LIRBase to annotate LIRs in user-uploaded DNA sequences.</font></div>  
 
 <br/>
 
->&emsp;&emsp;The sequences and structures of LIRs identified by IRF can be downloaded as text files (Figure 12). The result of IRF can also be viewed in HTML pages (Figrue12 and 13).
-
-<div align=center><img src="Fig13.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 13. The LIRs identified by IRF viewed in HTML pages.</font></div>  
-
 ## **6. Identify candidate LIRs encoding long hpRNAs by aligning sRNA sequencing data to LIRs**
 
 >&emsp;&emsp;When transcribed, long inverted repeat can form long hairpin RNA genes (hpRNAs), which are much longer than typical animal or plant pre-miRNAs. Henderson et al. (2006) reported the biogenesis of small interfering RNAs (siRNAs) from long inverted repeat in _Arabidopsis thaliana_ for the first time. This siRNA biogenesis pathway was soon reported and verified in other animals and plants.
 
->&emsp;&emsp;To facilitate the annotation of small RNAs derived from LIRs archived in LIRBase, we implemented a functionality in LIRBase allowing alignment of user-uploaded small RNA sequencing data to all the identified LIRs of a genome (Figure 14). The input data should be read count of small RNAs rather than the raw small sequencing data as shown in Figure 14. The input small RNA read count data can be pasted in a text area provided or be uploaded from a local text file.
+>&emsp;&emsp;To facilitate the annotation of small RNAs derived from LIRs archived in LIRBase, we implemented a functionality in LIRBase allowing alignment of user-uploaded small RNA sequencing data to all the identified LIRs of a genome (Figure 13). The input data should be read count of small RNAs rather than the raw small sequencing data as shown in Figure 13. The input small RNA read count data can be pasted in a text area provided or be uploaded from a local text file.
 
->&emsp;&emsp;After clicking the &quot;Align!&quot; button, the alignment would be performed. The alignment results would be displayed in the &quot;Output&quot; panel of the &quot;Quantify&quot; menu (Figure 15). The detailed alignment result, the summary of alignment and the sRNA read count of aligned LIRs can be downloaded. What&#39;s more, the summary of alignment result and the sRNA read count of aligned LIRs can be viewed as data tables in the HTML page. By clicking on a single row of the table of sRNA alignment summary, the size distributions of sRNAs and the alignment of sRNAs to the LIR would be plotted. The detailed information of the chosen LIR would be displayed at the bottom of the &quot;Output&quot; panel.
+>&emsp;&emsp;After clicking the &quot;Align!&quot; button, the alignment would be performed. The alignment results would be displayed in the &quot;Output&quot; panel of the &quot;Quantify&quot; menu (Figure 14). The detailed alignment result, the summary of alignment and the sRNA read count of aligned LIRs can be downloaded. What&#39;s more, the summary of alignment result and the sRNA read count of aligned LIRs can be viewed as data tables in the HTML page. By clicking on a single row of the table of sRNA alignment summary, the size distributions of sRNAs and the alignment of sRNAs to the LIR would be plotted. The detailed information of the chosen LIR would be displayed at the bottom of the &quot;Output&quot; panel.
 
-<div align=center><img src="Fig14.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 14. The &quot;Quantify&quot; menu of LIRBase to align small RNA sequencing data to a LIR database.</font></div>  
+<div align=center><img src="Fig13.png" width="85%" height="85%" align=center /></div>
+<div align=center><font color=blue size=5>Figure 13. The &quot;Quantify&quot; menu of LIRBase to align small RNA sequencing data to a LIR database.</font></div>  
 
 <br/>
 
+<div align=center><img src="Fig14.png" width="85%" height="85%" align=center /></div>
+<div align=center><font color=blue size=5>Figure 14. The &quot;Output&quot; panel of the &quot;Quantify&quot; menu of LIRBase.</font></div>  
+
+>&emsp;&emsp;For each LIR in the table of sRNA alignment summary, the number of sRNAs aligned to the LIR, the number of sRNA sequencing reads aligned to the LIR, the percentage of 21-nt and 22-nt sRNAs among all sRNAs aligned to the LIR, the percentage of 24-nt sRNAs among all sRNAs aligned to the LIR, the percentage of sRNAs aligned to the arms of the LIR among all sRNAs aligned to the LIR, the percentage of sRNAs aligned to the loop of the LIR among all sRNAs aligned to the LIR, the percentage of sRNAs aligned to the flanking sequences of the LIR among all sRNAs aligned to the LIR, are displayed in different columns. At the top of this table, we can set the values of different columns to identify LIRs encoding candidate long hpRNAs. For example, we can identify LIRs encoding candidate long hpRNAs in the genome of Minghui 63 with the following request: (1) a minimum of 90 sRNAs aligned to the LIR, (2) a minimum of 80% sRNAs aligned to the arms of the LIR, (3) a minimum of 50% sRNAs should be 21 or 22 nt (Figure 15).
+
 <div align=center><img src="Fig15.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 15. The &quot;Output&quot; panel of the &quot;Quantify&quot; menu of LIRBase.</font></div>  
-
->&emsp;&emsp;For each LIR in the table of sRNA alignment summary, the number of sRNAs aligned to the LIR, the number of sRNA sequencing reads aligned to the LIR, the percentage of 21-nt and 22-nt sRNAs among all sRNAs aligned to the LIR, the percentage of 24-nt sRNAs among all sRNAs aligned to the LIR, the percentage of sRNAs aligned to the arms of the LIR among all sRNAs aligned to the LIR, the percentage of sRNAs aligned to the loop of the LIR among all sRNAs aligned to the LIR, the percentage of sRNAs aligned to the flanking sequences of the LIR among all sRNAs aligned to the LIR, are displayed in different columns. At the top of this table, we can set the values of different columns to identify LIRs encoding candidate long hpRNAs. For example, we can identify LIRs encoding candidate long hpRNAs in the genome of Minghui 63 with the following request: (1) a minimum of 90 sRNAs aligned to the LIR, (2) a minimum of 80% sRNAs aligned to the arms of the LIR, (3) a minimum of 50% sRNAs should be 21 or 22 nt (Figure 16).
-
-<div align=center><img src="Fig16.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 16. Set the values of different columns of the table of sRNA alignment summary to identify LIRs encoding candidate long hpRNAs.</font></div>  
+<div align=center><font color=blue size=5>Figure 15. Set the values of different columns of the table of sRNA alignment summary to identify LIRs encoding candidate long hpRNAs.</font></div>  
 
 ## **7. Differential expression analysis of long inverted repeats and small RNAs**
 
->&emsp;&emsp;By aligning small RNA sequencing data to LIRBase, we can obtain the small RNA read count for each LIR in a genome. With multiple biological samples/tissues, we can perform differential expression analysis of long inverted repeats between different biological samples/tissues (Figure 17). The R package DESeq2 ([http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html](http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html)) was utilized to perform differential expression analysis. A read count matrix and a sample information table are required as input data for the differential expression analysis. The sample in the count matrix and the sample in the information table must be in the same order. Check the example data provided by LIRBase for the format of a sample information table.
+>&emsp;&emsp;By aligning small RNA sequencing data to LIRBase, we can obtain the small RNA read count for each LIR in a genome. With multiple biological samples/tissues, we can perform differential expression analysis of long inverted repeats between different biological samples/tissues (Figure 16). The R package DESeq2 ([http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html](http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html)) was utilized to perform differential expression analysis. A read count matrix and a sample information table are required as input data for the differential expression analysis. The sample in the count matrix and the sample in the information table must be in the same order. Check the example data provided by LIRBase for the format of a sample information table.
 
->&emsp;&emsp;The results of DESeq2 can be downloaded as a plain text file or can be viewed in a data table in the HTML page (Figure 17). In addition, the MA-plot and the volcano plot showing the identified differentially expressed LIRs/sRNAs are also generated. A heatmap displaying the sample-to-sample distance is shown at the bottom of the &quot;DESeq&quot; menu.
+>&emsp;&emsp;The results of DESeq2 can be downloaded as a plain text file or can be viewed in a data table in the HTML page (Figure 16). In addition, the MA-plot and the volcano plot showing the identified differentially expressed LIRs/sRNAs are also generated. A heatmap displaying the sample-to-sample distance is shown at the bottom of the &quot;DESeq&quot; menu.
 
-<div align=center><img src="Fig17.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 17. The &quot;DESeq&quot; menu of LIRBase to perform differential expression analysis of LIRs/sRNAs.</font></div>  
+<div align=center><img src="Fig16.png" width="85%" height="85%" align=center /></div>
+<div align=center><font color=blue size=5>Figure 16. The &quot;DESeq&quot; menu of LIRBase to perform differential expression analysis of LIRs/sRNAs.</font></div>  
 
 ## **8. Predict mRNA targets of small RNAs encoded by a LIR**
 
->&emsp;&emsp;An analysis module was implemented to predict the mRNA targets of small RNAs encoded by a LIR through the detection of complementary matches between small RNAs and the cDNA sequence of protein-coding genes. The input should be all the small RNAs encoded by a LIR in FASTA format or sequences only (Figure 18). Then the small RNA sequences were aligned to the cDNA sequences of a specific genome by BOWTIE. The alignments were processed to identify complementary matches between small RNAs and the cDNA sequences. An example output is shown in Figure 18.
+>&emsp;&emsp;An analysis module was implemented to predict the mRNA targets of small RNAs encoded by a LIR through the detection of complementary matches between small RNAs and the cDNA sequence of protein-coding genes. The input should be all the small RNAs encoded by a LIR in FASTA format or sequences only (Figure 17). Then the small RNA sequences were aligned to the cDNA sequences of a specific genome by BOWTIE. The alignments were processed to identify complementary matches between small RNAs and the cDNA sequences. An example output is shown in Figure 17.
 
-<div align=center><img src="Fig18.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 18. The 'Target' menu of LIRBase.</font></div>  
+<div align=center><img src="Fig17.png" width="85%" height="85%" align=center /></div>
+<div align=center><font color=blue size=5>Figure 17. The 'Target' menu of LIRBase.</font></div>  
 
 ## **9. Predict and visualize the secondary structure of the potential hpRNA encoded by a LIR**
 
->&emsp;&emsp;We utilized the RNAfold software to predict and visualize the secondary structure of the potential hpRNA encoded by a LIR (Figure 19). The DNA sequence of a single LIR should be inputted at a time. The secondary structure in dot-bracket notation and the secondary structure in PDF image are displayed in the output, which can also be downloaded.
+>&emsp;&emsp;We utilized the RNAfold software to predict and visualize the secondary structure of the potential hpRNA encoded by a LIR (Figure 18). The DNA sequence of a single LIR should be inputted at a time. The secondary structure in dot-bracket notation and the secondary structure in PDF image are displayed in the output, which can also be downloaded.
 
-<div align=center><img src="Fig19.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 19. The 'Visualize' menu of LIRBase.</font></div>  
+<div align=center><img src="Fig18.png" width="85%" height="85%" align=center /></div>
+<div align=center><font color=blue size=5>Figure 18. The 'Visualize' menu of LIRBase.</font></div>  
 
 ## **10. Download LIRs of 424 eukaryotic genomes, the BLAST database and the Bowtie index database**
 
->&emsp;&emsp;In addition to be used online at [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/), LIRBase can be deployed on a personal local or web Linux server. Deployment of LIRBase is platform independent, i.e., LIRBase can be deployed on any platform with the R environment available. The detailed steps are described in the &quot;Installation&quot; submenu of the &quot;Help&quot; menu of LIRBase (Figure 20). The source code of LIRBase is deposited in GitHub ([https://github.com/venyao/LIRBase](https://github.com/venyao/LIRBase)). As the file size of identified LIRs and the corresponding BLAST/Bowtie databases of the 424 eukaryotic genomes are too large, these datasets were not uploaded to GitHub. Instead, these data can be downloaded from [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/) through the &quot;Download&quot; menu (Figure 21).
+>&emsp;&emsp;In addition to be used online at [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/), LIRBase can be deployed on a personal local or web Linux server. Deployment of LIRBase is platform independent, i.e., LIRBase can be deployed on any platform with the R environment available. The detailed steps are described in the &quot;Installation&quot; submenu of the &quot;Help&quot; menu of LIRBase (Figure 19). The source code of LIRBase is deposited in GitHub ([https://github.com/venyao/LIRBase](https://github.com/venyao/LIRBase)). As the file size of identified LIRs and the corresponding BLAST/Bowtie databases of the 424 eukaryotic genomes are too large, these datasets were not uploaded to GitHub. Instead, these data can be downloaded from [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/) through the &quot;Download&quot; menu (Figure 20).
 
-<div align=center><img src="Fig20.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 20. The &quot;Installation&quot; submenu of the &quot;Help&quot; menu of LIRBase.</font></div>  
+<div align=center><img src="Fig19.png" width="85%" height="85%" align=center /></div>
+<div align=center><font color=blue size=5>Figure 19. The &quot;Installation&quot; submenu of the &quot;Help&quot; menu of LIRBase.</font></div>  
 
 <br/>
 
-<div align=center><img src="Fig21.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 21. The &quot;Download&quot; menu of LIRBase.</font></div>  
+<div align=center><img src="Fig20.png" width="85%" height="85%" align=center /></div>
+<div align=center><font color=blue size=5>Figure 20. The &quot;Download&quot; menu of LIRBase.</font></div>  
 
 ## **11. Information of 424 genomes collected in LIRBase**
 
->&emsp;&emsp;The information of 424 genomes collected in LIRBase is displayed in the &quot;Genomes&quot; menu of LIRBase (Figure 22).
+>&emsp;&emsp;The information of 424 genomes collected in LIRBase is displayed in the &quot;Genomes&quot; menu of LIRBase (Figure 21).
+
+<div align=center><img src="Fig21.png" width="85%" height="85%" align=center /></div>
+<div align=center><font color=blue size=5>Figure 21. The &quot;Genomes&quot; menu of LIRBase.</font></div>  
+
+## **12. About LIR and LIRBase**
+
+>The definition of long inverted repeat, the biogenesis pathway of siRNAs from long inverted repeat and the biological roles of siRNAs generated in this pathway are elaborated in the &quot;About&quot; submenu of the &quot;Help&quot; menu of LIRBase (Figure 22). These results implied that a platform for comprehensive annotation and analysis of siRNAs derived from long inverted repeat is in urgent need.
 
 <div align=center><img src="Fig22.png" width="85%" height="85%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 22. The &quot;Genomes&quot; menu of LIRBase.</font></div>  
+<div align=center><font color=blue size=5>Figure 22. The &quot;About&quot; submenu of the &quot;Help&quot; menu.</font></div>  
 
 <br/>
