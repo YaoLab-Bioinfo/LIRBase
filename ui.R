@@ -1451,21 +1451,30 @@ shinyUI(
       ## Help
       navbarMenu("Help", icon = icon("book", class = NULL, lib = "font-awesome"),
                  tabPanel(h5("About"),
-                          includeMarkdown("About.md")
+                          column(2),
+                          column(8, includeMarkdown("About.md")),
+                          column(2)
                  ),
                  tabPanel(h5("Tutorial"),
-                          includeMarkdown("Tutorial.md")
+                          column(2),
+                          column(8, includeMarkdown("Tutorial.md")),
+                          column(2)
                  ),
                  tabPanel(h5("Installation"),
-                          includeMarkdown("README.md")
+                          column(2),
+                          column(8, includeMarkdown("README.md")),
+                          column(2)
                  ),
-				 tabPanel(h5("Links"),
-                          includeMarkdown("Links.md")
+				         tabPanel(h5("Links"),
+				                  column(2),
+				                  column(8, includeMarkdown("Links.md")),
+				                  column(2)
                  ),
                  tabPanel(h5("Contact"),
-                          includeMarkdown("Contact.md")
+                          column(3),
+                          column(6, includeMarkdown("Contact.md")),
+                          column(3)
                  )
-                 
       )
       
     )

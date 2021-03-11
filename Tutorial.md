@@ -1,14 +1,20 @@
 <div align='center' ><font size='70'>Tutorial of LIRBase</font></div>
 
-- <font size=4>**Source code**: [https://github.com/venyao/LIRBase](https://github.com/venyao/LIRBase)</font>
-- <font size=4>**Online use**: [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/)</font>
-- <font size=4>**Contact:** [yaowen@henau.edu.cn](mailto:yaowen@henau.edu.cn)</font>
-
 >&emsp;&emsp;**LIRBase** is a web server for comprehensive analysis of **siRNAs** (small interfering RNA) derived from **long inverted repeat** in eukaryotic genomes.
 
 >&emsp;&emsp;Using IRF ([https://tandem.bu.edu/irf/irf.download.html](https://tandem.bu.edu/irf/irf.download.html)), we identified a total of 6,619,473 long inverted repeats in the whole genomes of 424 eukaryotes, including 297,317 LIRs in 77 metazoa genomes, 1,731,978 LIRs in 139 plant genomes and 4,585,178 LIRs in 208 vertebrate genomes. LIRBase is deployed at [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/) for online use.
 
 >&emsp;&emsp;The homepage of **LIRBase** displays the main functionalities of LIRBase (Figure 1).
+
+>1. **Browse long inverted repeats (LIR) identified in 424 eukaryotic genomes** for the sequences, structures of LIRs, and the overlaps between LIRs and genes.  
+>2. **Search** LIRBase for **long inverted repeats** in a specific genome **by genomic locations**.  
+>3. **Search** LIRBase for **long inverted repeats** in a specific genome **by the identifiers** of long inverted repeats.  
+>4. Search LIRBase by sequence similarity using **BLAST**.  
+>5. **Detect and annotate long inverted repeats** in user-uploaded DNA sequences.  
+>6. **Align small RNA sequencing data to long inverted repeats** of a specific genome to detect the origination of small RNAs from long inverted repeats and quantify the expression level of small RNAs and long inverted repeats.  
+>7. Perform **differential expression analysis of long inverted repeats or small RNAs** between different biological samples/tissues.  
+>8. **Identify protein-coding genes targeted by the small RNAs derived from a LIR** through detecting the complementary matches between small RNAs and the cDNA sequence of protein-coding genes.  
+>9. Predict and visualize the **secondary structure of potential hpRNA encoded by a LIR** using RNAfold.  
 
 <div align=center><img src="Fig1.png" width="85%" height="85%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 1. The homepage of LIRBase.</font></div>  

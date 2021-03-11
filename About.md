@@ -1,4 +1,4 @@
-
+<div align='center' ><font size='70'>Why LIR and LIRBase?</font></div>
 
 <i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Long inverted repeat, long hpRNA and siRNA</b></font>  
 >An inverted repeat is a single stranded nucleotide sequence followed by its reverse complement at the downstream. 
