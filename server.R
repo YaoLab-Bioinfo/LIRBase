@@ -2167,7 +2167,7 @@ shinyServer(function(input, output, session) {
   
 	output$BLASTdbdownloadTable = shiny::renderDataTable({
 	  BLAST_db_down <- read.table("BLASTdb_download.txt", head=T, as.is=T, sep="\t")
-	  BLAST_db_down
+	  BLAST_db_down 
 	}, options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
 	                  searching = TRUE, autoWidth = FALSE, bSort=FALSE), escape = FALSE)
 	
@@ -2188,6 +2188,10 @@ shinyServer(function(input, output, session) {
 	
 	# output$pdfview <- renderUI({
 	#   tags$iframe(style = "height:900px; width:100%; scrolling=yes", src = "Tutorial.pdf")
+	# })
+	
+	# output$Test1 <- renderUI({
+	#   HTML(markdown::markdownToHTML(knit('Tutorial_1.Rmd', quiet = TRUE)))
 	# })
 
 })

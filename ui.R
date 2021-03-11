@@ -1456,9 +1456,16 @@ shinyUI(
                           column(2)
                  ),
                  tabPanel(h5("Tutorial"),
-                          column(2),
-                          column(8, includeMarkdown("Tutorial.md")),
-                          column(2)
+                          sidebarPanel(
+                            style = "position:fixed;width:23%;",
+                            h4("Table of contents"),
+                            width = 3,
+                            includeMarkdown("Tutorial_toc.md")
+                          ),
+                          
+                          mainPanel(width = 9,
+                            includeMarkdown("Tutorial.md")
+                          )
                  ),
                  tabPanel(h5("Installation"),
                           column(2),
