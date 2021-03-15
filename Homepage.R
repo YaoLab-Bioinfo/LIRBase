@@ -1,10 +1,11 @@
+
 Homepage <- dashboardPage(
   dashboardHeader(disable = T),
   dashboardSidebar(disable = T),
   
   dashboardBody(
-  tags$head(tags$style("section.content { overflow-y: hidden; }")),
-  
+    tags$head(tags$style("section.content { overflow-y: hidden; }")),
+    
     column(
       width = 10,
       offset = 1,
@@ -18,7 +19,7 @@ Homepage <- dashboardPage(
         p("We identified a total of 6,619,473", strong("long inverted repeats (LIR, longer than 800 nt)"), "in 424 eukaryotic genomes and implemented various functionalities for analysis of LIRs and small RNAs derived from LIRs.")
       )
     ),
-
+    
     column(
       width = 10,
       offset = 1,
@@ -36,74 +37,83 @@ Homepage <- dashboardPage(
         )
       )
     ),
-
+    
     column(
       width = 10,
       offset = 1,
       sectionBox(
         title = "Functionalities of LIRBase",
-          fluidRow(
-            module_Box(
-              width = 4, height='230px', color="blue",
-              title = "Browse",
-              imgSrc = "Browse.png",
-              text = "Browse LIRs identified in 424 eukaryotic genomes for the sequences, structures of LIRs and the overlaps between LIRs and genes."
-            ),
-            module_Box(
-              width = 4, height='230px',
-              title = "Search by genomic location",
-              imgSrc = "SearchByReg.png",
-              text = "Search LIRBase for long inverted repeats in a specific genome by genomic locations."
-            ),
-			module_Box(
-              width = 4, height='230px',
-              title = "Search by LIR identifier",
-              imgSrc = "SearchByLIRID.png",
-              text = "Search LIRBase for long inverted repeats in a specific genome by the identifiers of LIRs."
-            )
+        fluidRow(
+          box(width = 4,
+              actionBttn("Browse_butt", "Browse", 
+                         icon = icon("folder-open-o", class = NULL, lib = "font-awesome"),
+                         block = TRUE, size = "lg", style="unite", color="default"),
+              h4("Browse LIRBase by species/genomes")
           ),
-          fluidRow(
-            module_Box(
-              width = 4, height='250px',
-              title = "BLAST",
-              imgSrc = "BLAST.png",
-              text = "Search LIRBase by sequence similarity using BLAST."
-            ),
-			module_Box(
-              width = 4, height='250px',
-              title = "Annotate",
-              imgSrc = "Annotate.png",
-              text = "Detect and annotate long inverted repeats in user-uploaded DNA sequences."
-            ),
-			module_Box(
-              width = 4, height='250px',
-              title = "Quantify",
-              imgSrc = "Quantify.png",
-              text = "Identify candidate LIRs encoding long hpRNAs by aligning sRNA sequencing data to LIRs."
-            )
+          
+          box(width = 4,
+              actionBttn("SearchByReg_butt", "Search by genomic location", 
+                         icon = icon("search", class = NULL, lib = "font-awesome"),
+                         block = TRUE, size = "lg", style="unite", color="default"),
+              h4("Search LIRBase by genomic locations")
           ),
-		  fluidRow(
-            module_Box(
-              width = 4, height='230px',
-              title = "DESeq",
-              imgSrc = "DESeq.png",
-              text = "Perform differential expression analysis of LIRs or small RNAs between different biological samples/tissues."
-            ),
-            module_Box(
-              width = 4, height='230px',
-              title = "Target",
-              imgSrc = "Target.png",
-              text = "Identify protein-coding genes targeted by the small RNAs derived from a LIR."
-            ),
-			module_Box(
-              width = 4, height='230px',
-              title = "Visualize",
-              imgSrc = "Visualize.png",
-              text = "Predict and visualize the secondary structure of potential long hpRNA encoded by a LIR."
-            )
+          
+          box(width = 4,
+              actionBttn("SearchByLIRID_butt", "Search by LIR identifier", 
+                         icon = icon("search", class = NULL, lib = "font-awesome"),
+                         block = TRUE, size = "lg", style="unite", color="default"),
+              h4("Search LIRBase by the identifiers of LIRs")
           )
+        ),
+        
+        fluidRow(
+          box(width = 4,
+              actionBttn("BLAST_butt", "BLAST", 
+                         icon = icon("rocket", class = NULL, lib = "font-awesome"),
+                         block = TRUE, size = "lg", style="unite", color="default"),
+              h4("Search LIRBase by sequence similarity using BLAST")
+          ),
+          
+          box(width = 4,
+              actionBttn("Annotate_butt", "Annotate", 
+                         icon = icon("cogs", class = NULL, lib = "font-awesome"),
+                         block = TRUE, size = "lg", style="unite", color="default"),
+              h4("Detect and annotate long inverted repeats in user-uploaded DNA sequences")
+          ),
+          
+          box(width = 4,
+              actionBttn("Quantify_butt", "Quantify", 
+                         icon = icon("upload", class = NULL, lib = "font-awesome"),
+                         block = TRUE, size = "lg", style="unite", color="default"),
+              h4("Identify candidate LIRs encoding long hpRNAs by aligning sRNA sequencing data to LIRs")
+          )
+        ),
+        
+        fluidRow(
+          box(width = 4,
+              actionBttn("DESeq_butt", "DESeq", 
+                         icon = icon("eercast", class = NULL, lib = "font-awesome"),
+                         block = TRUE, size = "lg", style="unite", color="default"),
+              h4("Differential expression analysis of LIRs or small RNAs between different biological samples/tissues")
+          ),
+          
+          box(width = 4,
+              actionBttn("Target_butt", "Target", 
+                         icon = icon("bullseye", class = NULL, lib = "font-awesome"),
+                         block = TRUE, size = "lg", style="unite", color="default"),
+              h4("Identify protein-coding genes targeted by the small RNAs derived from a LIR")
+          ),
+          
+          box(width = 4,
+              actionBttn("Visualize_butt", "Visualize", 
+                         icon = icon("file-image-o", class = NULL, lib = "font-awesome"),
+                         block = TRUE, size = "lg", style="unite", color="default"),
+              h4("Predict and visualize the secondary structure of potential long hpRNA encoded by a LIR")
+          )
+        )
       )
     )
-
+    
   )
 )
+

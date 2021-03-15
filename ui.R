@@ -71,7 +71,7 @@ shinyUI(
       refreshColour = "brown"
     ),
     
-    navbarPage(
+    navbarPage(id = "The_page",
       title = "LIRBase", 
       windowTitle = "Welcome to LIRBase!",
       
@@ -147,11 +147,11 @@ shinyUI(
         ), #/ head
         
         tabsetPanel(id = "browser_1",
-                    tabPanel("Species",
+                    tabPanel(title = "Species", id = "browser_Species",
                              dataTableOutput('HTMLtable')
                     ),
                     
-                    tabPanel("LIRs annotated by IRF",
+                    tabPanel(title = "LIRs annotated by IRF", id = "browser_LIR",
                              fixedRow(
                                column(6,
                                       tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Long inverted repeats identified by IRF</b></font>'),
@@ -195,7 +195,7 @@ shinyUI(
                              br()
                     ),
                     
-                    tabPanel("Details of the LIR selected",
+                    tabPanel(title = "Details of the LIR selected", id = "browser_LIR_Details",
                              htmlOutput("LIR_info_title"),
                              tags$head(tags$style("#LIR_info_title{color: red;
                                        font-size: 22px;
@@ -262,7 +262,7 @@ shinyUI(
         "Search",
         icon = icon("search", class = NULL, lib = "font-awesome"),
         
-        tabPanel(h5("Search by genomic location"), 
+        tabPanel("Search by genomic location", 
                  fixedRow(
                    column(6,
                           tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Search by genomic location</b></font>'),
@@ -375,7 +375,7 @@ shinyUI(
                  )
         ),
         
-        tabPanel(h5("Search by LIR identifier"),
+        tabPanel("Search by LIR identifier",
                  fixedRow(
                    column(6,
                           tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Search by LIR identifier</b></font>'),

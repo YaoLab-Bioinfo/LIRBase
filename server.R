@@ -1,20 +1,43 @@
 
 # options(shiny.maxRequestSize = 200*1024^2)
 shinyServer(function(input, output, session) {
-  
+
   # Home
-  # observe({
-  #   # cb <- htmlwidgets::JS('function(){debugger;HTMLWidgets.staticRender();}')
-  #   
-  #   output$IRFsummary <- DT::renderDataTable(
-  #     dat.spark,
-  #     escape = FALSE, rownames= FALSE, selection="none",
-  #     options = list(
-  #       pageLength = 10, autoWidth = TRUE, bSort=FALSE
-  #     )
-  #   )
-  # })
+  observeEvent(input$Browse_butt, {
+    updateNavbarPage(session, "The_page", selected = "Browse")
+  })
   
+  observeEvent(input$SearchByReg_butt, {
+    updateNavbarPage(session, "The_page", selected = "Search by genomic location")
+  })
+  
+  observeEvent(input$SearchByLIRID_butt, {
+    updateNavbarPage(session, "The_page", selected = "Search by LIR identifier")
+  })
+  
+  observeEvent(input$BLAST_butt, {
+    updateNavbarPage(session, "The_page", selected = "Blast")
+  })
+  
+  observeEvent(input$Annotate_butt, {
+    updateNavbarPage(session, "The_page", selected = "Annotate")
+  })
+  
+  observeEvent(input$Quantify_butt, {
+    updateNavbarPage(session, "The_page", selected = "Quantify")
+  })
+  
+  observeEvent(input$DESeq_butt, {
+    updateNavbarPage(session, "The_page", selected = "DESeq")
+  })
+  
+  observeEvent(input$Target_butt, {
+    updateNavbarPage(session, "The_page", selected = "Target")
+  })
+  
+  observeEvent(input$Visualize_butt, {
+    updateNavbarPage(session, "The_page", selected = "Visualize")
+  })
   
   # Browse
   observe({
@@ -2185,14 +2208,7 @@ shinyServer(function(input, output, session) {
 	  genomes
 	}, options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
 	                    searching = TRUE, autoWidth = FALSE, bSort=FALSE), escape = FALSE)
-	
-	# output$pdfview <- renderUI({
-	#   tags$iframe(style = "height:900px; width:100%; scrolling=yes", src = "Tutorial.pdf")
-	# })
-	
-	# output$Test1 <- renderUI({
-	#   HTML(markdown::markdownToHTML(knit('Tutorial_1.Rmd', quiet = TRUE)))
-	# })
 
+	
 })
 
