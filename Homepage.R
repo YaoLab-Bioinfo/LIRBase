@@ -5,20 +5,39 @@ Homepage <- dashboardPage(
   
   dashboardBody(
     tags$head(tags$style("section.content { overflow-y: hidden; }")),
-    
-    column(
-      width = 10,
-      offset = 1,
-      titleBox(title = "LIRBase: A web server for comprehensive analysis of siRNAs derived from long inverted repeat in eukaryotic genomes")
-    ),
-    column(
-      width = 10,
-      offset = 1,
-      textBox(
-        width = 12,
-        p("We identified a total of 6,619,473", strong("long inverted repeats (LIR, longer than 800 nt)"), "in 424 eukaryotic genomes and implemented various functionalities for analysis of LIRs and small RNAs derived from LIRs.")
+    fluidRow(
+      column(
+        width = 10,
+        offset = 1,
+        titleBox(title = "LIRBase: A web application for comprehensive analysis of siRNAs derived from long inverted repeat in 424 eukaryotic genomes")
       )
     ),
+    
+    fluidRow(
+      column(
+        width = 10,
+        offset = 1,
+        textBox(
+          width = 12,
+          p("We identified a total of 6,619,473", strong("long inverted repeats (LIR, longer than 800 nt)"), "in 424 eukaryotic genomes and implemented various functionalities for analysis of LIRs and small RNAs derived from LIRs.")
+        ),
+        box(
+          width = 12,
+          HTML("<p class='aligncenter'><img src='header.png' width='100%' height='100%' /></p>
+            <style>
+            .aligncenter {
+              text-align: center;
+            }
+          </style>")
+        )
+      )
+    ),
+    
+    # column(
+    #   width = 10,
+    #   offset = 1,
+    #   
+    # ),
     
     column(
       width = 10,

@@ -4,6 +4,7 @@
 >An inverted repeat is a single stranded nucleotide sequence followed by its reverse complement at the downstream. 
 >The intervening sequence between the initial sequence and the reverse complement can be any length including zero. 
 >When transcribed, **long inverted repeat can form long hairpin RNA genes (hpRNAs)**, which are much longer than typical animal or plant pre-miRNAs. 
+
 >Henderson et al. reported the biogenesis of small interfering RNAs (siRNAs) from long inverted repeat in *Arabidopsis thaliana* for the first time [1].
 >Okamura et al. systematically characterized the **biogenesis pathway of 21-22-nucleotide siRNAs from long hpRNAs encoded by LIRs** in *Drosophila* [2]. 
 >They found that Dicer-2, Hen1 and Argonaute 2 played vital roles in this siRNA biogenesis pathway. 
@@ -22,9 +23,13 @@
 >In 2018, Lin et al. identified two long hpRNAs in *Drosophila simulans*, which could be processed into 21-nt siRNAs [4]. 
 >These siRNAs could then repress the expression of the *Dox* and *MDox* genes which promotes X chromosome transmission by suppressing Y-bearing sperm.
 >As a result, the **two long hpRNAs and the derived siRNAs are critical to the maintenance of balanced sex ratio** in the offsprings of *Drosophila simulans*.
+
 >The biological functions of siRNAs derived from long inverted repeats in plants were also reported in recent years.
+
 >In **apple**, a long hpRNA and the generated siRNAs contributed to the resistance of apple to leaf spot disease [5].
+
 >In **soybean**, a long hpRNA and the derived 22-nt siRNAs regulate the seed coat color of soybean [6].
+
 >In **rice**, we previously found that several LIRs were present in one parental genome of an elite hybrid but were absent from the other parental genome [7]. As a result, siRNAs derived from the LIRs were detected and expressed in only one parental genome. The association between the LIRs and siRNAs were further detected and verified in an F2 population derived from a self-cross of the elite hybrid.
 
 <p class="aligncenter"><img src="Lin2018.png" width="85%" height="70%" /></p>
@@ -38,6 +43,7 @@
 >In 2013, **Axtell urgently called on the comprehensive genome-wide identification and annotation of long inverted repeats and long hpRNAs** [8].
 >However, genome-wide identification and annotation of long inverted repeats were only conducted in very few organisms.
 >None database or web server for annotation and analysis of long inverted repeats and long hpRNAs exist up to now.
+
 >Using <a href="https://tandem.bu.edu/irf/irf.download.html" target="_blank">Inverted Repeats Finder (IRF)</a> [9], we identified a total of 6,619,473 long inverted repeats in the whole genomes of 424 eukaryotes, including 297,317 LIRs in 77 metazoa genomes, 1,731,978 LIRs in 139 plant genomes and 4,590,178 LIRs in 208 vertebrate genomes.
 >We requested a minimum length of 400 nt for both arms of the long inverted repeat identified by IRF, to remove potential miniature inverted-repeat transposable element (MITE) or Alu element from the result of IRF.
 

@@ -176,7 +176,7 @@ shinyServer(function(input, output, session) {
         LIR.seq.select <- readLines(tmp.fl)
         
         output$LIR_sequence_title <- renderText(
-          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop seq in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
+          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop sequence in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
           )
         output$LIR_sequence <- renderText(
           LIR.seq.select, sep = "\n"
@@ -316,7 +316,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchRegResult_rows_selected)) {
       
     } else {
-      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop seq in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop sequence in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
     }
   })
   
@@ -487,7 +487,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchIDResult_rows_selected) || is.null(search.ID.result())) {
       
     } else {
-      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop seq in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop sequence in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
     }
   })
   
@@ -849,7 +849,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
       
     } else {
-      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop seq in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop sequence in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
     }
   })
   
@@ -1093,7 +1093,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$prediction_rows_selected)) {
       
     } else {
-      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop seq in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop sequence in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
     }
   })
   
@@ -1705,7 +1705,7 @@ shinyServer(function(input, output, session) {
 	  if (is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop seq in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
+	    HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop sequence in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
 	  }
 	})
 	
