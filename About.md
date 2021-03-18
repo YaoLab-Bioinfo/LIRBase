@@ -47,6 +47,18 @@
 >Using <a href="https://tandem.bu.edu/irf/irf.download.html" target="_blank">Inverted Repeats Finder (IRF)</a> [9], we identified a total of 6,619,473 long inverted repeats in the whole genomes of 424 eukaryotes, including 297,317 LIRs in 77 metazoa genomes, 1,731,978 LIRs in 139 plant genomes and 4,590,178 LIRs in 208 vertebrate genomes.
 >We requested a minimum length of 400 nt for both arms of the long inverted repeat identified by IRF, to remove potential miniature inverted-repeat transposable element (MITE) or Alu element from the result of IRF.
 
+<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Nomenclature of a long inverted repeat in LIRBase</b></font>  
+>**Each long inverted repeat has a unique identifier in LIRBase** determined by the species name and several features of the LIR including the chromosome ID, the start coordinate of the left arm, the end coordinate of the left arm, the start coordinate of the right arm, the end coordinate of the right arm.
+
+>Please be noted that the sequence of a LIR in LIRBase is composed of the left arm sequence, the loop sequence, the right arm sequence, as well as two 200-bp sequences flanking the LIR (the left flanking sequence and the right flanking sequence). **The genomic coordinates of both arms of the LIR are reflected in the identifier of the LIR, while the flanking sequences are not reflected in the identifier of the LIR.** 
+
+
+<p class="aligncenter"><img src="nomenclature.png" width="85%" height="70%" /></p>
+<style>
+.aligncenter {
+    text-align: center;
+}
+</style>
 
 <i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>References</b></font>   
 >1. Henderson et al. (2006), <a href="https://doi.org/10.1038/ng1804" target="_blank">Dissecting <i>Arabidopsis thaliana</i> DICER function in small RNA processing, gene silencing and DNA methylation patterning</a>, Nature genetics  
