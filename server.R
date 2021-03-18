@@ -639,11 +639,15 @@ shinyServer(function(input, output, session) {
       
       #this ensures that NAs get added for no hits
       results <-  rbind.fill(lapply(results, function(y) {as.data.frame((y), stringsAsFactors=FALSE)} ))
+      if (ncol(results) != 13) {
+        results <- NULL
+      }
+      results
     }
   })
   
   output$BLASTresult <- DT::renderDataTable({
-    if (is.null(blast.result())) {
+    if (is.null(blast.result()) || is.null(blastedResults())) {
       blast.out <- data.frame("V1"="No BLAST hits found!")
       colnames(blast.out) <- ""
       blast.out
@@ -766,8 +770,9 @@ shinyServer(function(input, output, session) {
   
   #this chunk gets the alignment information from a clicked row
   output$BLAST_hit_summary <- shiny::renderTable({
-    if(is.null(input$BLASTresult_rows_selected)){}
-    else{
+    if(is.null(input$BLASTresult_rows_selected) || is.null(blastedResults())) {
+      
+    } else {
       clicked = input$BLASTresult_rows_selected
       tableout<- data.frame(blastedResults()[clicked,])
       tableout <- t(tableout)
@@ -780,14 +785,14 @@ shinyServer(function(input, output, session) {
   }, rownames =T, colnames =F)
   
   output$BLAST_hit_detail_title <- renderText({
-    if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
+    if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) || is.null(blastedResults())) {
     } else {
       HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>The detailed alignment for the selected BLAST hit:</b></font>')
     }
   })
   
   output$BLAST_hit_detail <- renderText({
-    if(is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ){
+    if(is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) || is.null(blastedResults())){
       NULL
     }
     else{
@@ -818,7 +823,7 @@ shinyServer(function(input, output, session) {
   
   ## Overlap between LIR and genes
   output$Blast_LIR_gene_op_title <- renderText({
-    if (is.null(input$BLASTresult_rows_selected)) {
+    if (is.null(input$BLASTresult_rows_selected) || is.null(blastedResults())) {
       
     } else {
       HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Overlaps between the selected LIR and genes:</b></font>')
@@ -826,7 +831,7 @@ shinyServer(function(input, output, session) {
   })
   
   output$Blast_LIR_gene_op <- DT::renderDataTable({
-    if ( is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
+    if ( is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) || is.null(blastedResults())) {
       
     } else {
       if ( nrow(blastdbResults()[[4]])>0 ) {
@@ -846,7 +851,7 @@ shinyServer(function(input, output, session) {
   
   ## Display LIR sequence
   output$LIR_detail_blast_fasta_title <- renderText({
-    if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
+    if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) || is.null(blastedResults())) {
       
     } else {
       HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop sequence in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
@@ -854,7 +859,7 @@ shinyServer(function(input, output, session) {
   })
   
   output$LIR_detail_blast_fasta <- renderText({
-    if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
+    if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) || is.null(blastedResults())) {
       
     } else {
       LIR.ID <- blastedResults()$sseqid[input$BLASTresult_rows_selected]
@@ -866,7 +871,7 @@ shinyServer(function(input, output, session) {
   
   ## Display LIR alignment
   output$LIR_detail_blast_title <- renderText({
-    if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
+    if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) || is.null(blastedResults())) {
       
     } else {
       HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary):</b></font>')
@@ -874,7 +879,7 @@ shinyServer(function(input, output, session) {
   })
   
   output$LIR_detail_blast <- renderText({
-    if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) ) {
+    if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) || is.null(blastedResults())) {
       
     } else {
       LIR.ID <- blastedResults()$sseqid[input$BLASTresult_rows_selected]
@@ -1503,6 +1508,16 @@ shinyServer(function(input, output, session) {
 	    y.ir <- IRanges(y, y)
 	    y.df <- as.data.frame(reduce(y.ir))
 	    
+	    if (nrow(y.df) == 1) {
+	      start.1 <- y.df$start
+	      start.2 <- y.df$start + y.df$width/2
+	      end.1 <- y.df$start + y.df$width/2 - 1
+	      end.2 <- y.df$end
+	      width.2 <- y.df$width / 2
+	      y.df <- data.frame(start = c(start.1, start.2), end =c(end.1, end.2), 
+	                         width = width.2, stringsAsFactors = FALSE)
+	    }
+	    
 	    LIR.start.pos <- gsub(".+:", "", align.LIR$LIR[1])
 	    LIR.start.pos <- as.integer(gsub("--.+", "", LIR.start.pos))
 	    LIT.start.pos.in <- y.df$start[1]
@@ -1597,6 +1612,16 @@ shinyServer(function(input, output, session) {
 	    y <- x[[1]][,1]
 	    y.ir <- IRanges(y, y)
 	    y.df <- as.data.frame(reduce(y.ir))
+	    
+	    if (nrow(y.df) == 1) {
+	      start.1 <- y.df$start
+	      start.2 <- y.df$start + y.df$width/2
+	      end.1 <- y.df$start + y.df$width/2 - 1
+	      end.2 <- y.df$end
+	      width.2 <- y.df$width / 2
+	      y.df <- data.frame(start = c(start.1, start.2), end =c(end.1, end.2), 
+	                         width = width.2, stringsAsFactors = FALSE)
+	    }
 	    
 	    LIR.start.pos <- gsub(".+:", "", align.LIR$LIR[1])
 	    LIR.start.pos <- as.integer(gsub("--.+", "", LIR.start.pos))
