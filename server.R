@@ -4,39 +4,39 @@ shinyServer(function(input, output, session) {
 
   # Home
   observeEvent(input$Browse_butt, {
-    updateNavbarPage(session, "The_page", selected = "Browse")
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Browse</strong>"))
   })
   
   observeEvent(input$SearchByReg_butt, {
-    updateNavbarPage(session, "The_page", selected = "Search by genomic location")
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Search by genomic location</strong>"))
   })
   
   observeEvent(input$SearchByLIRID_butt, {
-    updateNavbarPage(session, "The_page", selected = "Search by LIR identifier")
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Search by LIR identifier</strong>"))
   })
   
   observeEvent(input$BLAST_butt, {
-    updateNavbarPage(session, "The_page", selected = "Blast")
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Blast</strong>"))
   })
   
   observeEvent(input$Annotate_butt, {
-    updateNavbarPage(session, "The_page", selected = "Annotate")
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Annotate</strong>"))
   })
   
   observeEvent(input$Quantify_butt, {
-    updateNavbarPage(session, "The_page", selected = "Quantify")
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Quantify</strong>"))
   })
   
   observeEvent(input$DESeq_butt, {
-    updateNavbarPage(session, "The_page", selected = "DESeq")
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>DESeq</strong>"))
   })
   
   observeEvent(input$Target_butt, {
-    updateNavbarPage(session, "The_page", selected = "Target")
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Target</strong>"))
   })
   
   observeEvent(input$Visualize_butt, {
-    updateNavbarPage(session, "The_page", selected = "Visualize")
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Visualize</strong>"))
   })
   
   # Browse
@@ -117,7 +117,7 @@ shinyServer(function(input, output, session) {
           rownames= FALSE, filter = 'top', selection=list(mode="single", target="cell")
         )
         
-        updateTabsetPanel(session, 'browser_1', selected = 'LIRs annotated by IRF')
+        updateTabsetPanel(session, 'browser_1', selected = HTML("<strong style='font-size:18px'>LIRs annotated by IRF</strong>"))
       } else {
         NULL
       }
@@ -191,7 +191,7 @@ shinyServer(function(input, output, session) {
           LIR.align.select, sep = "\n"
         )
         
-        updateTabsetPanel(session, 'browser_1', selected = 'Details of the LIR selected')
+        updateTabsetPanel(session, 'browser_1', selected = HTML("<strong style='font-size:18px'>Details of the LIR selected</strong>"))
         DT::selectCells(myProxy, NULL)
       } else {
         NULL
@@ -419,7 +419,7 @@ shinyServer(function(input, output, session) {
     if (input$submitSearchID >0) {
       isolate({
         if (!is.null(search.ID.result())) {
-          updateTabsetPanel(session, 'search_ID', selected = 'Output')
+          updateTabsetPanel(session, 'search_ID', selected = HTML("<strong style='font-size:18px'>Output</strong>"))
         } else {
           NULL
         }
@@ -662,7 +662,7 @@ shinyServer(function(input, output, session) {
     if (input$submitBLAST >0) {
       isolate({
         if (!is.null(blast.result())) {
-          updateTabsetPanel(session, 'BLAST_tab', selected = 'Output')
+          updateTabsetPanel(session, 'BLAST_tab', selected = HTML("<strong style='font-size:18px'>Output</strong>"))
         } else {
           NULL
         }

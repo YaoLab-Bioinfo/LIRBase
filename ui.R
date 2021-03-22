@@ -72,11 +72,11 @@ shinyUI(
     ),
     
     navbarPage(id = "The_page",
-      title = "LIRBase", 
+      title = HTML("<strong style='font-size:18px'>LIRBase</strong>"), 
       windowTitle = "Welcome to LIRBase!",
       
       ## Home
-      tabPanel("Home", 
+      tabPanel(HTML("<strong style='font-size:18px'>Home</strong>"), 
                tags$head(
                  tags$style("
                  input[type='file'] {width:5em;}
@@ -114,7 +114,7 @@ shinyUI(
       
       # Browse
       tabPanel(
-        "Browse",
+        HTML("<strong style='font-size:18px'>Browse</strong>"),
         icon = icon("folder-open-o", class = NULL, lib = "font-awesome"),
         
         tags$head(tags$script(HTML('Shiny.addCustomMessageHandler("jsCode",function(message) {eval(message.value);});')),
@@ -147,11 +147,11 @@ shinyUI(
         ), #/ head
         
         tabsetPanel(id = "browser_1",
-                    tabPanel(title = "Species", id = "browser_Species",
+                    tabPanel(title = HTML("<strong style='font-size:18px'>Species</strong>"), id = "browser_Species",
                              dataTableOutput('HTMLtable')
                     ),
                     
-                    tabPanel(title = "LIRs annotated by IRF", id = "browser_LIR",
+                    tabPanel(title = HTML("<strong style='font-size:18px'>LIRs annotated by IRF</strong>"), id = "browser_LIR",
                              fixedRow(
                                column(6,
                                       tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Long inverted repeats identified by IRF</b></font>'),
@@ -195,7 +195,7 @@ shinyUI(
                              br()
                     ),
                     
-                    tabPanel(title = "Details of the LIR selected", id = "browser_LIR_Details",
+                    tabPanel(title = HTML("<strong style='font-size:18px'>Details of the LIR selected</strong>"), id = "browser_LIR_Details",
                              htmlOutput("LIR_info_title"),
                              tags$head(tags$style("#LIR_info_title{color: red;
                                        font-size: 22px;
@@ -259,10 +259,10 @@ shinyUI(
       
       # Search
       navbarMenu(
-        "Search",
+        HTML("<strong style='font-size:18px'>Search</strong>"),
         icon = icon("search", class = NULL, lib = "font-awesome"),
         
-        tabPanel("Search by genomic location", 
+        tabPanel(HTML("<strong style='font-size:16px'>Search by genomic location</strong>"),
                  fixedRow(
                    column(6,
                           tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Search by genomic location</b></font>'),
@@ -375,7 +375,7 @@ shinyUI(
                  )
         ),
         
-        tabPanel("Search by LIR identifier",
+        tabPanel(HTML("<strong style='font-size:16px'>Search by LIR identifier</strong>"),
                  fixedRow(
                    column(6,
                           tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Search by LIR identifier</b></font>'),
@@ -385,7 +385,7 @@ shinyUI(
                  ),
                  
                  tabsetPanel(id = "search_ID",
-                             tabPanel("Input",
+                             tabPanel(HTML("<strong style='font-size:18px'>Input</strong>"),
                                       fluidRow(
                                         column(6,
                                                textAreaInput("LIRID", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Input LIR identifiers</font>')),
@@ -419,7 +419,7 @@ shinyUI(
                                       )
                              ),
                              
-                             tabPanel("Output",
+                             tabPanel(HTML("<strong style='font-size:18px'>Output</strong>"),
                                       fluidRow(
                                         column(6,
                                                downloadButton("searchIDDownIRFresult.txt", "Structure of LIRs in the search result", style = "width:100%;", class = "buttDown"),
@@ -497,7 +497,7 @@ shinyUI(
       
       # Blast
       tabPanel(
-        "Blast",
+        HTML("<strong style='font-size:18px'>Blast</strong>"),
         icon = icon("rocket", class = NULL, lib = "font-awesome"),
         
         tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Search LIRBase by sequence similarity using BLAST</b></font>'),
@@ -505,7 +505,7 @@ shinyUI(
         bsPopover("qBlastTitle", title = Blast_Info_Title, content = NULL, trigger = "focus"),
         
         tabsetPanel(id = "BLAST_tab",
-                    tabPanel("Input",
+                    tabPanel(HTML("<strong style='font-size:18px'>Input</strong>"),
                              fixedRow(
                                column(5,
                                       selectInput("In_blast", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Paste or upload input data?</font>'),
@@ -570,7 +570,7 @@ shinyUI(
                                )
                              )
                     ),
-                    tabPanel("Output",
+                    tabPanel(HTML("<strong style='font-size:18px'>Output</strong>"),
                              fixedRow(
                                column(4,
                                       downloadButton("BLASTresult.txt", "BLAST result", style = "width:100%;", class = "buttDown")
@@ -689,7 +689,7 @@ shinyUI(
       
       # Annotate
       tabPanel(
-        "Annotate",
+        HTML("<strong style='font-size:18px'>Annotate</strong>"),
         icon = icon("cogs", class = NULL, lib = "font-awesome"),
         
         sidebarPanel(width=4,
@@ -840,7 +840,7 @@ shinyUI(
       
       # Quantification
       tabPanel(
-        "Quantify",
+        HTML("<strong style='font-size:18px'>Quantify</strong>"),
         icon = icon("upload", class = NULL, lib = "font-awesome"),
         
         tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Identify candidate LIRs encoding long hpRNAs by aligning sRNA sequencing data to LIRs</b></font>'),
@@ -848,7 +848,7 @@ shinyUI(
         bsPopover("qQuantifyTitle", "Align sRNA sequencing data to all the LIRs of a genome using Bowtie.", trigger = "focus"),
         
         tabsetPanel(id = "Quantify_tab",
-                    tabPanel("Input",
+                    tabPanel(HTML("<strong style='font-size:18px'>Input</strong>"),
                              fixedRow(
                                column(6,
                                       selectInput("In_align", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Input sRNA read count data</font>'),
@@ -929,7 +929,7 @@ shinyUI(
                                # )
                              )
                     ),
-                    tabPanel("Output",
+                    tabPanel(HTML("<strong style='font-size:18px'>Output</strong>"),
                              fixedRow(
                                column(4,
                                       downloadButton("sRNAalignSummary.txt", "sRNA alignment summary", style = "width:100%;", class = "buttDown")
@@ -953,16 +953,6 @@ shinyUI(
                                       ),
                                       dataTableOutput("LIRreadCount")
                                )
-                               
-                               # column(6,
-                               #        textOutput("Quantify_table_1_title"),
-                               #        tags$head(tags$style("#Quantify_table_1_title{color: red;
-                               #         font-size: 22px;
-                               #         font-style: bold;
-                               #        }"
-                               #        )),
-                               #        withSpinner(dataTableOutput("AlignResult"))
-                               # )
                              ),
                              
                              br(),
@@ -1123,7 +1113,7 @@ shinyUI(
       
       # DESeq2
       tabPanel(
-        "DESeq",
+        HTML("<strong style='font-size:18px'>DESeq</strong>"),
         icon = icon("eercast", class = NULL, lib = "font-awesome"),
         
         sidebarPanel(
@@ -1283,7 +1273,7 @@ shinyUI(
       
       # Target
       tabPanel(
-        "Target",
+        HTML("<strong style='font-size:18px'>Target</strong>"),
         icon = icon("bullseye", class = NULL, lib = "font-awesome"),
         
         sidebarPanel(width=4,
@@ -1350,8 +1340,8 @@ shinyUI(
       
       # Visualization
       tabPanel(
-        "Visualize",
-        icon = icon("file-image-o", class = NULL, lib = "font-awesome"),
+        HTML("<strong style='font-size:18px'>Visualize</strong>"),
+        icon = icon("eye", class = NULL, lib = "font-awesome"),
         
         sidebarPanel(width=4,
                      tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Visualize potential long hpRNA encoded by LIR</b></font>'),
@@ -1421,7 +1411,7 @@ shinyUI(
       
       # Download
       tabPanel(
-        "Download",
+        HTML("<strong style='font-size:18px'>Download</strong>"),
         icon = icon("download", class = NULL, lib = "font-awesome"),
         
         tabsetPanel(id = "download_1",
@@ -1440,7 +1430,7 @@ shinyUI(
       
       # Genomes
       tabPanel(
-        "Genomes",
+        HTML("<strong style='font-size:18px'>Genomes</strong>"),
         icon = icon("info", class = NULL, lib = "font-awesome"),
         
         h4("Information of 424 genomes collected in LIRBase."),
@@ -1449,13 +1439,13 @@ shinyUI(
       
       
       ## Help
-      navbarMenu("Help", icon = icon("book", class = NULL, lib = "font-awesome"),
-                 tabPanel(h5("About"),
+      navbarMenu(HTML("<strong style='font-size:18px'>Help</strong>"), icon = icon("book", class = NULL, lib = "font-awesome"),
+                 tabPanel(HTML("<strong style='font-size:15px'>About</strong>"),
                           column(2),
                           column(8, includeMarkdown("About.md")),
                           column(2)
                  ),
-                 tabPanel(h5("Tutorial"),
+                 tabPanel(HTML("<strong style='font-size:15px'>Tutorial</strong>"),
                           sidebarPanel(
                             style = "position:fixed;width:23%;",
                             h4("Table of contents"),
@@ -1467,17 +1457,17 @@ shinyUI(
                             includeMarkdown("Tutorial.md")
                           )
                  ),
-                 tabPanel(h5("Installation"),
+                 tabPanel(HTML("<strong style='font-size:15px'>Installation</strong>"),
                           column(2),
                           column(8, includeMarkdown("README.md")),
                           column(2)
                  ),
-				         tabPanel(h5("Links"),
+				         tabPanel(HTML("<strong style='font-size:15px'>Links</strong>"),
 				                  column(2),
 				                  column(8, includeMarkdown("Links.md")),
 				                  column(2)
                  ),
-                 tabPanel(h5("Contact"),
+                 tabPanel(HTML("<strong style='font-size:15px'>Contact</strong>"),
                           column(3),
                           column(6, includeMarkdown("Contact.md")),
                           column(3)

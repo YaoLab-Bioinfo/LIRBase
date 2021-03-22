@@ -33,12 +33,6 @@ Homepage <- dashboardPage(
       )
     ),
     
-    # column(
-    #   width = 10,
-    #   offset = 1,
-    #   
-    # ),
-    
     column(
       width = 10,
       offset = 1,
