@@ -8,11 +8,11 @@ shinyServer(function(input, output, session) {
   })
   
   observeEvent(input$SearchByReg_butt, {
-    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Search by genomic location</strong>"))
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:16px'>Search by genomic location</strong>"))
   })
   
   observeEvent(input$SearchByLIRID_butt, {
-    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Search by LIR identifier</strong>"))
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:16px'>Search by LIR identifier</strong>"))
   })
   
   observeEvent(input$BLAST_butt, {

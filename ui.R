@@ -1433,7 +1433,7 @@ shinyUI(
         HTML("<strong style='font-size:18px'>Genomes</strong>"),
         icon = icon("info", class = NULL, lib = "font-awesome"),
         
-        h4("Information of 424 genomes collected in LIRBase."),
+        h3("Information of 424 genomes collected in LIRBase."),
         shiny::dataTableOutput("genomeTable"), width='100%'
       ),
       

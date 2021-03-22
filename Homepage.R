@@ -119,7 +119,7 @@ Homepage <- dashboardPage(
           
           box(width = 4,
               actionBttn("Visualize_butt", "Visualize", 
-                         icon = icon("file-image-o", class = NULL, lib = "font-awesome"),
+                         icon = icon("eye", class = NULL, lib = "font-awesome"),
                          block = TRUE, size = "lg", style="unite", color="default"),
               h4("Predict and visualize the secondary structure of potential long hpRNA encoded by a LIR")
           )
