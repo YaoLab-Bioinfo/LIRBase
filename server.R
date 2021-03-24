@@ -61,8 +61,9 @@ shinyServer(function(input, output, session) {
         dat.file.path <- paste0("www/", dat.file.path)
         
         HTML.file.path <<- dat.file.path
-        dat.content <<- fread(dat.file.path, data.table = F)
+        dat.content <<- data.table::fread(dat.file.path, data.table = F)
         
+        load("dat.summary.RData")
         dat.spark$AN <- gsub(".+<I>", "", dat.spark$Accession)
         dat.spark$AN <- gsub("</I>", "", dat.spark$AN)
         dat.spark.target <- dat.spark[dat.spark$AN == gsub(".dat.gz", "", basename(dat.file.path)), ]
@@ -153,7 +154,7 @@ shinyServer(function(input, output, session) {
           )
         output$LIR_gene_op <- DT::renderDataTable({
           if (file.exists(LIR.gene.op.file.path)) {
-            LIR.gene.op <- fread(LIR.gene.op.file.path, data.table=F)
+            LIR.gene.op <- data.table::fread(LIR.gene.op.file.path, data.table=F)
             LIR.gene.op <- LIR.gene.op[LIR.gene.op$ID %in% dat.content[IRF.index], ]
             LIR.gene.op <- LIR.gene.op[, !colnames(LIR.gene.op) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
             LIR.gene.op
@@ -169,10 +170,10 @@ shinyServer(function(input, output, session) {
         # sequence
         fasta.file.path <- gsub("HTML", "Fasta", HTML.file.path)
         fasta.file.path <- gsub("IRFresult.RData", "LIR.fa.gz", fasta.file.path)
-        fasta.content <- readBStringSet(fasta.file.path)
+        fasta.content <- Biostrings::readBStringSet(fasta.file.path)
         LIR.seq.select <- fasta.content[dat.content[IRF.index]]
         tmp.fl <- file.path(tempdir(), "LIR.seq.select.fasta")
-        writeXStringSet(LIR.seq.select, file = tmp.fl)
+        Biostrings::writeXStringSet(LIR.seq.select, file = tmp.fl)
         LIR.seq.select <- readLines(tmp.fl)
         
         output$LIR_sequence_title <- renderText(
@@ -204,6 +205,7 @@ shinyServer(function(input, output, session) {
 	# Search LIR by genomic region
   chromosome <- reactive({
     req(input$chooseGenomeReg)
+    load("genome.info.RData")
     filter(genome.info, ID == input$chooseGenomeReg)
   })
   
@@ -232,11 +234,11 @@ shinyServer(function(input, output, session) {
     LIR.gene.op.file <- paste0("www/LIR_gene_op/", LIR.gene.op.file)
     
     if (file.exists(dat.file)) {
-      dat.search.result <- fread(dat.file, data.table = FALSE)
+      dat.search.result <- data.table::fread(dat.file, data.table = FALSE)
       dat.search.result <- dat.search.result[dat.search.result$chr == input$chooseChromosomeReg & 
                                                dat.search.result$Left_start >= as.numeric(input$chooseRegion[1]) &
                                                dat.search.result$Right_end <= as.numeric(input$chooseRegion[2]), ]
-      fasta.region <- readBStringSet(fasta.file)
+      fasta.region <- Biostrings::readBStringSet(fasta.file)
       fasta.region <- fasta.region[dat.search.result$ID]
       load(HTML.file)
       result <- list(dat.search.result, fasta.region, LIR.align, LIR.gene.op.file)
@@ -279,7 +281,7 @@ shinyServer(function(input, output, session) {
   output$searchRegDownIRFfasta.txt <- downloadHandler(
     filename <- function() { paste('LIRs_sequence_search.fasta') },
     content <- function(file) {
-      writeXStringSet(searchedRegResults()[[2]], file)
+      Biostrings::writeXStringSet(searchedRegResults()[[2]], file)
     }, contentType = 'text/plain'
   )
   
@@ -297,7 +299,7 @@ shinyServer(function(input, output, session) {
       
     } else {
       if (file.exists(searchedRegResults()[[4]])) {
-        LIR.gene.op <- fread(searchedRegResults()[[4]], data.table=F)
+        LIR.gene.op <- data.table::fread(searchedRegResults()[[4]], data.table=F)
         LIR.ID <- searchedRegResults()[[1]]$ID[input$LIRsearchRegResult_rows_selected]
         LIR.gene.op <- LIR.gene.op[LIR.gene.op$ID %in% LIR.ID, ]
         LIR.gene.op <- LIR.gene.op[, !colnames(LIR.gene.op) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
@@ -326,7 +328,7 @@ shinyServer(function(input, output, session) {
     } else {
       LIR.ID <- searchedRegResults()[[1]]$ID[input$LIRsearchRegResult_rows_selected]
       tmp.fl <- file.path(tempdir(), "t1.fa")
-      writeXStringSet(searchedRegResults()[[2]][LIR.ID], file = tmp.fl)
+      Biostrings::writeXStringSet(searchedRegResults()[[2]][LIR.ID], file = tmp.fl)
       readLines(tmp.fl)
     }
   }, sep = "\n")
@@ -375,11 +377,11 @@ shinyServer(function(input, output, session) {
         result <- NULL
       } else {
         if (file.exists(dat.file)) {
-          dat.search.result <- fread(dat.file, data.table = FALSE)
+          dat.search.result <- data.table::fread(dat.file, data.table = FALSE)
           
           if (all(LIR.id %in% dat.search.result$ID)) {
             dat.search.result <- dat.search.result[dat.search.result$ID %in% LIR.id, ]
-            fasta.ID <- readBStringSet(fasta.file)
+            fasta.ID <- Biostrings::readBStringSet(fasta.file)
             fasta.ID <- fasta.ID[LIR.id]
             load(HTML.file)
             
@@ -450,7 +452,7 @@ shinyServer(function(input, output, session) {
   output$searchIDDownIRFfasta.txt <- downloadHandler(
     filename <- function() { paste('LIRs_sequence_search.fasta') },
     content <- function(file) {
-      writeXStringSet(searchedIDResults()[[2]], file)
+      Biostrings::writeXStringSet(searchedIDResults()[[2]], file)
     }, contentType = 'text/plain'
   )
   
@@ -468,7 +470,7 @@ shinyServer(function(input, output, session) {
       
     } else {
       if (file.exists(searchedIDResults()[[4]])) {
-        LIR.gene.op <- fread(searchedIDResults()[[4]], data.table=F)
+        LIR.gene.op <- data.table::fread(searchedIDResults()[[4]], data.table=F)
         LIR.ID <- searchedIDResults()[[1]]$ID[input$LIRsearchIDResult_rows_selected]
         LIR.gene.op <- LIR.gene.op[LIR.gene.op$ID %in% LIR.ID, ]
         LIR.gene.op <- LIR.gene.op[, !colnames(LIR.gene.op) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
@@ -497,7 +499,7 @@ shinyServer(function(input, output, session) {
     } else {
       LIR.ID <- searchedIDResults()[[1]]$ID[input$LIRsearchIDResult_rows_selected]
       tmp.fl <- file.path(tempdir(), "t2.fa")
-      writeXStringSet(searchedIDResults()[[2]][LIR.ID], file = tmp.fl)
+      Biostrings::writeXStringSet(searchedIDResults()[[2]][LIR.ID], file = tmp.fl)
       readLines(tmp.fl)
     }
   }, sep = "\n")
@@ -638,7 +640,7 @@ shinyServer(function(input, output, session) {
       })
       
       #this ensures that NAs get added for no hits
-      results <-  rbind.fill(lapply(results, function(y) {as.data.frame((y), stringsAsFactors=FALSE)} ))
+      results <-  plyr::rbind.fill(lapply(results, function(y) {as.data.frame((y), stringsAsFactors=FALSE)} ))
       if (ncol(results) != 13) {
         results <- NULL
       }
@@ -691,16 +693,16 @@ shinyServer(function(input, output, session) {
     
     dat.search.result <- lapply(dat.file, function(x) {
       if (file.exists(x)) {
-        y <- fread(x, data.table = FALSE)
+        y <- data.table::fread(x, data.table = FALSE)
         return(y)
       } else {NULL}
     })
-    dat.search.result <- rbindlist(dat.search.result)
+    dat.search.result <- data.table::rbindlist(dat.search.result)
     class(dat.search.result) <- "data.frame"
     
     fasta.blast <- lapply(fasta.file, function(x) {
       if (file.exists(x)) {
-        y <- readBStringSet(x)
+        y <- Biostrings::readBStringSet(x)
         return(y)
       } else {NULL}
     })
@@ -716,11 +718,11 @@ shinyServer(function(input, output, session) {
     
     LIR.gene.op <- lapply(LIR.gene.op.file, function(x) {
       if (file.exists(x)) {
-        y <- fread(x, data.table = FALSE)
+        y <- data.table::fread(x, data.table = FALSE)
         return(y)
       } else {NULL}
     })
-    LIR.gene.op <- rbindlist(LIR.gene.op)
+    LIR.gene.op <- data.table::rbindlist(LIR.gene.op)
     class(LIR.gene.op) <- "data.frame"
     
     result <- list(dat.search.result, fasta.blast, html.blast, LIR.gene.op)
@@ -738,6 +740,7 @@ shinyServer(function(input, output, session) {
   output$BLAST_Input.txt <- downloadHandler(
     filename <- function() { paste('BLAST_example_input.txt') },
     content <- function(file) {
+      exam1.fa <- readLines("exam1.fa")
       writeLines(exam1.fa, con=file)
     }, contentType = 'text/plain'
   )
@@ -746,7 +749,7 @@ shinyServer(function(input, output, session) {
   output$BLASTresult.txt <- downloadHandler(
     filename <- function() { paste('BLAST_Result.txt') },
     content <- function(file) {
-      fwrite(blastedResults(), file, sep="\t", quote=F)
+      data.table::fwrite(blastedResults(), file, sep="\t", quote=F)
     }, contentType = 'text/plain'
   )
   
@@ -756,7 +759,7 @@ shinyServer(function(input, output, session) {
       LIR.ID <- blastedResults()$sseqid
       IRF.str <- blastdbResults()[[1]]
       IRF.str <- IRF.str[IRF.str$ID %in% LIR.ID, ]
-      fwrite(IRF.str, file, sep="\t", quote=F)
+      data.table::fwrite(IRF.str, file, sep="\t", quote=F)
     }, contentType = 'text/plain'
   )
   
@@ -764,7 +767,7 @@ shinyServer(function(input, output, session) {
     filename <- function() { paste('BLAST_result_IRF_sequence.txt') },
     content <- function(file) {
       LIR.ID <- blastedResults()$sseqid
-      writeXStringSet(blastdbResults()[[2]][LIR.ID], file)
+      Biostrings::writeXStringSet(blastdbResults()[[2]][LIR.ID], file)
     }, contentType = 'text/plain'
   )
   
@@ -864,7 +867,7 @@ shinyServer(function(input, output, session) {
     } else {
       LIR.ID <- blastedResults()$sseqid[input$BLASTresult_rows_selected]
       tmp.fl <- file.path(tempdir(), "t3.fa")
-      writeXStringSet(blastdbResults()[[2]][LIR.ID], file = tmp.fl)
+      Biostrings::writeXStringSet(blastdbResults()[[2]][LIR.ID], file = tmp.fl)
       readLines(tmp.fl)
     }
   }, sep = "\n")
@@ -903,7 +906,7 @@ shinyServer(function(input, output, session) {
     if (input$blastExam >0) {
       isolate({
         updateSelectInput(session, "In_blast", selected = "paste")
-        updateTextAreaInput(session, "BlastSeqPaste", value = paste(exam1.fa, collapse = "\n"))
+        updateTextAreaInput(session, "BlastSeqPaste", value = paste(readLines("exam1.fa"), collapse = "\n"))
         updateMultiInput(session, "BLASTdb", selected = c("Oryza_sativa.MH63", "Oryza_sativa.Nipponbare"))
       })
     } else {NULL}
@@ -1026,28 +1029,28 @@ shinyServer(function(input, output, session) {
           unlink(dat.file)
           
           # extract the fasta sequence
-          fa <- readDNAStringSet(irf.in.file)
+          fa <- Biostrings::readDNAStringSet(irf.in.file)
           dat.cont.df$Loop_start <- dat.cont.df$Left_end + 1
           dat.cont.df$Loop_end <- dat.cont.df$Right_start - 1
           
-          fa.len <- width(fa)
+          fa.len <- Biostrings::width(fa)
           names(fa.len) <- names(fa)
           dat.cont.df$chr_len <- fa.len[dat.cont.df$chr]
           
           dat.cont.df$Left_start_N <- pmax(1, dat.cont.df$Left_start - pre.flankLen)
           dat.cont.df$Right_end_N <- pmin(dat.cont.df$chr_len, dat.cont.df$Right_end + pre.flankLen)
           
-          dat.cont.df.LF <- subseq(fa[dat.cont.df$chr], dat.cont.df$Left_start_N, dat.cont.df$Left_start - 1)
-          dat.cont.df.RF <- subseq(fa[dat.cont.df$chr], dat.cont.df$Right_end + 1, dat.cont.df$Right_end_N)
+          dat.cont.df.LF <- Biostrings::subseq(fa[dat.cont.df$chr], dat.cont.df$Left_start_N, dat.cont.df$Left_start - 1)
+          dat.cont.df.RF <- Biostrings::subseq(fa[dat.cont.df$chr], dat.cont.df$Right_end + 1, dat.cont.df$Right_end_N)
           dat.cont.df.LF <- tolower(dat.cont.df.LF)
           dat.cont.df.RF <- tolower(dat.cont.df.RF)
-          dat.cont.df.L <- subseq(fa[dat.cont.df$chr], dat.cont.df$Left_start, dat.cont.df$Left_end)
-          dat.cont.df.R <- subseq(fa[dat.cont.df$chr], dat.cont.df$Right_start, dat.cont.df$Right_end)
-          dat.cont.df.Loop <- subseq(fa[dat.cont.df$chr], dat.cont.df$Loop_start, dat.cont.df$Loop_end)
+          dat.cont.df.L <- Biostrings::subseq(fa[dat.cont.df$chr], dat.cont.df$Left_start, dat.cont.df$Left_end)
+          dat.cont.df.R <- Biostrings::subseq(fa[dat.cont.df$chr], dat.cont.df$Right_start, dat.cont.df$Right_end)
+          dat.cont.df.Loop <- Biostrings::subseq(fa[dat.cont.df$chr], dat.cont.df$Loop_start, dat.cont.df$Loop_end)
           dat.cont.df.Loop <- tolower(dat.cont.df.Loop)
           
           dat.cont.df.fa <- paste0(dat.cont.df.LF, dat.cont.df.L, dat.cont.df.Loop, dat.cont.df.R, dat.cont.df.RF)
-          dat.cont.df.fa <- BStringSet(dat.cont.df.fa)
+          dat.cont.df.fa <- Biostrings::BStringSet(dat.cont.df.fa)
           names(dat.cont.df.fa) <- paste0(dat.cont.df$chr, ":", dat.cont.df$Left_start, "--", dat.cont.df$Left_end, ",",
                                           dat.cont.df$Right_start, "--", dat.cont.df$Right_end)
           dat.cont.df.fa <- dat.cont.df.fa[names(dat.cont.df.fa) %in% dat.cont.df.bak$ID, ]
@@ -1089,7 +1092,7 @@ shinyServer(function(input, output, session) {
   output$downloadIRFfasta.txt <- downloadHandler(
     filename <- function() { paste('LIRs_sequence_by_IRF.txt') },
     content <- function(file) {
-      writeXStringSet(annotateResults()[[2]], file)
+      Biostrings::writeXStringSet(annotateResults()[[2]], file)
     }, contentType = 'text/plain'
   )
   
@@ -1108,7 +1111,7 @@ shinyServer(function(input, output, session) {
     } else {
       LIR.ID <- annotateResults()[[1]]$ID[input$prediction_rows_selected]
       tmp.fl <- file.path(tempdir(), "Anno1.fa")
-      writeXStringSet(annotateResults()[[2]][LIR.ID], file = tmp.fl)
+      Biostrings::writeXStringSet(annotateResults()[[2]][LIR.ID], file = tmp.fl)
       readLines(tmp.fl)
     }
   }, sep = "\n")
@@ -1135,6 +1138,7 @@ shinyServer(function(input, output, session) {
 	output$Annotate_Input.txt <- downloadHandler(
 	  filename <- function() { paste('Example_input_4IRF.txt') },
 	  content <- function(file) {
+	    exam2.fa <- readLines("exam2.fa")
 	    writeLines(exam2.fa, con=file)
 	  }, contentType = 'text/plain'
 	)
@@ -1152,7 +1156,7 @@ shinyServer(function(input, output, session) {
 	  if (input$predictExam >0) {
 	    isolate({
 	      updateSelectInput(session, "In_predict", selected = "paste")
-	      updateTextAreaInput(session, "PreSeqPaste", value = paste(exam2.fa, collapse = "\n"))
+	      updateTextAreaInput(session, "PreSeqPaste", value = paste(readLines("exam2.fa"), collapse = "\n"))
 	    })
 	  } else {NULL}
 	})
@@ -1175,7 +1179,7 @@ shinyServer(function(input, output, session) {
 	      )
 	      NULL
 	    } else {
-	      srna.rc <- fread(text = srna.rc.text, data.table = FALSE, check.names = FALSE)
+	      srna.rc <- data.table::fread(text = srna.rc.text, data.table = FALSE, check.names = FALSE)
 	      
 	      srna.fa.name <- gsub("\\s+", "-", Sys.time())
 	      srna.fa.name <- gsub(":", "-", srna.fa.name)
@@ -1190,7 +1194,7 @@ shinyServer(function(input, output, session) {
 	      )
 	      NULL
 	    } else {
-	      srna.rc <- fread(file = input$AlignInFile$datapath, data.table = FALSE, check.names = FALSE)
+	      srna.rc <- data.table::fread(file = input$AlignInFile$datapath, data.table = FALSE, check.names = FALSE)
 	      srna.fa.name <- paste0(input$AlignInFile$name, ".fasta")
 	    }
 	  }
@@ -1211,10 +1215,10 @@ shinyServer(function(input, output, session) {
 	    NULL
 	  } else {
 	    names(srna.rc) <- c("sRNA", "sRNA_read_number")
-	    srna.fa <- BStringSet(srna.rc[, 1])
+	    srna.fa <- Biostrings::BStringSet(srna.rc[, 1])
 	    names(srna.fa) <- 1:nrow(srna.rc)
 	    srna.fa.name <- file.path(tempdir(), srna.fa.name)
-	    writeXStringSet(srna.fa, file=srna.fa.name)
+	    Biostrings::writeXStringSet(srna.fa, file=srna.fa.name)
 	    
 	    bowtie.db <- paste0("www/LIRBase_bowtiedb/", input$Aligndb)
 	    srna.bowtie <- paste0(srna.fa.name, ".bowtie")
@@ -1223,7 +1227,7 @@ shinyServer(function(input, output, session) {
 	    system(bowtie.cmd, wait = TRUE, timeout = 0)
 	    
 	    if (file.exists(srna.bowtie) && file.size(srna.bowtie) >0) {
-	      bowtie.out <- fread(srna.bowtie, data.table=F, head=F, select=c(1, 3, 4))
+	      bowtie.out <- data.table::fread(srna.bowtie, data.table=F, head=F, select=c(1, 3, 4))
 	      names(bowtie.out) <- c("ID", "LIR", "Position")
 	      srna.rc$ID <- 1:nrow(srna.rc)
 	      bowtie.out.1 <- bowtie.out
@@ -1252,12 +1256,12 @@ shinyServer(function(input, output, session) {
 	      # sRNA in arm, loop and flank, percent
 	      fasta.file <- paste0(BLASTdb.fl$Division[BLASTdb.fl$Accession == input$Aligndb], "/", input$Aligndb, ".LIR.fa.gz")
 	      fasta.file <- paste0("www/Fasta/", fasta.file)
-	      fa <- readBStringSet(fasta.file)
+	      fa <- Biostrings::readBStringSet(fasta.file)
 	      fa <- fa[names(fa) %in% LIR_table$LIR]
-	      fa.len <- width(fa)
+	      fa.len <- Biostrings::width(fa)
 	      names(fa.len) <- names(fa)
 	      
-	      fa.L <- str_locate_all(as.character(fa), "[ACGT]+")
+	      fa.L <- stringr::str_locate_all(as.character(fa), "[ACGT]+")
 	      fa.L.nrow <- sapply(fa.L, nrow)
 	      fa.arm <- do.call(rbind, fa.L)
 	      fa.arm <- data.frame(fa.arm, stringsAsFactors = FALSE)
@@ -1271,21 +1275,21 @@ shinyServer(function(input, output, session) {
 	      fa.loop <- fa.arm %>% group_by(LIR) %>% summarise(loop_start = min(arm_end)+1, loop_end = max(arm_start)-1)
 	      fa.loop <- fa.loop[fa.loop$loop_start < fa.loop$loop_end, ]
 	      
-	      d2.gr <- GRanges(bowtie.out.2$LIR, IRanges(bowtie.out.2$Position, bowtie.out.2$Position))
+	      d2.gr <- GenomicRanges::GRanges(bowtie.out.2$LIR, IRanges::IRanges(bowtie.out.2$Position, bowtie.out.2$Position))
 	      
-	      fa.arm.gr <- GRanges(fa.arm$LIR, IRanges(fa.arm$arm_start, fa.arm$arm_end))
+	      fa.arm.gr <- GenomicRanges::GRanges(fa.arm$LIR, IRanges::IRanges(fa.arm$arm_start, fa.arm$arm_end))
 	      fa.arm.cnt <- fa.arm
-	      fa.arm.cnt$sRNA_in_arm <- countOverlaps(fa.arm.gr, d2.gr)
+	      fa.arm.cnt$sRNA_in_arm <- GenomicRanges::countOverlaps(fa.arm.gr, d2.gr)
 	      fa.arm.cnt <- fa.arm.cnt %>% group_by(LIR) %>% summarise(sRNA_in_arm = sum(sRNA_in_arm))
 	      
-	      fa.loop.gr <- GRanges(fa.loop$LIR, IRanges(fa.loop$loop_start, fa.loop$loop_end))
+	      fa.loop.gr <- GenomicRanges::GRanges(fa.loop$LIR, IRanges::IRanges(fa.loop$loop_start, fa.loop$loop_end))
 	      fa.loop.cnt <- fa.loop
-	      fa.loop.cnt$sRNA_in_loop <- countOverlaps(fa.loop.gr, d2.gr)
+	      fa.loop.cnt$sRNA_in_loop <- GenomicRanges::countOverlaps(fa.loop.gr, d2.gr)
 	      fa.loop.cnt <- fa.loop.cnt %>% group_by(LIR) %>% summarise(sRNA_in_loop = sum(sRNA_in_loop))
 	      
-	      fa.flank.gr <- GRanges(fa.flank$LIR, IRanges(fa.flank$flank_start, fa.flank$flank_end))
+	      fa.flank.gr <- GenomicRanges::GRanges(fa.flank$LIR, IRanges::IRanges(fa.flank$flank_start, fa.flank$flank_end))
 	      fa.flank.cnt <- fa.flank
-	      fa.flank.cnt$sRNA_in_flank <- countOverlaps(fa.flank.gr, d2.gr)
+	      fa.flank.cnt$sRNA_in_flank <- GenomicRanges::countOverlaps(fa.flank.gr, d2.gr)
 	      fa.flank.cnt <- fa.flank.cnt %>% group_by(LIR) %>% summarise(sRNA_in_flank = sum(sRNA_in_flank))
 	      
 	      fa.whole.cnt <- Reduce(function(...)merge(..., by="LIR", all=T), list(fa.arm.cnt, fa.loop.cnt, fa.flank.cnt))
@@ -1340,7 +1344,7 @@ shinyServer(function(input, output, session) {
 	  if (input$submitAlign >0) {
 	    isolate({
 	      if (!is.null(align.result())) {
-	        updateTabsetPanel(session, 'Quantify_tab', selected = 'Output')
+	        updateTabsetPanel(session, 'Quantify_tab', selected = HTML("<strong style='font-size:18px'>Output</strong>"))
 	      } else {
 	        NULL
 	      }
@@ -1352,8 +1356,8 @@ shinyServer(function(input, output, session) {
 	output$Quantify_Input.txt <- downloadHandler(
 	  filename <- function() { paste('Example_sRNA_read_count_input.txt') },
 	  content <- function(file) {
-	    dat <- fread("quantify.exam.sRNA.read.count.txt", data.table = F)
-	    fwrite(dat, file = file, sep="\t")
+	    dat <- data.table::fread("quantify.exam.sRNA.read.count.txt", data.table = F)
+	    data.table::fwrite(dat, file = file, sep="\t")
 	  }, contentType = 'text/plain'
 	)
 	
@@ -1361,7 +1365,7 @@ shinyServer(function(input, output, session) {
 	output$sRNAalignSummary.txt <- downloadHandler(
 	  filename <- function() { paste('sRNA_alignment_summary.txt') },
 	  content <- function(file) {
-	    fwrite(alignedResults()[[2]], file, sep="\t", quote=F)
+	    data.table::fwrite(alignedResults()[[2]], file, sep="\t", quote=F)
 	  }, contentType = 'text/plain'
 	)
 	
@@ -1372,7 +1376,7 @@ shinyServer(function(input, output, session) {
 	      sRNA.align.detail <- alignedResults()[[1]]
 	      sRNA.align.detail <- sRNA.align.detail[, -1]
 	      sRNA.align.detail <- sRNA.align.detail[order(sRNA.align.detail$LIR, sRNA.align.detail$Position), ]
-	      fwrite(sRNA.align.detail, file, sep="\t", quote=F, compress = "gzip")
+	      data.table::fwrite(sRNA.align.detail, file, sep="\t", quote=F, compress = "gzip")
 	    })
 	  }, contentType = 'application/gzip'
 	)
@@ -1380,7 +1384,7 @@ shinyServer(function(input, output, session) {
 	output$sRNAalignLIRrc.txt <- downloadHandler(
 	  filename <- function() { paste('LIR_sRNA_read_count.txt') },
 	  content <- function(file) {
-	    fwrite(alignedResults()[[4]], file, sep="\t", quote=F)
+	    data.table::fwrite(alignedResults()[[4]], file, sep="\t", quote=F)
 	  }, contentType = 'text/plain'
 	)
 	
@@ -1396,8 +1400,8 @@ shinyServer(function(input, output, session) {
 	  LIR.gene.op.file <- paste0("www/LIR_gene_op/", LIR.gene.op.file)
 	  
 	  if (file.exists(dat.file)) {
-	    dat.search.result <- fread(dat.file, data.table = FALSE)
-	    fasta.align <- readBStringSet(fasta.file)
+	    dat.search.result <- data.table::fread(dat.file, data.table = FALSE)
+	    fasta.align <- Biostrings::readBStringSet(fasta.file)
 	    load(HTML.file)
 	    result <- list(dat.search.result, fasta.align, LIR.align, LIR.gene.op.file)
 	  } else {
@@ -1502,11 +1506,11 @@ shinyServer(function(input, output, session) {
 	    
 	    fa <- alignedLIRResults()[[2]][LIR.ID]
 	    fa.c <- as.character(fa)
-	    fa.len <- width(fa)
-	    x <- str_locate_all(fa.c, "[ACGT]")
+	    fa.len <- Biostrings::width(fa)
+	    x <- stringr::str_locate_all(fa.c, "[ACGT]")
 	    y <- x[[1]][,1]
-	    y.ir <- IRanges(y, y)
-	    y.df <- as.data.frame(reduce(y.ir))
+	    y.ir <- IRanges::IRanges(y, y)
+	    y.df <- as.data.frame(IRanges::reduce(y.ir))
 	    
 	    if (nrow(y.df) == 1) {
 	      start.1 <- y.df$start
@@ -1527,25 +1531,26 @@ shinyServer(function(input, output, session) {
 	    y.df$start <- y.df$start + LIR.start.pos - LIT.start.pos.in
 	    y.df$end <- y.df$end + LIR.start.pos - LIT.start.pos.in
 	    
-	    LIR.ir <- IRanges(y.df$start[1], y.df$end[2])
+	    LIR.ir <- IRanges::IRanges(y.df$start[1], y.df$end[2])
 	    
 	    dat <- alignedLIRResults()[[1]]
 	    dat <- dat[dat$ID != LIR.ID & dat$chr == LIR.ID.chr, ]
-	    dat.ir <- IRanges(dat$Left_start, dat$Right_end)
-	    dat.op <- dat[unique(subjectHits(findOverlaps(LIR.ir, dat.ir))), ]
+	    dat.ir <- IRanges::IRanges(dat$Left_start, dat$Right_end)
+	    dat.op <- dat[unique(S4Vectors::subjectHits(IRanges::findOverlaps(LIR.ir, dat.ir))), ]
 	    
 	    if (input$select_LIR_only || nrow(dat.op) == 0) {
 	      align.LIR$Position <- align.LIR$Position + LIR.start.pos - LIT.start.pos.in
 	      align.LIR$TPM <- round(align.LIR$sRNA_read_number / lib.read.count * 1e6, 2)
+	      max.TPM <- max(align.LIR$TPM)
 	      
 	      p1 <- ggplot(align.LIR) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)), size = input$srnaexp_point_size)
-	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-1, xend=y.df$end[1], yend=-1), 
+	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-max.TPM/100, xend=y.df$end[1], yend=-max.TPM/100), 
 	                              lineend = "round", linejoin = "round", color = "red",
 	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-1, xend=y.df$start[2], yend=-1), 
+	      p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-max.TPM/100, xend=y.df$start[2], yend=-max.TPM/100), 
 	                              lineend = "round", linejoin = "round", color = "red",
 	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(aes(x=y.df$end[1]+1, y=-1, xend=y.df$start[2]-1, yend=-1), 
+	      p1 <- p1 + geom_segment(aes(x=y.df$end[1]+1, y=-max.TPM/100, xend=y.df$start[2]-1, yend=-max.TPM/100), 
 	                              size = 0.6, color="grey60")
 	      p1 <- p1 + scale_colour_hue(name = "sRNA size (nt)")
 	      p1 <- p1 + ylab("Expression level of sRNAs (TPM)") + xlab("Position")
@@ -1559,17 +1564,18 @@ shinyServer(function(input, output, session) {
 	    } else {
 	      align.LIR$Position <- align.LIR$Position + LIR.start.pos - LIT.start.pos.in
 	      align.LIR$TPM <- round(align.LIR$sRNA_read_number / lib.read.count * 1e6, 2)
+	      max.TPM <- max(align.LIR$TPM)
 	      
-	      dat.op$yval <- -1 * (1:nrow(dat.op)) * max(align.LIR$TPM)/100
+	      dat.op$yval <- -1 * (1:nrow(dat.op)) * max(align.LIR$TPM)/100 - max.TPM/100
 	      
 	      p1 <- ggplot(align.LIR) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)),  size = input$srnaexp_point_size)
-	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-1, xend=y.df$end[1], yend=-1), 
+	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-max.TPM/100, xend=y.df$end[1], yend=-max.TPM/100), 
 	                              lineend = "round", linejoin = "round", color = "red",
 	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-1, xend=y.df$start[2], yend=-1), 
+	      p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-max.TPM/100, xend=y.df$start[2], yend=-max.TPM/100), 
 	                              lineend = "round", linejoin = "round", color = "red",
 	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(aes(x=y.df$end[1]+1, y=-1, xend=y.df$start[2]-1, yend=-1), 
+	      p1 <- p1 + geom_segment(aes(x=y.df$end[1]+1, y=-max.TPM/100, xend=y.df$start[2]-1, yend=-max.TPM/100), 
 	                              size = 0.6, color="grey60")
 	      p1 <- p1 + geom_segment(data=dat.op, aes(x=Left_start, y=yval, xend=Left_end, yend=yval), 
 	                              lineend = "round", linejoin = "round", color = "blue",
@@ -1607,11 +1613,11 @@ shinyServer(function(input, output, session) {
 	    
 	    fa <- alignedLIRResults()[[2]][LIR.ID]
 	    fa.c <- as.character(fa)
-	    fa.len <- width(fa)
-	    x <- str_locate_all(fa.c, "[ACGT]")
+	    fa.len <- Biostrings::width(fa)
+	    x <- stringr::str_locate_all(fa.c, "[ACGT]")
 	    y <- x[[1]][,1]
-	    y.ir <- IRanges(y, y)
-	    y.df <- as.data.frame(reduce(y.ir))
+	    y.ir <- IRanges::IRanges(y, y)
+	    y.df <- as.data.frame(IRanges::reduce(y.ir))
 	    
 	    if (nrow(y.df) == 1) {
 	      start.1 <- y.df$start
@@ -1632,25 +1638,26 @@ shinyServer(function(input, output, session) {
 	    y.df$start <- y.df$start + LIR.start.pos - LIT.start.pos.in
 	    y.df$end <- y.df$end + LIR.start.pos - LIT.start.pos.in
 	    
-	    LIR.ir <- IRanges(y.df$start[1], y.df$end[2])
+	    LIR.ir <- IRanges::IRanges(y.df$start[1], y.df$end[2])
 	    
 	    dat <- alignedLIRResults()[[1]]
 	    dat <- dat[dat$ID != LIR.ID & dat$chr == LIR.ID.chr, ]
-	    dat.ir <- IRanges(dat$Left_start, dat$Right_end)
-	    dat.op <- dat[unique(subjectHits(findOverlaps(LIR.ir, dat.ir))), ]
+	    dat.ir <- IRanges::IRanges(dat$Left_start, dat$Right_end)
+	    dat.op <- dat[unique(S4Vectors::subjectHits(IRanges::findOverlaps(LIR.ir, dat.ir))), ]
 	    
 	    if (input$select_LIR_only || nrow(dat.op) == 0) {
 	      align.LIR$Position <- align.LIR$Position + LIR.start.pos - LIT.start.pos.in
 	      align.LIR$TPM <- round(align.LIR$sRNA_read_number / lib.read.count * 1e6, 2)
+	      max.TPM <- max(align.LIR$TPM)
 	      
 	      p1 <- ggplot(align.LIR) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)), size = input$srnaexp_point_size)
-	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-1, xend=y.df$end[1], yend=-1), 
+	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-max.TPM/100, xend=y.df$end[1], yend=-max.TPM/100), 
 	                              lineend = "round", linejoin = "round", color = "red",
 	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-1, xend=y.df$start[2], yend=-1), 
+	      p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-max.TPM/100, xend=y.df$start[2], yend=-max.TPM/100), 
 	                              lineend = "round", linejoin = "round", color = "red",
 	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(aes(x=y.df$end[1]+1, y=-1, xend=y.df$start[2]-1, yend=-1), 
+	      p1 <- p1 + geom_segment(aes(x=y.df$end[1]+1, y=-max.TPM/100, xend=y.df$start[2]-1, yend=-max.TPM/100), 
 	                              size = 0.6, color="grey60")
 	      p1 <- p1 + scale_colour_hue(name = "sRNA size (nt)")
 	      p1 <- p1 + ylab("Expression level of sRNAs (TPM)") + xlab("Position")
@@ -1663,17 +1670,18 @@ shinyServer(function(input, output, session) {
 	    } else {
 	      align.LIR$Position <- align.LIR$Position + LIR.start.pos - LIT.start.pos.in
 	      align.LIR$TPM <- round(align.LIR$sRNA_read_number / lib.read.count * 1e6, 2)
+	      max.TPM <- max(align.LIR$TPM)
 	      
-	      dat.op$yval <- -1 * (1:nrow(dat.op)) * max(align.LIR$TPM)/100
+	      dat.op$yval <- -1 * (1:nrow(dat.op)) * max(align.LIR$TPM)/100 - max.TPM/100
 	      
 	      p1 <- ggplot(align.LIR) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)),  size = input$srnaexp_point_size)
-	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-1, xend=y.df$end[1], yend=-1), 
+	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-max.TPM/100, xend=y.df$end[1], yend=-max.TPM/100), 
 	                              lineend = "round", linejoin = "round", color = "red",
 	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-1, xend=y.df$start[2], yend=-1), 
+	      p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-max.TPM/100, xend=y.df$start[2], yend=-max.TPM/100), 
 	                              lineend = "round", linejoin = "round", color = "red",
 	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(aes(x=y.df$end[1]+1, y=-1, xend=y.df$start[2]-1, yend=-1), 
+	      p1 <- p1 + geom_segment(aes(x=y.df$end[1]+1, y=-max.TPM/100, xend=y.df$start[2]-1, yend=-max.TPM/100), 
 	                              size = 0.6, color="grey60")
 	      p1 <- p1 + geom_segment(data=dat.op, aes(x=Left_start, y=yval, xend=Left_end, yend=yval), 
 	                              lineend = "round", linejoin = "round", color = "blue",
@@ -1693,7 +1701,7 @@ shinyServer(function(input, output, session) {
 	                       legend.text=element_text(size=input$srnaexp_legend_text_size)
 	      )
 	    }
-	    grid.draw(p1)
+	    grid::grid.draw(p1)
 	    dev.off()
 	  }, contentType = 'application/pdf')
 	
@@ -1711,7 +1719,7 @@ shinyServer(function(input, output, session) {
 	    
 	  } else {
 	    if ( file.exists(alignedLIRResults()[[4]]) ) {
-	      LIR.gene.op <- fread(alignedLIRResults()[[4]], data.table = F)
+	      LIR.gene.op <- data.table::fread(alignedLIRResults()[[4]], data.table = F)
 	      LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
 	      LIR.gene.op <- LIR.gene.op[LIR.gene.op$ID %in% LIR.ID, ]
 	      LIR.gene.op <- LIR.gene.op[, !colnames(LIR.gene.op) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
@@ -1740,7 +1748,7 @@ shinyServer(function(input, output, session) {
 	  } else {
 	    LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
 	    tmp.fl <- file.path(tempdir(), "t4.fa")
-	    writeXStringSet(alignedLIRResults()[[2]][LIR.ID], file = tmp.fl)
+	    Biostrings::writeXStringSet(alignedLIRResults()[[2]][LIR.ID], file = tmp.fl)
 	    readLines(tmp.fl)
 	  }
 	}, sep = "\n")
@@ -1793,9 +1801,9 @@ shinyServer(function(input, output, session) {
 	        count.matrix.text <- input$DeseqPaste
 	        count.matrix.text <- gsub("^\\s+", "", count.matrix.text)
 	        count.matrix.text <- gsub("\\s+$", "", count.matrix.text)
-	        count.matrix <- fread(text=count.matrix.text, data.table=F)
+	        count.matrix <- data.table::fread(text=count.matrix.text, data.table=F)
 	      } else if (input$In_deseq == "upload") {
-	        count.matrix <- fread(input$DeseqUpload$datapath, data.table=F)
+	        count.matrix <- data.table::fread(input$DeseqUpload$datapath, data.table=F)
 	      }
 	      
 	      rownames(count.matrix) <- count.matrix$LIR
@@ -1807,9 +1815,9 @@ shinyServer(function(input, output, session) {
 	        sample.info.text <- input$DeseqTablePaste
 	        sample.info.text <- gsub("^\\s+", "", sample.info.text)
 	        sample.info.text <- gsub("\\s+$", "", sample.info.text)
-	        sample.info <- fread(text=sample.info.text, data.table=F)
+	        sample.info <- data.table::fread(text=sample.info.text, data.table=F)
 	      } else if (input$In_deseq_table == "upload") {
-	        sample.info <- fread(input$DeseqTableUpload$datapath, data.table=F)
+	        sample.info <- data.table::fread(input$DeseqTableUpload$datapath, data.table=F)
 	      }
 	      
 	      rownames(sample.info) <- sample.info$sample
@@ -1817,17 +1825,17 @@ shinyServer(function(input, output, session) {
 	      sample.info$condition <- factor(sample.info$condition)
 	      sample.info$type <- factor(sample.info$type)
 
-	      DESeq2.data <- DESeqDataSetFromMatrix(countData = count.matrix,
+	      DESeq2.data <- DESeq2::DESeqDataSetFromMatrix(countData = count.matrix,
 	                                    colData = sample.info,
 	                                    design = ~ condition)
 	      
-	      keep <- rowSums(counts(DESeq2.data)) >= input$MinReadcount
+	      keep <- rowSums(DESeq2::counts(DESeq2.data)) >= input$MinReadcount
 	      DESeq2.data <- DESeq2.data[keep, ]
 	      
-	      DESeq2.res <- DESeq(DESeq2.data)
-	      DESeq2.res.LFC <- lfcShrink(DESeq2.res, coef=resultsNames(DESeq2.res)[2], type="apeglm")
-	      DESeq2.res.vsd <- vst(DESeq2.res, blind=FALSE)
-	      DESeq2.res.table <- results(DESeq2.res)
+	      DESeq2.res <- DESeq2::DESeq(DESeq2.data)
+	      DESeq2.res.LFC <- DESeq2::lfcShrink(DESeq2.res, coef=DESeq2::resultsNames(DESeq2.res)[2], type="apeglm")
+	      DESeq2.res.vsd <- DESeq2::vst(DESeq2.res, blind=FALSE)
+	      DESeq2.res.table <- DESeq2::results(DESeq2.res)
 	      
 	      DESeq2.res.table.dt <- data.frame(DESeq2.res.table, stringsAsFactors = FALSE)
 	      DESeq2.res.table.dt$LIR <- rownames(DESeq2.res.table.dt)
@@ -1850,14 +1858,14 @@ shinyServer(function(input, output, session) {
 	          if (nrow(DESeq2.res.table) == 0) {
 	            NULL
 	          } else {
-	            fwrite(DESeq2.res.table.dt, file, sep="\t", quote=F)
+	            data.table::fwrite(DESeq2.res.table.dt, file, sep="\t", quote=F)
 	          }
 	        }, contentType = 'text/plain'
 	      )
 	      
 	      # MA plot
 	      output$MA_plot <- renderPlot({
-	        plotMA(DESeq2.res.LFC, ylim = c(input$MA_Y_axis[1], input$MA_Y_axis[2]), main = "MA-plot", cex = input$MA_point_size)
+	        DESeq2::plotMA(DESeq2.res.LFC, ylim = c(input$MA_Y_axis[1], input$MA_Y_axis[2]), main = "MA-plot", cex = input$MA_point_size)
 	      })
 	      
 	      output$MA_plot.pdf <- downloadHandler(
@@ -1866,19 +1874,19 @@ shinyServer(function(input, output, session) {
 	        },
 	        content <- function(file) {
 	          pdf(file, width = input$MA_plot_width / 72, height = input$MA_plot_height / 72)
-	          plotMA(DESeq2.res.LFC, ylim = c(input$MA_Y_axis[1], input$MA_Y_axis[2]), main = "MA-plot", cex = input$MA_point_size)
+	          DESeq2::plotMA(DESeq2.res.LFC, ylim = c(input$MA_Y_axis[1], input$MA_Y_axis[2]), main = "MA-plot", cex = input$MA_point_size)
 	          dev.off()
 	        }, contentType = 'application/pdf')
 	      
 	      # Sample distance plot
 	      output$sample_dist <- renderPlot({
-	        sampleDists <- dist(t(assay(DESeq2.res.vsd)))
+	        sampleDists <- dist(t(SummarizedExperiment::assay(DESeq2.res.vsd)))
 	        
 	        sampleDistMatrix <- as.matrix(sampleDists)
 	        rownames(sampleDistMatrix) <- paste(DESeq2.res.vsd$condition, DESeq2.res.vsd$type, sep="-")
 	        colnames(sampleDistMatrix) <- NULL
-	        colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
-	        pheatmap(sampleDistMatrix,
+	        colors <- colorRampPalette( rev(RColorBrewer::brewer.pal(9, "Blues")) )(255)
+	        pheatmap::pheatmap(sampleDistMatrix,
 	                 clustering_distance_rows = sampleDists,
 	                 clustering_distance_cols = sampleDists,
 	                 col = colors, main = "Sample-to-sample distances")
@@ -1890,13 +1898,13 @@ shinyServer(function(input, output, session) {
 	        },
 	        content <- function(file) {
 	          pdf(file, width = input$dist_plot_width / 72, height = input$dist_plot_height / 72)
-	          sampleDists <- dist(t(assay(DESeq2.res.vsd)))
+	          sampleDists <- dist(t(SummarizedExperiment::assay(DESeq2.res.vsd)))
 	          
 	          sampleDistMatrix <- as.matrix(sampleDists)
 	          rownames(sampleDistMatrix) <- paste(DESeq2.res.vsd$condition, DESeq2.res.vsd$type, sep="-")
 	          colnames(sampleDistMatrix) <- NULL
-	          colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
-	          pheatmap(sampleDistMatrix,
+	          colors <- colorRampPalette( rev(RColorBrewer::brewer.pal(9, "Blues")) )(255)
+	          pheatmap::pheatmap(sampleDistMatrix,
 	                   clustering_distance_rows = sampleDists,
 	                   clustering_distance_cols = sampleDists,
 	                   col = colors, main = "Sample-to-sample distances")
@@ -1937,16 +1945,16 @@ shinyServer(function(input, output, session) {
 	output$Count_matrix_Input.txt <- downloadHandler(
 	  filename <- function() { paste('Example_count_matrix.txt') },
 	  content <- function(file) {
-	    dat <- fread("LIR_sRNA_read_count_matrix.txt", data.table = F)
-	    fwrite(dat, file = file, sep="\t")
+	    dat <- data.table::fread("LIR_sRNA_read_count_matrix.txt", data.table = F)
+	    data.table::fwrite(dat, file = file, sep="\t")
 	  }, contentType = 'text/plain'
 	)
 	
 	output$Sample_info_table_Input.txt <- downloadHandler(
 	  filename <- function() { paste('Example_sample_information_table.txt') },
 	  content <- function(file) {
-	    dat <- fread("LIR_sRNA_sample_info.txt", data.table = F)
-	    fwrite(dat, file = file, sep="\t")
+	    dat <- data.table::fread("LIR_sRNA_sample_info.txt", data.table = F)
+	    data.table::fwrite(dat, file = file, sep="\t")
 	  }, contentType = 'text/plain'
 	)
 	
@@ -1997,9 +2005,9 @@ shinyServer(function(input, output, session) {
 	        if (grepl(">", target.Seq)) {
 	          writeLines(target.Seq, con = srna.tin.name.file)
 	        } else {
-	          target.Seq.fa <- DNAStringSet(unlist(strsplit(target.Seq, split="\n")))
+	          target.Seq.fa <- Biostrings::DNAStringSet(unlist(strsplit(target.Seq, split="\n")))
 	          names(target.Seq.fa) <- 1:length(target.Seq.fa)
-	          writeXStringSet(target.Seq.fa, file = srna.tin.name.file)
+	          Biostrings::writeXStringSet(target.Seq.fa, file = srna.tin.name.file)
 	        }
 
 	        bowtie.cDNA.db <- paste0("www/LIRBase_cDNA_bowtiedb/", input$Targetdb)
@@ -2009,7 +2017,7 @@ shinyServer(function(input, output, session) {
 	        system(bowtie.cDNA.cmd, wait = TRUE, timeout = 0)
 
 	        if (file.exists(srna.cDNA.bowtie) && file.size(srna.cDNA.bowtie) >0) {
-	          bowtie.cDNA.out <- fread(srna.cDNA.bowtie, data.table=F, head=F, select=c(2, 3, 5))
+	          bowtie.cDNA.out <- data.table::fread(srna.cDNA.bowtie, data.table=F, head=F, select=c(2, 3, 5))
 	          names(bowtie.cDNA.out) <- c("strand", "mRNA", "sRNA")
 	          bowtie.cDNA.out <- bowtie.cDNA.out[bowtie.cDNA.out$strand == "-", ]
 	          bowtie.cDNA.out <- unique(bowtie.cDNA.out)
@@ -2018,7 +2026,7 @@ shinyServer(function(input, output, session) {
 	                                                                                   sRNA_22_num = length(size[size==22]), sRNA_24_num = length(size[size==24])
 	                                                                                   ) %>% arrange(desc(sRNA_num))
 	          
-	          cDNA.info <- fread(paste0("www/LIRBase_cDNA_bowtiedb/", input$Targetdb, ".cDNA.info.gz"), data.table = F)
+	          cDNA.info <- data.table::fread(paste0("www/LIRBase_cDNA_bowtiedb/", input$Targetdb, ".cDNA.info.gz"), data.table = F)
 	          bowtie.cDNA.out.summ <- merge(bowtie.cDNA.out.summ, cDNA.info, by.x="mRNA", by.y="gene")
 	          bowtie.cDNA.out.summ <- bowtie.cDNA.out.summ[order(-bowtie.cDNA.out.summ$sRNA_num), ]
 	          names(bowtie.cDNA.out.summ)[6] <- "mRNA_annotation"
@@ -2040,7 +2048,7 @@ shinyServer(function(input, output, session) {
 	        output$downloadTargetResult <- downloadHandler(
 	          filename <- function() { paste('gene_targets_of_sRNAs_encoded_by_a_LIR.txt') },
 	          content <- function(file) {
-	            fwrite(bowtie.cDNA.out.summ, file, sep="\t", quote=F)
+	            data.table::fwrite(bowtie.cDNA.out.summ, file, sep="\t", quote=F)
 	          }, contentType = 'text/plain'
 	        )
 	        
@@ -2100,7 +2108,7 @@ shinyServer(function(input, output, session) {
 	        rnafold.in.file <- file.path(tempdir(), rnafold.in.file)
 	        writeLines(vis.Seq, con=rnafold.in.file)
 	        
-	        vis.Seq.fa <- readDNAStringSet(rnafold.in.file)
+	        vis.Seq.fa <- Biostrings::readDNAStringSet(rnafold.in.file)
 	        if (length(vis.Seq.fa) > 1) {
 	          sendSweetAlert(
 	            session = session,
@@ -2110,8 +2118,8 @@ shinyServer(function(input, output, session) {
 	        } else {
 	          if (names(vis.Seq.fa) == "") {
 	            names(vis.Seq.fa) <- gsub(".fasta$", "", rnafold.in.file)
-	            writeXStringSet(vis.Seq.fa, file=rnafold.in.file)
-	            vis.Seq.fa <- readDNAStringSet(rnafold.in.file)
+	            Biostrings::writeXStringSet(vis.Seq.fa, file=rnafold.in.file)
+	            vis.Seq.fa <- Biostrings::readDNAStringSet(rnafold.in.file)
 	          }
 	          vis.Seq.fa.name <- gsub("\\s.+", "", names(vis.Seq.fa))
 	          
@@ -2150,8 +2158,8 @@ shinyServer(function(input, output, session) {
 	            
 	            output$RNAfold_2nd_structure_text <- renderText({
 	              tmp.fl <- file.path(tempdir(), "rnafold.out.fa")
-	              rnafold.out.BS <- BStringSet(rnafold.out)
-	              writeXStringSet(rnafold.out.BS, file = tmp.fl, width = 120)
+	              rnafold.out.BS <- Biostrings::BStringSet(rnafold.out)
+	              Biostrings::writeXStringSet(rnafold.out.BS, file = tmp.fl, width = 120)
 	              rnafold.out.format <- readLines(tmp.fl)
 	              rnafold.out.format <- rnafold.out.format[rnafold.out.format != ">"]
 	              rnafold.out.format
@@ -2200,7 +2208,7 @@ shinyServer(function(input, output, session) {
 	observe({
 	  if (input$VisualizeExam >0) {
 	    isolate({
-	      updateTextAreaInput(session, "VisualizePaste", value = paste(exam3.fa, collapse = "\n"))
+	      updateTextAreaInput(session, "VisualizePaste", value = paste(readLines("exam3.fa"), collapse = "\n"))
 	    })
 	  } else {NULL}
 	})

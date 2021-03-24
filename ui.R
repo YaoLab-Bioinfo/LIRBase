@@ -60,7 +60,7 @@ Target_Info_Title <- paste("Identify protein-coding genes targeted by the small 
 
 shinyUI(
   fluidPage(
-    disconnectMessage(
+    shinydisconnect::disconnectMessage(
       text = "Your session timed out, reload the application!",
       refresh = "Reload now",
       background = "#f89f43",
@@ -104,7 +104,7 @@ shinyUI(
                  tags$script(HTML('Shiny.addCustomMessageHandler("jsCode",function(message) {eval(message.value);});'))
                ),
                
-               Homepage,
+               source("Homepage.R"),
                
                icon = icon("home", class = NULL, lib = "font-awesome"),
                
@@ -294,10 +294,10 @@ shinyUI(
                           uiOutput("searchRegion"),
                           br(),
                           
-                          actionButton("submitSearchReg", strong("Search!",
+                          shinysky::actionButton("submitSearchReg", strong("Search!",
                                                                  bsButton("qpSearchReg", label="", icon=icon("question"), style="info", size="small")
                           ), styleclass = "success"),
-                          conditionalPanel(condition="input.submitSearchReg != '0'", busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
+                          conditionalPanel(condition="input.submitSearchReg != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
                           bsPopover("qpSearchReg", "Click this button to start the search!", trigger = "focus")
                    )
                  ),
@@ -408,12 +408,12 @@ shinyUI(
                                                ),
                                                
                                                br(),
-                                               actionButton("submitSearchID", strong("Search!",
+                                               shinysky::actionButton("submitSearchID", strong("Search!",
                                                                                      bsButton("qpSearchID", label="", icon=icon("question"), style="info", size="small")
                                                ), styleclass = "success"),
-                                               actionButton("clear2", strong("Reset"), styleclass = "warning"),
-                                               actionButton("searchIDExam", strong("Load example"), styleclass = "info"),
-                                               conditionalPanel(condition="input.submitSearchID != '0'", busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
+                                               shinysky::actionButton("clear2", strong("Reset"), styleclass = "warning"),
+                                               shinysky::actionButton("searchIDExam", strong("Load example"), styleclass = "info"),
+                                               conditionalPanel(condition="input.submitSearchID != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
                                                bsPopover("qpSearchID", "Click this button to start the search!", trigger = "focus")
                                         )
                                       )
@@ -558,12 +558,12 @@ shinyUI(
                                       
                                       br(),
                                       
-                                      actionButton("submitBLAST", strong("BLAST!",
+                                      shinysky::actionButton("submitBLAST", strong("BLAST!",
                                                                          bsButton("qBLASTGO", label="", icon=icon("question"), style="info", size="small")
                                       ), styleclass = "success"),
-                                      actionButton("clear3", strong("Reset"), styleclass = "warning"),
-                                      actionButton("blastExam", strong("Load example"), styleclass = "info"),
-                                      conditionalPanel(condition="input.submitBLAST != '0'", busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
+                                      shinysky::actionButton("clear3", strong("Reset"), styleclass = "warning"),
+                                      shinysky::actionButton("blastExam", strong("Load example"), styleclass = "info"),
+                                      conditionalPanel(condition="input.submitBLAST != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
                                       bsPopover("qBLASTGO", "Click this button to start the BLAST alignment!",
                                                 trigger = "focus"),
                                       
@@ -617,7 +617,7 @@ shinyUI(
                                ),
                                
                                column(7,
-                                      withSpinner(verbatimTextOutput("BLAST_hit_detail")),
+                                      shinycssloaders::withSpinner(verbatimTextOutput("BLAST_hit_detail")),
                                       tags$head(tags$style("#BLAST_hit_detail {
                                           width: 100%; 
                                           padding: 6px 12px; 
@@ -639,7 +639,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                                       )),
-                                      withSpinner(dataTableOutput("Blast_LIR_gene_op"))
+                                      shinycssloaders::withSpinner(dataTableOutput("Blast_LIR_gene_op"))
                                )),
                                br(),
                              
@@ -651,7 +651,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                                       )),
-                                      withSpinner(verbatimTextOutput("LIR_detail_blast_fasta")),
+                                      shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_blast_fasta")),
                                       tags$head(tags$style("#LIR_detail_blast_fasta {
                                           width: 100%; 
                                           padding: 6px 12px; 
@@ -671,7 +671,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                                       )),
-                                      withSpinner(verbatimTextOutput("LIR_detail_blast")),
+                                      shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_blast")),
                                       tags$head(tags$style("#LIR_detail_blast {
                                           width: 100%; 
                                           padding: 6px 12px; 
@@ -715,12 +715,12 @@ shinyUI(
                      ),
                      
                      br(),
-                     actionButton("submitP", strong("Submit!",
+                     shinysky::actionButton("submitP", strong("Submit!",
                                                     bsButton("qp10", label="", icon=icon("question"), style="info", size="small")
                      ), styleclass = "success"),
-                     actionButton("clear1", strong("Reset"), styleclass = "warning"),
-                     actionButton("predictExam", strong("Load example"), styleclass = "info"),
-                     conditionalPanel(condition="input.submitP != '0'", busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
+                     shinysky::actionButton("clear1", strong("Reset"), styleclass = "warning"),
+                     shinysky::actionButton("predictExam", strong("Load example"), styleclass = "info"),
+                     conditionalPanel(condition="input.submitP != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
                      bsPopover("qp10", "Click this button to start the annotation!",
                                trigger = "focus"),
                      br(),br(),
@@ -896,13 +896,13 @@ shinyUI(
                                       
                                       br(),
                                       
-                                      actionButton("submitAlign", strong("Align!",
+                                      shinysky::actionButton("submitAlign", strong("Align!",
                                                                          bsButton("qAlign", label="", icon=icon("question"), style="info", size="small")
                                       ), styleclass = "success"),
-                                      actionButton("clearAlign", strong("Reset"), styleclass = "warning"),
-                                      actionButton("alignExam", strong("Load example"), styleclass = "info"),
-                                      conditionalPanel(condition="input.submitAlign != '0'", busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
-                                      conditionalPanel(condition="input.alignExam != '0'", busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
+                                      shinysky::actionButton("clearAlign", strong("Reset"), styleclass = "warning"),
+                                      shinysky::actionButton("alignExam", strong("Load example"), styleclass = "info"),
+                                      conditionalPanel(condition="input.submitAlign != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
+                                      conditionalPanel(condition="input.alignExam != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
                                       bsPopover("qAlign", "Click this button to start the alignment!",
                                                 trigger = "focus")
                                )
@@ -978,12 +978,12 @@ shinyUI(
                                       }"
                                       )),
                                       
-                                      withSpinner(plotOutput("srna_expression", height = "600px", width = '95%'))
+                                      shinycssloaders::withSpinner(plotOutput("srna_expression", height = "600px", width = '95%'))
                                ),
                                
                                column(4,
-                                      withSpinner(plotOutput("srna_size_align", height = "350px", width = '95%')),
-                                      withSpinner(plotOutput("srna_reads_size_align", height = "350px", width = '95%'))
+                                      shinycssloaders::withSpinner(plotOutput("srna_size_align", height = "350px", width = '95%')),
+                                      shinycssloaders::withSpinner(plotOutput("srna_reads_size_align", height = "350px", width = '95%'))
                                )
                              ),
                              br(),
@@ -996,7 +996,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                                       )),
-                                      withSpinner(dataTableOutput("Quantify_LIR_gene_op"))
+                                      shinycssloaders::withSpinner(dataTableOutput("Quantify_LIR_gene_op"))
                                )),
                                br(),
                             
@@ -1008,7 +1008,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                                       )),
-                                      withSpinner(verbatimTextOutput("LIR_detail_align_fasta")),
+                                      shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_align_fasta")),
                                       tags$head(tags$style("#LIR_detail_align_fasta {
                                           width: 100%; 
                                           padding: 6px 12px; 
@@ -1026,7 +1026,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                                       )),
-                                      withSpinner(verbatimTextOutput("LIR_detail_align")),
+                                      shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_align")),
                                       tags$head(tags$style("#LIR_detail_align {
                                           width: 100%; 
                                           padding: 6px 12px; 
@@ -1038,7 +1038,7 @@ shinyUI(
                                )
                              ),
                              
-                             jqui_draggable(bsModal("srnaexpplotoptions", "Expression of sRNAs aligned to the LIR", "srna_expression_plot_options", size = "large", 
+                             shinyjqui::jqui_draggable(bsModal("srnaexpplotoptions", "Expression of sRNAs aligned to the LIR", "srna_expression_plot_options", size = "large", 
                                                     fixedRow(
                                                       column(6,
                                                              checkboxInput("select_LIR_only", "Hide other LIRs overlap with the selected LIR", TRUE),
@@ -1064,7 +1064,7 @@ shinyUI(
                                                     )
                              )),
                              
-                             jqui_draggable(bsModal("srnasizeplotoptions", "Size of all sRNAs aligned to the LIR", "srna_size_plot_options", size = "large", 
+                             shinyjqui::jqui_draggable(bsModal("srnasizeplotoptions", "Size of all sRNAs aligned to the LIR", "srna_size_plot_options", size = "large", 
                                                     fixedRow(
                                                       column(6,
                                                              sliderInput("srnasize_axis_tick_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis tick font size</font>')),
@@ -1085,7 +1085,7 @@ shinyUI(
                                                     )
                              )),
                              
-                             jqui_draggable(bsModal("readsizeplotoptions", "Size of all sRNA reads aligned to the LIR", "read_size_plot_options", size = "large", 
+                             shinyjqui::jqui_draggable(bsModal("readsizeplotoptions", "Size of all sRNA reads aligned to the LIR", "read_size_plot_options", size = "large", 
                                                     fixedRow(
                                                       column(6,
                                                              sliderInput("readsize_axis_tick_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis tick font size</font>')),
@@ -1162,12 +1162,12 @@ shinyUI(
                     trigger = "focus"),
           
           br(),
-          actionButton("submitDeseq", strong("Submit!",
+          shinysky::actionButton("submitDeseq", strong("Submit!",
                                              bsButton("qsubmitDeseq", label="", icon=icon("question"), style="info", size="small")
           ), styleclass = "success"),
-          actionButton("clearDeseq", strong("Reset"), styleclass = "warning"),
-          actionButton("deseqExam", strong("Load example"), styleclass = "info"),
-          conditionalPanel(condition="input.submitDeseq != '0'", busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
+          shinysky::actionButton("clearDeseq", strong("Reset"), styleclass = "warning"),
+          shinysky::actionButton("deseqExam", strong("Load example"), styleclass = "info"),
+          conditionalPanel(condition="input.submitDeseq != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
           bsPopover("qsubmitDeseq", "Click this button to start the calculation!",
                     trigger = "focus"),
           br(),br(),
@@ -1194,21 +1194,21 @@ shinyUI(
           
           fluidRow(
             column(6,
-                   jqui_resizable(plotOutput("MA_plot", height = "350px", width = '350px'))
+                   shinyjqui::jqui_resizable(plotOutput("MA_plot", height = "350px", width = '350px'))
             ),
             
             column(6,
-                   jqui_resizable(plotOutput("volcano_plot", height = "350px", width = '350px'))
+                   shinyjqui::jqui_resizable(plotOutput("volcano_plot", height = "350px", width = '350px'))
             )
           ),
           
           fixedRow(
             column(6,
-                   jqui_resizable(plotOutput("sample_dist", height = "350px", width = '450px'))
+                   shinyjqui::jqui_resizable(plotOutput("sample_dist", height = "350px", width = '450px'))
             )
           ),
           
-          jqui_draggable(bsModal("MAplotoptions", "MA plot", "MA_plot_options", size = "large", 
+          shinyjqui::jqui_draggable(bsModal("MAplotoptions", "MA plot", "MA_plot_options", size = "large", 
                                  fixedRow(
                                    column(6,
                                           sliderInput("MA_point_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Point size</font>')),
@@ -1229,7 +1229,7 @@ shinyUI(
           
           br(),br(),
           
-          jqui_draggable(bsModal("Volcanoplotoptions", "Volcano plot", "volcano_plot_options", size = "large", 
+          shinyjqui::jqui_draggable(bsModal("Volcanoplotoptions", "Volcano plot", "volcano_plot_options", size = "large", 
                                  fixedRow(
                                    column(6,
                                           sliderInput("sliderFoldchange", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">X axis limits of the volcano plot</font>')), 
@@ -1255,7 +1255,7 @@ shinyUI(
           )),
           
           tags$head(tags$style("#sampledistoptions .modal-dialog{ width:400px}")),
-          jqui_draggable(bsModal("sampledistoptions", "Sample-to-sample distance plot", "sample_dist_options", size = "large", 
+          shinyjqui::jqui_draggable(bsModal("sampledistoptions", "Sample-to-sample distance plot", "sample_dist_options", size = "large", 
                                  fixedRow(
                                    column(10,
                                           numericInput("dist_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
@@ -1317,12 +1317,12 @@ shinyUI(
                                trigger = "focus"),
                      
                      br(),
-                     actionButton("submitTarget", strong("Submit!",
+                     shinysky::actionButton("submitTarget", strong("Submit!",
                                                             bsButton("qsubmitTarget", label="", icon=icon("question"), style="info", size="small")
                      ), styleclass = "success"),
-                     actionButton("clearTarget", strong("Clear"), styleclass = "warning"),
-                     actionButton("TargetExam", strong("Load example"), styleclass = "info"),
-                     conditionalPanel(condition="input.submitTarget != '0'", busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
+                     shinysky::actionButton("clearTarget", strong("Clear"), styleclass = "warning"),
+                     shinysky::actionButton("TargetExam", strong("Load example"), styleclass = "info"),
+                     conditionalPanel(condition="input.submitTarget != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
                      bsPopover("qsubmitTarget", "Click this button to start the prediction!", trigger = "focus")
         ),
         
@@ -1355,12 +1355,12 @@ shinyUI(
                      bsPopover("qVisualizePaste", "The input data must be a single DNA sequence in fasta format. The sequence should have a proper ID start with >. A very long sequence will take a long time to calculate.", trigger = "focus"),
                      
                      br(),
-                     actionButton("submitVisualize", strong("Submit!",
+                     shinysky::actionButton("submitVisualize", strong("Submit!",
                                                             bsButton("qsubmitVisualize", label="", icon=icon("question"), style="info", size="small")
                      ), styleclass = "success"),
-                     actionButton("clearVisualize", strong("Clear"), styleclass = "warning"),
-                     actionButton("VisualizeExam", strong("Load example"), styleclass = "info"),
-                     conditionalPanel(condition="input.submitVisualize != '0'", busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
+                     shinysky::actionButton("clearVisualize", strong("Clear"), styleclass = "warning"),
+                     shinysky::actionButton("VisualizeExam", strong("Load example"), styleclass = "info"),
+                     conditionalPanel(condition="input.submitVisualize != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
                      bsPopover("qsubmitVisualize", "Click this button to start the prediction!", trigger = "focus"),
                      br(),br(),
                      
