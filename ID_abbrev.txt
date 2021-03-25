@@ -153,7 +153,7 @@ Oryza_meridionalis	Plant	ormp
 Oryza_nivara	Plant	ornp
 Oryza_punctata	Plant	orpp
 Oryza_rufipogon	Plant	orup
-Oryza_sativa.93-11	Plant	
+Oryza_sativa.93-11	Plant	osnp
 Oryza_sativa.DJ123	Plant	osdp
 Oryza_sativa.IR64	Plant	osip
 Oryza_sativa.IR8	Plant	osrp
