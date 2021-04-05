@@ -186,7 +186,7 @@ shinyServer(function(input, output, session) {
         # alignment of left against right arm
         LIR.align.select <- LIR.align[[dat.content[IRF.index]]]
         output$LIR_detail_title <- renderText(
-          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary):</b></font>')
+          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary match):</b></font>')
           )
         output$LIR_detail <- renderText(
           LIR.align.select, sep = "\n"
@@ -338,7 +338,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchRegResult_rows_selected)) {
       
     } else {
-      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary):</b></font>')
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary match):</b></font>')
     }
   })
   
@@ -509,7 +509,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchIDResult_rows_selected) || is.null(search.ID.result())) {
       
     } else {
-      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary):</b></font>')
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary match):</b></font>')
     }
   })
   
@@ -877,7 +877,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) || is.null(blastedResults())) {
       
     } else {
-      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary):</b></font>')
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary match):</b></font>')
     }
   })
   
@@ -1121,7 +1121,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$prediction_rows_selected)) {
       
     } else {
-      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary):</b></font>')
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary match):</b></font>')
     }
   })
   
@@ -1758,7 +1758,7 @@ shinyServer(function(input, output, session) {
 	  if (is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary):</b></font>')
+	    HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary match):</b></font>')
 	  }
 	})
 	
@@ -1768,6 +1768,28 @@ shinyServer(function(input, output, session) {
 	  } else {
 	    LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
 	    alignedLIRResults()[[3]][[LIR.ID]]
+	  }
+	}, sep = "\n")
+	
+	## Display small RNAs derived from the LIR
+	output$LIR_derived_sRNA_title <- renderText({
+	  if (is.null(input$LIRreadCount_rows_selected)) {
+	    
+	  } else {
+	    HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Small RNAs derived from the selected LIR:</b></font>')
+	  }
+	})
+	
+	output$LIR_derived_sRNA <- renderText({
+	  if (is.null(input$LIRreadCount_rows_selected)) {
+	    
+	  } else {
+	    LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
+	    sRNA.align.detail <- alignedResults()[[1]]
+	    sRNA.align.detail <- sRNA.align.detail[, -1]
+	    sRNA.align.detail <- sRNA.align.detail[sRNA.align.detail$LIR == LIR.ID, ]
+	    
+	    unique(sRNA.align.detail$sRNA)
 	  }
 	}, sep = "\n")
 	
@@ -2017,9 +2039,11 @@ shinyServer(function(input, output, session) {
 	        system(bowtie.cDNA.cmd, wait = TRUE, timeout = 0)
 
 	        if (file.exists(srna.cDNA.bowtie) && file.size(srna.cDNA.bowtie) >0) {
-	          bowtie.cDNA.out <- data.table::fread(srna.cDNA.bowtie, data.table=F, head=F, select=c(2, 3, 5))
-	          names(bowtie.cDNA.out) <- c("strand", "mRNA", "sRNA")
+	          bowtie.cDNA.out <- data.table::fread(srna.cDNA.bowtie, data.table=F, head=F, select=c(2, 3, 4, 5))
+	          names(bowtie.cDNA.out) <- c("strand", "mRNA", "Position", "sRNA")
 	          bowtie.cDNA.out <- bowtie.cDNA.out[bowtie.cDNA.out$strand == "-", ]
+	          bowtie.cDNA.out.wp <- bowtie.cDNA.out
+	          bowtie.cDNA.out$Position <- NULL
 	          bowtie.cDNA.out <- unique(bowtie.cDNA.out)
 	          bowtie.cDNA.out$size <- nchar(bowtie.cDNA.out$sRNA)
 	          bowtie.cDNA.out.summ <- bowtie.cDNA.out %>% group_by(mRNA) %>% summarise(sRNA_num = n(), sRNA_21_num = length(size[size==21]),
@@ -2049,6 +2073,15 @@ shinyServer(function(input, output, session) {
 	          filename <- function() { paste('gene_targets_of_sRNAs_encoded_by_a_LIR.txt') },
 	          content <- function(file) {
 	            data.table::fwrite(bowtie.cDNA.out.summ, file, sep="\t", quote=F)
+	          }, contentType = 'text/plain'
+	        )
+	        
+	        output$downloadTargetAlignm <- downloadHandler(
+	          filename <- function() { paste('Alignment_of_small_RNAs_against_their_targets.txt') },
+	          content <- function(file) {
+	            bowtie.cDNA.out.wp$sRNA <- as.character(Biostrings::reverseComplement(Biostrings::DNAStringSet(bowtie.cDNA.out.wp$sRNA)))
+	            bowtie.cDNA.out.wp$size <- nchar(bowtie.cDNA.out.wp$sRNA)
+	            data.table::fwrite(bowtie.cDNA.out.wp, file, sep="\t", quote=F)
 	          }, contentType = 'text/plain'
 	        )
 	        

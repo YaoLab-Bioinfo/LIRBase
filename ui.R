@@ -1019,6 +1019,7 @@ shinyUI(
                                       ))
                                ),
                                br(),
+                               
                                column(12, 
                                       htmlOutput("LIR_detail_align_title"),
                                       tags$head(tags$style("#LIR_detail_align_title{color: red;
@@ -1028,6 +1029,25 @@ shinyUI(
                                       )),
                                       shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_align")),
                                       tags$head(tags$style("#LIR_detail_align {
+                                          width: 100%; 
+                                          padding: 6px 12px; 
+                                          white-space: pre-wrap;
+                                          height: 400px;
+                                          background: white;
+                                        }"
+                                      ))
+                               ),
+                               br(),
+                               
+                               column(12, 
+                                      htmlOutput("LIR_derived_sRNA_title"),
+                                      tags$head(tags$style("#LIR_derived_sRNA_title{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                                      )),
+                                      shinycssloaders::withSpinner(verbatimTextOutput("LIR_derived_sRNA")),
+                                      tags$head(tags$style("#LIR_derived_sRNA {
                                           width: 100%; 
                                           padding: 6px 12px; 
                                           white-space: pre-wrap;
@@ -1330,6 +1350,9 @@ shinyUI(
           fixedRow(
             column(6,
                    downloadButton("downloadTargetResult", "Predicted targets of small RNAs encoded by a LIR", style = "width:100%;", class = "buttDown")
+            ),
+            column(6,
+                   downloadButton("downloadTargetAlignm", "Alignment of small RNAs against their targets", style = "width:100%;", class = "buttDown")
             )
           ),
           
