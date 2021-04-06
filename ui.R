@@ -104,9 +104,9 @@ shinyUI(
                  tags$script(HTML('Shiny.addCustomMessageHandler("jsCode",function(message) {eval(message.value);});'))
                ),
                
-               source("Homepage.R"),
-               
                icon = icon("home", class = NULL, lib = "font-awesome"),
+               
+               Homepage
                
                # htmlwidgets::getDependency('sparkline'),
                # dataTableOutput("IRFsummary")

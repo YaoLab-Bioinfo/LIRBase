@@ -31,7 +31,7 @@ library(XML)
 library(dplyr)
 
 source("box_format.R")
-# source("Homepage.R")
+source("Homepage.R")
 
 # load("genome.info.RData")
 # load("dat.summary.RData")
