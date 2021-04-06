@@ -609,7 +609,7 @@ shinyServer(function(input, output, session) {
   }, ignoreNULL= T)
   
   blastedResults <- reactive({
-    if (is.null(blast.result())){
+    if (is.null(blast.result())) {
       
     } else {
       xmltop = xmlRoot(blast.result())
@@ -626,8 +626,6 @@ shinyServer(function(input, output, session) {
         qlen <- getNodeSet(row, 'Iteration_query-len') %>% sapply(., xmlValue)
         qstart <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_query-from')  %>% sapply(., xmlValue)
         qend <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_query-to')  %>% sapply(., xmlValue)
-        sseqid <- rep(z, x1-x)
-        sslen <- rep(d, x1-x)
         sstart <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_hit-from')  %>% sapply(., xmlValue)
         send <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_hit-to')  %>% sapply(., xmlValue)
         bitscore <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_bit-score')  %>% sapply(., xmlValue)
@@ -636,13 +634,21 @@ shinyServer(function(input, output, session) {
         length <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_align-len')  %>% sapply(., xmlValue)
         identity <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_identity')  %>% sapply(., xmlValue)
         pident <- round(as.integer(identity) / as.integer(length) * 100, 2)
-        cbind(qseqid, qlen, sseqid, sslen, qstart, qend, sstart, send, bitscore, evalue, gaps, pident, length)
+        cbind(qseqid, qlen, qstart, qend, sstart, send, bitscore, evalue, gaps, pident, length)
       })
       
       #this ensures that NAs get added for no hits
-      results <-  plyr::rbind.fill(lapply(results, function(y) {as.data.frame((y), stringsAsFactors=FALSE)} ))
-      if (ncol(results) != 13) {
+      results <- plyr::rbind.fill( lapply(results, function(y) {as.data.frame((y), stringsAsFactors=FALSE)} ))
+      results <- results[!is.na(results$qstart), ]
+      
+      if (ncol(results) != 11) {
         results <- NULL
+      } else {
+        results$sseqid <- rep(z, x1-x)
+        results$sslen <- rep(d, x1-x)
+        
+        results <- results[, c("qseqid", "qlen", "sseqid", "sslen", "qstart", "qend", "sstart", 
+                               "send", "bitscore", "evalue", "gaps", "pident", "length")]
       }
       results
     }
