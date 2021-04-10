@@ -217,10 +217,12 @@ shinyServer(function(input, output, session) {
     dat.genome <- chromosome()
     dat.chromosome <- dat.genome[dat.genome$chr == input$chooseChromosomeReg, ]
     
-    sliderInput(inputId = "chooseRegion", 
-                label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose genomic region</font>')),
-                min = 1, max = dat.chromosome$size,
-                value = c(1, dat.chromosome$size), width = "90%")
+    if (exists("dat.chromosome") && !is.null(dat.chromosome$size) && nrow(dat.chromosome)>0) {
+      sliderInput(inputId = "chooseRegion", 
+                  label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose genomic region</font>')),
+                  min = 1, max = dat.chromosome$size,
+                  value = c(1, dat.chromosome$size), width = "90%")
+    }
   })
   
   search.region.result <- eventReactive(input$submitSearchReg, {
