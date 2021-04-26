@@ -148,7 +148,7 @@ shinyUI(
         
         tabsetPanel(id = "browser_1",
                     tabPanel(title = HTML("<strong style='font-size:18px'>Species</strong>"), id = "browser_Species",
-                             dataTableOutput('HTMLtable')
+                             DT::dataTableOutput('HTMLtable')
                     ),
                     
                     tabPanel(title = HTML("<strong style='font-size:18px'>LIRs annotated by IRF</strong>"), id = "browser_LIR",
@@ -160,7 +160,7 @@ shinyUI(
                                )
                              ),
                              
-                             dataTableOutput("LIR_info_num"),
+                             DT::dataTableOutput("LIR_info_num"),
                              br(),
                              
                              fixedRow(
@@ -191,7 +191,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                              )),
-                             dataTableOutput("IRFbrowse"),
+                             DT::dataTableOutput("IRFbrowse"),
                              br()
                     ),
                     
@@ -202,7 +202,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                              )),
-                             dataTableOutput("LIR_info"),
+                             DT::dataTableOutput("LIR_info"),
                              br(),
                              
                              htmlOutput("LIR_gene_op_title"),
@@ -211,7 +211,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                              )),
-                             dataTableOutput("LIR_gene_op"),
+                             DT::dataTableOutput("LIR_gene_op"),
                              br(),
                              
                              fixedRow(
@@ -319,7 +319,7 @@ shinyUI(
                                            bsButton("qSearchRegHelp", label="", icon=icon("question"), style="info", size="small")),
                                   bsPopover("qSearchRegHelp", title = search_help_Title, trigger = "focus", content = NULL)
                  ),
-                 dataTableOutput("LIRsearchRegResult"),
+                 DT::dataTableOutput("LIRsearchRegResult"),
                  br(),
                  
                  fixedRow(
@@ -330,7 +330,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                           )),
-                          dataTableOutput("Search_reg_LIR_gene_op")
+                          DT::dataTableOutput("Search_reg_LIR_gene_op")
                    )),
                    br(),
                  
@@ -435,7 +435,7 @@ shinyUI(
                                                                 bsButton("qSearchIDHelp", label="", icon=icon("question"), style="info", size="small")),
                                                        bsPopover("qSearchIDHelp", title = search_help_Title, trigger = "focus", content = NULL)
                                       ),
-                                      dataTableOutput("LIRsearchIDResult"),
+                                      DT::dataTableOutput("LIRsearchIDResult"),
                                       br(),
                                       
                                       fixedRow(
@@ -446,7 +446,7 @@ shinyUI(
                                                             font-style: bold;
                                                         }"
                                                )),
-                                               dataTableOutput("Search_ID_LIR_gene_op")
+                                               DT::dataTableOutput("Search_ID_LIR_gene_op")
                                         )),
                                         br(),
                                         
@@ -591,7 +591,7 @@ shinyUI(
                                               bsPopover("qBLASTresultHelp", title = "Click on a row to check the details of the LIR and the BLAST alignment!", trigger = "focus", content = NULL)
                              ),
                              
-                             dataTableOutput("BLASTresult"),
+                             DT::dataTableOutput("BLASTresult"),
                              br(),
                              
                              fixedRow(
@@ -639,7 +639,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                                       )),
-                                      shinycssloaders::withSpinner(dataTableOutput("Blast_LIR_gene_op"))
+                                      shinycssloaders::withSpinner(DT::dataTableOutput("Blast_LIR_gene_op"))
                                )),
                                br(),
                              
@@ -793,7 +793,7 @@ shinyUI(
             column(6, downloadButton("downloadIRFresult.txt", "Download structure of predicted LIRs", style = "width:100%;", class = "buttDown")),
             column(6, downloadButton("downloadIRFfasta.txt", "Download sequence of predicted LIRs", style = "width:100%;", class = "buttDown"))
           ),
-          dataTableOutput("prediction"),
+          DT::dataTableOutput("prediction"),
           
           br(),
           
@@ -951,7 +951,7 @@ shinyUI(
                                                                 bsButton("qLIRreadCountHelp", label="", icon=icon("question"), style="info", size="small")),
                                                        bsPopover("qLIRreadCountHelp", title = Align_Info_Title, trigger = "focus", content = NULL)
                                       ),
-                                      dataTableOutput("LIRreadCount")
+                                      DT::dataTableOutput("LIRreadCount")
                                )
                              ),
                              
@@ -996,7 +996,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                                       )),
-                                      shinycssloaders::withSpinner(dataTableOutput("Quantify_LIR_gene_op"))
+                                      shinycssloaders::withSpinner(DT::dataTableOutput("Quantify_LIR_gene_op"))
                                )),
                                br(),
                             
@@ -1209,7 +1209,7 @@ shinyUI(
         mainPanel(
           downloadButton("DESeq2_result_table.txt", "Differentially expressed LIRs/sRNAs", style = "width:50%;", class = "buttDown"),
           br(),br(),
-          dataTableOutput("DESeqResult"),
+          DT::dataTableOutput("DESeqResult"),
           br(),
           
           fluidRow(
@@ -1356,7 +1356,7 @@ shinyUI(
             )
           ),
           
-          dataTableOutput("sRNATargetResult")
+          DT::dataTableOutput("sRNATargetResult")
         )
       ),
       

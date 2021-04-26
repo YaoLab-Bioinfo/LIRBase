@@ -205,7 +205,7 @@ shinyServer(function(input, output, session) {
 	# Search LIR by genomic region
   chromosome <- reactive({
     req(input$chooseGenomeReg)
-    load("genome.info.RData")
+    if (!exists("genome.info")) {load("genome.info.RData")}
     filter(genome.info, ID == input$chooseGenomeReg)
   })
   
@@ -1551,22 +1551,22 @@ shinyServer(function(input, output, session) {
 	      align.LIR$TPM <- round(align.LIR$sRNA_read_number / lib.read.count * 1e6, 2)
 	      max.TPM <- max(align.LIR$TPM)
 	      
-	      p1 <- ggplot(align.LIR) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)), size = input$srnaexp_point_size)
-	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-max.TPM/100, xend=y.df$end[1], yend=-max.TPM/100), 
+	      p1 <- ggplot2::ggplot(align.LIR) + ggplot2::geom_point(ggplot2::aes(x=Position, y=TPM, color = factor(sRNA_size)), size = input$srnaexp_point_size)
+	      p1 <- p1 + ggplot2::geom_segment(ggplot2::aes(x=y.df$start[1], y=-max.TPM/100, xend=y.df$end[1], yend=-max.TPM/100), 
 	                              lineend = "round", linejoin = "round", color = "red",
-	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-max.TPM/100, xend=y.df$start[2], yend=-max.TPM/100), 
+	                              size = 1.1, arrow = ggplot2::arrow(length = ggplot2::unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + ggplot2::geom_segment(ggplot2::aes(x=y.df$end[2], y=-max.TPM/100, xend=y.df$start[2], yend=-max.TPM/100), 
 	                              lineend = "round", linejoin = "round", color = "red",
-	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(aes(x=y.df$end[1]+1, y=-max.TPM/100, xend=y.df$start[2]-1, yend=-max.TPM/100), 
+	                              size = 1.1, arrow = ggplot2::arrow(length = ggplot2::unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + ggplot2::geom_segment(ggplot2::aes(x=y.df$end[1]+1, y=-max.TPM/100, xend=y.df$start[2]-1, yend=-max.TPM/100), 
 	                              size = 0.6, color="grey60")
-	      p1 <- p1 + scale_colour_hue(name = "sRNA size (nt)")
-	      p1 <- p1 + ylab("Expression level of sRNAs (TPM)") + xlab("Position")
-	      p1 <- p1 + theme_classic()
-	      p1 <- p1 + theme(axis.text=element_text(size=input$srnaexp_axis_tick_size),
-	                       axis.title=element_text(size=input$srnaexp_axis_label_size, face="bold"), 
-	                       legend.title=element_text(size=input$srnaexp_legend_title_size), 
-	                       legend.text=element_text(size=input$srnaexp_legend_text_size)
+	      p1 <- p1 + ggplot2::scale_colour_hue(name = "sRNA size (nt)")
+	      p1 <- p1 + ggplot2::ylab("Expression level of sRNAs (TPM)") + ggplot2::xlab("Position")
+	      p1 <- p1 + ggplot2::theme_classic()
+	      p1 <- p1 + ggplot2::theme(axis.text=ggplot2::element_text(size=input$srnaexp_axis_tick_size),
+	                       axis.title=ggplot2::element_text(size=input$srnaexp_axis_label_size, face="bold"), 
+	                       legend.title=ggplot2::element_text(size=input$srnaexp_legend_title_size), 
+	                       legend.text=ggplot2::element_text(size=input$srnaexp_legend_text_size)
 	      )
 	      p1
 	    } else {
@@ -1576,31 +1576,32 @@ shinyServer(function(input, output, session) {
 	      
 	      dat.op$yval <- -1 * (1:nrow(dat.op)) * max(align.LIR$TPM)/100 - max.TPM/100
 	      
-	      p1 <- ggplot(align.LIR) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)),  size = input$srnaexp_point_size)
-	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-max.TPM/100, xend=y.df$end[1], yend=-max.TPM/100), 
+	      p1 <- ggplot2::ggplot(align.LIR) + ggplot2::geom_point(ggplot2::aes(x=Position, y=TPM, color = factor(sRNA_size)),  
+	                                                             size = input$srnaexp_point_size)
+	      p1 <- p1 + ggplot2::geom_segment(ggplot2::aes(x=y.df$start[1], y=-max.TPM/100, xend=y.df$end[1], yend=-max.TPM/100), 
 	                              lineend = "round", linejoin = "round", color = "red",
-	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-max.TPM/100, xend=y.df$start[2], yend=-max.TPM/100), 
+	                              size = 1.1, arrow = ggplot2::arrow(length = ggplot2::unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + ggplot2::geom_segment(ggplot2::aes(x=y.df$end[2], y=-max.TPM/100, xend=y.df$start[2], yend=-max.TPM/100), 
 	                              lineend = "round", linejoin = "round", color = "red",
-	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(aes(x=y.df$end[1]+1, y=-max.TPM/100, xend=y.df$start[2]-1, yend=-max.TPM/100), 
+	                              size = 1.1, arrow = ggplot2::arrow(length = ggplot2::unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + ggplot2::geom_segment(ggplot2::aes(x=y.df$end[1]+1, y=-max.TPM/100, xend=y.df$start[2]-1, yend=-max.TPM/100), 
 	                              size = 0.6, color="grey60")
-	      p1 <- p1 + geom_segment(data=dat.op, aes(x=Left_start, y=yval, xend=Left_end, yend=yval), 
+	      p1 <- p1 + ggplot2::geom_segment(data=dat.op, ggplot2::aes(x=Left_start, y=yval, xend=Left_end, yend=yval), 
 	                              lineend = "round", linejoin = "round", color = "blue",
-	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(data=dat.op, aes(x=Right_end, y=yval, xend=Right_start, yend=yval), 
+	                              size = 1.1, arrow = ggplot2::arrow(length = ggplot2::unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + ggplot2::geom_segment(data=dat.op, ggplot2::aes(x=Right_end, y=yval, xend=Right_start, yend=yval), 
 	                              lineend = "round", linejoin = "round", color = "blue",
-	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(data=dat.op, aes(x=Left_end+1, y=yval, xend=Right_start-1, yend=yval), 
+	                              size = 1.1, arrow = ggplot2::arrow(length = ggplot2::unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + ggplot2::geom_segment(data=dat.op, ggplot2::aes(x=Left_end+1, y=yval, xend=Right_start-1, yend=yval), 
 	                              size = 0.6, color="grey60")
-	      p1 <- p1 + scale_colour_hue(name = "sRNA size (nt)")
-	      p1 <- p1 + scale_y_continuous(breaks = round(seq(0, max(align.LIR$TPM)*1.1, length.out = 5)))
-	      p1 <- p1 + ylab("Expression level of sRNAs (TPM)") + xlab("Position")
-	      p1 <- p1 + theme_classic()
-	      p1 <- p1 + theme(axis.text=element_text(size=input$srnaexp_axis_tick_size),
-	                       axis.title=element_text(size=input$srnaexp_axis_label_size, face="bold"), 
-	                       legend.title=element_text(size=input$srnaexp_legend_title_size), 
-	                       legend.text=element_text(size=input$srnaexp_legend_text_size)
+	      p1 <- p1 + ggplot2::scale_colour_hue(name = "sRNA size (nt)")
+	      p1 <- p1 + ggplot2::scale_y_continuous(breaks = round(seq(0, max(align.LIR$TPM)*1.1, length.out = 5)))
+	      p1 <- p1 + ggplot2::ylab("Expression level of sRNAs (TPM)") + ggplot2::xlab("Position")
+	      p1 <- p1 + ggplot2::theme_classic()
+	      p1 <- p1 + ggplot2::theme(axis.text=ggplot2::element_text(size=input$srnaexp_axis_tick_size),
+	                       axis.title=ggplot2::element_text(size=input$srnaexp_axis_label_size, face="bold"), 
+	                       legend.title=ggplot2::element_text(size=input$srnaexp_legend_title_size), 
+	                       legend.text=ggplot2::element_text(size=input$srnaexp_legend_text_size)
 	      )
 	      p1
 	    }
@@ -1658,22 +1659,22 @@ shinyServer(function(input, output, session) {
 	      align.LIR$TPM <- round(align.LIR$sRNA_read_number / lib.read.count * 1e6, 2)
 	      max.TPM <- max(align.LIR$TPM)
 	      
-	      p1 <- ggplot(align.LIR) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)), size = input$srnaexp_point_size)
-	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-max.TPM/100, xend=y.df$end[1], yend=-max.TPM/100), 
-	                              lineend = "round", linejoin = "round", color = "red",
-	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-max.TPM/100, xend=y.df$start[2], yend=-max.TPM/100), 
-	                              lineend = "round", linejoin = "round", color = "red",
-	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(aes(x=y.df$end[1]+1, y=-max.TPM/100, xend=y.df$start[2]-1, yend=-max.TPM/100), 
-	                              size = 0.6, color="grey60")
-	      p1 <- p1 + scale_colour_hue(name = "sRNA size (nt)")
-	      p1 <- p1 + ylab("Expression level of sRNAs (TPM)") + xlab("Position")
-	      p1 <- p1 + theme_classic()
-	      p1 <- p1 + theme(axis.text=element_text(size=input$srnaexp_axis_tick_size),
-	                       axis.title=element_text(size=input$srnaexp_axis_label_size, face="bold"), 
-	                       legend.title=element_text(size=input$srnaexp_legend_title_size), 
-	                       legend.text=element_text(size=input$srnaexp_legend_text_size)
+	      p1 <- ggplot2::ggplot(align.LIR) + ggplot2::geom_point(ggplot2::aes(x=Position, y=TPM, color = factor(sRNA_size)), size = input$srnaexp_point_size)
+	      p1 <- p1 + ggplot2::geom_segment(ggplot2::aes(x=y.df$start[1], y=-max.TPM/100, xend=y.df$end[1], yend=-max.TPM/100), 
+	                                       lineend = "round", linejoin = "round", color = "red",
+	                                       size = 1.1, arrow = ggplot2::arrow(length = ggplot2::unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + ggplot2::geom_segment(ggplot2::aes(x=y.df$end[2], y=-max.TPM/100, xend=y.df$start[2], yend=-max.TPM/100), 
+	                                       lineend = "round", linejoin = "round", color = "red",
+	                                       size = 1.1, arrow = ggplot2::arrow(length = ggplot2::unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + ggplot2::geom_segment(ggplot2::aes(x=y.df$end[1]+1, y=-max.TPM/100, xend=y.df$start[2]-1, yend=-max.TPM/100), 
+	                                       size = 0.6, color="grey60")
+	      p1 <- p1 + ggplot2::scale_colour_hue(name = "sRNA size (nt)")
+	      p1 <- p1 + ggplot2::ylab("Expression level of sRNAs (TPM)") + ggplot2::xlab("Position")
+	      p1 <- p1 + ggplot2::theme_classic()
+	      p1 <- p1 + ggplot2::theme(axis.text=ggplot2::element_text(size=input$srnaexp_axis_tick_size),
+	                                axis.title=ggplot2::element_text(size=input$srnaexp_axis_label_size, face="bold"), 
+	                                legend.title=ggplot2::element_text(size=input$srnaexp_legend_title_size), 
+	                                legend.text=ggplot2::element_text(size=input$srnaexp_legend_text_size)
 	      )
 	    } else {
 	      align.LIR$Position <- align.LIR$Position + LIR.start.pos - LIT.start.pos.in
@@ -1682,31 +1683,32 @@ shinyServer(function(input, output, session) {
 	      
 	      dat.op$yval <- -1 * (1:nrow(dat.op)) * max(align.LIR$TPM)/100 - max.TPM/100
 	      
-	      p1 <- ggplot(align.LIR) + geom_point(aes(x=Position, y=TPM, color = factor(sRNA_size)),  size = input$srnaexp_point_size)
-	      p1 <- p1 + geom_segment(aes(x=y.df$start[1], y=-max.TPM/100, xend=y.df$end[1], yend=-max.TPM/100), 
-	                              lineend = "round", linejoin = "round", color = "red",
-	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(aes(x=y.df$end[2], y=-max.TPM/100, xend=y.df$start[2], yend=-max.TPM/100), 
-	                              lineend = "round", linejoin = "round", color = "red",
-	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(aes(x=y.df$end[1]+1, y=-max.TPM/100, xend=y.df$start[2]-1, yend=-max.TPM/100), 
-	                              size = 0.6, color="grey60")
-	      p1 <- p1 + geom_segment(data=dat.op, aes(x=Left_start, y=yval, xend=Left_end, yend=yval), 
-	                              lineend = "round", linejoin = "round", color = "blue",
-	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(data=dat.op, aes(x=Right_end, y=yval, xend=Right_start, yend=yval), 
-	                              lineend = "round", linejoin = "round", color = "blue",
-	                              size = 1.1, arrow = arrow(length = unit(0.1, "inches")), alpha=0.5)
-	      p1 <- p1 + geom_segment(data=dat.op, aes(x=Left_end+1, y=yval, xend=Right_start-1, yend=yval), 
-	                              size = 0.6, color="grey60")
-	      p1 <- p1 + scale_colour_hue(name = "sRNA size (nt)")
-	      p1 <- p1 + scale_y_continuous(breaks = round(seq(0, max(align.LIR$TPM)*1.1, length.out = 5)))
-	      p1 <- p1 + ylab("Expression level of sRNAs (TPM)") + xlab("Position")
-	      p1 <- p1 + theme_classic()
-	      p1 <- p1 + theme(axis.text=element_text(size=input$srnaexp_axis_tick_size),
-	                       axis.title=element_text(size=input$srnaexp_axis_label_size, face="bold"), 
-	                       legend.title=element_text(size=input$srnaexp_legend_title_size), 
-	                       legend.text=element_text(size=input$srnaexp_legend_text_size)
+	      p1 <- ggplot2::ggplot(align.LIR) + ggplot2::geom_point(ggplot2::aes(x=Position, y=TPM, color = factor(sRNA_size)),  
+	                                                             size = input$srnaexp_point_size)
+	      p1 <- p1 + ggplot2::geom_segment(ggplot2::aes(x=y.df$start[1], y=-max.TPM/100, xend=y.df$end[1], yend=-max.TPM/100), 
+	                                       lineend = "round", linejoin = "round", color = "red",
+	                                       size = 1.1, arrow = ggplot2::arrow(length = ggplot2::unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + ggplot2::geom_segment(ggplot2::aes(x=y.df$end[2], y=-max.TPM/100, xend=y.df$start[2], yend=-max.TPM/100), 
+	                                       lineend = "round", linejoin = "round", color = "red",
+	                                       size = 1.1, arrow = ggplot2::arrow(length = ggplot2::unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + ggplot2::geom_segment(ggplot2::aes(x=y.df$end[1]+1, y=-max.TPM/100, xend=y.df$start[2]-1, yend=-max.TPM/100), 
+	                                       size = 0.6, color="grey60")
+	      p1 <- p1 + ggplot2::geom_segment(data=dat.op, ggplot2::aes(x=Left_start, y=yval, xend=Left_end, yend=yval), 
+	                                       lineend = "round", linejoin = "round", color = "blue",
+	                                       size = 1.1, arrow = ggplot2::arrow(length = ggplot2::unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + ggplot2::geom_segment(data=dat.op, ggplot2::aes(x=Right_end, y=yval, xend=Right_start, yend=yval), 
+	                                       lineend = "round", linejoin = "round", color = "blue",
+	                                       size = 1.1, arrow = ggplot2::arrow(length = ggplot2::unit(0.1, "inches")), alpha=0.5)
+	      p1 <- p1 + ggplot2::geom_segment(data=dat.op, ggplot2::aes(x=Left_end+1, y=yval, xend=Right_start-1, yend=yval), 
+	                                       size = 0.6, color="grey60")
+	      p1 <- p1 + ggplot2::scale_colour_hue(name = "sRNA size (nt)")
+	      p1 <- p1 + ggplot2::scale_y_continuous(breaks = round(seq(0, max(align.LIR$TPM)*1.1, length.out = 5)))
+	      p1 <- p1 + ggplot2::ylab("Expression level of sRNAs (TPM)") + ggplot2::xlab("Position")
+	      p1 <- p1 + ggplot2::theme_classic()
+	      p1 <- p1 + ggplot2::theme(axis.text=ggplot2::element_text(size=input$srnaexp_axis_tick_size),
+	                                axis.title=ggplot2::element_text(size=input$srnaexp_axis_label_size, face="bold"), 
+	                                legend.title=ggplot2::element_text(size=input$srnaexp_legend_title_size), 
+	                                legend.text=ggplot2::element_text(size=input$srnaexp_legend_text_size)
 	      )
 	    }
 	    grid::grid.draw(p1)
