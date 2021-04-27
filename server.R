@@ -73,7 +73,11 @@ shinyServer(function(input, output, session) {
         output$LIR_info_num <- DT::renderDataTable(
           dat.spark.target,
           options = list(
-            pageLength = 10, dom = 't', scrollX = TRUE, searching = FALSE, autoWidth = FALSE, bSort=FALSE
+            pageLength = 10, dom = 't', scrollX = TRUE, searching = FALSE, autoWidth = FALSE, bSort=FALSE,
+            initComplete = DT::JS(
+              "function(settings, json) {",
+              "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+              "}")
           ), escape = FALSE, rownames= FALSE, selection="none"
         )
         
@@ -114,7 +118,12 @@ shinyServer(function(input, output, session) {
         output$IRFbrowse <- DT::renderDataTable(
           dat.content, extensions = 'Scroller',
           options = list(pageLength = 10, autoWidth = FALSE, lengthMenu = c(10, 20, 30, 50, 100), 
-                         searchHighlight = TRUE, scrollX = TRUE),
+                         searchHighlight = TRUE, scrollX = TRUE,
+                         initComplete = DT::JS(
+                           "function(settings, json) {",
+                           "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                           "}")
+                         ),
           rownames= FALSE, filter = 'top', selection=list(mode="single", target="cell")
         )
         
@@ -144,7 +153,12 @@ shinyServer(function(input, output, session) {
           )
         output$LIR_info <- DT::renderDataTable(
           dat.content[IRF.index[, 1], ], 
-          options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE), 
+          options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE,
+                         initComplete = DT::JS(
+                           "function(settings, json) {",
+                           "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                           "}")
+                         ), 
           escape = FALSE, rownames= FALSE, selection="none"
         )
         
@@ -163,7 +177,12 @@ shinyServer(function(input, output, session) {
             colnames(LIR.gene.op) <- ""
             LIR.gene.op
           }
-        }, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE), 
+        }, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE,
+                          initComplete = DT::JS(
+                            "function(settings, json) {",
+                            "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                            "}")
+                          ), 
           escape = FALSE, rownames= FALSE, selection="none"
         )
         
@@ -206,7 +225,7 @@ shinyServer(function(input, output, session) {
   chromosome <- reactive({
     req(input$chooseGenomeReg)
     if (!exists("genome.info")) {load("genome.info.RData")}
-    filter(genome.info, ID == input$chooseGenomeReg)
+    dplyr::filter(genome.info, ID == input$chooseGenomeReg)
   })
   
   observeEvent(chromosome(), {
@@ -268,7 +287,12 @@ shinyServer(function(input, output, session) {
     } else {
       searchedRegResults()[[1]]
     }
-  }, options = list(paging = TRUE, searching = TRUE, searchHighlight = TRUE, scrollX = TRUE, autoWidth = FALSE), 
+  }, options = list(paging = TRUE, searching = TRUE, searchHighlight = TRUE, scrollX = TRUE, autoWidth = FALSE,
+                    initComplete = DT::JS(
+                      "function(settings, json) {",
+                      "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                      "}")
+                    ), 
   rownames= FALSE, filter = 'top', selection = "single")
   
   ## Download structure of LIRs in user searching result
@@ -312,7 +336,12 @@ shinyServer(function(input, output, session) {
         LIR.gene.op
       }
     }
-  }, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE), 
+  }, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE,
+                    initComplete = DT::JS(
+                      "function(settings, json) {",
+                      "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                      "}")
+                    ), 
   escape = FALSE, rownames= FALSE, selection="none")
   
   ## Display LIR sequence
@@ -439,7 +468,12 @@ shinyServer(function(input, output, session) {
       } else {
         searchedIDResults()[[1]]
       }
-    }, options = list(paging = TRUE, searching = TRUE, searchHighlight = TRUE, scrollX = TRUE, autoWidth = FALSE), 
+    }, options = list(paging = TRUE, searching = TRUE, searchHighlight = TRUE, scrollX = TRUE, autoWidth = FALSE,
+                      initComplete = DT::JS(
+                        "function(settings, json) {",
+                        "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                        "}")
+                      ), 
     rownames= FALSE, selection = "single")
   
   ## Download structure of LIRs in user searching result
@@ -483,7 +517,12 @@ shinyServer(function(input, output, session) {
         LIR.gene.op
       }
     }
-  }, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE), 
+  }, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE,
+                    initComplete = DT::JS(
+                      "function(settings, json) {",
+                      "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                      "}")
+                    ), 
   escape = FALSE, rownames= FALSE, selection="none")
   
   ## Display LIR sequence
@@ -596,7 +635,7 @@ shinyServer(function(input, output, session) {
         system(blast.cmds, ignore.stdout = TRUE, ignore.stderr = TRUE)
         
         if (file.size(blast.out.file) > 0) {
-          xmlParse(blast.out.file)
+          XML::xmlParse(blast.out.file)
         } else {
           sendSweetAlert(
             session = session,
@@ -614,27 +653,27 @@ shinyServer(function(input, output, session) {
     if (is.null(blast.result())) {
       
     } else {
-      xmltop = xmlRoot(blast.result())
+      xmltop = XML::xmlRoot(blast.result())
       
       #the first chunk is for multi-fastas
-      x <- which(sapply(blast.result()["//Iteration//Iteration_hits//Hit//Hsp//Hsp_num"], xmlValue) == "1")
-      y <- sapply(blast.result()["//Iteration//Iteration_hits//Hit//Hit_def"], xmlValue)
-      x1 <- c(x[-1], length(sapply(blast.result()["//Iteration//Iteration_hits//Hit//Hsp//Hsp_num"], xmlValue)) + 1)
-      z <- sapply(blast.result()["//Iteration//Iteration_hits//Hit//Hit_def"], xmlValue)
-      d <- sapply(blast.result()["//Iteration//Iteration_hits//Hit//Hit_len"], xmlValue)
+      x <- which(sapply(blast.result()["//Iteration//Iteration_hits//Hit//Hsp//Hsp_num"], XML::xmlValue) == "1")
+      y <- sapply(blast.result()["//Iteration//Iteration_hits//Hit//Hit_def"], XML::xmlValue)
+      x1 <- c(x[-1], length(sapply(blast.result()["//Iteration//Iteration_hits//Hit//Hsp//Hsp_num"], XML::xmlValue)) + 1)
+      z <- sapply(blast.result()["//Iteration//Iteration_hits//Hit//Hit_def"], XML::xmlValue)
+      d <- sapply(blast.result()["//Iteration//Iteration_hits//Hit//Hit_len"], XML::xmlValue)
       
-      results <- xpathApply(blast.result(), '//Iteration',function(row){
-        qseqid <- getNodeSet(row, 'Iteration_query-def') %>% sapply(., xmlValue)
-        qlen <- getNodeSet(row, 'Iteration_query-len') %>% sapply(., xmlValue)
-        qstart <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_query-from')  %>% sapply(., xmlValue)
-        qend <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_query-to')  %>% sapply(., xmlValue)
-        sstart <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_hit-from')  %>% sapply(., xmlValue)
-        send <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_hit-to')  %>% sapply(., xmlValue)
-        bitscore <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_bit-score')  %>% sapply(., xmlValue)
-        evalue <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_evalue')  %>% sapply(., xmlValue)
-        gaps <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_gaps')  %>% sapply(., xmlValue)
-        length <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_align-len')  %>% sapply(., xmlValue)
-        identity <- getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_identity')  %>% sapply(., xmlValue)
+      results <- XML::xpathApply(blast.result(), '//Iteration', function(row){
+        qseqid <- XML::getNodeSet(row, 'Iteration_query-def') %>% sapply(., XML::xmlValue)
+        qlen <- XML::getNodeSet(row, 'Iteration_query-len') %>% sapply(., XML::xmlValue)
+        qstart <- XML::getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_query-from')  %>% sapply(., XML::xmlValue)
+        qend <- XML::getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_query-to')  %>% sapply(., XML::xmlValue)
+        sstart <- XML::getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_hit-from')  %>% sapply(., XML::xmlValue)
+        send <- XML::getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_hit-to')  %>% sapply(., XML::xmlValue)
+        bitscore <- XML::getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_bit-score')  %>% sapply(., XML::xmlValue)
+        evalue <- XML::getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_evalue')  %>% sapply(., XML::xmlValue)
+        gaps <- XML::getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_gaps')  %>% sapply(., XML::xmlValue)
+        length <- XML::getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_align-len')  %>% sapply(., XML::xmlValue)
+        identity <- XML::getNodeSet(row, 'Iteration_hits//Hit//Hsp//Hsp_identity')  %>% sapply(., XML::xmlValue)
         pident <- round(as.integer(identity) / as.integer(length) * 100, 2)
         cbind(qseqid, qlen, qstart, qend, sstart, send, bitscore, evalue, gaps, pident, length)
       })
@@ -665,7 +704,12 @@ shinyServer(function(input, output, session) {
       blastedResults()
     }
   }, escape = FALSE, rownames= FALSE, selection="single", filter = 'top',
-  options = list(pageLength = 5, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE))
+  options = list(pageLength = 5, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
+                 initComplete = DT::JS(
+                   "function(settings, json) {",
+                   "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                   "}")
+                 ))
   
   # Update Tab Panel
   observe({
@@ -807,24 +851,24 @@ shinyServer(function(input, output, session) {
       NULL
     }
     else{
-      xmltop = xmlRoot(blast.result())
+      xmltop = XML::xmlRoot(blast.result())
       
       clicked = input$BLASTresult_rows_selected
       #loop over the xml to get the alignments
-      align <- xpathApply(blast.result(), '//Iteration',function(row){
-        top <- getNodeSet(row, 'Iteration_hits//Hit//Hit_hsps//Hsp//Hsp_qseq') %>% sapply(., xmlValue)
-        mid <- getNodeSet(row, 'Iteration_hits//Hit//Hit_hsps//Hsp//Hsp_midline') %>% sapply(., xmlValue)
-        bottom <- getNodeSet(row, 'Iteration_hits//Hit//Hit_hsps//Hsp//Hsp_hseq') %>% sapply(., xmlValue)
-        rbind(top,mid,bottom)
+      align <- XML::xpathApply(blast.result(), '//Iteration', function(row){
+        top <- XML::getNodeSet(row, 'Iteration_hits//Hit//Hit_hsps//Hsp//Hsp_qseq') %>% sapply(., XML::xmlValue)
+        mid <- XML::getNodeSet(row, 'Iteration_hits//Hit//Hit_hsps//Hsp//Hsp_midline') %>% sapply(., XML::xmlValue)
+        bottom <- XML::getNodeSet(row, 'Iteration_hits//Hit//Hit_hsps//Hsp//Hsp_hseq') %>% sapply(., XML::xmlValue)
+        rbind(top, mid, bottom)
       })
       
       #split the alignments every 100 carachters to get a "wrapped look"
       alignx <- do.call("cbind", align)
-      splits <- strsplit(gsub("(.{100})", "\\1,", alignx[1:3,clicked]),",")
+      splits <- strsplit(gsub("(.{100})", "\\1,", alignx[1:3,clicked]), ",")
       
       #paste them together with returns '\n' on the breaks
-      split_out <- lapply(1:length(splits[[1]]),function(i){
-        rbind(paste0("Q: ", splits[[1]][i],"\n"), paste0("M: ",splits[[2]][i],"\n"), paste0("S: ",splits[[3]][i], "\n"), "\n")
+      split_out <- lapply(1:length(splits[[1]]), function(i){
+        rbind(paste0("Q: ", splits[[1]][i],"\n"), paste0("M: ", splits[[2]][i],"\n"), paste0("S: ", splits[[3]][i], "\n"), "\n")
       })
       split_out[[1]][1] <- paste0(" ", split_out[[1]][1])
       unlist(split_out)
@@ -857,7 +901,12 @@ shinyServer(function(input, output, session) {
         LIR.gene.op
       }
     }
-  }, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE), 
+  }, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE,
+                    initComplete = DT::JS(
+                      "function(settings, json) {",
+                      "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                      "}")
+                    ), 
   escape = FALSE, rownames= FALSE, selection="none")
   
   ## Display LIR sequence
@@ -1087,7 +1136,12 @@ shinyServer(function(input, output, session) {
       annotateResults()[[1]]
     }
   }, escape = FALSE, rownames= FALSE, selection="single", 
-  options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE)
+  options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
+                 initComplete = DT::JS(
+                   "function(settings, json) {",
+                   "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                   "}")
+                 )
   )
   
   output$downloadIRFresult.txt <- downloadHandler(
@@ -1246,10 +1300,10 @@ shinyServer(function(input, output, session) {
 	      bowtie.out.3 <- bowtie.out.2 %>% dplyr::group_by(LIR, sRNA_size) %>% dplyr::summarise(sRNA_number = dplyr::n(), sRNA_read_number = sum(sRNA_read_number))
 	      LIR.rc <- bowtie.out.3 %>% dplyr::group_by(LIR) %>% dplyr::summarise(sRNA_read_count = sum(sRNA_read_number))
 	      names(LIR.rc) <- c("LIR", "sRNA_read_number")
-	      LIR.rc <- LIR.rc %>% arrange(desc(sRNA_read_number))
+	      LIR.rc <- LIR.rc %>% dplyr::arrange(dplyr::desc(sRNA_read_number))
 	      
 	      # sRNA length, percent
-	      LIR_read_summary <- bowtie.out.3 %>% group_by(LIR) %>% summarise(sRNA_num = sum(sRNA_number), sRNA_21_22_num = sum(sRNA_number[sRNA_size %in% c(21, 22)]),
+	      LIR_read_summary <- bowtie.out.3 %>% dplyr::group_by(LIR) %>% dplyr::summarise(sRNA_num = sum(sRNA_number), sRNA_21_22_num = sum(sRNA_number[sRNA_size %in% c(21, 22)]),
 	                                                                             sRNA_24_num = sum(sRNA_number[sRNA_size ==24])
 	      )
 	      
@@ -1278,9 +1332,9 @@ shinyServer(function(input, output, session) {
 	      fa.arm <- fa.arm[, c("LIR", "start", "end", "length")]
 	      names(fa.arm) <- c("LIR", "arm_start", "arm_end", "length")
 	      
-	      fa.flank <- fa.arm %>% group_by(LIR) %>% summarise(flank_start = c(1, max(arm_end) + 1), flank_end = c(min(arm_start) - 1, max(length)))
+	      fa.flank <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(flank_start = c(1, max(arm_end) + 1), flank_end = c(min(arm_start) - 1, max(length)))
 	      
-	      fa.loop <- fa.arm %>% group_by(LIR) %>% summarise(loop_start = min(arm_end)+1, loop_end = max(arm_start)-1)
+	      fa.loop <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(loop_start = min(arm_end)+1, loop_end = max(arm_start)-1)
 	      fa.loop <- fa.loop[fa.loop$loop_start < fa.loop$loop_end, ]
 	      
 	      d2.gr <- GenomicRanges::GRanges(bowtie.out.2$LIR, IRanges::IRanges(bowtie.out.2$Position, bowtie.out.2$Position))
@@ -1288,17 +1342,17 @@ shinyServer(function(input, output, session) {
 	      fa.arm.gr <- GenomicRanges::GRanges(fa.arm$LIR, IRanges::IRanges(fa.arm$arm_start, fa.arm$arm_end))
 	      fa.arm.cnt <- fa.arm
 	      fa.arm.cnt$sRNA_in_arm <- GenomicRanges::countOverlaps(fa.arm.gr, d2.gr)
-	      fa.arm.cnt <- fa.arm.cnt %>% group_by(LIR) %>% summarise(sRNA_in_arm = sum(sRNA_in_arm))
+	      fa.arm.cnt <- fa.arm.cnt %>% dplyr::group_by(LIR) %>% dplyr::summarise(sRNA_in_arm = sum(sRNA_in_arm))
 	      
 	      fa.loop.gr <- GenomicRanges::GRanges(fa.loop$LIR, IRanges::IRanges(fa.loop$loop_start, fa.loop$loop_end))
 	      fa.loop.cnt <- fa.loop
 	      fa.loop.cnt$sRNA_in_loop <- GenomicRanges::countOverlaps(fa.loop.gr, d2.gr)
-	      fa.loop.cnt <- fa.loop.cnt %>% group_by(LIR) %>% summarise(sRNA_in_loop = sum(sRNA_in_loop))
+	      fa.loop.cnt <- fa.loop.cnt %>% dplyr::group_by(LIR) %>% dplyr::summarise(sRNA_in_loop = sum(sRNA_in_loop))
 	      
 	      fa.flank.gr <- GenomicRanges::GRanges(fa.flank$LIR, IRanges::IRanges(fa.flank$flank_start, fa.flank$flank_end))
 	      fa.flank.cnt <- fa.flank
 	      fa.flank.cnt$sRNA_in_flank <- GenomicRanges::countOverlaps(fa.flank.gr, d2.gr)
-	      fa.flank.cnt <- fa.flank.cnt %>% group_by(LIR) %>% summarise(sRNA_in_flank = sum(sRNA_in_flank))
+	      fa.flank.cnt <- fa.flank.cnt %>% dplyr::group_by(LIR) %>% dplyr::summarise(sRNA_in_flank = sum(sRNA_in_flank))
 	      
 	      fa.whole.cnt <- Reduce(function(...)merge(..., by="LIR", all=T), list(fa.arm.cnt, fa.loop.cnt, fa.flank.cnt))
 	      
@@ -1344,7 +1398,12 @@ shinyServer(function(input, output, session) {
 	    alignedResults()[[4]]
 	  }
 	}, escape = FALSE, rownames= FALSE, selection="single", filter = 'top',
-	options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE)
+	options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
+	               initComplete = DT::JS(
+	                 "function(settings, json) {",
+	                 "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+	                 "}")
+	               )
 	)
 	
 	# Update Tab Panel
@@ -1740,7 +1799,12 @@ shinyServer(function(input, output, session) {
 	      LIR.gene.op
 	    }
 	  }
-	}, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE),
+	}, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE,
+	                  initComplete = DT::JS(
+	                    "function(settings, json) {",
+	                    "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+	                    "}")
+	                  ),
 	escape = FALSE, rownames= FALSE, selection="none")
 	
 	## Display LIR sequence
@@ -1881,7 +1945,12 @@ shinyServer(function(input, output, session) {
 	          DESeq2.res.table.dt
 	        }
 	      }, escape = FALSE, rownames= FALSE, selection="none",
-	         options = list(pageLength = 5, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE)
+	         options = list(pageLength = 5, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
+	                        initComplete = DT::JS(
+	                          "function(settings, json) {",
+	                          "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+	                          "}")
+	                        )
 	      )
 	      
 	      output$DESeq2_result_table.txt <- downloadHandler(
@@ -2056,9 +2125,9 @@ shinyServer(function(input, output, session) {
 	          bowtie.cDNA.out$Position <- NULL
 	          bowtie.cDNA.out <- unique(bowtie.cDNA.out)
 	          bowtie.cDNA.out$size <- nchar(bowtie.cDNA.out$sRNA)
-	          bowtie.cDNA.out.summ <- bowtie.cDNA.out %>% group_by(mRNA) %>% summarise(sRNA_num = n(), sRNA_21_num = length(size[size==21]),
+	          bowtie.cDNA.out.summ <- bowtie.cDNA.out %>% dplyr::group_by(mRNA) %>% dplyr::summarise(sRNA_num = dplyr::n(), sRNA_21_num = length(size[size==21]),
 	                                                                                   sRNA_22_num = length(size[size==22]), sRNA_24_num = length(size[size==24])
-	                                                                                   ) %>% arrange(desc(sRNA_num))
+	                                                                                   ) %>% dplyr::arrange(dplyr::desc(sRNA_num))
 	          
 	          cDNA.info <- data.table::fread(paste0("www/LIRBase_cDNA_bowtiedb/", input$Targetdb, ".cDNA.info.gz"), data.table = F)
 	          bowtie.cDNA.out.summ <- merge(bowtie.cDNA.out.summ, cDNA.info, by.x="mRNA", by.y="gene")
@@ -2077,7 +2146,12 @@ shinyServer(function(input, output, session) {
 	            bowtie.cDNA.out.summ
 	          }
 	        }, escape = FALSE, rownames= FALSE, selection="none", filter = 'top',
-	        options = list(pageLength = 15, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE))
+	        options = list(pageLength = 15, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
+	                       initComplete = DT::JS(
+	                         "function(settings, json) {",
+	                         "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+	                         "}")
+	                       ))
 	        
 	        output$downloadTargetResult <- downloadHandler(
 	          filename <- function() { paste('gene_targets_of_sRNAs_encoded_by_a_LIR.txt') },

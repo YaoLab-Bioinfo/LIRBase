@@ -57,6 +57,9 @@ Target_Info_Title <- paste("Identify protein-coding genes targeted by the small 
                           "sRNA_24_number: number of 24-nt sRNAs complementary aligned to the cDNA;",
                           sep = "<br>")
 
+Bowtiedb.fl <- read.table("Bowtiedb.txt", head=T, as.is=T)
+Bowtiedb.cDNA.fl <- read.table("Bowtiedb_cDNA.txt", head=T, as.is=T)
+
 
 shinyUI(
   fluidPage(

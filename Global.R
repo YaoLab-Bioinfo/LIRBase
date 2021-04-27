@@ -20,7 +20,7 @@ library(shinydashboard)
 library(shinyWidgets)
 # library(stringr)
 # library(tidyr)
-library(XML)
+# library(XML)
 
 # library(apeglm)
 # library(Biostrings)
@@ -28,7 +28,8 @@ library(XML)
 # library(GenomicRanges)
 
 # library(shinysky)
-library(dplyr)
+# library(dplyr)
+`%>%` <- magrittr::`%>%`
 
 source("box_format.R")
 source("Homepage.R")
@@ -37,6 +38,4 @@ source("Homepage.R")
 # load("dat.summary.RData")
 
 BLASTdb.fl <- read.table("BLASTdb.txt", head=T, as.is=T)
-Bowtiedb.fl <- read.table("Bowtiedb.txt", head=T, as.is=T)
-Bowtiedb.cDNA.fl <- read.table("Bowtiedb_cDNA.txt", head=T, as.is=T)
 
