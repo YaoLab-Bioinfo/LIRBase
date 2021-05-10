@@ -564,7 +564,7 @@ shinyServer(function(input, output, session) {
   }, sep = "\n")
   
   observeEvent(input$clear2, {
-    updatePickerInput(session, "chooseGenomeID", selected = character(0))
+    shinyWidgets::updatePickerInput(session, "chooseGenomeID", selected = character(0))
     updateTextInput(session, "LIRID", value="")
   })
   
@@ -572,7 +572,7 @@ shinyServer(function(input, output, session) {
   observe({
     if (input$searchIDExam >0) {
       isolate({
-        updatePickerInput(session, "chooseGenomeID", selected = "Drosophila_melanogaster")
+        shinyWidgets::updatePickerInput(session, "chooseGenomeID", selected = "Drosophila_melanogaster")
         updateTextAreaInput(session, "LIRID", value = paste(c("drmm.2L:983450--984514,996778--997842",
           "drmm.2L:1776370--1781782,1795872--1801274", "drmm.2R:1523505--1525931,1527463--1529891",
                                                   "drmm.2L:6431564--6436015,6440661--6445112",
@@ -953,7 +953,7 @@ shinyServer(function(input, output, session) {
       isolate({
         updateSelectInput(session, "In_blast", selected = "paste")
         updateTextAreaInput(session, "BlastSeqPaste", value="")
-        updateMultiInput(session, "BLASTdb", selected = character(0))
+        shinyWidgets::updateMultiInput(session, "BLASTdb", selected = character(0))
       })
     } else {NULL}
   })
@@ -964,7 +964,7 @@ shinyServer(function(input, output, session) {
       isolate({
         updateSelectInput(session, "In_blast", selected = "paste")
         updateTextAreaInput(session, "BlastSeqPaste", value = paste(readLines("exam1.fa"), collapse = "\n"))
-        updateMultiInput(session, "BLASTdb", selected = c("Oryza_sativa.MH63", "Oryza_sativa.Nipponbare"))
+        shinyWidgets::updateMultiInput(session, "BLASTdb", selected = c("Oryza_sativa.MH63", "Oryza_sativa.Nipponbare"))
       })
     } else {NULL}
   })
@@ -1872,7 +1872,7 @@ shinyServer(function(input, output, session) {
 	    isolate({
 	      updateSelectInput(session, "In_align", selected = "paste")
 	      updateTextInput(session, "AlignInPaste", value="")
-	      updatePickerInput(session, "Aligndb", selected = character(0))
+	      shinyWidgets::updatePickerInput(session, "Aligndb", selected = character(0))
 	    })
 	  } else {NULL}
 	})
@@ -1882,7 +1882,7 @@ shinyServer(function(input, output, session) {
 	    isolate({
 	      updateSelectInput(session, "In_align", selected = "paste")
 	      updateTextAreaInput(session, "AlignInPaste", value = paste(readLines("quantify.exam.sRNA.read.count.txt"), collapse = "\n"))
-	      updatePickerInput(session, "Aligndb", selected = "Oryza_sativa.MH63")
+	      shinyWidgets::updatePickerInput(session, "Aligndb", selected = "Oryza_sativa.MH63")
 	    })
 	  } else {NULL}
 	})
@@ -2180,7 +2180,7 @@ shinyServer(function(input, output, session) {
 	  if (input$clearTarget>0) {
 	    isolate({
 	      updateTextAreaInput(session, "TargetPaste", value="")
-	      updatePickerInput(session, "Targetdb", selected = character(0))
+	      shinyWidgets::updatePickerInput(session, "Targetdb", selected = character(0))
 	    })
 	  } else {NULL}
 	})
@@ -2189,7 +2189,7 @@ shinyServer(function(input, output, session) {
 	  if (input$TargetExam >0) {
 	    isolate({
 	      updateTextAreaInput(session, "TargetPaste", value = paste(readLines("exam_sRNA_4_target.txt"), collapse = "\n"))
-	      updatePickerInput(session, "Targetdb", selected = "Oryza_sativa.MH63")
+	      shinyWidgets::updatePickerInput(session, "Targetdb", selected = "Oryza_sativa.MH63")
 	    })
 	  } else {NULL}
 	})

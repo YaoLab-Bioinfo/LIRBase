@@ -17,7 +17,7 @@ library(shinyBS)
 library(shinydashboard)
 # library(shinydisconnect)
 # library(shinyjqui)
-library(shinyWidgets)
+# library(shinyWidgets)
 # library(stringr)
 # library(tidyr)
 # library(XML)
@@ -31,8 +31,6 @@ library(shinyWidgets)
 # library(dplyr)
 `%>%` <- magrittr::`%>%`
 
-source("box_format.R")
-source("Homepage.R")
 
 # load("genome.info.RData")
 # load("dat.summary.RData")

@@ -60,6 +60,7 @@ Target_Info_Title <- paste("Identify protein-coding genes targeted by the small 
 Bowtiedb.fl <- read.table("Bowtiedb.txt", head=T, as.is=T)
 Bowtiedb.cDNA.fl <- read.table("Bowtiedb_cDNA.txt", head=T, as.is=T)
 
+source("box_format.R")
 
 shinyUI(
   fluidPage(
@@ -109,7 +110,7 @@ shinyUI(
                
                icon = icon("home", class = NULL, lib = "font-awesome"),
                
-               Homepage
+               source("Homepage.R", local = TRUE)
                
                # htmlwidgets::getDependency('sparkline'),
                # dataTableOutput("IRFsummary")
@@ -276,7 +277,7 @@ shinyUI(
                  
                  fixedRow(
                    column(6,
-                          multiInput(
+                          shinyWidgets::multiInput(
                             inputId = "chooseGenomeReg",
                             label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose genome</font>')),
                             choices = NULL, width = '100%',
@@ -396,7 +397,7 @@ shinyUI(
                                                              placeholder = "One item in one row")
                                         ),
                                         column(6,
-                                               pickerInput(
+                                               shinyWidgets::pickerInput(
                                                  inputId = "chooseGenomeID",
                                                  label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose genome</font>')),
                                                  width = '100%', selected = NULL,
@@ -530,7 +531,7 @@ shinyUI(
                                       )
                                ),
                                column(4,
-                                      multiInput(
+                                      shinyWidgets::multiInput(
                                         inputId = "BLASTdb",
                                         label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose BLAST databases</font>'),
                                                          bsButton("qblastDB", label="", icon=icon("question"), style="info", size="small")
@@ -873,7 +874,7 @@ shinyUI(
                                ),
                                
                                column(6,
-                                      pickerInput(
+                                      shinyWidgets::pickerInput(
                                         inputId = "Aligndb",
                                         label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose a LIR database to align the sRNA data</font>'),
                                                          bsButton("qAligndb", label="", icon=icon("question"), style="info", size="small")),
@@ -963,13 +964,13 @@ shinyUI(
                              fixedRow(
                                column(8,
                                       conditionalPanel(condition="input.submitAlign > 0", 
-                                                       actionBttn("srna_expression_plot_options", "Options for sRNA expression level plot", 
+                                                       shinyWidgets::actionBttn("srna_expression_plot_options", "Options for sRNA expression level plot", 
                                                                   icon = icon("cogs", class = NULL, lib = "font-awesome"),
                                                                   block = FALSE, size = "sm", style="unite", color="default"),
-                                                       actionBttn("srna_size_plot_options", "Options for sRNA size barplot", 
+                                                       shinyWidgets::actionBttn("srna_size_plot_options", "Options for sRNA size barplot", 
                                                                   icon = icon("cogs", class = NULL, lib = "font-awesome"),
                                                                   block = FALSE, size = "sm", style="unite", color="default"),
-                                                       actionBttn("read_size_plot_options", "Options for sRNA read size barplot", 
+                                                       shinyWidgets::actionBttn("read_size_plot_options", "Options for sRNA read size barplot", 
                                                                   icon = icon("cogs", class = NULL, lib = "font-awesome"),
                                                                   block = FALSE, size = "sm", style="unite", color="default")
                                       ),
@@ -1195,15 +1196,15 @@ shinyUI(
                     trigger = "focus"),
           br(),br(),
           
-          actionBttn("MA_plot_options", "Options for MA plot", 
+          shinyWidgets::actionBttn("MA_plot_options", "Options for MA plot", 
                      icon = icon("cogs", class = NULL, lib = "font-awesome"),
                      block = TRUE, size = "sm", style="unite", color="default"),
           
-          actionBttn("volcano_plot_options", "Options for volcano plot", 
+          shinyWidgets::actionBttn("volcano_plot_options", "Options for volcano plot", 
                      icon = icon("cogs", class = NULL, lib = "font-awesome"),
                      block = TRUE, size = "sm", style="unite", color="default"),
           
-          actionBttn("sample_dist_options", "Options for sample-to-sample distance plot", 
+          shinyWidgets::actionBttn("sample_dist_options", "Options for sample-to-sample distance plot", 
                      icon = icon("cogs", class = NULL, lib = "font-awesome"),
                      block = TRUE, size = "sm", style="unite", color="default")
           
@@ -1310,7 +1311,7 @@ shinyUI(
                                    placeholder = "FASTA format or sequence only"),
                      bsPopover("qTargetPaste", "The input data should be small RNA sequences in FASTA format or only the small RNA sequences. The sequence of small RNAs should be encoded in DNA format. Check the example data for details.", trigger = "focus"),
                      
-                     pickerInput(
+                     shinyWidgets::pickerInput(
                        inputId = "Targetdb",
                        label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose a cDNA database</font>'),
                                         bsButton("qTargetdb", label="", icon=icon("question"), style="info", size="small")),

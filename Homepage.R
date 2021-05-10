@@ -58,21 +58,21 @@ Homepage <- dashboardPage(
         title = "Functionalities of LIRBase",
         fluidRow(
           box(width = 4,
-              actionBttn("Browse_butt", "Browse", 
+              shinyWidgets::actionBttn("Browse_butt", "Browse", 
                          icon = icon("folder-open-o", class = NULL, lib = "font-awesome"),
                          block = TRUE, size = "lg", style="unite", color="default"),
               h4("Browse LIRBase by species/genomes")
           ),
           
           box(width = 4,
-              actionBttn("SearchByReg_butt", "Search by genomic location", 
+              shinyWidgets::actionBttn("SearchByReg_butt", "Search by genomic location", 
                          icon = icon("search", class = NULL, lib = "font-awesome"),
                          block = TRUE, size = "lg", style="unite", color="default"),
               h4("Search LIRBase by genomic locations")
           ),
           
           box(width = 4,
-              actionBttn("SearchByLIRID_butt", "Search by LIR identifier", 
+              shinyWidgets::actionBttn("SearchByLIRID_butt", "Search by LIR identifier", 
                          icon = icon("search", class = NULL, lib = "font-awesome"),
                          block = TRUE, size = "lg", style="unite", color="default"),
               h4("Search LIRBase by the identifiers of LIRs")
@@ -81,21 +81,21 @@ Homepage <- dashboardPage(
         
         fluidRow(
           box(width = 4,
-              actionBttn("BLAST_butt", "BLAST", 
+              shinyWidgets::actionBttn("BLAST_butt", "BLAST", 
                          icon = icon("rocket", class = NULL, lib = "font-awesome"),
                          block = TRUE, size = "lg", style="unite", color="default"),
               h4("Search LIRBase by sequence similarity using BLAST")
           ),
           
           box(width = 4,
-              actionBttn("Annotate_butt", "Annotate", 
+              shinyWidgets::actionBttn("Annotate_butt", "Annotate", 
                          icon = icon("cogs", class = NULL, lib = "font-awesome"),
                          block = TRUE, size = "lg", style="unite", color="default"),
               h4("Detect and annotate long inverted repeats in user-uploaded DNA sequences")
           ),
           
           box(width = 4,
-              actionBttn("Quantify_butt", "Quantify", 
+              shinyWidgets::actionBttn("Quantify_butt", "Quantify", 
                          icon = icon("upload", class = NULL, lib = "font-awesome"),
                          block = TRUE, size = "lg", style="unite", color="default"),
               h4("Identify candidate LIRs encoding long hpRNAs by aligning sRNA sequencing data to LIRs")
@@ -104,21 +104,21 @@ Homepage <- dashboardPage(
         
         fluidRow(
           box(width = 4,
-              actionBttn("DESeq_butt", "DESeq", 
+              shinyWidgets::actionBttn("DESeq_butt", "DESeq", 
                          icon = icon("eercast", class = NULL, lib = "font-awesome"),
                          block = TRUE, size = "lg", style="unite", color="default"),
               h4("Differential expression analysis of LIRs or small RNAs between different biological samples/tissues")
           ),
           
           box(width = 4,
-              actionBttn("Target_butt", "Target", 
+              shinyWidgets::actionBttn("Target_butt", "Target", 
                          icon = icon("bullseye", class = NULL, lib = "font-awesome"),
                          block = TRUE, size = "lg", style="unite", color="default"),
               h4("Identify protein-coding genes targeted by the small RNAs derived from a LIR")
           ),
           
           box(width = 4,
-              actionBttn("Visualize_butt", "Visualize", 
+              shinyWidgets::actionBttn("Visualize_butt", "Visualize", 
                          icon = icon("eye", class = NULL, lib = "font-awesome"),
                          block = TRUE, size = "lg", style="unite", color="default"),
               h4("Predict and visualize the secondary structure of potential long hpRNA encoded by a LIR")
