@@ -40,20 +40,22 @@ shinyServer(function(input, output, session) {
   })
   
   # Browse
+  HTML.tab <- read.table("icon.tab.txt", head=F, as.is=T, fill=NA, sep="\t")
+  colnames(HTML.tab) <- rep("", 8)
+  output$HTMLtable <- DT::renderDataTable(HTML.tab,
+                                          options = list(pageLength = 10, scrollX = TRUE, lengthMenu = c(5, 10, 20, 30, 50, 55), 
+                                                         searchHighlight = TRUE, autoWidth = FALSE, bSort=FALSE),
+                                          escape = FALSE, selection=list(mode="single", target="cell"), 
+                                          rownames= FALSE
+  )
+  
   observe({
-    HTML.tab <- read.table("icon.tab.txt", head=F, as.is=T, fill=NA, sep="\t")
-    colnames(HTML.tab) <- rep("", 8)
-    output$HTMLtable <- DT::renderDataTable(HTML.tab,
-                                            options = list(pageLength = 10, scrollX = TRUE, lengthMenu = c(5, 10, 20, 30, 50, 55), 
-                                                           searchHighlight = TRUE, autoWidth = FALSE, bSort=FALSE),
-                                            escape = FALSE, selection=list(mode="single", target="cell"), 
-                                            rownames= FALSE
-    )
-    
     if(length(input$HTMLtable_cells_selected) > 0) {
       HTML.index <- input$HTMLtable_cells_selected
       HTML.index[, 2] <- HTML.index[, 2] + 1
       if(!is.na(HTML.tab[HTML.index])) {
+        updateTabsetPanel(session, 'browser_1', selected = HTML("<strong style='font-size:18px'>LIRs annotated by IRF</strong>"))
+        
         dat.file.path <<- gsub("\\sheight.+", "", HTML.tab[HTML.index])
         dat.file.path <- gsub(".+src=", "", dat.file.path)
         dat.file.path <- gsub("Icon", "Table", dat.file.path)
@@ -126,20 +128,20 @@ shinyServer(function(input, output, session) {
                          ),
           rownames= FALSE, filter = 'top', selection=list(mode="single", target="cell")
         )
-        
-        updateTabsetPanel(session, 'browser_1', selected = HTML("<strong style='font-size:18px'>LIRs annotated by IRF</strong>"))
       } else {
         NULL
       }
     }
-    
-    myProxy = DT::dataTableProxy('IRFbrowse')
-    
+  })
+  
+  observe({    
     if (length(input$IRFbrowse_cells_selected) > 0) {
       IRF.index <- input$IRFbrowse_cells_selected
       IRF.index[, 2] <- IRF.index[, 2] + 1
       
       if (IRF.index[, 2] == 1 && !is.na(dat.content[IRF.index])) {
+        updateTabsetPanel(session, 'browser_1', selected = HTML("<strong style='font-size:18px'>Details of the LIR selected</strong>"))
+        
         HTML.file.path <- gsub("Table", "HTML", HTML.file.path)
         HTML.file.path <- gsub("dat.gz", "IRFresult.RData", HTML.file.path)
         load(HTML.file.path)
@@ -150,7 +152,7 @@ shinyServer(function(input, output, session) {
         # basic information
         output$LIR_info_title <- renderText(
           HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Information of the selected LIR:</b></font>')
-          )
+        )
         output$LIR_info <- DT::renderDataTable(
           dat.content[IRF.index[, 1], ], 
           options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE,
@@ -158,14 +160,14 @@ shinyServer(function(input, output, session) {
                            "function(settings, json) {",
                            "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
                            "}")
-                         ), 
+          ), 
           escape = FALSE, rownames= FALSE, selection="none"
         )
         
         # Overlap between LIRs and genes
         output$LIR_gene_op_title <- renderText(
           HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Overlaps between the selected LIR and genes:</b></font>')
-          )
+        )
         output$LIR_gene_op <- DT::renderDataTable({
           if (file.exists(LIR.gene.op.file.path)) {
             LIR.gene.op <- data.table::fread(LIR.gene.op.file.path, data.table=F)
@@ -182,8 +184,8 @@ shinyServer(function(input, output, session) {
                             "function(settings, json) {",
                             "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
                             "}")
-                          ), 
-          escape = FALSE, rownames= FALSE, selection="none"
+        ), 
+        escape = FALSE, rownames= FALSE, selection="none"
         )
         
         # sequence
@@ -197,7 +199,7 @@ shinyServer(function(input, output, session) {
         
         output$LIR_sequence_title <- renderText(
           HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop sequence in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
-          )
+        )
         output$LIR_sequence <- renderText(
           LIR.seq.select, sep = "\n"
         )
@@ -206,21 +208,17 @@ shinyServer(function(input, output, session) {
         LIR.align.select <- LIR.align[[dat.content[IRF.index]]]
         output$LIR_detail_title <- renderText(
           HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary match):</b></font>')
-          )
+        )
         output$LIR_detail <- renderText(
           LIR.align.select, sep = "\n"
         )
-        
-        updateTabsetPanel(session, 'browser_1', selected = HTML("<strong style='font-size:18px'>Details of the LIR selected</strong>"))
-        DT::selectCells(myProxy, NULL)
       } else {
         NULL
       }
     }
-    
   })
   
-	
+  
 	# Search LIR by genomic region
   chromosome <- reactive({
     req(input$chooseGenomeReg)

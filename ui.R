@@ -164,7 +164,7 @@ shinyUI(
                                )
                              ),
                              
-                             DT::dataTableOutput("LIR_info_num"),
+                             shinycssloaders::withSpinner(DT::dataTableOutput("LIR_info_num")),
                              br(),
                              
                              fixedRow(
@@ -195,7 +195,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                              )),
-                             DT::dataTableOutput("IRFbrowse"),
+                             shinycssloaders::withSpinner(DT::dataTableOutput("IRFbrowse")),
                              br()
                     ),
                     
@@ -206,7 +206,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                              )),
-                             DT::dataTableOutput("LIR_info"),
+                             shinycssloaders::withSpinner(DT::dataTableOutput("LIR_info")),
                              br(),
                              
                              htmlOutput("LIR_gene_op_title"),
@@ -215,7 +215,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                              )),
-                             DT::dataTableOutput("LIR_gene_op"),
+                             shinycssloaders::withSpinner(DT::dataTableOutput("LIR_gene_op")),
                              br(),
                              
                              fixedRow(
@@ -226,7 +226,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                                       )),
-                                      verbatimTextOutput("LIR_sequence", placeholder = FALSE),
+                                      shinycssloaders::withSpinner(verbatimTextOutput("LIR_sequence", placeholder = FALSE)),
                                       tags$head(tags$style("#LIR_sequence {
                                         width: 100%; 
                                         padding: 6px 12px; 
@@ -244,7 +244,7 @@ shinyUI(
                                        font-style: bold;
                                       }"
                                       )),
-                                      verbatimTextOutput("LIR_detail"),
+                                      shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail")),
                                       tags$head(tags$style("#LIR_detail {
                                         width: 100%; 
                                         padding: 6px 12px; 
