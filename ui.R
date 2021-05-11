@@ -110,7 +110,7 @@ shinyUI(
                
                icon = icon("home", class = NULL, lib = "font-awesome"),
                
-               source("Homepage.R", local = TRUE)
+               source("Homepage.R", local = TRUE)$value
                
                # htmlwidgets::getDependency('sparkline'),
                # dataTableOutput("IRFsummary")
@@ -1218,17 +1218,11 @@ shinyUI(
           
           fluidRow(
             column(6,
-                   shinyjqui::jqui_resizable(plotOutput("MA_plot", height = "350px", width = '350px'))
+                   shinyjqui::jqui_resizable(plotOutput("MA_plot", height = "500px", width = '90%'))
             ),
             
             column(6,
-                   shinyjqui::jqui_resizable(plotOutput("volcano_plot", height = "350px", width = '350px'))
-            )
-          ),
-          
-          fixedRow(
-            column(6,
-                   shinyjqui::jqui_resizable(plotOutput("sample_dist", height = "350px", width = '450px'))
+                   shinyjqui::jqui_resizable(plotOutput("volcano_plot", height = "500px", width = '90%'))
             )
           ),
           
@@ -1278,16 +1272,19 @@ shinyUI(
                                  )
           )),
           
-          tags$head(tags$style("#sampledistoptions .modal-dialog{ width:400px}")),
+          tags$head(tags$style("#sampledistoptions .modal-dialog{ width:1000px}")),
           shinyjqui::jqui_draggable(bsModal("sampledistoptions", "Sample-to-sample distance plot", "sample_dist_options", size = "large", 
                                  fixedRow(
-                                   column(10,
+                                   column(5,
                                           numericInput("dist_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
                                                        value = 425),
                                           numericInput("dist_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
                                                        value = 550),
                                           br(),
                                           downloadButton("sample_dist_plot.pdf", "Download PDF-file")
+                                   ),
+                                   column(7,
+                                          shinyjqui::jqui_resizable(plotOutput("sample_dist", height = "350px", width = '450px'))
                                    )
                                  )
           ))
@@ -1344,7 +1341,7 @@ shinyUI(
                      shinysky::actionButton("submitTarget", strong("Submit!",
                                                             bsButton("qsubmitTarget", label="", icon=icon("question"), style="info", size="small")
                      ), styleclass = "success"),
-                     shinysky::actionButton("clearTarget", strong("Clear"), styleclass = "warning"),
+                     shinysky::actionButton("clearTarget", strong("Reset"), styleclass = "warning"),
                      shinysky::actionButton("TargetExam", strong("Load example"), styleclass = "info"),
                      conditionalPanel(condition="input.submitTarget != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
                      bsPopover("qsubmitTarget", "Click this button to start the prediction!", trigger = "focus")

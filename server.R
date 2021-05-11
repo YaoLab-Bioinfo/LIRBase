@@ -262,7 +262,7 @@ shinyServer(function(input, output, session) {
       load(HTML.file)
       result <- list(dat.search.result, fasta.region, LIR.align, LIR.gene.op.file)
     } else {
-      sendSweetAlert(
+      shinyWidgets::sendSweetAlert(
         session = session,
         title = "No LIR found!", type = "error",
         text = "Please choose a genome to search against."
@@ -398,7 +398,7 @@ shinyServer(function(input, output, session) {
       LIR.id <- gsub("\\s+$", "", LIR.id)
       
       if (length(LIR.id) == 0) {
-        sendSweetAlert(
+        shinyWidgets::sendSweetAlert(
           session = session,
           title = "No LIR identifier received!", type = "error",
           text = "Please input LIR identifier in proper format."
@@ -416,7 +416,7 @@ shinyServer(function(input, output, session) {
             
             result <- list(dat.search.result, fasta.ID, LIR.align, LIR.gene.op.file)
           } else {
-            sendSweetAlert(
+            shinyWidgets::sendSweetAlert(
               session = session,
               title = "Wrong LIR identifier found!", type = "error",
               text = "Please check the identifier of all input LIRs!"
@@ -428,7 +428,7 @@ shinyServer(function(input, output, session) {
         }
       }
     } else {
-      sendSweetAlert(
+      shinyWidgets::sendSweetAlert(
         session = session,
         title = "Please choose a genome to search!", type = "error",
         text = ""
@@ -595,7 +595,7 @@ shinyServer(function(input, output, session) {
     }
     
     if ((length(blast.in.seq) == 1) && (blast.in.seq == "")) {
-      sendSweetAlert(
+      shinyWidgets::sendSweetAlert(
         session = session,
         title = "No input data received!", type = "error",
         text = NULL
@@ -612,14 +612,14 @@ shinyServer(function(input, output, session) {
       blast.db.fl <- paste0(blast.db, ".nhr")
       
       if (!all(file.exists(blast.db.fl))) {
-        sendSweetAlert(
+        shinyWidgets::sendSweetAlert(
           session = session,
           title = "BLAST database not found!", type = "error",
           text = NULL
         )
         NULL
       } else if (length(blast.db.fl) > 10) {
-        sendSweetAlert(
+        shinyWidgets::sendSweetAlert(
           session = session,
           title = "No more than 10 BLAST databases are allowed!", type = "error",
           text = NULL
@@ -635,7 +635,7 @@ shinyServer(function(input, output, session) {
         if (file.size(blast.out.file) > 0) {
           XML::xmlParse(blast.out.file)
         } else {
-          sendSweetAlert(
+          shinyWidgets::sendSweetAlert(
             session = session,
             title = "No BLAST hits found!", type = "info",
             text = NULL
@@ -980,13 +980,13 @@ shinyServer(function(input, output, session) {
     }
     
     if ((length(pre.Seq) == 1) && (pre.Seq == "")) {
-      sendSweetAlert(
+      shinyWidgets::sendSweetAlert(
         session = session,
         title = "No input data received!", type = "error",
         text = NULL
       )
     } else if (substr(pre.Seq, 1, 1) != ">") {
-      sendSweetAlert(
+      shinyWidgets::sendSweetAlert(
         session = session,
         title = "'>' expected at beginning of line 1 to indicate the ID of the input sequence!", type = "error",
         text = NULL
@@ -1016,7 +1016,7 @@ shinyServer(function(input, output, session) {
                         pre.PI, pre.Minscore, pre.MaxLength, pre.MaxLoop, "dat", sep=".")
       
       if (!file.exists(dat.file)) {
-        sendSweetAlert(
+        shinyWidgets::sendSweetAlert(
           session = session,
           title = "Wrong input data!", type = "error",
           text = "Please check the content and the format of your input data!"
@@ -1232,7 +1232,7 @@ shinyServer(function(input, output, session) {
 	    srna.rc.text <- gsub("\\s+$", "", srna.rc.text)
 	    
 	    if (srna.rc.text == "") {
-	      sendSweetAlert(
+	      shinyWidgets::sendSweetAlert(
 	        session = session,
 	        title = "No input data received!", type = "error",
 	        text = NULL
@@ -1247,7 +1247,7 @@ shinyServer(function(input, output, session) {
 	    }
 	  } else if (input$In_align == "upload") {
 	    if (is.null(input$AlignInFile)) {
-	      sendSweetAlert(
+	      shinyWidgets::sendSweetAlert(
 	        session = session,
 	        title = "No input data received!", type = "error",
 	        text = NULL
@@ -1260,14 +1260,14 @@ shinyServer(function(input, output, session) {
 	  }
 	  
 	  if (srna.rc == "") {
-	    sendSweetAlert(
+	    shinyWidgets::sendSweetAlert(
 	      session = session,
 	      title = "No input data received!", type = "error",
 	      text = NULL
 	    )
 	    NULL
 	  } else if (is.null(input$Aligndb)) {
-	    sendSweetAlert(
+	    shinyWidgets::sendSweetAlert(
 	      session = session,
 	      title = "Please choose a LIR database to align!", type = "error",
 	      text = NULL
@@ -1371,7 +1371,7 @@ shinyServer(function(input, output, session) {
 	      
 	      result <- list(bowtie.out.1, bowtie.out.3, sum(srna.rc$sRNA_read_number), LIR_table)
 	    } else {
-	      sendSweetAlert(
+	      shinyWidgets::sendSweetAlert(
 	        session = session,
 	        title = "No alignment detected!", type = "error",
 	        text = "Please check the input sRNA read count data and the LIR database!"
@@ -1895,147 +1895,204 @@ shinyServer(function(input, output, session) {
 	        count.matrix.text <- input$DeseqPaste
 	        count.matrix.text <- gsub("^\\s+", "", count.matrix.text)
 	        count.matrix.text <- gsub("\\s+$", "", count.matrix.text)
-	        count.matrix <- data.table::fread(text=count.matrix.text, data.table=F)
+	        
+	        if (count.matrix.text == "") {
+	          shinyWidgets::sendSweetAlert(
+	            session = session,
+	            title = "No input data received!", type = "error",
+	            text = NULL
+	          )
+	          NULL
+	        } else {
+	          count.matrix <- data.table::fread(text=count.matrix.text, data.table=F)
+	        }
 	      } else if (input$In_deseq == "upload") {
-	        count.matrix <- data.table::fread(input$DeseqUpload$datapath, data.table=F)
+	        if (is.null(input$DeseqUpload)) {
+	          shinyWidgets::sendSweetAlert(
+	            session = session,
+	            title = "No input data received!", type = "error",
+	            text = NULL
+	          )
+	          NULL
+	        } else {
+	          count.matrix <- data.table::fread(input$DeseqUpload$datapath, data.table=F)
+	        }
 	      }
-	      
-	      rownames(count.matrix) <- count.matrix$LIR
-	      count.matrix$LIR <- NULL
-	      count.matrix <- as.matrix(count.matrix)
 	      
 	      sample.info <- ""
 	      if (input$In_deseq_table == "paste") {
 	        sample.info.text <- input$DeseqTablePaste
 	        sample.info.text <- gsub("^\\s+", "", sample.info.text)
 	        sample.info.text <- gsub("\\s+$", "", sample.info.text)
-	        sample.info <- data.table::fread(text=sample.info.text, data.table=F)
-	      } else if (input$In_deseq_table == "upload") {
-	        sample.info <- data.table::fread(input$DeseqTableUpload$datapath, data.table=F)
-	      }
-	      
-	      rownames(sample.info) <- sample.info$sample
-	      sample.info$sample <- NULL
-	      sample.info$condition <- factor(sample.info$condition)
-	      sample.info$type <- factor(sample.info$type)
-
-	      DESeq2.data <- DESeq2::DESeqDataSetFromMatrix(countData = count.matrix,
-	                                    colData = sample.info,
-	                                    design = ~ condition)
-	      
-	      keep <- rowSums(DESeq2::counts(DESeq2.data)) >= input$MinReadcount
-	      DESeq2.data <- DESeq2.data[keep, ]
-	      
-	      DESeq2.res <- DESeq2::DESeq(DESeq2.data)
-	      DESeq2.res.LFC <- DESeq2::lfcShrink(DESeq2.res, coef=DESeq2::resultsNames(DESeq2.res)[2], type="apeglm")
-	      DESeq2.res.vsd <- DESeq2::vst(DESeq2.res, blind=FALSE)
-	      DESeq2.res.table <- DESeq2::results(DESeq2.res)
-	      
-	      DESeq2.res.table.dt <- data.frame(DESeq2.res.table, stringsAsFactors = FALSE)
-	      DESeq2.res.table.dt$LIR <- rownames(DESeq2.res.table.dt)
-	      DESeq2.res.table.dt <- DESeq2.res.table.dt[, c(7, 1:6)]
-	      DESeq2.res.table.dt <- DESeq2.res.table.dt[order(DESeq2.res.table.dt$padj), ]
-	      
-	      output$DESeqResult <- DT::renderDataTable({
-	        if (nrow(DESeq2.res.table) == 0) {
+	        
+	        if (sample.info.text == "") {
+	          shinyWidgets::sendSweetAlert(
+	            session = session,
+	            title = "No input data received!", type = "error",
+	            text = NULL
+	          )
 	          NULL
 	        } else {
-	          DESeq2.res.table.dt
+	          sample.info <- data.table::fread(text=sample.info.text, data.table=F)
 	        }
-	      }, escape = FALSE, rownames= FALSE, selection="none",
-	         options = list(pageLength = 5, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
-	                        initComplete = DT::JS(
-	                          "function(settings, json) {",
-	                          "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
-	                          "}")
-	                        )
-	      )
+	      } else if (input$In_deseq_table == "upload") {
+	        if (is.null(input$DeseqTableUpload)) {
+	          shinyWidgets::sendSweetAlert(
+	            session = session,
+	            title = "No input data received!", type = "error",
+	            text = NULL
+	          )
+	          NULL
+	        } else {
+	          sample.info <- data.table::fread(input$DeseqTableUpload$datapath, data.table=F)
+	        }
+	      }
 	      
-	      output$DESeq2_result_table.txt <- downloadHandler(
-	        filename <- function() { paste('DESeq2_result.txt') },
-	        content <- function(file) {
-	          if (nrow(DESeq2.res.table) == 0) {
-	            NULL
-	          } else {
-	            data.table::fwrite(DESeq2.res.table.dt, file, sep="\t", quote=F)
-	          }
-	        }, contentType = 'text/plain'
-	      )
-	      
-	      # MA plot
-	      output$MA_plot <- renderPlot({
-	        DESeq2::plotMA(DESeq2.res.LFC, ylim = c(input$MA_Y_axis[1], input$MA_Y_axis[2]), main = "MA-plot", cex = input$MA_point_size)
-	      })
-	      
-	      output$MA_plot.pdf <- downloadHandler(
-	        filename <- function() {
-	          paste('MA_plot.pdf')
-	        },
-	        content <- function(file) {
-	          pdf(file, width = input$MA_plot_width / 72, height = input$MA_plot_height / 72)
-	          DESeq2::plotMA(DESeq2.res.LFC, ylim = c(input$MA_Y_axis[1], input$MA_Y_axis[2]), main = "MA-plot", cex = input$MA_point_size)
-	          dev.off()
-	        }, contentType = 'application/pdf')
-	      
-	      # Sample distance plot
-	      output$sample_dist <- renderPlot({
-	        sampleDists <- dist(t(SummarizedExperiment::assay(DESeq2.res.vsd)))
+	      if (count.matrix == "" || sample.info == "") {
+	        shinyWidgets::sendSweetAlert(
+	          session = session,
+	          title = "No input data received!", type = "error",
+	          text = NULL
+	        )
+	        NULL
+	      } else {
+	        rownames(count.matrix) <- count.matrix[, 1]
+	        count.matrix.tag <- colnames(count.matrix)[1]
+	        count.matrix[, 1] <- NULL
+	        count.matrix <- as.matrix(count.matrix)
 	        
-	        sampleDistMatrix <- as.matrix(sampleDists)
-	        rownames(sampleDistMatrix) <- paste(DESeq2.res.vsd$condition, DESeq2.res.vsd$type, sep="-")
-	        colnames(sampleDistMatrix) <- NULL
-	        colors <- colorRampPalette( rev(RColorBrewer::brewer.pal(9, "Blues")) )(255)
-	        pheatmap::pheatmap(sampleDistMatrix,
-	                 clustering_distance_rows = sampleDists,
-	                 clustering_distance_cols = sampleDists,
-	                 col = colors, main = "Sample-to-sample distances")
-	      })
-	      
-	      output$sample_dist_plot.pdf <- downloadHandler(
-	        filename <- function() {
-	          paste('sample_dist_plot.pdf')
-	        },
-	        content <- function(file) {
-	          pdf(file, width = input$dist_plot_width / 72, height = input$dist_plot_height / 72)
-	          sampleDists <- dist(t(SummarizedExperiment::assay(DESeq2.res.vsd)))
+	        rownames(sample.info) <- sample.info$sample
+	        sample.info$sample <- NULL
+	        
+	        if (identical(sort(unique(colnames(count.matrix))), sort(unique(rownames(sample.info))))) {
+	          sample.info$condition <- factor(sample.info$condition)
+	          sample.info$type <- factor(sample.info$type)
 	          
-	          sampleDistMatrix <- as.matrix(sampleDists)
-	          rownames(sampleDistMatrix) <- paste(DESeq2.res.vsd$condition, DESeq2.res.vsd$type, sep="-")
-	          colnames(sampleDistMatrix) <- NULL
-	          colors <- colorRampPalette( rev(RColorBrewer::brewer.pal(9, "Blues")) )(255)
-	          pheatmap::pheatmap(sampleDistMatrix,
-	                   clustering_distance_rows = sampleDists,
-	                   clustering_distance_cols = sampleDists,
-	                   col = colors, main = "Sample-to-sample distances")
-	          dev.off()
-	        }, contentType = 'application/pdf')
-	      
-	      # volcano plot
-	      DESeq2.res.table.dt.vp <- DESeq2.res.table.dt
-	      DESeq2.res.table.dt.vp$col <- "black"
-	      DESeq2.res.table.dt.vp$col[DESeq2.res.table.dt.vp$padj <= 0.05] <- "red"
-	      output$volcano_plot <- renderPlot({
-	        plot(x=DESeq2.res.table.dt.vp$log2FoldChange, y= -log10(DESeq2.res.table.dt.vp$padj),
-	             xlab = "log2 of fold change", ylab = "-log10 of adjusted P value", col = DESeq2.res.table.dt.vp$col, pch=21,
-	             xlim = c(input$sliderFoldchange[1], input$sliderFoldchange[2]), ylim = c(input$sliderPvalue[1], input$sliderPvalue[2]),
-	             main = "Visualization of DESeq2 result\n with volcano plot", cex = input$volcano_point_size,
-	             cex.axis = input$volcano_axis_tick_size, cex.lab = input$volcano_axis_label_size)
-	      })
-	      
-	      output$volcano_plot.pdf <- downloadHandler(
-	        filename <- function() {
-	          paste('volcano_plot.pdf')
-	        },
-	        content <- function(file) {
-	          pdf(file, width = input$volcano_plot_width / 72, height = input$volcano_plot_height / 72)
-	          plot(x=DESeq2.res.table.dt.vp$log2FoldChange, y= -log10(DESeq2.res.table.dt.vp$padj),
-	               xlab = "log2 of fold change", ylab = "-log10 of adjusted P value", col = DESeq2.res.table.dt.vp$col, pch=21,
-	               xlim = c(input$sliderFoldchange[1], input$sliderFoldchange[2]), ylim = c(input$sliderPvalue[1], input$sliderPvalue[2]),
-	               main = "Visualization of DESeq2 result\n with volcano plot", cex = input$volcano_point_size,
-	               cex.axis = input$volcano_axis_tick_size, cex.lab = input$volcano_axis_label_size)
-	          dev.off()
-	        }, contentType = 'application/pdf')
-	      
+	          DESeq2.data <- DESeq2::DESeqDataSetFromMatrix(countData = count.matrix,
+	                                                        colData = sample.info,
+	                                                        design = ~ condition)
+	          
+	          keep <- rowSums(DESeq2::counts(DESeq2.data)) >= input$MinReadcount
+	          DESeq2.data <- DESeq2.data[keep, ]
+	          
+	          DESeq2.res <- DESeq2::DESeq(DESeq2.data)
+	          DESeq2.res.LFC <- DESeq2::lfcShrink(DESeq2.res, coef=DESeq2::resultsNames(DESeq2.res)[2], type="apeglm")
+	          DESeq2.res.vsd <- DESeq2::vst(DESeq2.res, blind=FALSE)
+	          DESeq2.res.table <- DESeq2::results(DESeq2.res)
+	          
+	          DESeq2.res.table.dt <- data.frame(DESeq2.res.table, stringsAsFactors = FALSE)
+	          DESeq2.res.table.dt[, count.matrix.tag] <- rownames(DESeq2.res.table.dt)
+	          DESeq2.res.table.dt <- DESeq2.res.table.dt[, c(7, 1:6)]
+	          DESeq2.res.table.dt <- DESeq2.res.table.dt[order(DESeq2.res.table.dt$padj), ]
+	          
+	          output$DESeqResult <- DT::renderDataTable({
+	            if (nrow(DESeq2.res.table) == 0) {
+	              NULL
+	            } else {
+	              DESeq2.res.table.dt
+	            }
+	          }, escape = FALSE, rownames= FALSE, selection="none",
+	          options = list(pageLength = 5, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
+	                         initComplete = DT::JS(
+	                           "function(settings, json) {",
+	                           "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+	                           "}")
+	          )
+	          )
+	          
+	          output$DESeq2_result_table.txt <- downloadHandler(
+	            filename <- function() { paste('DESeq2_result.txt') },
+	            content <- function(file) {
+	              if (nrow(DESeq2.res.table) == 0) {
+	                NULL
+	              } else {
+	                data.table::fwrite(DESeq2.res.table.dt, file, sep="\t", quote=F)
+	              }
+	            }, contentType = 'text/plain'
+	          )
+	          
+	          # MA plot
+	          output$MA_plot <- renderPlot({
+	            DESeq2::plotMA(DESeq2.res.LFC, ylim = c(input$MA_Y_axis[1], input$MA_Y_axis[2]), main = "MA-plot", cex = input$MA_point_size)
+	          })
+	          
+	          output$MA_plot.pdf <- downloadHandler(
+	            filename <- function() {
+	              paste('MA_plot.pdf')
+	            },
+	            content <- function(file) {
+	              pdf(file, width = input$MA_plot_width / 72, height = input$MA_plot_height / 72)
+	              DESeq2::plotMA(DESeq2.res.LFC, ylim = c(input$MA_Y_axis[1], input$MA_Y_axis[2]), main = "MA-plot", cex = input$MA_point_size)
+	              dev.off()
+	            }, contentType = 'application/pdf')
+	          
+	          # Sample distance plot
+	          output$sample_dist <- renderPlot({
+	            sampleDists <- dist(t(SummarizedExperiment::assay(DESeq2.res.vsd)))
+	            
+	            sampleDistMatrix <- as.matrix(sampleDists)
+	            rownames(sampleDistMatrix) <- paste(DESeq2.res.vsd$condition, DESeq2.res.vsd$type, sep="-")
+	            colnames(sampleDistMatrix) <- NULL
+	            colors <- colorRampPalette( rev(RColorBrewer::brewer.pal(9, "Blues")) )(255)
+	            pheatmap::pheatmap(sampleDistMatrix,
+	                               clustering_distance_rows = sampleDists,
+	                               clustering_distance_cols = sampleDists,
+	                               col = colors, main = "Sample-to-sample distances")
+	          })
+	          
+	          output$sample_dist_plot.pdf <- downloadHandler(
+	            filename <- function() {
+	              paste('sample_dist_plot.pdf')
+	            },
+	            content <- function(file) {
+	              pdf(file, width = input$dist_plot_width / 72, height = input$dist_plot_height / 72)
+	              sampleDists <- dist(t(SummarizedExperiment::assay(DESeq2.res.vsd)))
+	              
+	              sampleDistMatrix <- as.matrix(sampleDists)
+	              rownames(sampleDistMatrix) <- paste(DESeq2.res.vsd$condition, DESeq2.res.vsd$type, sep="-")
+	              colnames(sampleDistMatrix) <- NULL
+	              colors <- colorRampPalette( rev(RColorBrewer::brewer.pal(9, "Blues")) )(255)
+	              pheatmap::pheatmap(sampleDistMatrix,
+	                                 clustering_distance_rows = sampleDists,
+	                                 clustering_distance_cols = sampleDists,
+	                                 col = colors, main = "Sample-to-sample distances")
+	              dev.off()
+	            }, contentType = 'application/pdf')
+	          
+	          # volcano plot
+	          DESeq2.res.table.dt.vp <- DESeq2.res.table.dt
+	          DESeq2.res.table.dt.vp$col <- "black"
+	          DESeq2.res.table.dt.vp$col[DESeq2.res.table.dt.vp$padj <= 0.05] <- "red"
+	          output$volcano_plot <- renderPlot({
+	            plot(x=DESeq2.res.table.dt.vp$log2FoldChange, y= -log10(DESeq2.res.table.dt.vp$padj),
+	                 xlab = "log2 of fold change", ylab = "-log10 of adjusted P value", col = DESeq2.res.table.dt.vp$col, pch=21,
+	                 xlim = c(input$sliderFoldchange[1], input$sliderFoldchange[2]), ylim = c(input$sliderPvalue[1], input$sliderPvalue[2]),
+	                 main = "Visualization of DESeq2 result\n with volcano plot", cex = input$volcano_point_size,
+	                 cex.axis = input$volcano_axis_tick_size, cex.lab = input$volcano_axis_label_size)
+	          })
+	          
+	          output$volcano_plot.pdf <- downloadHandler(
+	            filename <- function() {
+	              paste('volcano_plot.pdf')
+	            },
+	            content <- function(file) {
+	              pdf(file, width = input$volcano_plot_width / 72, height = input$volcano_plot_height / 72)
+	              plot(x=DESeq2.res.table.dt.vp$log2FoldChange, y= -log10(DESeq2.res.table.dt.vp$padj),
+	                   xlab = "log2 of fold change", ylab = "-log10 of adjusted P value", col = DESeq2.res.table.dt.vp$col, pch=21,
+	                   xlim = c(input$sliderFoldchange[1], input$sliderFoldchange[2]), ylim = c(input$sliderPvalue[1], input$sliderPvalue[2]),
+	                   main = "Visualization of DESeq2 result\n with volcano plot", cex = input$volcano_point_size,
+	                   cex.axis = input$volcano_axis_tick_size, cex.lab = input$volcano_axis_label_size)
+	              dev.off()
+	            }, contentType = 'application/pdf')
+	        } else {
+	          shinyWidgets::sendSweetAlert(
+	            session = session,
+	            title = "Sample names in the count matrix does not match the sample names in the sample information table!", type = "error",
+	            text = NULL
+	          )
+	          NULL
+	        }
+	      }
 	    })
 	  }
 	})
@@ -2089,7 +2146,7 @@ shinyServer(function(input, output, session) {
 	      target.Seq <- gsub("\\s+$", "", target.Seq)
 	      
 	      if (target.Seq == "") {
-	        sendSweetAlert(
+	        shinyWidgets::sendSweetAlert(
 	          session = session,
 	          title = "No input data received!", type = "error",
 	          text = NULL
@@ -2205,13 +2262,13 @@ shinyServer(function(input, output, session) {
 	      vis.Seq <- gsub("-+", "_", vis.Seq)
 	      
 	      if ((length(vis.Seq) == 1) && (vis.Seq == "")) {
-	        sendSweetAlert(
+	        shinyWidgets::sendSweetAlert(
 	          session = session,
 	          title = "No input data received!", type = "error",
 	          text = NULL
 	        )
 	      } else if (substr(vis.Seq, 1, 1) != ">") {
-	        sendSweetAlert(
+	        shinyWidgets::sendSweetAlert(
 	          session = session,
 	          title = "'>' expected at beginning of line 1 to indicate the ID of the input sequence!", type = "error",
 	          text = NULL
@@ -2225,7 +2282,7 @@ shinyServer(function(input, output, session) {
 	        
 	        vis.Seq.fa <- Biostrings::readDNAStringSet(rnafold.in.file)
 	        if (length(vis.Seq.fa) > 1) {
-	          sendSweetAlert(
+	          shinyWidgets::sendSweetAlert(
 	            session = session,
 	            title = "Only one input sequence is allowed at one time!", type = "error",
 	            text = NULL
@@ -2256,7 +2313,7 @@ shinyServer(function(input, output, session) {
 	          
 	          # RNAfold result file
 	          if (length(rnafold.out) < 3) {
-	            sendSweetAlert(
+	            shinyWidgets::sendSweetAlert(
 	              session = session,
 	              title = "Wrong input data!", type = "error",
 	              text = "Please check the content and the format of your input data!"
