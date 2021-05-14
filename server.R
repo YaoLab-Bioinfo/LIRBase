@@ -601,8 +601,7 @@ shinyServer(function(input, output, session) {
         text = NULL
       )
     } else {
-      blast.in.file <- gsub("\\s+", "-", Sys.time())
-      blast.in.file <- gsub(":", "-", blast.in.file)
+      blast.in.file <- uuid::UUIDgenerate()
       blast.in.file <- paste0(blast.in.file, ".fasta")
       blast.in.file <- file.path(tempdir(), blast.in.file)
       writeLines(blast.in.seq, con = blast.in.file)
@@ -992,8 +991,7 @@ shinyServer(function(input, output, session) {
         text = NULL
       )
     } else {
-      irf.in.file <- gsub("\\s+", "-", Sys.time())
-      irf.in.file <- gsub(":", "-", irf.in.file)
+      irf.in.file <- uuid::UUIDgenerate()
       irf.in.file <- paste0(irf.in.file, ".fasta")
       writeLines(pre.Seq, con=irf.in.file)
       
@@ -1241,8 +1239,7 @@ shinyServer(function(input, output, session) {
 	    } else {
 	      srna.rc <- data.table::fread(text = srna.rc.text, data.table = FALSE, check.names = FALSE)
 	      
-	      srna.fa.name <- gsub("\\s+", "-", Sys.time())
-	      srna.fa.name <- gsub(":", "-", srna.fa.name)
+	      srna.fa.name <- uuid::UUIDgenerate()
 	      srna.fa.name <- paste0(srna.fa.name, ".fasta")
 	    }
 	  } else if (input$In_align == "upload") {
@@ -2153,8 +2150,7 @@ shinyServer(function(input, output, session) {
 	        )
 	        NULL
 	      } else {
-	        srna.tin.name <- gsub("\\s+", "-", Sys.time())
-	        srna.tin.name <- gsub(":", "-", srna.tin.name)
+	        srna.tin.name <- uuid::UUIDgenerate()
 	        srna.tin.name <- paste0(srna.tin.name, ".fasta")
 	        srna.tin.name.file <- file.path(tempdir(), srna.tin.name)
 
@@ -2274,8 +2270,7 @@ shinyServer(function(input, output, session) {
 	          text = NULL
 	        )
 	      } else {
-	        rnafold.in.file <- gsub("\\s+", "-", Sys.time())
-	        rnafold.in.file <- gsub(":", "-", rnafold.in.file)
+	        rnafold.in.file <- uuid::UUIDgenerate()
 	        rnafold.in.file <- paste0(rnafold.in.file, ".fasta")
 	        rnafold.in.file <- file.path(tempdir(), rnafold.in.file)
 	        writeLines(vis.Seq, con=rnafold.in.file)
@@ -2308,7 +2303,7 @@ shinyServer(function(input, output, session) {
 	          ps.file <- paste0(vis.Seq.fa.name, "_ss.ps")
 	          system(paste0("ps2pdf ", ps.file))
 	          pdf.file <- paste0(vis.Seq.fa.name, "_ss.pdf")
-	          file.copy(from=pdf.file, to="www")
+	          file.copy(from=pdf.file, to="www", overwrite = TRUE)
 	          file.remove(pdf.file)
 	          
 	          # RNAfold result file
