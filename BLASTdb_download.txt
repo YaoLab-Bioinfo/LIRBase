@@ -1,4 +1,4 @@
-Accession	Division	nhr_file	nin_file	nsq_file
+Genome	Division	nhr_file	nin_file	nsq_file
 Acyrthosiphon_pisum	Metazoa	<a href='LIRBase_blastdb/Acyrthosiphon_pisum.nhr' target='_blank'>Acyrthosiphon_pisum.nhr</a>	<a href='LIRBase_blastdb/Acyrthosiphon_pisum.nin' target='_blank'>Acyrthosiphon_pisum.nin</a>	<a href='LIRBase_blastdb/Acyrthosiphon_pisum.nsq' target='_blank'>Acyrthosiphon_pisum.nsq</a>
 Adineta_vaga	Metazoa	<a href='LIRBase_blastdb/Adineta_vaga.nhr' target='_blank'>Adineta_vaga.nhr</a>	<a href='LIRBase_blastdb/Adineta_vaga.nin' target='_blank'>Adineta_vaga.nin</a>	<a href='LIRBase_blastdb/Adineta_vaga.nsq' target='_blank'>Adineta_vaga.nsq</a>
 Aedes_aegypti	Metazoa	<a href='LIRBase_blastdb/Aedes_aegypti.nhr' target='_blank'>Aedes_aegypti.nhr</a>	<a href='LIRBase_blastdb/Aedes_aegypti.nin' target='_blank'>Aedes_aegypti.nin</a>	<a href='LIRBase_blastdb/Aedes_aegypti.nsq' target='_blank'>Aedes_aegypti.nsq</a>
