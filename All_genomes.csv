@@ -1,425 +1,425 @@
-Species,Division,Assembly,Source,Publication
-Acyrthosiphon pisum,Metazoa,Acyr_2.0,http://metazoa.ensembl.org/Acyrthosiphon_pisum/Info/Index,10.1371/journal.pbio.1000313
-Adineta vaga,Metazoa,AMS_PRJEB1171_v1,http://metazoa.ensembl.org/Adineta_vaga/Info/Index,10.1038/nature12326
-Aedes aegypti,Metazoa,AaegL3,http://metazoa.ensembl.org/Aedes_aegypti/Info/Index,10.1126/science.1138878
-Amphimedon queenslandica,Metazoa,Aqu1,http://metazoa.ensembl.org/Amphimedon_queenslandica/Info/Index,10.1038/nature09201
-Anopheles darlingi,Metazoa,AdarC3,http://metazoa.ensembl.org/Anopheles_darlingi/Info/Index,10.1093/nar/gkt484
-Anopheles gambiae,Metazoa,AgamP4,http://metazoa.ensembl.org/Anopheles_gambiae/Info/Index,10.1126/science.1076181
-Anoplophora glabripennis,Metazoa,Agla_1.0,http://metazoa.ensembl.org/Anoplophora_glabripennis/Info/Index,10.1186/s13059-016-1088-8
-Apis mellifera,Metazoa,Amel_4.5,http://metazoa.ensembl.org/Apis_mellifera/Info/Index,10.1038/nature05260
-Atta cephalotes,Metazoa,Attacep1.0,http://metazoa.ensembl.org/Atta_cephalotes/Info/Index,10.1371/journal.pgen.1002007
-Belgica antarctica,Metazoa,ASM77530v1,http://metazoa.ensembl.org/Belgica_antarctica/Info/Index,10.1038/ncomms5611
-Bombus impatiens,Metazoa,BIMP_2.0,http://metazoa.ensembl.org/Bombus_impatiens/Info/Index,10.1186/s13059-015-0623-3
-Bombus terrestris,Metazoa,Bter_1.0,http://metazoa.ensembl.org/Bombus_terrestris/Info/Index,10.1186/s13059-015-0623-3
-Bombyx mori,Metazoa,ASM15162v1,http://metazoa.ensembl.org/Bombyx_mori/Info/Index,10.1016/j.ibmb.2008.11.004
-Branchiostoma lanceolatum,Metazoa,BraLan2,http://metazoa.ensembl.org/Branchiostoma_lanceolatum/Info/Index,10.1038/s41586-018-0734-6
-Brugia malayi,Metazoa,Bmal-4.0,http://metazoa.ensembl.org/Brugia_malayi/Info/Index,10.1126/science.1145406
-Caenorhabditis brenneri,Metazoa,C_brenneri-6.0.1b,http://metazoa.ensembl.org/Caenorhabditis_brenneri/Info/Index,
-Caenorhabditis briggsae,Metazoa,CB4,http://metazoa.ensembl.org/Caenorhabditis_briggsae/Info/Index,10.1371/journal.pbio.0000045
-Caenorhabditis elegans,Metazoa,WBcel235,http://metazoa.ensembl.org/Caenorhabditis_elegans/Info/Index,10.1126/science.282.5396.2012
-Caenorhabditis japonica,Metazoa,C_japonica-7.0.1,http://metazoa.ensembl.org/Caenorhabditis_japonica/Info/Index,10.1895/wormbook.1.37.1
-Caenorhabditis remanei,Metazoa,C_remanei-15.0.1,http://metazoa.ensembl.org/Caenorhabditis_remanei/Info/Index,
-Capitella teleta,Metazoa,Capitella teleta v1.0,http://metazoa.ensembl.org/Capitella_teleta/Info/Index,10.1038/nature11696
-Crassostrea gigas,Metazoa,oyster_v9,http://metazoa.ensembl.org/Crassostrea_gigas/Info/Index,10.1038/nature11413
-Culex quinquefasciatus,Metazoa,CpipJ2,http://metazoa.ensembl.org/Culex_quinquefasciatus/Info/Index,10.1126/science.1191864
-Culicoides sonorensis,Metazoa,Cson1,http://metazoa.ensembl.org/Culicoides_sonorensis/Info/Index,10.1186/s12864-018-5014-1
-Danaus plexippus,Metazoa,Dpv3,http://metazoa.ensembl.org/Danaus_plexippus/Info/Index,10.1016/j.cell.2011.09.052
-Daphnia magna,Metazoa,daphmag2.4,http://metazoa.ensembl.org/Daphnia_magna/Info/Index,10.1186/1471-2105-6-45
-Daphnia pulex,Metazoa,V1.0,http://metazoa.ensembl.org/Daphnia_pulex/Info/Index,10.1126/science.1197761
-Dendroctonus ponderosae,Metazoa,DendPond_male_1.0,http://metazoa.ensembl.org/Dendroctonus_ponderosae/Info/Index,10.1186/gb-2013-14-3-r27
-Dinothrombium tinctorium,Metazoa,DtinU1,http://metazoa.ensembl.org/Dinothrombium_tinctorium/Info/Index,10.1093/gigascience/giy127
-Drosophila ananassae,Metazoa,dana_caf1,http://metazoa.ensembl.org/Drosophila_ananassae/Info/Index,10.1038/nature06341
-Drosophila erecta,Metazoa,dere_caf1,http://metazoa.ensembl.org/Drosophila_erecta/Info/Index,10.1038/nature06341
-Drosophila grimshawi,Metazoa,dgri_caf1,http://metazoa.ensembl.org/Drosophila_grimshawi/Info/Index,10.1038/nature06341
-Drosophila melanogaster,Metazoa,BDGP6.28,http://metazoa.ensembl.org/Drosophila_melanogaster/Info/Index,10.1126/science.287.5461.2185
-Drosophila mojavensis,Metazoa,dmoj_caf1,http://metazoa.ensembl.org/Drosophila_mojavensis/Info/Index,10.1038/nature06341
-Drosophila persimilis,Metazoa,dper_caf1,http://metazoa.ensembl.org/Drosophila_persimilis/Info/Index,10.1038/nature06341
-Drosophila pseudoobscura,Metazoa,Dpse_3.0,http://metazoa.ensembl.org/Drosophila_pseudoobscura/Info/Index,10.1038/nature06341
-Drosophila sechellia,Metazoa,dsec_caf1,http://metazoa.ensembl.org/Drosophila_sechellia/Info/Index,10.1038/nature06341
-Drosophila simulans,Metazoa,ASM75419v3,http://metazoa.ensembl.org/Drosophila_simulans/Info/Index,10.1101/gr.141689.112
-Drosophila virilis,Metazoa,dvir_caf1,http://metazoa.ensembl.org/Drosophila_virilis/Info/Index,10.1038/nature06341
-Drosophila willistoni,Metazoa,dwil_caf1,http://metazoa.ensembl.org/Drosophila_willistoni/Info/Index,10.1038/nature06341
-Drosophila yakuba,Metazoa,dyak_caf1,http://metazoa.ensembl.org/Drosophila_yakuba/Info/Index,10.1038/nature06341
-Folsomia candida,Metazoa,ASM221717v1,http://metazoa.ensembl.org/Folsomia_candida/Info/Index,10.1186/s12864-017-3852-x
-Heliconius melpomene,Metazoa,Hmel1,http://metazoa.ensembl.org/Heliconius_melpomene/Info/Index,10.1038/nature11041
-Helobdella robusta,Metazoa,Helro1,http://metazoa.ensembl.org/Helobdella_robusta/Info/Index,10.1038/nature11696
-Hofstenia miamia,Metazoa,HmiaM1,http://metazoa.ensembl.org/Hofstenia_miamia/Info/Index,10.1126/science.aau6173
-Ixodes scapularis,Metazoa,IscaW1,http://metazoa.ensembl.org/Ixodes_scapularis/Info/Index,10.1038/ncomms10507
-Lepeophtheirus salmonis,Metazoa,LSalAtl2s,http://metazoa.ensembl.org/Lepeophtheirus_salmonis/Info/Index,
-Leptotrombidium deliense,Metazoa,LdelU1,http://metazoa.ensembl.org/Leptotrombidium_deliense/Info/Index,10.1093/gigascience/giy127
-Lingula anatina,Metazoa,LinAna1.0,http://metazoa.ensembl.org/Lingula_anatina/Info/Index,10.1038/ncomms9301
-Loa loa,Metazoa,Loa_loa_V3,http://metazoa.ensembl.org/Loa_loa/Info/Index,10.1038/ng.2585
-Lottia gigantea,Metazoa,Lotgi1,http://metazoa.ensembl.org/Lottia_gigantea/Info/Index,10.1038/nature11696
-Lucilia cuprina,Metazoa,ASM118794v1,http://metazoa.ensembl.org/Lucilia_cuprina/Info/Index,10.1038/ncomms8344
-Mayetiola destructor,Metazoa,Mdes_1.0,http://metazoa.ensembl.org/Mayetiola_destructor/Info/Index,10.1093/nar/gku983
-Megaselia scalaris,Metazoa,Msca1,http://metazoa.ensembl.org/Megaselia_scalaris/Info/Index,10.1073/pnas.1012675108
-Melitaea cinxia,Metazoa,MelCinx1.0,http://metazoa.ensembl.org/Melitaea_cinxia/Info/Index,10.1038/ncomms5737
-Mnemiopsis leidyi,Metazoa,MneLei_Aug2011,http://metazoa.ensembl.org/Mnemiopsis_leidyi/Info/Index,10.1126/science.1242592
-Nasonia vitripennis,Metazoa,Nvit_2.1,http://metazoa.ensembl.org/Nasonia_vitripennis/Info/Index,10.1126/science.1178028
-Nematostella vectensis,Metazoa,ASM20922v1,http://metazoa.ensembl.org/Nematostella_vectensis/Info/Index,10.1126/science.1139158
-Onchocerca volvulus,Metazoa,ASM49940v2,http://metazoa.ensembl.org/Onchocerca_volvulus/Info/Index,
-Orchesella cincta,Metazoa,ASM171814v1,http://metazoa.ensembl.org/Orchesella_cincta/Info/Index,
-Pediculus humanus,Metazoa,PhumU2,http://metazoa.ensembl.org/Pediculus_humanus/Info/Index,10.1073/pnas.1003379107
-Pristionchus pacificus,Metazoa,El_Paco,http://metazoa.ensembl.org/Pristionchus_pacificus/Info/Index,10.1038/ng.227
-Rhodnius prolixus,Metazoa,RproC3,http://metazoa.ensembl.org/Rhodnius_prolixus/Info/Index,10.1073/pnas.1506226112
-Sarcoptes scabiei,Metazoa,SscaA1,http://metazoa.ensembl.org/Sarcoptes_scabiei/Info/Index,10.1186/s13071-015-1198-2
-Schistosoma mansoni,Metazoa,ASM23792v2,http://metazoa.ensembl.org/Schistosoma_mansoni/Info/Index,10.1371/journal.pntd.0001455
-Solenopsis invicta,Metazoa,Si_gnG,http://metazoa.ensembl.org/Solenopsis_invicta/Info/Index,10.1073/pnas.1009690108
-Stegodyphus mimosarum,Metazoa,Stegodyphus_mimosarum_v1,http://metazoa.ensembl.org/Stegodyphus_mimosarum/Info/Index,10.1038/ncomms4765
-Strigamia maritima,Metazoa,Smar1,http://metazoa.ensembl.org/Strigamia_maritima/Info/Index,10.1371/journal.pbio.1002005
-Strongylocentrotus purpuratus,Metazoa,Spur_3.1,http://metazoa.ensembl.org/Strongylocentrotus_purpuratus/Info/Index,10.1126/science.1133609
-Strongyloides ratti,Metazoa,S_ratti_ED321_v5_0_4,http://metazoa.ensembl.org/Strongyloides_ratti/Info/Index,10.1038/ng.3495
-Teleopsis dalmanni,Metazoa,Tel_dalmanni_2A_v1.0,http://metazoa.ensembl.org/Teleopsis_dalmanni/Info/Index,10.1371/journal.pgen.1004362
-Tetranychus urticae,Metazoa,ASM23943v1,http://metazoa.ensembl.org/Tetranychus_urticae/Info/Index,10.1038/nature10640
-Thelohanellus kitauei,Metazoa,ASM82789v1,http://metazoa.ensembl.org/Thelohanellus_kitauei/Info/Index,10.1093/gbe/evu247
-Tribolium castaneum,Metazoa,Tcas5.2,http://metazoa.ensembl.org/Tribolium_castaneum/Info/Index,10.1038/nature06784
-Trichinella spiralis,Metazoa,Tspiralis1,http://metazoa.ensembl.org/Trichinella_spiralis/Info/Index,10.1038/ng.769
-Trichoplax adhaerens,Metazoa,ASM15027v1,http://metazoa.ensembl.org/Trichoplax_adhaerens/Info/Index,10.1038/nature07191
-Zootermopsis nevadensis,Metazoa,ZooNev1.0,http://metazoa.ensembl.org/Zootermopsis_nevadensis/Info/Index,10.1038/ncomms4636
-Actinidia chinensis,Plant,Kiwifruit; Red5_PS1_1.69.0,http://ensembl.gramene.org/Actinidia_chinensis/Info/Index,10.1186/s12864-018-4656-3
-Actinidia chinensis,Plant,Kiwifruit; Hongyang,http://bioinfo.bti.cornell.edu/cgi-bin/kiwi/download.cgi,10.1038/ncomms3640
-Aegilops tauschii,Plant,Rough-spike hard grass; Aet_v4.0,http://ensembl.gramene.org/Aegilops_tauschii/Info/Index,10.1038/nature24486
-Amborella trichopoda,Plant,AMTR1.0,http://ensembl.gramene.org/Amborella_trichopoda/Info/Index,10.1126/science.1241130
-Ananas bracteatus,Plant,Pineapple; CB5,https://bigd.big.ac.cn/gwh/Assembly/145/show,10.1038/ng.3435
-Ananas bracteatus,Plant,Pineapple; F153,https://bigd.big.ac.cn/gwh/Assembly/648/show,10.1038/ng.3435
-Ananas bracteatus,Plant,Pineapple; MN2,https://genomevolution.org/CoGe/NotebookView.pl?nid=937,10.1038/ng.3435
-Arabidopsis halleri,Plant,Ahal2.2,http://ensembl.gramene.org/Arabidopsis_halleri/Info/Index,10.1111/1755-0998.12604
-Arabidopsis lyrata,Plant,MN47,http://ensembl.gramene.org/Arabidopsis_lyrata/Info/Index,10.1038/ng.807
-Arabidopsis thaliana,Plant,TAIR10,http://ensembl.gramene.org/Arabidopsis_thaliana/Info/Index,10.1093/nar/gkm965
-Asparagus officinalis,Plant,,http://asparagus.uga.edu/tripal/node/3,10.1038/s41467-017-01064-8
-Beta vulgaris,Plant,Sugar beet; RefBeet-1.2.2,http://ensembl.gramene.org/Beta_vulgaris/Info/Index,10.1038/nature12817
-Brachypodium distachyon,Plant,Brachypodium_distachyon_v3.0,http://ensembl.gramene.org/Brachypodium_distachyon/Info/Index,10.1038/nature08747
-Brassica napus,Plant,Oilseed rape; AST_PRJEB5043_v1,http://ensembl.gramene.org/Brassica_napus/Info/Index,10.1126/science.1253435
-Brassica oleracea,Plant,BOL,http://ensembl.gramene.org/Brassica_oleracea/Info/Index,10.1186/gb-2014-15-6-r77
-Brassica rapa,Plant,Chiifu-401,http://brassicadb.org/brad/datasets/pub/BrassicaceaeGenome/Brassica_rapa/V3.0/,10.1038/s41438-018-0071-9
-Cajanus cajan,Plant,Pigeonpea,http://gigadb.org/dataset/100028,10.1038/nbt.2022
-Camelina sativa,Plant,,http://brassicadb.org/brad/datasets/pub/BrassicaceaeGenome/Camelina_sativa/,10.1038/ncomms4706
-Castanea mollissima,Plant,Chinese chestnut,http://gigadb.org/dataset/100643,10.1093/gigascience/giz112
-Cerasus x yedoensis,Plant,Somei-Yoshino,https://www.rosaceae.org/species/cerasus_x_yedoensis/genome_v1.0,10.1093/dnares/dsz016
-Chlamydomonas reinhardtii,Plant,Chlamydomonas_reinhardtii_v5.5,http://ensembl.gramene.org/Chlamydomonas_reinhardtii/Info/Index,10.1126/science.1143609
-Chondrus crispus,Plant,Irish moss; ASM35022v2,http://ensembl.gramene.org/Chondrus_crispus/Info/Index,10.1073/pnas.1221259110
-Citrullus lanatus,Plant,Watermelon; Charleston Gray,http://cucurbitgenomics.org/organism/4,10.1111/pbi.13136
-Citrullus lanatus,Plant,Watermelon; 97103.v2,http://cucurbitgenomics.org/organism/21,10.1038/ng.2470
-Corchorus capsularis,Plant,CCACVL1_1.0,http://ensembl.gramene.org/Corchorus_capsularis/Info/Index,10.1038/nplants.2016.223
-Cucumis melo,Plant,Melon (DHL92) v3.6.1,http://cucurbitgenomics.org/organism/18,10.1073/pnas.1205415109
-Cucumis sativus,Plant,Cucumber (Chinese Long) v3,http://cucurbitgenomics.org/organism/20,10.1093/gigascience/giz072
-Cucumis sativus,Plant,Wild cucumber (PI 183967),http://cucurbitgenomics.org/organism/6,10.1038/ng.2801
-Cucurbita argyrosperma,Plant,Silver-seed gourd; Cucurbita_argyrosperma,http://cucurbitgenomics.org/organism/19,10.1016/j.molp.2018.12.023
-Cucurbita maxima,Plant,Cucurbita maxima (Rimu),http://cucurbitgenomics.org/organism/8,10.1016/j.molp.2017.09.003
-Cucurbita moschata,Plant,Cucurbita moschata (Rifu),http://cucurbitgenomics.org/organism/9,10.1016/j.molp.2017.09.003
-Cucurbita pepo,Plant,Cucurbita pepo (Zucchini),http://cucurbitgenomics.org/organism/14,10.1111/pbi.12860
-Cyanidioschyzon merolae,Plant,Red algae; ASM9120v1,http://ensembl.gramene.org/Cyanidioschyzon_merolae/Info/Index,10.1186/1741-7007-5-28
-Daucus carota,Plant,Carrot; DH1,https://phytozome.jgi.doe.gov/pz/portal.html#!info?alias=Org_Dcarota_er,10.1038/ng.3565
-Dichanthelium oligosanthes,Plant,GCA_001633215.2_ASM163321v2,ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/001/633/215/GCA_001633215.2_ASM163321v2,10.1186/s13059-016-1080-3
-Dioscorea rotundata,Plant,White Guinea yam; TDr96_F1_Pseudo_Chromosome_v1.0,http://ensembl.gramene.org/Dioscorea_rotundata/Info/Index,10.1186/s12915-017-0419-x
-Elaeis guineensis,Plant,African oil palm; EG5,https://bigd.big.ac.cn/gwh/assembly/0e7c2fb2-37d2-420f-b08b-55d8c75e8df5/show,10.1038/nature12309
-Eucalyptus grandis,Plant,,ftp://ftp.plantgenie.org/Data/EucGenIE/Eucalyptus_grandis/v2.0/,10.1038/nature13308
-Eucommia ulmoides,Plant,Hardy rubber tree; hardy_rubberv0,https://bigd.big.ac.cn/gwh/Assembly/13/show,10.1016/j.molp.2017.11.014
-Fragaria iinumae,Plant,,https://www.rosaceae.org/species/fragaria_iinumae/genome_v1.0,10.1093/dnares/dst049
-Fragaria vesca,Plant,Woodland strawberry,https://www.rosaceae.org/species/fragaria_vesca/genome_v4.0.a1,10.1093/gigascience/gix124
-Fragaria x ananassa,Plant,,https://www.rosaceae.org/species/fragaria_x_ananassa/genome_v1.0.a1,10.1038/s41588-019-0356-4
-Fragaria nipponica,Plant,,https://www.rosaceae.org/node/4230473,10.1093/dnares/dst049
-Fragaria nubicola,Plant,,https://www.rosaceae.org/node/4230473,10.1093/dnares/dst049
-Fragaria orientalis,Plant,,https://www.rosaceae.org/node/4230473,10.1093/dnares/dst049
-Galdieria sulphuraria,Plant,Red algae; ASM34128v1,http://ensembl.gramene.org/Galdieria_sulphuraria/Info/Index,10.1126/science.1231707
-Gastrodia elata,Plant,,https://bigd.big.ac.cn/gwh/Assembly/129/show,10.1038/s41467-018-03423-5
-Glycine max,Plant,Soybean; Glycine_max_v2.1,http://ensembl.gramene.org/Glycine_max/Info/Index,10.1038/nature08670
-Glycine max,Plant,Soybean; Gmax_ZH13_v2.0,https://bigd.big.ac.cn/gwh/Assembly/652/show,10.1007/s11427-019-9822-2
-Helianthus annuus,Plant,Sunflower; HanXRQr1.0,http://ensembl.gramene.org/Helianthus_annuus/Info/Index,10.1038/nature22380
-Klebsormidium flaccidum,Plant,,http://www.plantmorphogenesis.bio.titech.ac.jp/~algae_genome_project/klebsormidium/index.html,10.1038/ncomms4978
-Leersia perrieri,Plant,Lperr_V1.4,http://ensembl.gramene.org/Leersia_perrieri/Info/Index,10.1038/s41588-018-0040-0
-Lupinus angustifolius,Plant,LupAngTanjil_v1.0,http://ensembl.gramene.org/Lupinus_angustifolius/Info/Index,10.1111/pbi.12615
-Malus x domestica,Plant,HFTH1,https://www.rosaceae.org/species/malus_x_domestica_HFTH1/genome_v1.0,10.1038/s41467-019-09518-x
-Malus x domestica,Plant,GDDH13,https://www.rosaceae.org/species/malus/malus_x_domestica/genome_GDDH13_v1.1,10.1038/ng.3886
-Manihot esculenta,Plant,Cassava; Manihot_esculenta_v6,http://ensembl.gramene.org/Manihot_esculenta/Info/Index,10.1007/s12042-011-9088-z
-Medicago truncatula,Plant,A17,https://medicago.toulouse.inra.fr/MtrunA17r5.0-ANR/,10.1038/s41477-018-0286-7
-Musa acuminata,Plant,Banksii,https://banana-genome-hub.southgreen.fr/organism/Musa/acuminata-ssp.-banksii,10.1093/gbe/evy227
-Musa acuminata,Plant,Calcutta 4,https://banana-genome-hub.southgreen.fr/organism/Musa/acuminata-ssp.-burmannica,10.1093/gbe/evy227
-Musa acuminata,Plant,Musa; DH Pahang,https://banana-genome-hub.southgreen.fr/organism/Musa/acuminata,10.1186/s12864-016-2579-4
-Musa acuminata,Plant,Maia oa; Zebrina,https://banana-genome-hub.southgreen.fr/organism/Musa/acuminata-ssp.-zebrina,10.1093/gbe/evy227
-Musa balbisiana,Plant,PKW,http://banana-genome-hub.southgreen.fr/organism/Musa/balbisiana,10.1186/1471-2164-14-683
-Musa itinerans,Plant,Yunnan banana,https://banana-genome-hub.southgreen.fr/organism/Musa/Itinerans,10.1038/srep31586
-Musa schizocarpa,Plant,,https://banana-genome-hub.southgreen.fr/organism/Musa/schizocarpa,10.1038/s41477-018-0289-4
-Nicotiana attenuata,Plant,NIATTr2,http://ensembl.gramene.org/Nicotiana_attenuata/Info/Index,10.1073/pnas.1700073114
-Nymphaea colorata,Plant,Water lilies,https://bigd.big.ac.cn/gwh/Assembly/651/show,10.1038/hortres.2017.51
-Olea europaea,Plant,Mediterranean olive tree; OE6,http://denovo.cnag.cat/olive,10.1186/s13742-016-0134-5
-Oryza barthii,Plant,African wild rice; O.barthii_v1,http://ensembl.gramene.org/Oryza_barthii/Info/Index,10.1038/s41588-018-0040-0
-Oryza brachyantha,Plant,Wild rice; Oryza_brachyantha.v1.4b,http://ensembl.gramene.org/Oryza_brachyantha/Info/Index,10.1038/ncomms2596
-Oryza glaberrima,Plant,African cultivated rice; Oryza_glaberrima_V1,http://ensembl.gramene.org/Oryza_glaberrima/Info/Index,10.1038/ng.3044
-Oryza glumaepatula,Plant,Wild rice; Oryza_glumaepatula_v1.5,http://ensembl.gramene.org/Oryza_glumipatula/Info/Index,10.1038/s41588-018-0040-0
-Oryza granulata,Plant,Wild rice,https://bigd.big.ac.cn/gwh/Assembly/116/show,10.1038/s42003-018-0089-4
-Oryza longistaminata,Plant,Wild rice,http://www.olinfres.nig.ac.jp/,10.1038/s42003-018-0171-y
-Oryza meridionalis,Plant,Wild rice; Oryza_meridionalis_v1.3,http://ensembl.gramene.org/Oryza_meridionalis/Info/Index,10.1038/s41588-018-0040-0
-Oryza nivara,Plant,Wild rice; Oryza_nivara_v1.0,http://ensembl.gramene.org/Oryza_nivara/Info/Index,10.1038/s41588-018-0040-0
-Oryza punctata,Plant,African wild rice; Oryza_punctata_v1.2,http://ensembl.gramene.org/Oryza_punctata/Info/Index,10.1038/ng.3044
-Oryza rufipogon,Plant,Wild rice; OR_W1943,http://ensembl.gramene.org/Oryza_rufipogon/Info/Index,10.1038/s41588-018-0040-0
-Oryza sativa,Plant,Rice; 93-11,https://www.ncbi.nlm.nih.gov/assembly/GCA_003865215.1,10.1016/j.molp.2018.11.005
-Oryza sativa,Plant,Rice; Zhenshan 97,http://rice.hzau.edu.cn/cgi-bin/rice2/download_ext,10.1073/pnas.1611012113
-Oryza sativa,Plant,Rice; Minghui 63,http://rice.hzau.edu.cn/cgi-bin/rice2/download_ext,10.1073/pnas.1611012113
-Oryza sativa,Plant,Rice; Nipponbare,http://rice.plantbiology.msu.edu/,10.1186/1939-8433-6-4
-Oryza sativa,Plant,Rice; R498,http://www.mbkbase.org/R498/,10.1038/ncomms15324
-Oryza sativa,Plant,Rice; ZH11,http://www.mbkbase.org/ZH11/,
-Oryza sativa,Plant,Rice; PA64s,http://rice.genomics.org.cn/rice/index2.jsp,10.1073/pnas.1610115113
-Oryza sativa,Plant,Rice; IR8,http://datacommons.cyverse.org/browse/iplant/home/shared/commons_repo/curated/IOMAP_Genomes_Data_2017,10.1038/s41588-018-0040-0
-Oryza sativa,Plant,Rice; IR64,http://schatzlab.cshl.edu/data/rice/,10.1186/s13059-014-0506-z
-Oryza sativa,Plant,Rice; N 22,http://datacommons.cyverse.org/browse/iplant/home/shared/commons_repo/curated/IOMAP_Genomes_Data_2017,10.1038/s41588-018-0040-0
-Oryza sativa,Plant,Rice; DJ123,http://schatzlab.cshl.edu/data/rice/,10.1186/s13059-014-0506-z
-Ostreococcus lucimarinus,Plant,ASM9206v1,http://ensembl.gramene.org/Ostreococcus_lucimarinus/Info/Index,10.1073/pnas.0611046104
-Panicum hallii,Plant,PHallii_v3.1,http://ensembl.gramene.org/Panicum_hallii_fil2/Info/Index,10.1038/s41467-018-07669-x
-Panicum hallii,Plant,PhalliiHAL_v2.1,http://ensembl.gramene.org/Panicum_hallii_hal2/Info/Index,10.1038/s41467-018-07669-x
-Panicum miliaceum,Plant,Broomcorn millet; Longmi4_V1,https://bigd.big.ac.cn/gwh/Assembly/131/show,10.1038/s41467-018-07876-6
-Papaver somniferum,Plant,Opium poppy (HN1),https://bigd.big.ac.cn/gwh/Assembly/139/show,10.1126/science.aat4096
-Petunia axillaris,Plant,,https://solgenomics.net/organism/Petunia_axillaris/genome,10.1038/NPLANTS.2016.74
-Petunia inflata,Plant,,https://solgenomics.net/organism/Petunia_inflata/genome,10.1038/NPLANTS.2016.74
-Phaseolus vulgaris,Plant,BAT93,https://denovo.cnag.cat/bean,10.1186/s13059-016-0883-6
-Phaseolus vulgaris,Plant,PhaVulg1_0,http://ensembl.gramene.org/Phaseolus_vulgaris/Info/Index,10.1038/ng.3008
-Physcomitrella patens,Plant,Phypa_V3,http://ensembl.gramene.org/Physcomitrella_patens/Info/Index,10.1111/tpj.13801
-Pistacia vera,Plant,Pistachio; Pistacia_version2,https://bigd.big.ac.cn/gwh/Assembly/502/show,10.1186/s13059-019-1686-3
-Pisum sativum,Plant,Pea,https://urgi.versailles.inra.fr/download/pea/,10.1038/s41588-019-0480-1
-Populus alba,Plant,,https://bigd.big.ac.cn/gwh/Assembly/120/show,10.1111/pbi.12989
-Populus trichocarpa,Plant,Poplar; Pop_tri_v3,http://ensembl.gramene.org/Populus_trichocarpa/Info/Index,10.1126/science.1128691
-Prunus avium,Plant,,https://www.rosaceae.org/species/prunus_avium/genome_v1.0.a1,10.1093/dnares/dsx020
-Prunus domestica,Plant,,https://www.rosaceae.org/species/prunus_domestica/genome_v1.0.a1,10.1038/s41438-018-0090-6
-Prunus dulcis,Plant,Lauranne,https://www.rosaceae.org/species/prunus/prunus_dulsis/lauranne/genome_v1.0,10.1126/science.aav8197
-Prunus dulcis,Plant,Texas,https://www.rosaceae.org/analysis/295,
-Prunus persica,Plant,Peach,https://www.rosaceae.org/species/prunus_persica/genome_v2.0.a1,10.1038/ng.2586
-Prunus yedoensis,Plant,,https://www.rosaceae.org/analysis/289,10.1186/s13059-018-1497-y
-Pyrus betulifolia,Plant,Wild pear; Shanxi Duli,https://bigd.big.ac.cn/gwh/Assembly/647/show,10.1111/pbi.13226
-Pyrus bretschneideri,Plant,DangshanSuli,https://www.rosaceae.org/species/pyrus_bretschneideri/genome_v1.1,10.1186/s12864-018-5224-6
-Pyrus communis,Plant,Bartlett DH,https://www.rosaceae.org/species/pyrus/pyrus_communis/genome_v2.0,10.1101/651778
-Raphanus raphanistrum,Plant,Wild radish,http://radish.plantbiology.msu.edu/index.php/Genome_sequence/analysis,10.1105/tpc.114.124297
-Raphanus sativus,Plant,Radish,http://radish.kazusa.or.jp/,10.1093/dnares/dsu014
-Rosa chinensis,Plant,Old Blush,https://www.rosaceae.org/analysis/282,10.1038/s41588-018-0110-3
-Rosa multiflora,Plant,,https://www.rosaceae.org/analysis/266,10.1093/dnares/dsx042
-Rubus occidentalis,Plant,,https://www.rosaceae.org/analysis/268,10.1093/gigascience/giy094
-Selaginella moellendorffii,Plant,v1.0,http://ensembl.gramene.org/Selaginella_moellendorffii/Info/Index,10.1126/science.1203810
-Setaria italica,Plant,Foxtail millet; Setaria_italica_v2.0,http://ensembl.gramene.org/Setaria_italica/Info/Index,10.1038/nbt.2196
-Solanum commersonii,Plant,,https://www.ncbi.nlm.nih.gov/assembly/GCA_001239805.1/,10.1105/tpc.114.135954
-Solanum lycopersicum,Plant,Tomato; SL3.0,http://ensembl.gramene.org/Solanum_lycopersicum/Info/Index,10.1038/nature11119
-Solanum tuberosum,Plant,Potato; DM1-3 (v4.04),http://solanaceae.plantbiology.msu.edu/pgsc_download.shtml,10.1105/tpc.15.00538
-Sorghum bicolor,Plant,Sorghum_bicolor_NCBIv3,http://ensembl.gramene.org/Sorghum_bicolor/Info/Index,10.1111/tpj.13781
-Taraxacum kok-saghyz,Plant,,https://bigd.big.ac.cn/gwh/Assembly/1/show,10.1093/nsr/nwx101
-Thellungiella salsuginea,Plant,http://brassicadb.org/brad/index.php,http://brassicadb.org/brad/datasets/pub/BrassicaceaeGenome/Thellungiella_salsuginea/,10.1073/pnas.1209954109
-Theobroma cacao,Plant,Cacao; Matina1-6,http://www.cacaogenomedb.org/,10.1186/gb-2013-14-6-r53
-Theobroma cacao,Plant,Cacao; B97-61/B2,https://cocoa-genome-hub.southgreen.fr/download,10.1038/ng.736
-Trifolium pratense,Plant,Red clover; Trpr,http://ensembl.gramene.org/Trifolium_pratense/Info/Index,10.1038/srep17394
-Vernicia fordii,Plant,Tung Tree,https://bigd.big.ac.cn/gwh/Assembly/124/show,10.1093/pcp/pcy117
-Vigna angularis,Plant,Adzuki bean; Vigan1.1,http://ensembl.gramene.org/Vigna_angularis/Info/Index,10.1038/srep08069
-Vigna angularis,Plant,Adzuki bean; Jingnong 6,https://www.ncbi.nlm.nih.gov/assembly/GCF_001190045.1/,10.1073/pnas.1420949112
-Vigna radiata,Plant,Mungbean; Vradiata_ver6,http://ensembl.gramene.org/Vigna_radiata/Info/Index,10.1038/ncomms6443
-Vitis vinifera,Plant,Grape; goldenpath,http://www.genoscope.cns.fr/externe/Download/Projets/Projet_ML/data/12X/,10.1038/nature06148
-Volvox carteri,Plant,,https://phytozome.jgi.doe.gov/pz/portal.html#!bulk?org=Org_Vcarteri,10.1126/science.1188800
-Zea mays,Plant,Maize; SK,http://mmgdb.hzau.edu.cn/cgi-bin/maize/download_ext,10.1038/s41588-019-0427-6
-Zea mays,Plant,Maize; B73_RefGen_v4,http://ensembl.gramene.org/Zea_mays/Info/Index,10.1038/nature22971
-Zea mays,Plant,Maize; Mo17,https://ftp.maizegdb.org/MaizeGDB/FTP/Zm-Mo17-REFERENCE-CAU-1.0/,10.1038/s41588-018-0182-0
-Zea mays,Plant,Maize; W22,https://ftp.maizegdb.org/MaizeGDB/FTP/Zm-W22-REFERENCE-NRGENE-2.0/,10.1038/s41588-018-0158-0
-Zea mays,Plant,Maize; CML247,https://ftp.maizegdb.org/MaizeGDB/FTP/Zm-CML247-REFERENCE-PANZEA-1.1/,10.1038/ncomms7914
-Zea mays,Plant,Maize; HuangZaoSi,https://bigd.big.ac.cn/gwh/Assembly/259/show,10.1016/j.molp.2019.02.009
-Oreochromis_niloticus,Vertebrate,Orenil1.0,http://asia.ensembl.org/Oreochromis_niloticus/Info/Index,
-Mandrillus_leucophaeus,Vertebrate,Mleu.le_1.0,http://asia.ensembl.org/Mandrillus_leucophaeus/Info/Index,
-Latimeria_chalumnae,Vertebrate,LatCha1,http://asia.ensembl.org/Latimeria_chalumnae/Info/Index,10.1038/nature12027
-Meleagris_gallopavo,Vertebrate,Turkey_2.01,http://asia.ensembl.org/Meleagris_gallopavo/Info/Index,10.3389/fnins.2015.00361
-Melopsittacus_undulatus,Vertebrate,Melopsittacus_undulatus_6.3,http://asia.ensembl.org/Melopsittacus_undulatus/Info/Index,
-Vombatus_ursinus,Vertebrate,bare-nosed_wombat_genome_assembly,http://asia.ensembl.org/Vombatus_ursinus/Info/Index,
-Chinchilla_lanigera,Vertebrate,ChiLan1.0,http://asia.ensembl.org/Chinchilla_lanigera/Info/Index,
-Esox_lucius,Vertebrate,Eluc_V3,http://asia.ensembl.org/Esox_lucius/Info/Index,
-Erpetoichthys_calabaricus,Vertebrate,fErpCal1.1,http://asia.ensembl.org/Erpetoichthys_calabaricus/Info/Index,
-Anolis_carolinensis,Vertebrate,AnoCar2.0,http://asia.ensembl.org/Anolis_carolinensis/Info/Index,
-Xiphophorus_maculatus,Vertebrate,X_maculatus-5.0-male,http://asia.ensembl.org/Xiphophorus_maculatus/Info/Index,10.1038/ng.2604
-Mus_musculus_pwkphj,Vertebrate,PWK_PhJ_v1,http://asia.ensembl.org/Mus_musculus_pwkphj/Info/Index,
-Mus_musculus_dba2j,Vertebrate,DBA_2J_v1,http://asia.ensembl.org/Mus_musculus_dba2j/Info/Index,
-Meriones_unguiculatus,Vertebrate,MunDraft-v1.0,http://asia.ensembl.org/Meriones_unguiculatus/Info/Index,
-Oryzias_latipes_hsok,Vertebrate,ASM223469v1,http://asia.ensembl.org/Oryzias_latipes_hsok/Info/Index,10.1038/s41467-017-01982-7
-Sphenodon_punctatus,Vertebrate,ASM311381v1,http://asia.ensembl.org/Sphenodon_punctatus/Info/Index,
-Microcebus_murinus,Vertebrate,Mmur_3.0,http://asia.ensembl.org/Microcebus_murinus/Info/Index,
-Anas_platyrhynchos_platyrhynchos,Vertebrate,CAU_duck1.0,http://asia.ensembl.org/Anas_platyrhynchos_platyrhynchos/Info/Index,
-Junco_hyemalis,Vertebrate,ASM382977v1,http://asia.ensembl.org/Junco_hyemalis/Info/Index,
-Apteryx_owenii,Vertebrate,aptOwe1,http://asia.ensembl.org/Apteryx_owenii/Info/Index,
-Hucho_hucho,Vertebrate,ASM331708v1,http://asia.ensembl.org/Hucho_hucho/Info/Index,
-Mus_spretus,Vertebrate,SPRET_EiJ_v1,http://asia.ensembl.org/Mus_spretus/Info/Index,10.1038/s41588-018-0223-8
-Ciona_savignyi,Vertebrate,CSAV2.0,http://asia.ensembl.org/Ciona_savignyi/Info/Index,
-Cynoglossus_semilaevis,Vertebrate,Cse_v1.0,http://asia.ensembl.org/Cynoglossus_semilaevis/Info/Index,10.1038/ng.2890
-Cercocebus_atys,Vertebrate,Caty_1.0,http://asia.ensembl.org/Cercocebus_atys/Info/Index,10.1038/nature25140
-Ailuropoda_melanoleuca,Vertebrate,ailMel1,http://asia.ensembl.org/Ailuropoda_melanoleuca/Info/Index,10.1038/nature08696
-Heterocephalus_glaber_female,Vertebrate,HetGla_female_1.0,http://asia.ensembl.org/Heterocephalus_glaber_female/Info/Index,10.1093/bioinformatics/btu579
-Equus_asinus_asinus,Vertebrate,ASM303372v1,http://asia.ensembl.org/Equus_asinus_asinus/Info/Index,10.1038/nature12323
-Loxodonta_africana,Vertebrate,loxAfr3,http://asia.ensembl.org/Loxodonta_africana/Info/Index,10.1186/2047-217X-3-12
-Aotus_nancymaae,Vertebrate,Anan_2.0,http://asia.ensembl.org/Aotus_nancymaae/Info/Index,10.1002/ajpa.21567
-Macaca_fascicularis,Vertebrate,Macaca_fascicularis_5.0,http://asia.ensembl.org/Macaca_fascicularis/Info/Index,
-Sarcophilus_harrisii,Vertebrate,DEVIL7.0,http://asia.ensembl.org/Sarcophilus_harrisii/Info/Index,10.1016/j.cell.2011.11.065
-Dasypus_novemcinctus,Vertebrate,Dasnov3.0,http://asia.ensembl.org/Dasypus_novemcinctus/Info/Index,
-Maylandia_zebra,Vertebrate,M_zebra_UMD2a,http://asia.ensembl.org/Maylandia_zebra/Info/Index,10.1038/nature13726
-Ursus_maritimus,Vertebrate,UrsMar_1.0,http://asia.ensembl.org/Ursus_maritimus/Info/Index,10.1016/j.cell.2014.03.054
-Fundulus_heteroclitus,Vertebrate,Fundulus_heteroclitus-3.0.2,http://asia.ensembl.org/Fundulus_heteroclitus/Info/Index,
-Pygocentrus_nattereri,Vertebrate,Pygocentrus_nattereri-1.0.2,http://asia.ensembl.org/Pygocentrus_nattereri/Info/Index,
-Numida_meleagris,Vertebrate,NumMel1.0,http://asia.ensembl.org/Numida_meleagris/Info/Index,
-Mus_musculus_lpj,Vertebrate,LP_J_v1,http://asia.ensembl.org/Mus_musculus_lpj/Info/Index,
-Haplochromis_burtoni,Vertebrate,AstBur1.0,http://asia.ensembl.org/Haplochromis_burtoni/Info/Index,
-Homo_sapiens,Vertebrate,GRCh38,http://asia.ensembl.org/Homo_sapiens/Info/Index,
-Cricetulus_griseus_crigri,Vertebrate,CriGri_1.0,http://asia.ensembl.org/Cricetulus_griseus_crigri/Info/Index,10.1080/10425170601101287
-Canis_familiaris,Vertebrate,CanFam3.1,http://asia.ensembl.org/Canis_familiaris/Info/Index,10.1038/nature04338
-Procavia_capensis,Vertebrate,proCap1,http://asia.ensembl.org/Procavia_capensis/Info/Index,
-Macaca_nemestrina,Vertebrate,Mnem_1.0,http://asia.ensembl.org/Macaca_nemestrina/Info/Index,
-Amphiprion_ocellaris,Vertebrate,AmpOce1.0,http://asia.ensembl.org/Amphiprion_ocellaris/Info/Index,10.1371/journal.pone.0228562
-Monopterus_albus,Vertebrate,M_albus_1.0,http://asia.ensembl.org/Monopterus_albus/Info/Index,10.1093/gigascience/giy046
-Tursiops_truncatus,Vertebrate,turTru1,http://asia.ensembl.org/Tursiops_truncatus/Info/Index,
-Poecilia_mexicana,Vertebrate,P_mexicana-1.0,http://asia.ensembl.org/Poecilia_mexicana/Info/Index,
-Labrus_bergylta,Vertebrate,BallGen_V1,http://asia.ensembl.org/Labrus_bergylta/Info/Index,
-Canis_lupus_dingo,Vertebrate,ASM325472v1,http://asia.ensembl.org/Canis_lupus_dingo/Info/Index,
-Acanthochromis_polyacanthus,Vertebrate,ASM210954v1,http://asia.ensembl.org/Acanthochromis_polyacanthus/Info/Index,
-Astatotilapia_calliptera,Vertebrate,fAstCal1.2,http://asia.ensembl.org/Astatotilapia_calliptera/Info/Index,
-Mus_spicilegus,Vertebrate,MUSP714,http://asia.ensembl.org/Mus_spicilegus/Info/Index,10.1534/g3.118.200318
-Dipodomys_ordii,Vertebrate,Dord_2.0,http://asia.ensembl.org/Dipodomys_ordii/Info/Index,10.1146/annurev-animal-090414-014900
-Nannospalax_galili,Vertebrate,S.galili_v1.0,http://asia.ensembl.org/Nannospalax_galili/Info/Index,10.1146/annurev-animal-090414-014900
-Mastacembelus_armatus,Vertebrate,fMasArm1.1,http://asia.ensembl.org/Mastacembelus_armatus/Info/Index,
-Mus_caroli,Vertebrate,CAROLI_EIJ_v1.1,http://asia.ensembl.org/Mus_caroli/Info/Index,
-Mus_musculus_casteij,Vertebrate,CAST_EiJ_v1,http://asia.ensembl.org/Mus_musculus_casteij/Info/Index,
-Piliocolobus_tephrosceles,Vertebrate,ASM277652v2,http://asia.ensembl.org/Piliocolobus_tephrosceles/Info/Index,
-Oryctolagus_cuniculus,Vertebrate,OryCun2.0,http://asia.ensembl.org/Oryctolagus_cuniculus/Info/Index,10.1006/geno.1998.5282
-Jaculus_jaculus,Vertebrate,JacJac1.0,http://asia.ensembl.org/Jaculus_jaculus/Info/Index,
-Lepisosteus_oculatus,Vertebrate,LepOcu1,http://asia.ensembl.org/Lepisosteus_oculatus/Info/Index,
-Paramormyrops_kingsleyae,Vertebrate,PKINGS_0.1,http://asia.ensembl.org/Paramormyrops_kingsleyae/Info/Index,10.1093/gbe/evx265
-Bison_bison_bison,Vertebrate,Bison_UMD1.0,http://asia.ensembl.org/Bison_bison_bison/Info/Index,10.1016/j.cub.2008.01.019
-Petromyzon_marinus,Vertebrate,Pmarinus_7.0,http://asia.ensembl.org/Petromyzon_marinus/Info/Index,
-Macaca_mulatta,Vertebrate,Mmul_10,http://asia.ensembl.org/Macaca_mulatta/Info/Index,
-Cebus_capucinus,Vertebrate,Cebus_imitator-1.0,http://asia.ensembl.org/Cebus_capucinus/Info/Index,
-Ictalurus_punctatus,Vertebrate,IpCoco_1.2,http://asia.ensembl.org/Ictalurus_punctatus/Info/Index,
-Vicugna_pacos,Vertebrate,vicPac1,http://asia.ensembl.org/Vicugna_pacos/Info/Index,
-Gasterosteus_aculeatus,Vertebrate,BROADS1,http://asia.ensembl.org/Gasterosteus_aculeatus/Info/Index,
-Coturnix_japonica,Vertebrate,Coturnix_japonica_2.0,http://asia.ensembl.org/Coturnix_japonica/Info/Index,
-Gouania_willdenowi,Vertebrate,fGouWil2.1,http://asia.ensembl.org/Gouania_willdenowi/Info/Index,
-Panthera_pardus,Vertebrate,PanPar1.0,http://asia.ensembl.org/Panthera_pardus/Info/Index,
-Marmota_marmota_marmota,Vertebrate,marMar2.1,http://asia.ensembl.org/Marmota_marmota_marmota/Info/Index,
-Mus_musculus_fvbnj,Vertebrate,FVB_NJ_v1,http://asia.ensembl.org/Mus_musculus_fvbnj/Info/Index,
-Propithecus_coquereli,Vertebrate,Pcoq_1.0,http://asia.ensembl.org/Propithecus_coquereli/Info/Index,
-Mus_pahari,Vertebrate,PAHARI_EIJ_v1.1,http://asia.ensembl.org/Mus_pahari/Info/Index,
-Astyanax_mexicanus,Vertebrate,Astyanax_mexicanus-2.0,http://asia.ensembl.org/Astyanax_mexicanus/Info/Index,10.1038/ncomms6307
-Cavia_aperea,Vertebrate,CavAp1.0,http://asia.ensembl.org/Cavia_aperea/Info/Index,
-Peromyscus_maniculatus_bairdii,Vertebrate,HU_Pman_2.1,http://asia.ensembl.org/Peromyscus_maniculatus_bairdii/Info/Index,
-Otolemur_garnettii,Vertebrate,OtoGar3,http://asia.ensembl.org/Otolemur_garnettii/Info/Index,10.1146/annurev-animal-090414-014900
-Vulpes_vulpes,Vertebrate,VulVul2.2,http://asia.ensembl.org/Vulpes_vulpes/Info/Index,10.1038/s41559-018-0611-6
-Cottoperca_gobio,Vertebrate,fCotGob3.1,http://asia.ensembl.org/Cottoperca_gobio/Info/Index,
-Mus_musculus_akrj,Vertebrate,AKR_J_v1,http://asia.ensembl.org/Mus_musculus_akrj/Info/Index,
-Chelonoidis_abingdonii,Vertebrate,ASM359739v1,http://asia.ensembl.org/Chelonoidis_abingdonii/Info/Index,10.1038/s41559-018-0733-x
-Colobus_angolensis_palliatus,Vertebrate,Cang.pa_1.0,http://asia.ensembl.org/Colobus_angolensis_palliatus/Info/Index,
-Mus_musculus_aj,Vertebrate,A_J_v1,http://asia.ensembl.org/Mus_musculus_aj/Info/Index,
-Cyprinodon_variegatus,Vertebrate,C_variegatus-1.0,http://asia.ensembl.org/Cyprinodon_variegatus/Info/Index,
-Ovis_aries,Vertebrate,Oar_v3.1,http://asia.ensembl.org/Ovis_aries/Info/Index,
-Pogona_vitticeps,Vertebrate,pvi1.1,http://asia.ensembl.org/Pogona_vitticeps/Info/Index,10.1186/s13742-015-0085-2
-Tupaia_belangeri,Vertebrate,TREESHREW; tupBel1,http://asia.ensembl.org/Tupaia_belangeri/Info/Index,
-Periophthalmus_magnuspinnatus,Vertebrate,PM.fa,http://asia.ensembl.org/Periophthalmus_magnuspinnatus/Info/Index,10.1146/annurev-animal-090414-014900
-Gadus_morhua,Vertebrate,gadMor1,http://asia.ensembl.org/Gadus_morhua/Info/Index,
-Astyanax_mexicanus_pachon,Vertebrate,Astyanax_mexicanus-1.0.2,http://asia.ensembl.org/Astyanax_mexicanus_pachon/Info/Index,
-Oryzias_latipes_hni,Vertebrate,ASM223471v1,http://asia.ensembl.org/Oryzias_latipes_hni/Info/Index,10.1038/s41467-017-01982-7
-Mus_musculus_wsbeij,Vertebrate,WSB_EiJ_v1,http://asia.ensembl.org/Mus_musculus_wsbeij/Info/Index,
-Pelodiscus_sinensis,Vertebrate,PelSin_1.0,http://asia.ensembl.org/Pelodiscus_sinensis/Info/Index,10.1038/ng.2615
-Amphiprion_percula,Vertebrate,Nemo_v1,http://asia.ensembl.org/Amphiprion_percula/Info/Index,10.1371/journal.pone.0228562
-Calidris_pugnax,Vertebrate,ASM143184v1,http://asia.ensembl.org/Calidris_pugnax/Info/Index,
-Mus_musculus_129s1svimj,Vertebrate,129S1_SvImJ_v1,http://asia.ensembl.org/Mus_musculus_129s1svimj/Info/Index,
-Castor_canadensis,Vertebrate,C.can_genome_v1.0,http://asia.ensembl.org/Castor_canadensis/Info/Index,10.1534/g3.116.038208
-Cricetulus_griseus_chok1gshd,Vertebrate,CHOK1GS_HDv1,http://asia.ensembl.org/Cricetulus_griseus_chok1gshd/Info/Index,
-Panthera_tigris_altaica,Vertebrate,PanTig1.0,http://asia.ensembl.org/Panthera_tigris_altaica/Info/Index,10.1038/ncomms3433
-Cyanistes_caeruleus,Vertebrate,cyaCae2,http://asia.ensembl.org/Cyanistes_caeruleus/Info/Index,10.1111/1755-0998.12450
-Chlorocebus_sabaeus,Vertebrate,ChlSab1.1,http://asia.ensembl.org/Chlorocebus_sabaeus/Info/Index,10.1371/journal.pone.0085417
-Bos_taurus_hybrid,Vertebrate,UOA_Angus_1,http://asia.ensembl.org/Bos_taurus_hybrid/Info/Index,10.1038/nbt.4277
-Monodelphis_domestica,Vertebrate,ASM229v1,http://asia.ensembl.org/Monodelphis_domestica/Info/Index,10.1038/nature05805
-Gambusia_affinis,Vertebrate,ASM309773v1,http://asia.ensembl.org/Gambusia_affinis/Info/Index,
-Bos_indicus_hybrid,Vertebrate,UOA_Brahman_1,http://asia.ensembl.org/Bos_indicus_hybrid/Info/Index,10.1038/nbt.4277
-Poecilia_reticulata,Vertebrate,Guppy_female_1.0_MT,http://asia.ensembl.org/Poecilia_reticulata/Info/Index,10.1111/mec.13022
-Rhinopithecus_bieti,Vertebrate,ASM169854v1,http://asia.ensembl.org/Rhinopithecus_bieti/Info/Index,
-Gorilla_gorilla,Vertebrate,gorGor4,http://asia.ensembl.org/Gorilla_gorilla/Info/Index,
-Sorex_araneus,Vertebrate,COMMON_SHREW1,http://asia.ensembl.org/Sorex_araneus/Info/Index,
-Ochotona_princeps,Vertebrate,OchPri2.0-Ens,http://asia.ensembl.org/Ochotona_princeps/Info/Index,
-Theropithecus_gelada,Vertebrate,Tgel_1.0,http://asia.ensembl.org/Theropithecus_gelada/Info/Index,
-Mus_musculus_balbcj,Vertebrate,BALB_cJ_v1,http://asia.ensembl.org/Mus_musculus_balbcj/Info/Index,
-Manacus_vitellinus,Vertebrate,ASM171598v2,http://asia.ensembl.org/Manacus_vitellinus/Info/Index,
-Phascolarctos_cinereus,Vertebrate,phaCin_unsw_v4.1,http://asia.ensembl.org/Phascolarctos_cinereus/Info/Index,
-Cavia_porcellus,Vertebrate,Cavpor3.0,http://asia.ensembl.org/Cavia_porcellus/Info/Index,10.1038/381597a0
-Kryptolebias_marmoratus,Vertebrate,ASM164957v1,http://asia.ensembl.org/Kryptolebias_marmoratus/Info/Index,
-Ictidomys_tridecemlineatus,Vertebrate,SpeTri2.0,http://asia.ensembl.org/Ictidomys_tridecemlineatus/Info/Index,
-Lonchura_striata_domestica,Vertebrate,LonStrDom1,http://asia.ensembl.org/Lonchura_striata_domestica/Info/Index,10.1093/gigascience/giy008
-Octodon_degus,Vertebrate,OctDeg1.0,http://asia.ensembl.org/Octodon_degus/Info/Index,
-Mustela_putorius_furo,Vertebrate,MusPutFur1.0,http://asia.ensembl.org/Mustela_putorius_furo/Info/Index,10.1038/nbt.3079
-Notamacropus_eugenii,Vertebrate,Meug_1.0,http://asia.ensembl.org/Notamacropus_eugenii/Info/Index,
-Calidris_pygmaea,Vertebrate,ASM369795v1,http://asia.ensembl.org/Calidris_pygmaea/Info/Index,
-Seriola_lalandi_dorsalis,Vertebrate,Sedor1,http://asia.ensembl.org/Seriola_lalandi_dorsalis/Info/Index,10.1186/s12864-017-4403-1
-Mola_mola,Vertebrate,ASM169857v1,http://asia.ensembl.org/Mola_mola/Info/Index,
-Pongo_abelii,Vertebrate,PPYG2,http://asia.ensembl.org/Pongo_abelii/Info/Index,
-Poecilia_latipinna,Vertebrate,P_latipinna-1.0,http://asia.ensembl.org/Poecilia_latipinna/Info/Index,10.1038/s41559-018-0473-y
-Pteropus_vampyrus,Vertebrate,pteVam1,http://asia.ensembl.org/Pteropus_vampyrus/Info/Index,
-Erinaceus_europaeus,Vertebrate,eriEur1,http://asia.ensembl.org/Erinaceus_europaeus/Info/Index,
-Ciona_intestinalis,Vertebrate,KH,http://asia.ensembl.org/Ciona_intestinalis/Info/Index,
-Prolemur_simus,Vertebrate,Prosim_1.0,http://asia.ensembl.org/Prolemur_simus/Info/Index,
-Anabas_testudineus,Vertebrate,fAnaTes1.1,http://asia.ensembl.org/Anabas_testudineus/Info/Index,
-Hippocampus_comes,Vertebrate,H_comes_QL1_v1,http://asia.ensembl.org/Hippocampus_comes/Info/Index,
-Serinus_canaria,Vertebrate,SCA1,http://asia.ensembl.org/Serinus_canaria/Info/Index,10.1186/s13059-014-0578-9
-Apteryx_rowi,Vertebrate,aptRow1,http://asia.ensembl.org/Apteryx_rowi/Info/Index,
-Saimiri_boliviensis_boliviensis,Vertebrate,SaiBol1.0,http://asia.ensembl.org/Saimiri_boliviensis_boliviensis/Info/Index,
-Taeniopygia_guttata,Vertebrate,taeGut3.2.4,http://asia.ensembl.org/Taeniopygia_guttata/Info/Index,
-Heterocephalus_glaber_male,Vertebrate,HetGla_1.0,http://asia.ensembl.org/Heterocephalus_glaber_male/Info/Index,
-Oryzias_melastigma,Vertebrate,Om_v0.7.RACA,http://asia.ensembl.org/Oryzias_melastigma/Info/Index,10.1111/1755-0998.12769
-Fukomys_damarensis,Vertebrate,DMR_v1.0,http://asia.ensembl.org/Fukomys_damarensis/Info/Index,
-Amphilophus_citrinellus,Vertebrate,Midas_v5,http://asia.ensembl.org/Amphilophus_citrinellus/Info/Index,
-Salvator_merianae,Vertebrate,HLtupMer3,http://asia.ensembl.org/Salvator_merianae/Info/Index,10.1093/gigascience/giy141
-Mus_musculus_nzohlltj,Vertebrate,NZO_HlLtJ_v1,http://asia.ensembl.org/Mus_musculus_nzohlltj/Info/Index,
-Urocitellus_parryii,Vertebrate,ASM342692v1,http://asia.ensembl.org/Urocitellus_parryii/Info/Index,
-Apteryx_haastii,Vertebrate,aptHaa1,http://asia.ensembl.org/Apteryx_haastii/Info/Index,
-Betta_splendens,Vertebrate,fBetSpl5.2,http://asia.ensembl.org/Betta_splendens/Info/Index,
-Parus_major,Vertebrate,Parus_major1.1,http://asia.ensembl.org/Parus_major/Info/Index,
-Callithrix_jacchus,Vertebrate,ASM275486v1,http://asia.ensembl.org/Callithrix_jacchus/Info/Index,
-Dromaius_novaehollandiae,Vertebrate,droNov1,http://asia.ensembl.org/Dromaius_novaehollandiae/Info/Index,
-Felis_catus,Vertebrate,Felis_catus_9.0,http://asia.ensembl.org/Felis_catus/Info/Index,10.1101/gr.6380007
-Scleropages_formosus,Vertebrate,ASM162426v1,http://asia.ensembl.org/Scleropages_formosus/Info/Index,
-Nothoprocta_perdicaria,Vertebrate,notPer1,http://asia.ensembl.org/Nothoprocta_perdicaria/Info/Index,
-Mus_musculus_nodshiltj,Vertebrate,NOD_ShiLtJ_v1,http://asia.ensembl.org/Mus_musculus_nodshiltj/Info/Index,
-Xenopus_tropicalis,Vertebrate,Xenopus_tropicalis_v9.1,http://asia.ensembl.org/Xenopus_tropicalis/Info/Index,10.1126/science.1183670
-Notechis_scutatus,Vertebrate,TS10Xv2-PRI,http://asia.ensembl.org/Notechis_scutatus/Info/Index,
-Pan_paniscus,Vertebrate,panpan1.1,http://asia.ensembl.org/Pan_paniscus/Info/Index,10.1038/nature11128
-Ornithorhynchus_anatinus,Vertebrate,OANA5,http://asia.ensembl.org/Ornithorhynchus_anatinus/Info/Index,
-Callorhinchus_milii,Vertebrate,Callorhinchus_milii-6.1.3,http://asia.ensembl.org/Callorhinchus_milii/Info/Index,10.1038/nature12826
-Bos_mutus,Vertebrate,BosGru_v2.0,http://asia.ensembl.org/Bos_mutus/Info/Index,
-Denticeps_clupeoides,Vertebrate,fDenClu1.1,http://asia.ensembl.org/Denticeps_clupeoides/Info/Index,
-Pan_troglodytes,Vertebrate,Pan_tro_3.0,http://asia.ensembl.org/Pan_troglodytes/Info/Index,10.1038/nature04072
-Crocodylus_porosus,Vertebrate,CroPor_comp1,http://asia.ensembl.org/Crocodylus_porosus/Info/Index,10.1093/gbe/evz269
-Mus_musculus_c57bl6nj,Vertebrate,C57BL_6NJ_v1,http://asia.ensembl.org/Mus_musculus_c57bl6nj/Info/Index,
-Bos_taurus,Vertebrate,ARS-UCD1.2,http://asia.ensembl.org/Bos_taurus/Info/Index,
-Mus_musculus_c3hhej,Vertebrate,C3H_HeJ_v1,http://asia.ensembl.org/Mus_musculus_c3hhej/Info/Index,
-Echinops_telfairi,Vertebrate,TENREC,http://asia.ensembl.org/Echinops_telfairi/Info/Index,
-Gallus_gallus,Vertebrate,GRCg6a,http://asia.ensembl.org/Gallus_gallus/Info/Index,10.1038/nature03154
-Spermophilus_dauricus,Vertebrate,ASM240643v1,http://asia.ensembl.org/Spermophilus_dauricus/Info/Index,
-Scophthalmus_maximus,Vertebrate,ASM318616v1,http://asia.ensembl.org/Scophthalmus_maximus/Info/Index,10.1093/dnares/dsw007
-Nomascus_leucogenys,Vertebrate,Nleu_3.0,http://asia.ensembl.org/Nomascus_leucogenys/Info/Index,10.1038/nature13679
-Parambassis_ranga,Vertebrate,fParRan2.1,http://asia.ensembl.org/Parambassis_ranga/Info/Index,
-Rhinopithecus_roxellana,Vertebrate,Rrox_v1,http://asia.ensembl.org/Rhinopithecus_roxellana/Info/Index,10.1038/ng.3137
-Stegastes_partitus,Vertebrate,Stegastes_partitus-1.0.2,http://asia.ensembl.org/Stegastes_partitus/Info/Index,10.1371/journal.pone.0228562
-Capra_hircus,Vertebrate,ARS1,http://asia.ensembl.org/Capra_hircus/Info/Index,
-Equus_caballus,Vertebrate,EquCab3.0,http://asia.ensembl.org/Equus_caballus/Info/Index,
-Microtus_ochrogaster,Vertebrate,MicOch1.0,http://asia.ensembl.org/Microtus_ochrogaster/Info/Index,
-Myotis_lucifugus,Vertebrate,Myoluc2.0,http://asia.ensembl.org/Myotis_lucifugus/Info/Index,
-Gopherus_agassizii,Vertebrate,ASM289641v1,http://asia.ensembl.org/Gopherus_agassizii/Info/Index,10.1371/journal.pone.0177708
-Xiphophorus_couchianus,Vertebrate,Xiphophorus_couchianus-4.0.1,http://asia.ensembl.org/Xiphophorus_couchianus/Info/Index,
-Cricetulus_griseus_picr,Vertebrate,CriGri-PICR,http://asia.ensembl.org/Cricetulus_griseus_picr/Info/Index,10.1002/bit.26722
-Tetraodon_nigroviridis,Vertebrate,TETRAODON8,http://asia.ensembl.org/Tetraodon_nigroviridis/Info/Index,
-Carlito_syrichta,Vertebrate,Tarsius_syrichta-2.0.1,http://asia.ensembl.org/Carlito_syrichta/Info/Index,
-Ficedula_albicollis,Vertebrate,FicAlb_1.4,http://asia.ensembl.org/Ficedula_albicollis/Info/Index,10.1038/nature11584
-Takifugu_rubripes,Vertebrate,FUGU5,http://asia.ensembl.org/Takifugu_rubripes/Info/Index,
-Lates_calcarifer,Vertebrate,ASB_HGAPassembly_v1,http://asia.ensembl.org/Lates_calcarifer/Info/Index,
-Chrysemys_picta_bellii,Vertebrate,Chrysemys_picta_bellii-3.0.3,http://asia.ensembl.org/Chrysemys_picta_bellii/Info/Index,
-Mesocricetus_auratus,Vertebrate,MesAur1.0,http://asia.ensembl.org/Mesocricetus_auratus/Info/Index,
-Electrophorus_electricus,Vertebrate,Ee_SOAP_WITH_SSPACE,http://asia.ensembl.org/Electrophorus_electricus/Info/Index,
-Choloepus_hoffmanni,Vertebrate,choHof1,http://asia.ensembl.org/Choloepus_hoffmanni/Info/Index,
-Mus_musculus_cbaj,Vertebrate,CBA_J_v1,http://asia.ensembl.org/Mus_musculus_cbaj/Info/Index,
-Rattus_norvegicus,Vertebrate,Rnor_6.0,http://asia.ensembl.org/Rattus_norvegicus/Info/Index,10.1038/nature02426
-Larimichthys_crocea,Vertebrate,L_crocea_2.0,http://asia.ensembl.org/Larimichthys_crocea/Info/Index,
-Pundamilia_nyererei,Vertebrate,PunNye1.0,http://asia.ensembl.org/Pundamilia_nyererei/Info/Index,10.1038/nature13726
-Neovison_vison,Vertebrate,NNQGG.v01,http://asia.ensembl.org/Neovison_vison/Info/Index,10.1038/s41598-017-15169-z
-Neolamprologus_brichardi,Vertebrate,NeoBri1.0,http://asia.ensembl.org/Neolamprologus_brichardi/Info/Index,
-Poecilia_formosa,Vertebrate,PoeFor_5.1.2,http://asia.ensembl.org/Poecilia_formosa/Info/Index,10.1038/s41559-018-0473-y
-Seriola_dumerili,Vertebrate,Sdu_1.0,http://asia.ensembl.org/Seriola_dumerili/Info/Index,
-Zonotrichia_albicollis,Vertebrate,Zonotrichia_albicollis-1.0.1,http://asia.ensembl.org/Zonotrichia_albicollis/Info/Index,
-Ursus_americanus,Vertebrate,ASM334442v1,http://asia.ensembl.org/Ursus_americanus/Info/Index,10.1093/dnares/dsy036
-Oryzias_latipes,Vertebrate,ASM223467v1,http://asia.ensembl.org/Oryzias_latipes/Info/Index,
-Papio_anubis,Vertebrate,Panu_3.0,http://asia.ensembl.org/Papio_anubis/Info/Index,
-Anser_brachyrhynchus,Vertebrate,ASM259213v1,http://asia.ensembl.org/Anser_brachyrhynchus/Info/Index,10.1016/j.ygeno.2017.08.008
-Sus_scrofa,Vertebrate,Sscrofa11.1,http://asia.ensembl.org/Sus_scrofa/Info/Index,10.1038/nature11622
-Lepidothrix_coronata,Vertebrate,Lepidothrix_coronata-1.0,http://asia.ensembl.org/Lepidothrix_coronata/Info/Index,
+Species,Division,Assembly,Abbreviation,Source,Publication
+Acyrthosiphon pisum,Metazoa,Acyr_2.0,acpm,http://metazoa.ensembl.org/Acyrthosiphon_pisum/Info/Index,10.1371/journal.pbio.1000313
+Adineta vaga,Metazoa,AMS_PRJEB1171_v1,advm,http://metazoa.ensembl.org/Adineta_vaga/Info/Index,10.1038/nature12326
+Aedes aegypti,Metazoa,AaegL3,aeam,http://metazoa.ensembl.org/Aedes_aegypti/Info/Index,10.1126/science.1138878
+Amphimedon queenslandica,Metazoa,Aqu1,amqm,http://metazoa.ensembl.org/Amphimedon_queenslandica/Info/Index,10.1038/nature09201
+Anopheles darlingi,Metazoa,AdarC3,andm,http://metazoa.ensembl.org/Anopheles_darlingi/Info/Index,10.1093/nar/gkt484
+Anopheles gambiae,Metazoa,AgamP4,angm,http://metazoa.ensembl.org/Anopheles_gambiae/Info/Index,10.1126/science.1076181
+Anoplophora glabripennis,Metazoa,Agla_1.0,anlm,http://metazoa.ensembl.org/Anoplophora_glabripennis/Info/Index,10.1186/s13059-016-1088-8
+Apis mellifera,Metazoa,Amel_4.5,apmm,http://metazoa.ensembl.org/Apis_mellifera/Info/Index,10.1038/nature05260
+Atta cephalotes,Metazoa,Attacep1.0,atcm,http://metazoa.ensembl.org/Atta_cephalotes/Info/Index,10.1371/journal.pgen.1002007
+Belgica antarctica,Metazoa,ASM77530v1,beam,http://metazoa.ensembl.org/Belgica_antarctica/Info/Index,10.1038/ncomms5611
+Bombus impatiens,Metazoa,BIMP_2.0,boim,http://metazoa.ensembl.org/Bombus_impatiens/Info/Index,10.1186/s13059-015-0623-3
+Bombus terrestris,Metazoa,Bter_1.0,botm,http://metazoa.ensembl.org/Bombus_terrestris/Info/Index,10.1186/s13059-015-0623-3
+Bombyx mori,Metazoa,ASM15162v1,bomm,http://metazoa.ensembl.org/Bombyx_mori/Info/Index,10.1016/j.ibmb.2008.11.004
+Branchiostoma lanceolatum,Metazoa,BraLan2,brlm,http://metazoa.ensembl.org/Branchiostoma_lanceolatum/Info/Index,10.1038/s41586-018-0734-6
+Brugia malayi,Metazoa,Bmal-4.0,brmm,http://metazoa.ensembl.org/Brugia_malayi/Info/Index,10.1126/science.1145406
+Caenorhabditis brenneri,Metazoa,C_brenneri-6.0.1b,cabm,http://metazoa.ensembl.org/Caenorhabditis_brenneri/Info/Index,
+Caenorhabditis briggsae,Metazoa,CB4,caim,http://metazoa.ensembl.org/Caenorhabditis_briggsae/Info/Index,10.1371/journal.pbio.0000045
+Caenorhabditis elegans,Metazoa,WBcel235,caem,http://metazoa.ensembl.org/Caenorhabditis_elegans/Info/Index,10.1126/science.282.5396.2012
+Caenorhabditis japonica,Metazoa,C_japonica-7.0.1,cajm,http://metazoa.ensembl.org/Caenorhabditis_japonica/Info/Index,10.1895/wormbook.1.37.1
+Caenorhabditis remanei,Metazoa,C_remanei-15.0.1,carm,http://metazoa.ensembl.org/Caenorhabditis_remanei/Info/Index,
+Capitella teleta,Metazoa,Capitella teleta v1.0,catm,http://metazoa.ensembl.org/Capitella_teleta/Info/Index,10.1038/nature11696
+Crassostrea gigas,Metazoa,oyster_v9,crgm,http://metazoa.ensembl.org/Crassostrea_gigas/Info/Index,10.1038/nature11413
+Culex quinquefasciatus,Metazoa,CpipJ2,cuqm,http://metazoa.ensembl.org/Culex_quinquefasciatus/Info/Index,10.1126/science.1191864
+Culicoides sonorensis,Metazoa,Cson1,cusm,http://metazoa.ensembl.org/Culicoides_sonorensis/Info/Index,10.1186/s12864-018-5014-1
+Danaus plexippus,Metazoa,Dpv3,dapm,http://metazoa.ensembl.org/Danaus_plexippus/Info/Index,10.1016/j.cell.2011.09.052
+Daphnia magna,Metazoa,daphmag2.4,damm,http://metazoa.ensembl.org/Daphnia_magna/Info/Index,10.1186/1471-2105-6-45
+Daphnia pulex,Metazoa,V1.0,daum,http://metazoa.ensembl.org/Daphnia_pulex/Info/Index,10.1126/science.1197761
+Dendroctonus ponderosae,Metazoa,DendPond_male_1.0,depm,http://metazoa.ensembl.org/Dendroctonus_ponderosae/Info/Index,10.1186/gb-2013-14-3-r27
+Dinothrombium tinctorium,Metazoa,DtinU1,ditm,http://metazoa.ensembl.org/Dinothrombium_tinctorium/Info/Index,10.1093/gigascience/giy127
+Drosophila ananassae,Metazoa,dana_caf1,dram,http://metazoa.ensembl.org/Drosophila_ananassae/Info/Index,10.1038/nature06341
+Drosophila erecta,Metazoa,dere_caf1,drem,http://metazoa.ensembl.org/Drosophila_erecta/Info/Index,10.1038/nature06341
+Drosophila grimshawi,Metazoa,dgri_caf1,drgm,http://metazoa.ensembl.org/Drosophila_grimshawi/Info/Index,10.1038/nature06341
+Drosophila melanogaster,Metazoa,BDGP6.28,drmm,http://metazoa.ensembl.org/Drosophila_melanogaster/Info/Index,10.1126/science.287.5461.2185
+Drosophila mojavensis,Metazoa,dmoj_caf1,drom,http://metazoa.ensembl.org/Drosophila_mojavensis/Info/Index,10.1038/nature06341
+Drosophila persimilis,Metazoa,dper_caf1,drpm,http://metazoa.ensembl.org/Drosophila_persimilis/Info/Index,10.1038/nature06341
+Drosophila pseudoobscura,Metazoa,Dpse_3.0,drsm,http://metazoa.ensembl.org/Drosophila_pseudoobscura/Info/Index,10.1038/nature06341
+Drosophila sechellia,Metazoa,dsec_caf1,drcm,http://metazoa.ensembl.org/Drosophila_sechellia/Info/Index,10.1038/nature06341
+Drosophila simulans,Metazoa,ASM75419v3,drim,http://metazoa.ensembl.org/Drosophila_simulans/Info/Index,10.1101/gr.141689.112
+Drosophila virilis,Metazoa,dvir_caf1,drvm,http://metazoa.ensembl.org/Drosophila_virilis/Info/Index,10.1038/nature06341
+Drosophila willistoni,Metazoa,dwil_caf1,drwm,http://metazoa.ensembl.org/Drosophila_willistoni/Info/Index,10.1038/nature06341
+Drosophila yakuba,Metazoa,dyak_caf1,drym,http://metazoa.ensembl.org/Drosophila_yakuba/Info/Index,10.1038/nature06341
+Folsomia candida,Metazoa,ASM221717v1,focm,http://metazoa.ensembl.org/Folsomia_candida/Info/Index,10.1186/s12864-017-3852-x
+Heliconius melpomene,Metazoa,Hmel1,hemm,http://metazoa.ensembl.org/Heliconius_melpomene/Info/Index,10.1038/nature11041
+Helobdella robusta,Metazoa,Helro1,herm,http://metazoa.ensembl.org/Helobdella_robusta/Info/Index,10.1038/nature11696
+Hofstenia miamia,Metazoa,HmiaM1,homm,http://metazoa.ensembl.org/Hofstenia_miamia/Info/Index,10.1126/science.aau6173
+Ixodes scapularis,Metazoa,IscaW1,ixsm,http://metazoa.ensembl.org/Ixodes_scapularis/Info/Index,10.1038/ncomms10507
+Lepeophtheirus salmonis,Metazoa,LSalAtl2s,lesm,http://metazoa.ensembl.org/Lepeophtheirus_salmonis/Info/Index,
+Leptotrombidium deliense,Metazoa,LdelU1,ledm,http://metazoa.ensembl.org/Leptotrombidium_deliense/Info/Index,10.1093/gigascience/giy127
+Lingula anatina,Metazoa,LinAna1.0,liam,http://metazoa.ensembl.org/Lingula_anatina/Info/Index,10.1038/ncomms9301
+Loa loa,Metazoa,Loa_loa_V3,lolm,http://metazoa.ensembl.org/Loa_loa/Info/Index,10.1038/ng.2585
+Lottia gigantea,Metazoa,Lotgi1,logm,http://metazoa.ensembl.org/Lottia_gigantea/Info/Index,10.1038/nature11696
+Lucilia cuprina,Metazoa,ASM118794v1,lucm,http://metazoa.ensembl.org/Lucilia_cuprina/Info/Index,10.1038/ncomms8344
+Mayetiola destructor,Metazoa,Mdes_1.0,madm,http://metazoa.ensembl.org/Mayetiola_destructor/Info/Index,10.1093/nar/gku983
+Megaselia scalaris,Metazoa,Msca1,mesm,http://metazoa.ensembl.org/Megaselia_scalaris/Info/Index,10.1073/pnas.1012675108
+Melitaea cinxia,Metazoa,MelCinx1.0,mecm,http://metazoa.ensembl.org/Melitaea_cinxia/Info/Index,10.1038/ncomms5737
+Mnemiopsis leidyi,Metazoa,MneLei_Aug2011,mnlm,http://metazoa.ensembl.org/Mnemiopsis_leidyi/Info/Index,10.1126/science.1242592
+Nasonia vitripennis,Metazoa,Nvit_2.1,navm,http://metazoa.ensembl.org/Nasonia_vitripennis/Info/Index,10.1126/science.1178028
+Nematostella vectensis,Metazoa,ASM20922v1,nevm,http://metazoa.ensembl.org/Nematostella_vectensis/Info/Index,10.1126/science.1139158
+Onchocerca volvulus,Metazoa,ASM49940v2,onvm,http://metazoa.ensembl.org/Onchocerca_volvulus/Info/Index,
+Orchesella cincta,Metazoa,ASM171814v1,orcm,http://metazoa.ensembl.org/Orchesella_cincta/Info/Index,
+Pediculus humanus,Metazoa,PhumU2,pehm,http://metazoa.ensembl.org/Pediculus_humanus/Info/Index,10.1073/pnas.1003379107
+Pristionchus pacificus,Metazoa,El_Paco,prpm,http://metazoa.ensembl.org/Pristionchus_pacificus/Info/Index,10.1038/ng.227
+Rhodnius prolixus,Metazoa,RproC3,rhpm,http://metazoa.ensembl.org/Rhodnius_prolixus/Info/Index,10.1073/pnas.1506226112
+Sarcoptes scabiei,Metazoa,SscaA1,sasm,http://metazoa.ensembl.org/Sarcoptes_scabiei/Info/Index,10.1186/s13071-015-1198-2
+Schistosoma mansoni,Metazoa,ASM23792v2,scmm,http://metazoa.ensembl.org/Schistosoma_mansoni/Info/Index,10.1371/journal.pntd.0001455
+Solenopsis invicta,Metazoa,Si_gnG,soim,http://metazoa.ensembl.org/Solenopsis_invicta/Info/Index,10.1073/pnas.1009690108
+Stegodyphus mimosarum,Metazoa,Stegodyphus_mimosarum_v1,stmm,http://metazoa.ensembl.org/Stegodyphus_mimosarum/Info/Index,10.1038/ncomms4765
+Strigamia maritima,Metazoa,Smar1,stam,http://metazoa.ensembl.org/Strigamia_maritima/Info/Index,10.1371/journal.pbio.1002005
+Strongylocentrotus purpuratus,Metazoa,Spur_3.1,stpm,http://metazoa.ensembl.org/Strongylocentrotus_purpuratus/Info/Index,10.1126/science.1133609
+Strongyloides ratti,Metazoa,S_ratti_ED321_v5_0_4,strm,http://metazoa.ensembl.org/Strongyloides_ratti/Info/Index,10.1038/ng.3495
+Teleopsis dalmanni,Metazoa,Tel_dalmanni_2A_v1.0,tedm,http://metazoa.ensembl.org/Teleopsis_dalmanni/Info/Index,10.1371/journal.pgen.1004362
+Tetranychus urticae,Metazoa,ASM23943v1,teum,http://metazoa.ensembl.org/Tetranychus_urticae/Info/Index,10.1038/nature10640
+Thelohanellus kitauei,Metazoa,ASM82789v1,thkm,http://metazoa.ensembl.org/Thelohanellus_kitauei/Info/Index,10.1093/gbe/evu247
+Tribolium castaneum,Metazoa,Tcas5.2,trcm,http://metazoa.ensembl.org/Tribolium_castaneum/Info/Index,10.1038/nature06784
+Trichinella spiralis,Metazoa,Tspiralis1,trsm,http://metazoa.ensembl.org/Trichinella_spiralis/Info/Index,10.1038/ng.769
+Trichoplax adhaerens,Metazoa,ASM15027v1,tram,http://metazoa.ensembl.org/Trichoplax_adhaerens/Info/Index,10.1038/nature07191
+Zootermopsis nevadensis,Metazoa,ZooNev1.0,zonm,http://metazoa.ensembl.org/Zootermopsis_nevadensis/Info/Index,10.1038/ncomms4636
+Actinidia chinensis,Plant,Kiwifruit; Red5_PS1_1.69.0,acrp,http://ensembl.gramene.org/Actinidia_chinensis/Info/Index,10.1186/s12864-018-4656-3
+Actinidia chinensis,Plant,Kiwifruit; Hongyang,achp,http://bioinfo.bti.cornell.edu/cgi-bin/kiwi/download.cgi,10.1038/ncomms3640
+Aegilops tauschii,Plant,Rough-spike hard grass; Aet_v4.0,aetp,http://ensembl.gramene.org/Aegilops_tauschii/Info/Index,10.1038/nature24486
+Amborella trichopoda,Plant,AMTR1.0,amtp,http://ensembl.gramene.org/Amborella_trichopoda/Info/Index,10.1126/science.1241130
+Ananas bracteatus,Plant,Pineapple; CB5,ancp,https://bigd.big.ac.cn/gwh/Assembly/145/show,10.1038/ng.3435
+Ananas bracteatus,Plant,Pineapple; F153,anfp,https://bigd.big.ac.cn/gwh/Assembly/648/show,10.1038/ng.3435
+Ananas bracteatus,Plant,Pineapple; MN2,anbp,https://genomevolution.org/CoGe/NotebookView.pl?nid=937,10.1038/ng.3435
+Arabidopsis halleri,Plant,Ahal2.2,arhp,http://ensembl.gramene.org/Arabidopsis_halleri/Info/Index,10.1111/1755-0998.12604
+Arabidopsis lyrata,Plant,MN47,arlp,http://ensembl.gramene.org/Arabidopsis_lyrata/Info/Index,10.1038/ng.807
+Arabidopsis thaliana,Plant,TAIR10,artp,http://ensembl.gramene.org/Arabidopsis_thaliana/Info/Index,10.1093/nar/gkm965
+Asparagus officinalis,Plant,,asop,http://asparagus.uga.edu/tripal/node/3,10.1038/s41467-017-01064-8
+Beta vulgaris,Plant,Sugar beet; RefBeet-1.2.2,bevp,http://ensembl.gramene.org/Beta_vulgaris/Info/Index,10.1038/nature12817
+Brachypodium distachyon,Plant,Brachypodium_distachyon_v3.0,brdp,http://ensembl.gramene.org/Brachypodium_distachyon/Info/Index,10.1038/nature08747
+Brassica napus,Plant,Oilseed rape; AST_PRJEB5043_v1,brnp,http://ensembl.gramene.org/Brassica_napus/Info/Index,10.1126/science.1253435
+Brassica oleracea,Plant,BOL,brop,http://ensembl.gramene.org/Brassica_oleracea/Info/Index,10.1186/gb-2014-15-6-r77
+Brassica rapa,Plant,Chiifu-401,brrp,http://brassicadb.org/brad/datasets/pub/BrassicaceaeGenome/Brassica_rapa/V3.0/,10.1038/s41438-018-0071-9
+Cajanus cajan,Plant,Pigeonpea,cacp,http://gigadb.org/dataset/100028,10.1038/nbt.2022
+Camelina sativa,Plant,,casp,http://brassicadb.org/brad/datasets/pub/BrassicaceaeGenome/Camelina_sativa/,10.1038/ncomms4706
+Castanea mollissima,Plant,Chinese chestnut,camp,http://gigadb.org/dataset/100643,10.1093/gigascience/giz112
+Cerasus x yedoensis,Plant,Somei-Yoshino,cexp,https://www.rosaceae.org/species/cerasus_x_yedoensis/genome_v1.0,10.1093/dnares/dsz016
+Chlamydomonas reinhardtii,Plant,Chlamydomonas_reinhardtii_v5.5,chrp,http://ensembl.gramene.org/Chlamydomonas_reinhardtii/Info/Index,10.1126/science.1143609
+Chondrus crispus,Plant,Irish moss; ASM35022v2,chcp,http://ensembl.gramene.org/Chondrus_crispus/Info/Index,10.1073/pnas.1221259110
+Citrullus lanatus,Plant,Watermelon; Charleston Gray,cicp,http://cucurbitgenomics.org/organism/4,10.1111/pbi.13136
+Citrullus lanatus,Plant,Watermelon; 97103.v2,cilp,http://cucurbitgenomics.org/organism/21,10.1038/ng.2470
+Corchorus capsularis,Plant,CCACVL1_1.0,cocp,http://ensembl.gramene.org/Corchorus_capsularis/Info/Index,10.1038/nplants.2016.223
+Cucumis melo,Plant,Melon (DHL92) v3.6.1,cump,http://cucurbitgenomics.org/organism/18,10.1073/pnas.1205415109
+Cucumis sativus,Plant,Cucumber (Chinese Long) v3,cusp,http://cucurbitgenomics.org/organism/20,10.1093/gigascience/giz072
+Cucumis sativus,Plant,Wild cucumber (PI 183967),cupp,http://cucurbitgenomics.org/organism/6,10.1038/ng.2801
+Cucurbita argyrosperma,Plant,Silver-seed gourd; Cucurbita_argyrosperma,cuap,http://cucurbitgenomics.org/organism/19,10.1016/j.molp.2018.12.023
+Cucurbita maxima,Plant,Cucurbita maxima (Rimu),cuxp,http://cucurbitgenomics.org/organism/8,10.1016/j.molp.2017.09.003
+Cucurbita moschata,Plant,Cucurbita moschata (Rifu),cucp,http://cucurbitgenomics.org/organism/9,10.1016/j.molp.2017.09.003
+Cucurbita pepo,Plant,Cucurbita pepo (Zucchini),cuep,http://cucurbitgenomics.org/organism/14,10.1111/pbi.12860
+Cyanidioschyzon merolae,Plant,Red algae; ASM9120v1,cymp,http://ensembl.gramene.org/Cyanidioschyzon_merolae/Info/Index,10.1186/1741-7007-5-28
+Daucus carota,Plant,Carrot; DH1,dacp,https://phytozome.jgi.doe.gov/pz/portal.html#!info?alias=Org_Dcarota_er,10.1038/ng.3565
+Dichanthelium oligosanthes,Plant,GCA_001633215.2_ASM163321v2,diop,ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/001/633/215/GCA_001633215.2_ASM163321v2,10.1186/s13059-016-1080-3
+Dioscorea rotundata,Plant,White Guinea yam; TDr96_F1_Pseudo_Chromosome_v1.0,dirp,http://ensembl.gramene.org/Dioscorea_rotundata/Info/Index,10.1186/s12915-017-0419-x
+Elaeis guineensis,Plant,African oil palm; EG5,elgp,https://bigd.big.ac.cn/gwh/assembly/0e7c2fb2-37d2-420f-b08b-55d8c75e8df5/show,10.1038/nature12309
+Eucalyptus grandis,Plant,,eugp,ftp://ftp.plantgenie.org/Data/EucGenIE/Eucalyptus_grandis/v2.0/,10.1038/nature13308
+Eucommia ulmoides,Plant,Hardy rubber tree; hardy_rubberv0,euup,https://bigd.big.ac.cn/gwh/Assembly/13/show,10.1016/j.molp.2017.11.014
+Fragaria iinumae,Plant,,frip,https://www.rosaceae.org/species/fragaria_iinumae/genome_v1.0,10.1093/dnares/dst049
+Fragaria vesca,Plant,Woodland strawberry,frvp,https://www.rosaceae.org/species/fragaria_vesca/genome_v4.0.a1,10.1093/gigascience/gix124
+Fragaria x ananassa,Plant,,frxp,https://www.rosaceae.org/species/fragaria_x_ananassa/genome_v1.0.a1,10.1038/s41588-019-0356-4
+Fragaria nipponica,Plant,,frnp,https://www.rosaceae.org/node/4230473,10.1093/dnares/dst049
+Fragaria nubicola,Plant,,frup,https://www.rosaceae.org/node/4230473,10.1093/dnares/dst049
+Fragaria orientalis,Plant,,frop,https://www.rosaceae.org/node/4230473,10.1093/dnares/dst049
+Galdieria sulphuraria,Plant,Red algae; ASM34128v1,gasp,http://ensembl.gramene.org/Galdieria_sulphuraria/Info/Index,10.1126/science.1231707
+Gastrodia elata,Plant,,gaep,https://bigd.big.ac.cn/gwh/Assembly/129/show,10.1038/s41467-018-03423-5
+Glycine max,Plant,Soybean; Glycine_max_v2.1,gmwp,http://ensembl.gramene.org/Glycine_max/Info/Index,10.1038/nature08670
+Glycine max,Plant,Soybean; Gmax_ZH13_v2.0,gmzp,https://bigd.big.ac.cn/gwh/Assembly/652/show,10.1007/s11427-019-9822-2
+Helianthus annuus,Plant,Sunflower; HanXRQr1.0,heap,http://ensembl.gramene.org/Helianthus_annuus/Info/Index,10.1038/nature22380
+Klebsormidium flaccidum,Plant,,klfp,http://www.plantmorphogenesis.bio.titech.ac.jp/~algae_genome_project/klebsormidium/index.html,10.1038/ncomms4978
+Leersia perrieri,Plant,Lperr_V1.4,lepp,http://ensembl.gramene.org/Leersia_perrieri/Info/Index,10.1038/s41588-018-0040-0
+Lupinus angustifolius,Plant,LupAngTanjil_v1.0,luap,http://ensembl.gramene.org/Lupinus_angustifolius/Info/Index,10.1111/pbi.12615
+Malus x domestica,Plant,HFTH1,mxhp,https://www.rosaceae.org/species/malus_x_domestica_HFTH1/genome_v1.0,10.1038/s41467-019-09518-x
+Malus x domestica,Plant,GDDH13,mxgp,https://www.rosaceae.org/species/malus/malus_x_domestica/genome_GDDH13_v1.1,10.1038/ng.3886
+Manihot esculenta,Plant,Cassava; Manihot_esculenta_v6,maep,http://ensembl.gramene.org/Manihot_esculenta/Info/Index,10.1007/s12042-011-9088-z
+Medicago truncatula,Plant,A17,metp,https://medicago.toulouse.inra.fr/MtrunA17r5.0-ANR/,10.1038/s41477-018-0286-7
+Musa acuminata,Plant,Banksii,mubp,https://banana-genome-hub.southgreen.fr/organism/Musa/acuminata-ssp.-banksii,10.1093/gbe/evy227
+Musa acuminata,Plant,Calcutta 4,mucp,https://banana-genome-hub.southgreen.fr/organism/Musa/acuminata-ssp.-burmannica,10.1093/gbe/evy227
+Musa acuminata,Plant,Musa; DH Pahang,mupp,https://banana-genome-hub.southgreen.fr/organism/Musa/acuminata,10.1186/s12864-016-2579-4
+Musa acuminata,Plant,Maia oa; Zebrina,muzp,https://banana-genome-hub.southgreen.fr/organism/Musa/acuminata-ssp.-zebrina,10.1093/gbe/evy227
+Musa balbisiana,Plant,PKW,mulp,http://banana-genome-hub.southgreen.fr/organism/Musa/balbisiana,10.1186/1471-2164-14-683
+Musa itinerans,Plant,Yunnan banana,muip,https://banana-genome-hub.southgreen.fr/organism/Musa/Itinerans,10.1038/srep31586
+Musa schizocarpa,Plant,,musp,https://banana-genome-hub.southgreen.fr/organism/Musa/schizocarpa,10.1038/s41477-018-0289-4
+Nicotiana attenuata,Plant,NIATTr2,niap,http://ensembl.gramene.org/Nicotiana_attenuata/Info/Index,10.1073/pnas.1700073114
+Nymphaea colorata,Plant,Water lilies,nycp,https://bigd.big.ac.cn/gwh/Assembly/651/show,10.1038/hortres.2017.51
+Olea europaea,Plant,Mediterranean olive tree; OE6,olep,http://denovo.cnag.cat/olive,10.1186/s13742-016-0134-5
+Oryza barthii,Plant,African wild rice; O.barthii_v1,orbp,http://ensembl.gramene.org/Oryza_barthii/Info/Index,10.1038/s41588-018-0040-0
+Oryza brachyantha,Plant,Wild rice; Oryza_brachyantha.v1.4b,orrp,http://ensembl.gramene.org/Oryza_brachyantha/Info/Index,10.1038/ncomms2596
+Oryza glaberrima,Plant,African cultivated rice; Oryza_glaberrima_V1,orgp,http://ensembl.gramene.org/Oryza_glaberrima/Info/Index,10.1038/ng.3044
+Oryza glumaepatula,Plant,Wild rice; Oryza_glumaepatula_v1.5,orlp,http://ensembl.gramene.org/Oryza_glumipatula/Info/Index,10.1038/s41588-018-0040-0
+Oryza granulata,Plant,Wild rice,orap,https://bigd.big.ac.cn/gwh/Assembly/116/show,10.1038/s42003-018-0089-4
+Oryza longistaminata,Plant,Wild rice,orip,http://www.olinfres.nig.ac.jp/,10.1038/s42003-018-0171-y
+Oryza meridionalis,Plant,Wild rice; Oryza_meridionalis_v1.3,ormp,http://ensembl.gramene.org/Oryza_meridionalis/Info/Index,10.1038/s41588-018-0040-0
+Oryza nivara,Plant,Wild rice; Oryza_nivara_v1.0,ornp,http://ensembl.gramene.org/Oryza_nivara/Info/Index,10.1038/s41588-018-0040-0
+Oryza punctata,Plant,African wild rice; Oryza_punctata_v1.2,orpp,http://ensembl.gramene.org/Oryza_punctata/Info/Index,10.1038/ng.3044
+Oryza rufipogon,Plant,Wild rice; OR_W1943,orup,http://ensembl.gramene.org/Oryza_rufipogon/Info/Index,10.1038/s41588-018-0040-0
+Oryza sativa,Plant,Rice; 93-11,osnp,https://www.ncbi.nlm.nih.gov/assembly/GCA_003865215.1,10.1016/j.molp.2018.11.005
+Oryza sativa,Plant,Rice; Zhenshan 97,oszp,http://rice.hzau.edu.cn/cgi-bin/rice2/download_ext,10.1073/pnas.1611012113
+Oryza sativa,Plant,Rice; Minghui 63,osmp,http://rice.hzau.edu.cn/cgi-bin/rice2/download_ext,10.1073/pnas.1611012113
+Oryza sativa,Plant,Rice; Nipponbare,ospp,http://rice.plantbiology.msu.edu/,10.1186/1939-8433-6-4
+Oryza sativa,Plant,Rice; R498,osfp,http://www.mbkbase.org/R498/,10.1038/ncomms15324
+Oryza sativa,Plant,Rice; ZH11,oshp,http://www.mbkbase.org/ZH11/,
+Oryza sativa,Plant,Rice; PA64s,osap,http://rice.genomics.org.cn/rice/index2.jsp,10.1073/pnas.1610115113
+Oryza sativa,Plant,Rice; IR8,osrp,http://datacommons.cyverse.org/browse/iplant/home/shared/commons_repo/curated/IOMAP_Genomes_Data_2017,10.1038/s41588-018-0040-0
+Oryza sativa,Plant,Rice; IR64,osip,http://schatzlab.cshl.edu/data/rice/,10.1186/s13059-014-0506-z
+Oryza sativa,Plant,Rice; N22,ostp,http://datacommons.cyverse.org/browse/iplant/home/shared/commons_repo/curated/IOMAP_Genomes_Data_2017,10.1038/s41588-018-0040-0
+Oryza sativa,Plant,Rice; DJ123,osdp,http://schatzlab.cshl.edu/data/rice/,10.1186/s13059-014-0506-z
+Ostreococcus lucimarinus,Plant,ASM9206v1,oslp,http://ensembl.gramene.org/Ostreococcus_lucimarinus/Info/Index,10.1073/pnas.0611046104
+Panicum hallii,Plant,PHallii_v3.1,pafp,http://ensembl.gramene.org/Panicum_hallii_fil2/Info/Index,10.1038/s41467-018-07669-x
+Panicum hallii,Plant,PhalliiHAL_v2.1,pahp,http://ensembl.gramene.org/Panicum_hallii_hal2/Info/Index,10.1038/s41467-018-07669-x
+Panicum miliaceum,Plant,Broomcorn millet; Longmi4_V1,pamp,https://bigd.big.ac.cn/gwh/Assembly/131/show,10.1038/s41467-018-07876-6
+Papaver somniferum,Plant,Opium poppy (HN1),pasp,https://bigd.big.ac.cn/gwh/Assembly/139/show,10.1126/science.aat4096
+Petunia axillaris,Plant,,peap,https://solgenomics.net/organism/Petunia_axillaris/genome,10.1038/NPLANTS.2016.74
+Petunia inflata,Plant,,peip,https://solgenomics.net/organism/Petunia_inflata/genome,10.1038/NPLANTS.2016.74
+Phaseolus vulgaris,Plant,BAT93,pvbp,https://denovo.cnag.cat/bean,10.1186/s13059-016-0883-6
+Phaseolus vulgaris,Plant,PhaVulg1_0,pvpp,http://ensembl.gramene.org/Phaseolus_vulgaris/Info/Index,10.1038/ng.3008
+Physcomitrella patens,Plant,Phypa_V3,phpp,http://ensembl.gramene.org/Physcomitrella_patens/Info/Index,10.1111/tpj.13801
+Pistacia vera,Plant,Pistachio; Pistacia_version2,pivp,https://bigd.big.ac.cn/gwh/Assembly/502/show,10.1186/s13059-019-1686-3
+Pisum sativum,Plant,Pea,pisp,https://urgi.versailles.inra.fr/download/pea/,10.1038/s41588-019-0480-1
+Populus alba,Plant,,poap,https://bigd.big.ac.cn/gwh/Assembly/120/show,10.1111/pbi.12989
+Populus trichocarpa,Plant,Poplar; Pop_tri_v3,potp,http://ensembl.gramene.org/Populus_trichocarpa/Info/Index,10.1126/science.1128691
+Prunus avium,Plant,,prap,https://www.rosaceae.org/species/prunus_avium/genome_v1.0.a1,10.1093/dnares/dsx020
+Prunus domestica,Plant,,prdp,https://www.rosaceae.org/species/prunus_domestica/genome_v1.0.a1,10.1038/s41438-018-0090-6
+Prunus dulcis,Plant,Lauranne,prlp,https://www.rosaceae.org/species/prunus/prunus_dulsis/lauranne/genome_v1.0,10.1126/science.aav8197
+Prunus dulcis,Plant,Texas,prtp,https://www.rosaceae.org/analysis/295,
+Prunus persica,Plant,Peach,prpp,https://www.rosaceae.org/species/prunus_persica/genome_v2.0.a1,10.1038/ng.2586
+Prunus yedoensis,Plant,,pryp,https://www.rosaceae.org/analysis/289,10.1186/s13059-018-1497-y
+Pyrus betulifolia,Plant,Wild pear; Shanxi Duli,pybp,https://bigd.big.ac.cn/gwh/Assembly/647/show,10.1111/pbi.13226
+Pyrus bretschneideri,Plant,DangshanSuli,pyrp,https://www.rosaceae.org/species/pyrus_bretschneideri/genome_v1.1,10.1186/s12864-018-5224-6
+Pyrus communis,Plant,Bartlett DH,pycp,https://www.rosaceae.org/species/pyrus/pyrus_communis/genome_v2.0,10.1101/651778
+Raphanus raphanistrum,Plant,Wild radish,rarp,http://radish.plantbiology.msu.edu/index.php/Genome_sequence/analysis,10.1105/tpc.114.124297
+Raphanus sativus,Plant,Radish,rasp,http://radish.kazusa.or.jp/,10.1093/dnares/dsu014
+Rosa chinensis,Plant,Old Blush,rocp,https://www.rosaceae.org/analysis/282,10.1038/s41588-018-0110-3
+Rosa multiflora,Plant,,romp,https://www.rosaceae.org/analysis/266,10.1093/dnares/dsx042
+Rubus occidentalis,Plant,,ruop,https://www.rosaceae.org/analysis/268,10.1093/gigascience/giy094
+Selaginella moellendorffii,Plant,v1.0,semp,http://ensembl.gramene.org/Selaginella_moellendorffii/Info/Index,10.1126/science.1203810
+Setaria italica,Plant,Foxtail millet; Setaria_italica_v2.0,seip,http://ensembl.gramene.org/Setaria_italica/Info/Index,10.1038/nbt.2196
+Solanum commersonii,Plant,,socp,https://www.ncbi.nlm.nih.gov/assembly/GCA_001239805.1/,10.1105/tpc.114.135954
+Solanum lycopersicum,Plant,Tomato; SL3.0,solp,http://ensembl.gramene.org/Solanum_lycopersicum/Info/Index,10.1038/nature11119
+Solanum tuberosum,Plant,Potato; DM1-3 (v4.04),sotp,http://solanaceae.plantbiology.msu.edu/pgsc_download.shtml,10.1105/tpc.15.00538
+Sorghum bicolor,Plant,Sorghum_bicolor_NCBIv3,sobp,http://ensembl.gramene.org/Sorghum_bicolor/Info/Index,10.1111/tpj.13781
+Taraxacum kok-saghyz,Plant,,takp,https://bigd.big.ac.cn/gwh/Assembly/1/show,10.1093/nsr/nwx101
+Thellungiella salsuginea,Plant,http://brassicadb.org/brad/index.php,thsp,http://brassicadb.org/brad/datasets/pub/BrassicaceaeGenome/Thellungiella_salsuginea/,10.1073/pnas.1209954109
+Theobroma cacao,Plant,Cacao; Matina1-6,thmp,http://www.cacaogenomedb.org/,10.1186/gb-2013-14-6-r53
+Theobroma cacao,Plant,Cacao; B97-61/B2,thcp,https://cocoa-genome-hub.southgreen.fr/download,10.1038/ng.736
+Trifolium pratense,Plant,Red clover; Trpr,trpp,http://ensembl.gramene.org/Trifolium_pratense/Info/Index,10.1038/srep17394
+Vernicia fordii,Plant,Tung Tree,vefp,https://bigd.big.ac.cn/gwh/Assembly/124/show,10.1093/pcp/pcy117
+Vigna angularis,Plant,Adzuki bean; Vigan1.1,vivp,http://ensembl.gramene.org/Vigna_angularis/Info/Index,10.1038/srep08069
+Vigna angularis,Plant,Adzuki bean; Jingnong 6,vijp,https://www.ncbi.nlm.nih.gov/assembly/GCF_001190045.1/,10.1073/pnas.1420949112
+Vigna radiata,Plant,Mungbean; Vradiata_ver6,virp,http://ensembl.gramene.org/Vigna_radiata/Info/Index,10.1038/ncomms6443
+Vitis vinifera,Plant,Grape; goldenpath,viip,http://www.genoscope.cns.fr/externe/Download/Projets/Projet_ML/data/12X/,10.1038/nature06148
+Volvox carteri,Plant,,vocp,https://phytozome.jgi.doe.gov/pz/portal.html#!bulk?org=Org_Vcarteri,10.1126/science.1188800
+Zea mays,Plant,Maize; SK,zmsp,http://mmgdb.hzau.edu.cn/cgi-bin/maize/download_ext,10.1038/s41588-019-0427-6
+Zea mays,Plant,Maize; B73_RefGen_v4,zmbp,http://ensembl.gramene.org/Zea_mays/Info/Index,10.1038/nature22971
+Zea mays,Plant,Maize; Mo17,zmmp,https://ftp.maizegdb.org/MaizeGDB/FTP/Zm-Mo17-REFERENCE-CAU-1.0/,10.1038/s41588-018-0182-0
+Zea mays,Plant,Maize; W22,zmwp,https://ftp.maizegdb.org/MaizeGDB/FTP/Zm-W22-REFERENCE-NRGENE-2.0/,10.1038/s41588-018-0158-0
+Zea mays,Plant,Maize; CML247,zmcp,https://ftp.maizegdb.org/MaizeGDB/FTP/Zm-CML247-REFERENCE-PANZEA-1.1/,10.1038/ncomms7914
+Zea mays,Plant,Maize; HuangZaoSi,zmhp,https://bigd.big.ac.cn/gwh/Assembly/259/show,10.1016/j.molp.2019.02.009
+Acanthochromis polyacanthus,Vertebrate,ASM210954v1,acpv,http://asia.ensembl.org/Acanthochromis_polyacanthus/Info/Index,
+Ailuropoda melanoleuca,Vertebrate,ailMel1,aimv,http://asia.ensembl.org/Ailuropoda_melanoleuca/Info/Index,10.1038/nature08696
+Amphilophus citrinellus,Vertebrate,Midas_v5,amcv,http://asia.ensembl.org/Amphilophus_citrinellus/Info/Index,
+Amphiprion ocellaris,Vertebrate,AmpOce1.0,amov,http://asia.ensembl.org/Amphiprion_ocellaris/Info/Index,10.1371/journal.pone.0228562
+Amphiprion percula,Vertebrate,Nemo_v1,ampv,http://asia.ensembl.org/Amphiprion_percula/Info/Index,10.1371/journal.pone.0228562
+Anabas testudineus,Vertebrate,fAnaTes1.1,antv,http://asia.ensembl.org/Anabas_testudineus/Info/Index,
+Anas platyrhynchos platyrhynchos,Vertebrate,CAU_duck1.0,anpv,http://asia.ensembl.org/Anas_platyrhynchos_platyrhynchos/Info/Index,
+Anolis carolinensis,Vertebrate,AnoCar2.0,ancv,http://asia.ensembl.org/Anolis_carolinensis/Info/Index,
+Anser brachyrhynchus,Vertebrate,ASM259213v1,anbv,http://asia.ensembl.org/Anser_brachyrhynchus/Info/Index,10.1016/j.ygeno.2017.08.008
+Aotus nancymaae,Vertebrate,Anan_2.0,aonv,http://asia.ensembl.org/Aotus_nancymaae/Info/Index,10.1002/ajpa.21567
+Apteryx haastii,Vertebrate,aptHaa1,aphv,http://asia.ensembl.org/Apteryx_haastii/Info/Index,
+Apteryx owenii,Vertebrate,aptOwe1,apov,http://asia.ensembl.org/Apteryx_owenii/Info/Index,
+Apteryx rowi,Vertebrate,aptRow1,aprv,http://asia.ensembl.org/Apteryx_rowi/Info/Index,
+Astatotilapia calliptera,Vertebrate,fAstCal1.2,ascv,http://asia.ensembl.org/Astatotilapia_calliptera/Info/Index,
+Astyanax mexicanus,Vertebrate,Astyanax_mexicanus-2.0,asmv,http://asia.ensembl.org/Astyanax_mexicanus/Info/Index,10.1038/ncomms6307
+Astyanax mexicanus pachon,Vertebrate,Astyanax_mexicanus-1.0.2,aspv,http://asia.ensembl.org/Astyanax_mexicanus_pachon/Info/Index,
+Betta splendens,Vertebrate,fBetSpl5.2,besv,http://asia.ensembl.org/Betta_splendens/Info/Index,
+Bison bison bison,Vertebrate,Bison_UMD1.0,bibv,http://asia.ensembl.org/Bison_bison_bison/Info/Index,10.1016/j.cub.2008.01.019
+Bos indicus,Vertebrate,UOA_Brahman_1,boiv,http://asia.ensembl.org/Bos_indicus_hybrid/Info/Index,10.1038/nbt.4277
+Bos mutus,Vertebrate,BosGru_v2.0,bomv,http://asia.ensembl.org/Bos_mutus/Info/Index,
+Bos taurus,Vertebrate,ARS-UCD1.2,botv,http://asia.ensembl.org/Bos_taurus/Info/Index,
+Bos taurus,Vertebrate,UOA_Angus_1,bohv,http://asia.ensembl.org/Bos_taurus_hybrid/Info/Index,10.1038/nbt.4277
+Calidris pugnax,Vertebrate,ASM143184v1,capv,http://asia.ensembl.org/Calidris_pugnax/Info/Index,
+Calidris pygmaea,Vertebrate,ASM369795v1,cayv,http://asia.ensembl.org/Calidris_pygmaea/Info/Index,
+Callithrix jacchus,Vertebrate,ASM275486v1,cajv,http://asia.ensembl.org/Callithrix_jacchus/Info/Index,
+Callorhinchus milii,Vertebrate,Callorhinchus_milii-6.1.3,camv,http://asia.ensembl.org/Callorhinchus_milii/Info/Index,10.1038/nature12826
+Canis familiaris,Vertebrate,CanFam3.1,cafv,http://asia.ensembl.org/Canis_familiaris/Info/Index,10.1038/nature04338
+Canis lupus dingo,Vertebrate,ASM325472v1,calv,http://asia.ensembl.org/Canis_lupus_dingo/Info/Index,
+Capra hircus,Vertebrate,ARS1,cahv,http://asia.ensembl.org/Capra_hircus/Info/Index,
+Carlito syrichta,Vertebrate,Tarsius_syrichta-2.0.1,casv,http://asia.ensembl.org/Carlito_syrichta/Info/Index,
+Castor canadensis,Vertebrate,C.can_genome_v1.0,cacv,http://asia.ensembl.org/Castor_canadensis/Info/Index,10.1534/g3.116.038208
+Cavia aperea,Vertebrate,CavAp1.0,caav,http://asia.ensembl.org/Cavia_aperea/Info/Index,
+Cavia porcellus,Vertebrate,Cavpor3.0,caov,http://asia.ensembl.org/Cavia_porcellus/Info/Index,10.1038/381597a0
+Cebus capucinus,Vertebrate,Cebus_imitator-1.0,cecv,http://asia.ensembl.org/Cebus_capucinus/Info/Index,
+Cercocebus atys,Vertebrate,Caty_1.0,ceav,http://asia.ensembl.org/Cercocebus_atys/Info/Index,10.1038/nature25140
+Chelonoidis abingdonii,Vertebrate,ASM359739v1,chav,http://asia.ensembl.org/Chelonoidis_abingdonii/Info/Index,10.1038/s41559-018-0733-x
+Chinchilla lanigera,Vertebrate,ChiLan1.0,chlv,http://asia.ensembl.org/Chinchilla_lanigera/Info/Index,
+Chlorocebus sabaeus,Vertebrate,ChlSab1.1,chsv,http://asia.ensembl.org/Chlorocebus_sabaeus/Info/Index,10.1371/journal.pone.0085417
+Choloepus hoffmanni,Vertebrate,choHof1,chhv,http://asia.ensembl.org/Choloepus_hoffmanni/Info/Index,
+Chrysemys picta bellii,Vertebrate,Chrysemys_picta_bellii-3.0.3,chpv,http://asia.ensembl.org/Chrysemys_picta_bellii/Info/Index,
+Ciona intestinalis,Vertebrate,KH,ciiv,http://asia.ensembl.org/Ciona_intestinalis/Info/Index,
+Ciona savignyi,Vertebrate,CSAV2.0,cisv,http://asia.ensembl.org/Ciona_savignyi/Info/Index,
+Colobus angolensis palliatus,Vertebrate,Cang.pa_1.0,coav,http://asia.ensembl.org/Colobus_angolensis_palliatus/Info/Index,
+Cottoperca gobio,Vertebrate,fCotGob3.1,cogv,http://asia.ensembl.org/Cottoperca_gobio/Info/Index,
+Coturnix japonica,Vertebrate,Coturnix_japonica_2.0,cojv,http://asia.ensembl.org/Coturnix_japonica/Info/Index,
+Cricetulus griseus,Vertebrate,CHOK1GS_HDv1,crgv,http://asia.ensembl.org/Cricetulus_griseus_chok1gshd/Info/Index,
+Cricetulus griseus,Vertebrate,CriGri_1.0,crcv,http://asia.ensembl.org/Cricetulus_griseus_crigri/Info/Index,10.1080/10425170601101287
+Cricetulus griseus,Vertebrate,CriGri-PICR,crpv,http://asia.ensembl.org/Cricetulus_griseus_picr/Info/Index,10.1002/bit.26722
+Crocodylus porosus,Vertebrate,CroPor_comp1,crov,http://asia.ensembl.org/Crocodylus_porosus/Info/Index,10.1093/gbe/evz269
+Cyanistes caeruleus,Vertebrate,cyaCae2,cycv,http://asia.ensembl.org/Cyanistes_caeruleus/Info/Index,10.1111/1755-0998.12450
+Cynoglossus semilaevis,Vertebrate,Cse_v1.0,cysv,http://asia.ensembl.org/Cynoglossus_semilaevis/Info/Index,10.1038/ng.2890
+Cyprinodon variegatus,Vertebrate,C_variegatus-1.0,cyvv,http://asia.ensembl.org/Cyprinodon_variegatus/Info/Index,
+Dasypus novemcinctus,Vertebrate,Dasnov3.0,danv,http://asia.ensembl.org/Dasypus_novemcinctus/Info/Index,
+Denticeps clupeoides,Vertebrate,fDenClu1.1,decv,http://asia.ensembl.org/Denticeps_clupeoides/Info/Index,
+Dipodomys ordii,Vertebrate,Dord_2.0,diov,http://asia.ensembl.org/Dipodomys_ordii/Info/Index,10.1146/annurev-animal-090414-014900
+Dromaius novaehollandiae,Vertebrate,droNov1,drnv,http://asia.ensembl.org/Dromaius_novaehollandiae/Info/Index,
+Echinops telfairi,Vertebrate,TENREC,ectv,http://asia.ensembl.org/Echinops_telfairi/Info/Index,
+Electrophorus electricus,Vertebrate,Ee_SOAP_WITH_SSPACE,elev,http://asia.ensembl.org/Electrophorus_electricus/Info/Index,
+Equus asinus asinus,Vertebrate,ASM303372v1,eqav,http://asia.ensembl.org/Equus_asinus_asinus/Info/Index,10.1038/nature12323
+Equus caballus,Vertebrate,EquCab3.0,eqcv,http://asia.ensembl.org/Equus_caballus/Info/Index,
+Erinaceus europaeus,Vertebrate,eriEur1,erev,http://asia.ensembl.org/Erinaceus_europaeus/Info/Index,
+Erpetoichthys calabaricus,Vertebrate,fErpCal1.1,ercv,http://asia.ensembl.org/Erpetoichthys_calabaricus/Info/Index,
+Esox lucius,Vertebrate,Eluc_V3,eslv,http://asia.ensembl.org/Esox_lucius/Info/Index,
+Felis catus,Vertebrate,Felis_catus_9.0,fecv,http://asia.ensembl.org/Felis_catus/Info/Index,10.1101/gr.6380007
+Ficedula albicollis,Vertebrate,FicAlb_1.4,fiav,http://asia.ensembl.org/Ficedula_albicollis/Info/Index,10.1038/nature11584
+Fukomys damarensis,Vertebrate,DMR_v1.0,fudv,http://asia.ensembl.org/Fukomys_damarensis/Info/Index,
+Fundulus heteroclitus,Vertebrate,Fundulus_heteroclitus-3.0.2,fuhv,http://asia.ensembl.org/Fundulus_heteroclitus/Info/Index,
+Gadus morhua,Vertebrate,gadMor1,gamv,http://asia.ensembl.org/Gadus_morhua/Info/Index,
+Gallus gallus,Vertebrate,GRCg6a,gagv,http://asia.ensembl.org/Gallus_gallus/Info/Index,10.1038/nature03154
+Gambusia affinis,Vertebrate,ASM309773v1,gaav,http://asia.ensembl.org/Gambusia_affinis/Info/Index,
+Gasterosteus aculeatus,Vertebrate,BROADS1,gacv,http://asia.ensembl.org/Gasterosteus_aculeatus/Info/Index,
+Gopherus agassizii,Vertebrate,ASM289641v1,goav,http://asia.ensembl.org/Gopherus_agassizii/Info/Index,10.1371/journal.pone.0177708
+Gorilla gorilla,Vertebrate,gorGor4,gogv,http://asia.ensembl.org/Gorilla_gorilla/Info/Index,
+Gouania willdenowi,Vertebrate,fGouWil2.1,gowv,http://asia.ensembl.org/Gouania_willdenowi/Info/Index,
+Haplochromis burtoni,Vertebrate,AstBur1.0,habv,http://asia.ensembl.org/Haplochromis_burtoni/Info/Index,
+Heterocephalus glaber,Vertebrate,HetGla_female_1.0,hegv,http://asia.ensembl.org/Heterocephalus_glaber_female/Info/Index,10.1093/bioinformatics/btu579
+Heterocephalus glaber,Vertebrate,HetGla_1.0,hemv,http://asia.ensembl.org/Heterocephalus_glaber_male/Info/Index,
+Hippocampus comes,Vertebrate,H_comes_QL1_v1,hicv,http://asia.ensembl.org/Hippocampus_comes/Info/Index,
+Homo sapiens,Vertebrate,GRCh38,hosv,http://asia.ensembl.org/Homo_sapiens/Info/Index,
+Hucho hucho,Vertebrate,ASM331708v1,huhv,http://asia.ensembl.org/Hucho_hucho/Info/Index,
+Ictalurus punctatus,Vertebrate,IpCoco_1.2,icpv,http://asia.ensembl.org/Ictalurus_punctatus/Info/Index,
+Ictidomys tridecemlineatus,Vertebrate,SpeTri2.0,ictv,http://asia.ensembl.org/Ictidomys_tridecemlineatus/Info/Index,
+Jaculus jaculus,Vertebrate,JacJac1.0,jajv,http://asia.ensembl.org/Jaculus_jaculus/Info/Index,
+Junco hyemalis,Vertebrate,ASM382977v1,juhv,http://asia.ensembl.org/Junco_hyemalis/Info/Index,
+Kryptolebias marmoratus,Vertebrate,ASM164957v1,krmv,http://asia.ensembl.org/Kryptolebias_marmoratus/Info/Index,
+Labrus bergylta,Vertebrate,BallGen_V1,labv,http://asia.ensembl.org/Labrus_bergylta/Info/Index,
+Larimichthys crocea,Vertebrate,L_crocea_2.0,lacv,http://asia.ensembl.org/Larimichthys_crocea/Info/Index,
+Lates calcarifer,Vertebrate,ASB_HGAPassembly_v1,laav,http://asia.ensembl.org/Lates_calcarifer/Info/Index,
+Latimeria chalumnae,Vertebrate,LatCha1,lahv,http://asia.ensembl.org/Latimeria_chalumnae/Info/Index,10.1038/nature12027
+Lepidothrix coronata,Vertebrate,Lepidothrix_coronata-1.0,lecv,http://asia.ensembl.org/Lepidothrix_coronata/Info/Index,
+Lepisosteus oculatus,Vertebrate,LepOcu1,leov,http://asia.ensembl.org/Lepisosteus_oculatus/Info/Index,
+Lonchura striata,Vertebrate,LonStrDom1,losv,http://asia.ensembl.org/Lonchura_striata_domestica/Info/Index,10.1093/gigascience/giy008
+Loxodonta africana,Vertebrate,loxAfr3,loav,http://asia.ensembl.org/Loxodonta_africana/Info/Index,10.1186/2047-217X-3-12
+Macaca fascicularis,Vertebrate,Macaca_fascicularis_5.0,mafv,http://asia.ensembl.org/Macaca_fascicularis/Info/Index,
+Macaca mulatta,Vertebrate,Mmul_10,mamv,http://asia.ensembl.org/Macaca_mulatta/Info/Index,
+Macaca nemestrina,Vertebrate,Mnem_1.0,manv,http://asia.ensembl.org/Macaca_nemestrina/Info/Index,
+Manacus vitellinus,Vertebrate,ASM171598v2,mavv,http://asia.ensembl.org/Manacus_vitellinus/Info/Index,
+Mandrillus leucophaeus,Vertebrate,Mleu.le_1.0,malv,http://asia.ensembl.org/Mandrillus_leucophaeus/Info/Index,
+Marmota marmota marmota,Vertebrate,marMar2.1,maav,http://asia.ensembl.org/Marmota_marmota_marmota/Info/Index,
+Mastacembelus armatus,Vertebrate,fMasArm1.1,marv,http://asia.ensembl.org/Mastacembelus_armatus/Info/Index,
+Maylandia zebra,Vertebrate,M_zebra_UMD2a,mazv,http://asia.ensembl.org/Maylandia_zebra/Info/Index,10.1038/nature13726
+Meleagris gallopavo,Vertebrate,Turkey_2.01,megv,http://asia.ensembl.org/Meleagris_gallopavo/Info/Index,10.3389/fnins.2015.00361
+Melopsittacus undulatus,Vertebrate,Melopsittacus_undulatus_6.3,meuv,http://asia.ensembl.org/Melopsittacus_undulatus/Info/Index,
+Meriones unguiculatus,Vertebrate,MunDraft-v1.0,menv,http://asia.ensembl.org/Meriones_unguiculatus/Info/Index,
+Mesocricetus auratus,Vertebrate,MesAur1.0,meav,http://asia.ensembl.org/Mesocricetus_auratus/Info/Index,
+Microcebus murinus,Vertebrate,Mmur_3.0,mimv,http://asia.ensembl.org/Microcebus_murinus/Info/Index,
+Microtus ochrogaster,Vertebrate,MicOch1.0,miov,http://asia.ensembl.org/Microtus_ochrogaster/Info/Index,
+Mola mola,Vertebrate,ASM169857v1,momv,http://asia.ensembl.org/Mola_mola/Info/Index,
+Monodelphis domestica,Vertebrate,ASM229v1,modv,http://asia.ensembl.org/Monodelphis_domestica/Info/Index,10.1038/nature05805
+Monopterus albus,Vertebrate,M_albus_1.0,moav,http://asia.ensembl.org/Monopterus_albus/Info/Index,10.1093/gigascience/giy046
+Mus caroli,Vertebrate,CAROLI_EIJ_v1.1,mucv,http://asia.ensembl.org/Mus_caroli/Info/Index,
+Mus musculus,Vertebrate,129S1_SvImJ_v1,musv,http://asia.ensembl.org/Mus_musculus_129s1svimj/Info/Index,
+Mus musculus,Vertebrate,A_J_v1,muav,http://asia.ensembl.org/Mus_musculus_aj/Info/Index,
+Mus musculus,Vertebrate,AKR_J_v1,mukv,http://asia.ensembl.org/Mus_musculus_akrj/Info/Index,
+Mus musculus,Vertebrate,BALB_cJ_v1,mubv,http://asia.ensembl.org/Mus_musculus_balbcj/Info/Index,
+Mus musculus,Vertebrate,C3H_HeJ_v1,muhv,http://asia.ensembl.org/Mus_musculus_c3hhej/Info/Index,
+Mus musculus,Vertebrate,C57BL_6NJ_v1,mulv,http://asia.ensembl.org/Mus_musculus_c57bl6nj/Info/Index,
+Mus musculus,Vertebrate,CAST_EiJ_v1,mutv,http://asia.ensembl.org/Mus_musculus_casteij/Info/Index,
+Mus musculus,Vertebrate,CBA_J_v1,mujv,http://asia.ensembl.org/Mus_musculus_cbaj/Info/Index,
+Mus musculus,Vertebrate,DBA_2J_v1,mudv,http://asia.ensembl.org/Mus_musculus_dba2j/Info/Index,
+Mus musculus,Vertebrate,FVB_NJ_v1,mufv,http://asia.ensembl.org/Mus_musculus_fvbnj/Info/Index,
+Mus musculus,Vertebrate,LP_J_v1,mupv,http://asia.ensembl.org/Mus_musculus_lpj/Info/Index,
+Mus musculus,Vertebrate,NOD_ShiLtJ_v1,muov,http://asia.ensembl.org/Mus_musculus_nodshiltj/Info/Index,
+Mus musculus,Vertebrate,NZO_HlLtJ_v1,muzv,http://asia.ensembl.org/Mus_musculus_nzohlltj/Info/Index,
+Mus musculus,Vertebrate,PWK_PhJ_v1,muwv,http://asia.ensembl.org/Mus_musculus_pwkphj/Info/Index,
+Mus musculus,Vertebrate,WSB_EiJ_v1,muiv,http://asia.ensembl.org/Mus_musculus_wsbeij/Info/Index,
+Mus pahari,Vertebrate,PAHARI_EIJ_v1.1,murv,http://asia.ensembl.org/Mus_pahari/Info/Index,
+Mus spicilegus,Vertebrate,MUSP714,muuv,http://asia.ensembl.org/Mus_spicilegus/Info/Index,10.1534/g3.118.200318
+Mus spretus,Vertebrate,SPRET_EiJ_v1,mspv,http://asia.ensembl.org/Mus_spretus/Info/Index,10.1038/s41588-018-0223-8
+Mustela putorius furo,Vertebrate,MusPutFur1.0,mpfv,http://asia.ensembl.org/Mustela_putorius_furo/Info/Index,10.1038/nbt.3079
+Myotis lucifugus,Vertebrate,Myoluc2.0,mylv,http://asia.ensembl.org/Myotis_lucifugus/Info/Index,
+Nannospalax galili,Vertebrate,S.galili_v1.0,nagv,http://asia.ensembl.org/Nannospalax_galili/Info/Index,10.1146/annurev-animal-090414-014900
+Neolamprologus brichardi,Vertebrate,NeoBri1.0,nebv,http://asia.ensembl.org/Neolamprologus_brichardi/Info/Index,
+Neovison vison,Vertebrate,NNQGG.v01,nevv,http://asia.ensembl.org/Neovison_vison/Info/Index,10.1038/s41598-017-15169-z
+Nomascus leucogenys,Vertebrate,Nleu_3.0,nolv,http://asia.ensembl.org/Nomascus_leucogenys/Info/Index,10.1038/nature13679
+Notamacropus eugenii,Vertebrate,Meug_1.0,noev,http://asia.ensembl.org/Notamacropus_eugenii/Info/Index,
+Notechis scutatus,Vertebrate,TS10Xv2-PRI,nosv,http://asia.ensembl.org/Notechis_scutatus/Info/Index,
+Nothoprocta perdicaria,Vertebrate,notPer1,nopv,http://asia.ensembl.org/Nothoprocta_perdicaria/Info/Index,
+Numida meleagris,Vertebrate,NumMel1.0,numv,http://asia.ensembl.org/Numida_meleagris/Info/Index,
+Ochotona princeps,Vertebrate,OchPri2.0-Ens,ocpv,http://asia.ensembl.org/Ochotona_princeps/Info/Index,
+Octodon degus,Vertebrate,OctDeg1.0,ocdv,http://asia.ensembl.org/Octodon_degus/Info/Index,
+Oreochromis niloticus,Vertebrate,Orenil1.0,ornv,http://asia.ensembl.org/Oreochromis_niloticus/Info/Index,
+Ornithorhynchus anatinus,Vertebrate,OANA5,orav,http://asia.ensembl.org/Ornithorhynchus_anatinus/Info/Index,
+Oryctolagus cuniculus,Vertebrate,OryCun2.0,orcv,http://asia.ensembl.org/Oryctolagus_cuniculus/Info/Index,10.1006/geno.1998.5282
+Oryzias latipes,Vertebrate,ASM223467v1,orlv,http://asia.ensembl.org/Oryzias_latipes/Info/Index,
+Oryzias latipes,Vertebrate,ASM223471v1,orhv,http://asia.ensembl.org/Oryzias_latipes_hni/Info/Index,10.1038/s41467-017-01982-7
+Oryzias latipes,Vertebrate,ASM223469v1,orsv,http://asia.ensembl.org/Oryzias_latipes_hsok/Info/Index,10.1038/s41467-017-01982-7
+Oryzias melastigma,Vertebrate,Om_v0.7.RACA,ormv,http://asia.ensembl.org/Oryzias_melastigma/Info/Index,10.1111/1755-0998.12769
+Otolemur garnettii,Vertebrate,OtoGar3,otgv,http://asia.ensembl.org/Otolemur_garnettii/Info/Index,10.1146/annurev-animal-090414-014900
+Ovis aries,Vertebrate,Oar_v3.1,ovav,http://asia.ensembl.org/Ovis_aries/Info/Index,
+Pan paniscus,Vertebrate,panpan1.1,papv,http://asia.ensembl.org/Pan_paniscus/Info/Index,10.1038/nature11128
+Pan troglodytes,Vertebrate,Pan_tro_3.0,patv,http://asia.ensembl.org/Pan_troglodytes/Info/Index,10.1038/nature04072
+Panthera pardus,Vertebrate,PanPar1.0,paav,http://asia.ensembl.org/Panthera_pardus/Info/Index,
+Panthera tigris altaica,Vertebrate,PanTig1.0,ptav,http://asia.ensembl.org/Panthera_tigris_altaica/Info/Index,10.1038/ncomms3433
+Papio anubis,Vertebrate,Panu_3.0,panv,http://asia.ensembl.org/Papio_anubis/Info/Index,
+Parambassis ranga,Vertebrate,fParRan2.1,parv,http://asia.ensembl.org/Parambassis_ranga/Info/Index,
+Paramormyrops kingsleyae,Vertebrate,PKINGS_0.1,pakv,http://asia.ensembl.org/Paramormyrops_kingsleyae/Info/Index,10.1093/gbe/evx265
+Parus major,Vertebrate,Parus_major1.1,pamv,http://asia.ensembl.org/Parus_major/Info/Index,
+Pelodiscus sinensis,Vertebrate,PelSin_1.0,pesv,http://asia.ensembl.org/Pelodiscus_sinensis/Info/Index,10.1038/ng.2615
+Periophthalmus magnuspinnatus,Vertebrate,PM.fa,pemv,http://asia.ensembl.org/Periophthalmus_magnuspinnatus/Info/Index,10.1146/annurev-animal-090414-014900
+Peromyscus maniculatus bairdii,Vertebrate,HU_Pman_2.1,pebv,http://asia.ensembl.org/Peromyscus_maniculatus_bairdii/Info/Index,
+Petromyzon marinus,Vertebrate,Pmarinus_7.0,peav,http://asia.ensembl.org/Petromyzon_marinus/Info/Index,
+Phascolarctos cinereus,Vertebrate,phaCin_unsw_v4.1,phcv,http://asia.ensembl.org/Phascolarctos_cinereus/Info/Index,
+Piliocolobus tephrosceles,Vertebrate,ASM277652v2,pitv,http://asia.ensembl.org/Piliocolobus_tephrosceles/Info/Index,
+Poecilia formosa,Vertebrate,PoeFor_5.1.2,pofv,http://asia.ensembl.org/Poecilia_formosa/Info/Index,10.1038/s41559-018-0473-y
+Poecilia latipinna,Vertebrate,P_latipinna-1.0,polv,http://asia.ensembl.org/Poecilia_latipinna/Info/Index,10.1038/s41559-018-0473-y
+Poecilia mexicana,Vertebrate,P_mexicana-1.0,pomv,http://asia.ensembl.org/Poecilia_mexicana/Info/Index,
+Poecilia reticulata,Vertebrate,Guppy_female_1.0_MT,porv,http://asia.ensembl.org/Poecilia_reticulata/Info/Index,10.1111/mec.13022
+Pogona vitticeps,Vertebrate,pvi1.1,povv,http://asia.ensembl.org/Pogona_vitticeps/Info/Index,10.1186/s13742-015-0085-2
+Pongo abelii,Vertebrate,PPYG2,poav,http://asia.ensembl.org/Pongo_abelii/Info/Index,
+Procavia capensis,Vertebrate,proCap1,prcv,http://asia.ensembl.org/Procavia_capensis/Info/Index,
+Prolemur simus,Vertebrate,Prosim_1.0,prsv,http://asia.ensembl.org/Prolemur_simus/Info/Index,
+Propithecus coquereli,Vertebrate,Pcoq_1.0,prov,http://asia.ensembl.org/Propithecus_coquereli/Info/Index,
+Pteropus vampyrus,Vertebrate,pteVam1,ptvv,http://asia.ensembl.org/Pteropus_vampyrus/Info/Index,
+Pundamilia nyererei,Vertebrate,PunNye1.0,punv,http://asia.ensembl.org/Pundamilia_nyererei/Info/Index,10.1038/nature13726
+Pygocentrus nattereri,Vertebrate,Pygocentrus_nattereri-1.0.2,pynv,http://asia.ensembl.org/Pygocentrus_nattereri/Info/Index,
+Rattus norvegicus,Vertebrate,Rnor_6.0,ranv,http://asia.ensembl.org/Rattus_norvegicus/Info/Index,10.1038/nature02426
+Rhinopithecus bieti,Vertebrate,ASM169854v1,rhbv,http://asia.ensembl.org/Rhinopithecus_bieti/Info/Index,
+Rhinopithecus roxellana,Vertebrate,Rrox_v1,rhrv,http://asia.ensembl.org/Rhinopithecus_roxellana/Info/Index,10.1038/ng.3137
+Saimiri boliviensis boliviensis,Vertebrate,SaiBol1.0,sabv,http://asia.ensembl.org/Saimiri_boliviensis_boliviensis/Info/Index,
+Salvator merianae,Vertebrate,HLtupMer3,samv,http://asia.ensembl.org/Salvator_merianae/Info/Index,10.1093/gigascience/giy141
+Sarcophilus harrisii,Vertebrate,DEVIL7.0,sahv,http://asia.ensembl.org/Sarcophilus_harrisii/Info/Index,10.1016/j.cell.2011.11.065
+Scleropages formosus,Vertebrate,ASM162426v1,scfv,http://asia.ensembl.org/Scleropages_formosus/Info/Index,
+Scophthalmus maximus,Vertebrate,ASM318616v1,scmv,http://asia.ensembl.org/Scophthalmus_maximus/Info/Index,10.1093/dnares/dsw007
+Serinus canaria,Vertebrate,SCA1,secv,http://asia.ensembl.org/Serinus_canaria/Info/Index,10.1186/s13059-014-0578-9
+Seriola dumerili,Vertebrate,Sdu_1.0,sedv,http://asia.ensembl.org/Seriola_dumerili/Info/Index,
+Seriola lalandi dorsalis,Vertebrate,Sedor1,selv,http://asia.ensembl.org/Seriola_lalandi_dorsalis/Info/Index,10.1186/s12864-017-4403-1
+Sorex araneus,Vertebrate,COMMON_SHREW1,soav,http://asia.ensembl.org/Sorex_araneus/Info/Index,
+Spermophilus dauricus,Vertebrate,ASM240643v1,spdv,http://asia.ensembl.org/Spermophilus_dauricus/Info/Index,
+Sphenodon punctatus,Vertebrate,ASM311381v1,sppv,http://asia.ensembl.org/Sphenodon_punctatus/Info/Index,
+Stegastes partitus,Vertebrate,Stegastes_partitus-1.0.2,stpv,http://asia.ensembl.org/Stegastes_partitus/Info/Index,10.1371/journal.pone.0228562
+Sus scrofa,Vertebrate,Sscrofa11.1,susv,http://asia.ensembl.org/Sus_scrofa/Info/Index,10.1038/nature11622
+Taeniopygia guttata,Vertebrate,taeGut3.2.4,tagv,http://asia.ensembl.org/Taeniopygia_guttata/Info/Index,
+Takifugu rubripes,Vertebrate,FUGU5,tarv,http://asia.ensembl.org/Takifugu_rubripes/Info/Index,
+Tetraodon nigroviridis,Vertebrate,TETRAODON8,tenv,http://asia.ensembl.org/Tetraodon_nigroviridis/Info/Index,
+Theropithecus gelada,Vertebrate,Tgel_1.0,thgv,http://asia.ensembl.org/Theropithecus_gelada/Info/Index,
+Tupaia belangeri,Vertebrate,TREESHREW; tupBel1,tubv,http://asia.ensembl.org/Tupaia_belangeri/Info/Index,
+Tursiops truncatus,Vertebrate,turTru1,tutv,http://asia.ensembl.org/Tursiops_truncatus/Info/Index,
+Urocitellus parryii,Vertebrate,ASM342692v1,urpv,http://asia.ensembl.org/Urocitellus_parryii/Info/Index,
+Ursus americanus,Vertebrate,ASM334442v1,urav,http://asia.ensembl.org/Ursus_americanus/Info/Index,10.1093/dnares/dsy036
+Ursus maritimus,Vertebrate,UrsMar_1.0,urmv,http://asia.ensembl.org/Ursus_maritimus/Info/Index,10.1016/j.cell.2014.03.054
+Vicugna pacos,Vertebrate,vicPac1,vipv,http://asia.ensembl.org/Vicugna_pacos/Info/Index,
+Vombatus ursinus,Vertebrate,bare-nosed_wombat_genome_assembly,vouv,http://asia.ensembl.org/Vombatus_ursinus/Info/Index,
+Vulpes vulpes,Vertebrate,VulVul2.2,vuvv,http://asia.ensembl.org/Vulpes_vulpes/Info/Index,10.1038/s41559-018-0611-6
+Xenopus tropicalis,Vertebrate,Xenopus_tropicalis_v9.1,xetv,http://asia.ensembl.org/Xenopus_tropicalis/Info/Index,10.1126/science.1183670
+Xiphophorus couchianus,Vertebrate,Xiphophorus_couchianus-4.0.1,xicv,http://asia.ensembl.org/Xiphophorus_couchianus/Info/Index,
+Xiphophorus maculatus,Vertebrate,X_maculatus-5.0-male,ximv,http://asia.ensembl.org/Xiphophorus_maculatus/Info/Index,10.1038/ng.2604
+Zonotrichia albicollis,Vertebrate,Zonotrichia_albicollis-1.0.1,zoav,http://asia.ensembl.org/Zonotrichia_albicollis/Info/Index,
