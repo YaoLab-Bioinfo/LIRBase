@@ -131,6 +131,15 @@ shinyServer(function(input, output, session) {
       } else {
         NULL
       }
+    } else {
+      output$LIR_info_num <- DT::renderDataTable(
+        NULL
+      )
+      
+      output$IRFbrowse <- DT::renderDataTable(
+        NULL
+      )
+      
     }
   })
   
@@ -215,6 +224,23 @@ shinyServer(function(input, output, session) {
       } else {
         NULL
       }
+    } else {
+      output$LIR_info <- DT::renderDataTable(
+        NULL
+      )
+      
+      output$LIR_gene_op <- DT::renderDataTable(
+        NULL
+      )
+      
+      output$LIR_sequence <- renderText(
+        NULL
+      )
+      
+      output$LIR_detail <- renderText(
+        NULL
+      )
+      
     }
   })
   
