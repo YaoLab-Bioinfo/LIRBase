@@ -33,7 +33,6 @@ library(shinydashboard)
 
 
 # load("genome.info.RData")
-# load("dat.summary.RData")
 
 BLASTdb.fl <- read.table("BLASTdb.txt", head=T, as.is=T)
 

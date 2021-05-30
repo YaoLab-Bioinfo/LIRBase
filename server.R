@@ -5,39 +5,39 @@ shinyServer(function(input, output, session) {
   # Home
   observeEvent(input$Browse_butt, {
     updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Browse</strong>"))
-  })
+  }, ignoreInit = TRUE)
   
   observeEvent(input$SearchByReg_butt, {
     updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:16px'>Search by genomic location</strong>"))
-  })
+  }, ignoreInit = TRUE)
   
   observeEvent(input$SearchByLIRID_butt, {
     updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:16px'>Search by LIR identifier</strong>"))
-  })
+  }, ignoreInit = TRUE)
   
   observeEvent(input$BLAST_butt, {
     updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Blast</strong>"))
-  })
+  }, ignoreInit = TRUE)
   
   observeEvent(input$Annotate_butt, {
     updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Annotate</strong>"))
-  })
+  }, ignoreInit = TRUE)
   
   observeEvent(input$Quantify_butt, {
     updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Quantify</strong>"))
-  })
+  }, ignoreInit = TRUE)
   
   observeEvent(input$DESeq_butt, {
     updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>DESeq</strong>"))
-  })
+  }, ignoreInit = TRUE)
   
   observeEvent(input$Target_butt, {
     updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Target</strong>"))
-  })
+  }, ignoreInit = TRUE)
   
   observeEvent(input$Visualize_butt, {
     updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Visualize</strong>"))
-  })
+  }, ignoreInit = TRUE)
   
   # Browse
   HTML.tab <- read.table("icon.tab.txt", head=F, as.is=T, fill=NA, sep="\t")
@@ -65,17 +65,16 @@ shinyServer(function(input, output, session) {
         HTML.file.path <<- dat.file.path
         dat.content <<- data.table::fread(dat.file.path, data.table = F)
         
-        load("dat.summary.RData")
-        dat.spark$AN <- gsub(".+<I>", "", dat.spark$Accession)
-        dat.spark$AN <- gsub("</I>", "", dat.spark$AN)
-        dat.spark.target <- dat.spark[dat.spark$AN == gsub(".dat.gz", "", basename(dat.file.path)), ]
+        dat.spark.path <- gsub("Table", "Spark_data", dat.file.path)
+        dat.spark.path <- gsub("dat.gz", "RData", dat.spark.path)
+        load(dat.spark.path)
         dat.spark.target$AN <- NULL
-        dat.spark$AN <- NULL
-        
+
         output$LIR_info_num <- DT::renderDataTable(
           dat.spark.target,
           options = list(
-            pageLength = 10, dom = 't', scrollX = TRUE, searching = FALSE, autoWidth = FALSE, bSort=FALSE,
+            scrollX = TRUE, searching = FALSE, autoWidth = FALSE, bSort=FALSE,
+            drawCallback = htmlwidgets::JS('function(){debugger;HTMLWidgets.staticRender();}'),
             initComplete = DT::JS(
               "function(settings, json) {",
               "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
@@ -83,56 +82,29 @@ shinyServer(function(input, output, session) {
           ), escape = FALSE, rownames= FALSE, selection="none"
         )
         
-        output$Length <- renderPlot({
-          par(mar=c(2.9, 3.8, 2.1, 1.1))
-          hist(dat.content$Left_len + dat.content$Right_len + dat.content$Loop_len, 
-               main = "Total length", xlab = "", col="grey80")
-        }, height = "auto", width = "auto")
-        
-        output$Left_len <- renderPlot({
-          par(mar=c(2.1, 1.9, 2.1, 1.1))
-          hist(dat.content$Left_len, main = "Left arm length", xlab = "", col="grey80")
-        }, height = "auto", width = "auto")
-        
-        output$Right_len <- renderPlot({
-          par(mar=c(2.1, 1.9, 2.1, 1.1))
-          hist(dat.content$Right_len, main = "Right arm length", xlab = "", col="grey80")
-        }, height = "auto", width = "auto")
-        
-        output$Loop_len <- renderPlot({
-          par(mar=c(2.1, 1.9, 2.1, 1.1))
-          hist(dat.content$Loop_len, main = "Loop length", xlab = "", col="grey80")
-        }, height = "auto", width = "auto")
-        
-        output$Match_per <- renderPlot({
-          par(mar=c(2.1, 1.9, 2.1, 1.1))
-          hist(dat.content$Match_per, main = "Match percent", xlab = "", col="grey80")
-        }, height = "auto", width = "auto")
-        
-        output$Indel_per <- renderPlot({
-          par(mar=c(2.1, 1.9, 2.1, 1.1))
-          hist(dat.content$Indel_per, main = "Indel percent", xlab = "", col="grey80")
-        }, height = "auto", width = "auto")
-        
         output$IRFbrowse_title <- renderText(
-          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>List of all the LIRs identified by IRF (Click on the ID of a LIR to check its details):</b></font>')
+          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>List of all the LIRs identified by IRF (Click on a row to check the details of the selected LIR):</b></font>')
           )
         output$IRFbrowse <- DT::renderDataTable(
           dat.content, extensions = 'Scroller',
-          options = list(pageLength = 10, autoWidth = FALSE, lengthMenu = c(10, 20, 30, 50, 100), 
+          options = list(pageLength = 5, autoWidth = FALSE, lengthMenu = c(5, 10, 20, 30, 50, 100), 
                          searchHighlight = TRUE, scrollX = TRUE,
                          initComplete = DT::JS(
                            "function(settings, json) {",
                            "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
                            "}")
                          ),
-          rownames= FALSE, filter = 'top', selection=list(mode="single", target="cell")
+          rownames= FALSE, filter = 'top', selection="single"
         )
       } else {
         NULL
       }
     } else {
       output$LIR_info_num <- DT::renderDataTable(
+        NULL
+      )
+      
+      output$IRFbrowse_title <- renderText(
         NULL
       )
       
@@ -143,35 +115,17 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  observe({    
-    if (length(input$IRFbrowse_cells_selected) > 0) {
-      IRF.index <- input$IRFbrowse_cells_selected
-      IRF.index[, 2] <- IRF.index[, 2] + 1
+  observe({
+    if (length(input$IRFbrowse_rows_selected) > 0) {
+      IRF.index <- input$IRFbrowse_rows_selected
       
-      if (IRF.index[, 2] == 1 && !is.na(dat.content[IRF.index])) {
-        updateTabsetPanel(session, 'browser_1', selected = HTML("<strong style='font-size:18px'>Details of the LIR selected</strong>"))
-        
+      if (!is.na(dat.content$ID[IRF.index])) {
         HTML.file.path <- gsub("Table", "HTML", HTML.file.path)
         HTML.file.path <- gsub("dat.gz", "IRFresult.RData", HTML.file.path)
         load(HTML.file.path)
         
         LIR.gene.op.file.path <- gsub("IRFresult.RData", "LIR_gene_op.txt.gz", HTML.file.path)
         LIR.gene.op.file.path <- gsub("HTML", "LIR_gene_op", LIR.gene.op.file.path)
-        
-        # basic information
-        output$LIR_info_title <- renderText(
-          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Information of the selected LIR:</b></font>')
-        )
-        output$LIR_info <- DT::renderDataTable(
-          dat.content[IRF.index[, 1], ], 
-          options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE,
-                         initComplete = DT::JS(
-                           "function(settings, json) {",
-                           "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
-                           "}")
-          ), 
-          escape = FALSE, rownames= FALSE, selection="none"
-        )
         
         # Overlap between LIRs and genes
         output$LIR_gene_op_title <- renderText(
@@ -180,7 +134,7 @@ shinyServer(function(input, output, session) {
         output$LIR_gene_op <- DT::renderDataTable({
           if (file.exists(LIR.gene.op.file.path)) {
             LIR.gene.op <- data.table::fread(LIR.gene.op.file.path, data.table=F)
-            LIR.gene.op <- LIR.gene.op[LIR.gene.op$ID %in% dat.content[IRF.index], ]
+            LIR.gene.op <- LIR.gene.op[LIR.gene.op$ID %in% dat.content$ID[IRF.index], ]
             LIR.gene.op <- LIR.gene.op[, !colnames(LIR.gene.op) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
             LIR.gene.op
           } else {
@@ -201,9 +155,9 @@ shinyServer(function(input, output, session) {
         fasta.file.path <- gsub("HTML", "Fasta", HTML.file.path)
         fasta.file.path <- gsub("IRFresult.RData", "LIR.fa.gz", fasta.file.path)
         fasta.content <- Biostrings::readBStringSet(fasta.file.path)
-        LIR.seq.select <- fasta.content[dat.content[IRF.index]]
+        LIR.seq.select <- fasta.content[dat.content$ID[IRF.index]]
         tmp.fl <- file.path(tempdir(), "LIR.seq.select.fasta")
-        Biostrings::writeXStringSet(LIR.seq.select, file = tmp.fl)
+        Biostrings::writeXStringSet(LIR.seq.select, file = tmp.fl, width=20000)
         LIR.seq.select <- readLines(tmp.fl)
         
         output$LIR_sequence_title <- renderText(
@@ -214,7 +168,7 @@ shinyServer(function(input, output, session) {
         )
         
         # alignment of left against right arm
-        LIR.align.select <- LIR.align[[dat.content[IRF.index]]]
+        LIR.align.select <- LIR.align[[dat.content$ID[IRF.index]]]
         output$LIR_detail_title <- renderText(
           HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary match):</b></font>')
         )
@@ -225,18 +179,23 @@ shinyServer(function(input, output, session) {
         NULL
       }
     } else {
-      output$LIR_info <- DT::renderDataTable(
+      output$LIR_gene_op_title <- renderText(
         NULL
       )
-      
       output$LIR_gene_op <- DT::renderDataTable(
         NULL
       )
       
+      output$LIR_sequence_title <- renderText(
+        NULL
+      )
       output$LIR_sequence <- renderText(
         NULL
       )
       
+      output$LIR_detail_title <- renderText(
+        NULL
+      )
       output$LIR_detail <- renderText(
         NULL
       )
@@ -264,7 +223,7 @@ shinyServer(function(input, output, session) {
       sliderInput(inputId = "chooseRegion", 
                   label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose genomic region</font>')),
                   min = 1, max = dat.chromosome$size,
-                  value = c(1, dat.chromosome$size), width = "90%")
+                  value = c(1, dat.chromosome$size), width = "100%")
     }
   })
   
@@ -311,7 +270,7 @@ shinyServer(function(input, output, session) {
     } else {
       searchedRegResults()[[1]]
     }
-  }, options = list(paging = TRUE, searching = TRUE, searchHighlight = TRUE, scrollX = TRUE, autoWidth = FALSE,
+  }, options = list(paging = TRUE, pageLength = 5, searching = TRUE, searchHighlight = TRUE, scrollX = TRUE, autoWidth = FALSE,
                     initComplete = DT::JS(
                       "function(settings, json) {",
                       "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
@@ -383,7 +342,7 @@ shinyServer(function(input, output, session) {
     } else {
       LIR.ID <- searchedRegResults()[[1]]$ID[input$LIRsearchRegResult_rows_selected]
       tmp.fl <- file.path(tempdir(), "t1.fa")
-      Biostrings::writeXStringSet(searchedRegResults()[[2]][LIR.ID], file = tmp.fl)
+      Biostrings::writeXStringSet(searchedRegResults()[[2]][LIR.ID], file = tmp.fl, width=20000)
       readLines(tmp.fl)
     }
   }, sep = "\n")
@@ -564,7 +523,7 @@ shinyServer(function(input, output, session) {
     } else {
       LIR.ID <- searchedIDResults()[[1]]$ID[input$LIRsearchIDResult_rows_selected]
       tmp.fl <- file.path(tempdir(), "t2.fa")
-      Biostrings::writeXStringSet(searchedIDResults()[[2]][LIR.ID], file = tmp.fl)
+      Biostrings::writeXStringSet(searchedIDResults()[[2]][LIR.ID], file = tmp.fl, width=20000)
       readLines(tmp.fl)
     }
   }, sep = "\n")
@@ -947,7 +906,7 @@ shinyServer(function(input, output, session) {
     } else {
       LIR.ID <- blastedResults()$sseqid[input$BLASTresult_rows_selected]
       tmp.fl <- file.path(tempdir(), "t3.fa")
-      Biostrings::writeXStringSet(blastdbResults()[[2]][LIR.ID], file = tmp.fl)
+      Biostrings::writeXStringSet(blastdbResults()[[2]][LIR.ID], file = tmp.fl, width=20000)
       readLines(tmp.fl)
     }
   }, sep = "\n")
@@ -1195,7 +1154,7 @@ shinyServer(function(input, output, session) {
     } else {
       LIR.ID <- annotateResults()[[1]]$ID[input$prediction_rows_selected]
       tmp.fl <- file.path(tempdir(), "Anno1.fa")
-      Biostrings::writeXStringSet(annotateResults()[[2]][LIR.ID], file = tmp.fl)
+      Biostrings::writeXStringSet(annotateResults()[[2]][LIR.ID], file = tmp.fl, width=20000)
       readLines(tmp.fl)
     }
   }, sep = "\n")
@@ -1843,7 +1802,7 @@ shinyServer(function(input, output, session) {
 	  } else {
 	    LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
 	    tmp.fl <- file.path(tempdir(), "t4.fa")
-	    Biostrings::writeXStringSet(alignedLIRResults()[[2]][LIR.ID], file = tmp.fl)
+	    Biostrings::writeXStringSet(alignedLIRResults()[[2]][LIR.ID], file = tmp.fl, width=20000)
 	    readLines(tmp.fl)
 	  }
 	}, sep = "\n")
@@ -2223,7 +2182,7 @@ shinyServer(function(input, output, session) {
 	            bowtie.cDNA.out.summ
 	          }
 	        }, escape = FALSE, rownames= FALSE, selection="none", filter = 'top',
-	        options = list(pageLength = 15, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
+	        options = list(pageLength = 5, lengthMenu = c(5, 10, 20, 30, 50), autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
 	                       initComplete = DT::JS(
 	                         "function(settings, json) {",
 	                         "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
