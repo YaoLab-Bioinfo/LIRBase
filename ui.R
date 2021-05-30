@@ -223,8 +223,8 @@ shinyUI(
                   tags$head(tags$style("#LIR_sequence {
                                         width: 100%; 
                                         padding: 6px 12px; 
-                                        white-space: pre-wrap;
                                         height: 400px;
+                                        white-space: pre-wrap;
                                         background: white;
                                       }"
                   ))
@@ -1028,27 +1028,29 @@ shinyUI(
                                                                                        icon = icon("eye", class = NULL, lib = "font-awesome"),
                                                                                        block = TRUE, size = "sm", style="unite", color="default")
                                                        )
-                                                     )
-                                    ),
-                                    br(),
-                                    
-                                    fluidRow(
-                                      column(8,
-                                             htmlOutput("Quantify_plot_1_title"),
-                                             tags$head(tags$style("#Quantify_plot_1_title{color: red;
+                                                     ),
+                                                     
+                                                     br(),
+                                                     
+                                                     fluidRow(
+                                                       column(8,
+                                                              htmlOutput("Quantify_plot_1_title"),
+                                                              tags$head(tags$style("#Quantify_plot_1_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
-                                             )),
-                                             
-                                             shinycssloaders::withSpinner(plotOutput("srna_expression", height = "600px", width = '95%'))
-                                      ),
-                                      
-                                      column(4,
-                                             shinycssloaders::withSpinner(plotOutput("srna_size_align", height = "350px", width = '95%')),
-                                             shinycssloaders::withSpinner(plotOutput("srna_reads_size_align", height = "350px", width = '95%'))
-                                      )
+                                                              )),
+                                                              
+                                                              shinycssloaders::withSpinner(plotOutput("srna_expression", height = "600px", width = '95%'))
+                                                       ),
+                                                       
+                                                       column(4,
+                                                              shinycssloaders::withSpinner(plotOutput("srna_size_align", height = "350px", width = '95%')),
+                                                              shinycssloaders::withSpinner(plotOutput("srna_reads_size_align", height = "350px", width = '95%'))
+                                                       )
+                                                     )
                                     ),
+                                    
                                     conditionalPanel(condition="typeof input.LIRreadCount_rows_selected  !== 'undefined' && input.LIRreadCount_rows_selected.length > 0", 
                                                      fixedRow(
                                                        column(4,
@@ -1481,16 +1483,20 @@ shinyUI(
                ),
                
                mainPanel(
-                 fixedRow(
-                   column(6,
-                          downloadButton("downloadLIRstrText", "Secondary structure in plain text file", style = "width:100%;", class = "buttDown")
-                   ),
-                   column(6,
-                          downloadButton("downloadLIRstrPS", "Secondary structure in PostScript file", style = "width:100%;", class = "buttDown")
-                   )
+                 conditionalPanel(condition = "input$submitVisualize > 0",
+                                  fixedRow(
+                                    column(6,
+                                           shinyWidgets::actionBttn("Visualize_LIR_str", "View LIR secondary structure in png format",
+                                                                    icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                                                    block = TRUE, size = "sm", style="unite", color="default")
+                                    ),
+                                    column(6,
+                                           downloadButton("downloadLIRstrPDF", "Download secondary structure in PDF file", style = "width:100%;", class = "buttDown")
+                                    )
+                                  )
                  ),
                  
-                 column(12, 
+                 column(12,
                         htmlOutput("RNAfold_2nd_structure_text_title"),
                         tags$head(tags$style("#RNAfold_2nd_structure_text_title{color: red;
                                        font-size: 22px;
@@ -1499,17 +1505,21 @@ shinyUI(
                         )),
                         
                         tags$head(tags$style("#RNAfold_2nd_structure_text {
-                    width: 100%; 
-                    padding: 6px 12px; 
+                    width: 100%;
+                    padding: 6px 12px;
                     white-space: pre-wrap;
-                    height: 300px;
                     }"
                         )),
                         
-                        uiOutput("RNAfold_textview"),
-                        br(),
-                        uiOutput("RNAfold_pdfview")
+                        uiOutput("RNAfold_textview")
+                 ),
+                 
+                 br(),
+                 
+                 bsModal("VisualizeLIRstr", "View LIR secondary structure in png format", "Visualize_LIR_str", size = "large",
+                         uiOutput("RNAfold_pngview")
                  )
+                 
                )
         )
       ),

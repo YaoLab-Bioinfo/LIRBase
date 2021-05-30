@@ -2288,8 +2288,6 @@ shinyServer(function(input, output, session) {
 	          ps.file <- paste0(vis.Seq.fa.name, "_ss.ps")
 	          system(paste0("ps2pdf ", ps.file))
 	          pdf.file <- paste0(vis.Seq.fa.name, "_ss.pdf")
-	          file.copy(from=pdf.file, to="www", overwrite = TRUE)
-	          file.remove(pdf.file)
 	          
 	          # RNAfold result file
 	          if (length(rnafold.out) < 3) {
@@ -2317,23 +2315,30 @@ shinyServer(function(input, output, session) {
 	              rnafold.out.format
 	            }, sep = "\n")
 	            
-	            output$RNAfold_pdfview <- renderUI({
-	              tags$iframe(style = "height:900px; width:100%; scrolling=yes", src = pdf.file)
+	            oopt = animation::ani.options(autobrowse = FALSE)
+	            png.file <- gsub("pdf$", "png", pdf.file)
+	            animation::im.convert(pdf.file, output = png.file, extra.opts="-density 5000")
+	            file.copy(from=png.file, to="www", overwrite = TRUE)
+	            file.remove(png.file)
+	            
+	            output$RNAfold_pngview <- renderUI({
+	              tags$img(src = png.file)
 	            })
 	            
 	            ## Download
-	            output$downloadLIRstrText <- downloadHandler(
-	              filename <- function() { paste('LIR_hpRNA_2nd_structure.txt') },
-	              content <- function(file) {
-	                writeLines(rnafold.out, file)
-	              }, contentType = 'text/plain'
-	            )
+	            # output$downloadLIRstrText <- downloadHandler(
+	            #   filename <- function() { paste('LIR_hpRNA_2nd_structure.txt') },
+	            #   content <- function(file) {
+	            #     writeLines(rnafold.out, file)
+	            #   }, contentType = 'text/plain'
+	            # )
 	            
-	            output$downloadLIRstrPS <- downloadHandler(
-	              filename <- function() { paste('LIR_hpRNA_2nd_structure.ps') },
+	            output$downloadLIRstrPDF <- downloadHandler(
+	              filename <- function() { paste('LIR_hpRNA_2nd_structure.pdf') },
 	              content <- function(file) {
-	                if (file.exists(ps.file)) {
-	                  file.copy(ps.file, file)
+	                if (file.exists(pdf.file)) {
+	                  file.copy(pdf.file, file)
+	                  file.remove(pdf.file)
 	                } else {
 	                  NULL
 	                }
