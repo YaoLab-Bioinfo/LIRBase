@@ -1290,8 +1290,6 @@ shinyUI(
                ),
                
                mainPanel(
-                 downloadButton("DESeq2_result_table.txt", "Differentially expressed LIRs/sRNAs", style = "width:50%;", class = "buttDown"),
-                 br(),br(),
                  DT::dataTableOutput("DESeqResult"),
                  br(),
                  
@@ -1532,13 +1530,13 @@ shinyUI(
         
         tabsetPanel(id = "download_1",
                     tabPanel(h4("Annotated long inverted repeats of 424 genomes"),
-                             shiny::dataTableOutput("downloadTable")
+                             DT::dataTableOutput("downloadTable")
                     ),
                     tabPanel(h4("BLASTN database"),
-                             shiny::dataTableOutput("BLASTdbdownloadTable")
+                             DT::dataTableOutput("BLASTdbdownloadTable")
                     ),
                     tabPanel(h4("Bowtie database"),
-                             shiny::dataTableOutput("BowtiedbdownloadTable")
+                             DT::dataTableOutput("BowtiedbdownloadTable")
                     )
         )
       ),
@@ -1550,7 +1548,7 @@ shinyUI(
         icon = icon("info", class = NULL, lib = "font-awesome"),
         
         h3("Information of 424 genomes collected in LIRBase."),
-        shiny::dataTableOutput("genomeTable"), width='100%'
+        DT::dataTableOutput("genomeTable"), width='100%'
       ),
       
       

@@ -85,17 +85,21 @@ shinyServer(function(input, output, session) {
         output$IRFbrowse_title <- renderText(
           HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>List of all the LIRs identified by IRF (Click on a row to check the details of the selected LIR):</b></font>')
           )
-        output$IRFbrowse <- DT::renderDataTable(
-          dat.content, extensions = 'Scroller',
-          options = list(pageLength = 5, autoWidth = FALSE, lengthMenu = c(5, 10, 20, 30, 50, 100), 
-                         searchHighlight = TRUE, scrollX = TRUE,
-                         initComplete = DT::JS(
-                           "function(settings, json) {",
-                           "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
-                           "}")
-                         ),
-          rownames= FALSE, filter = 'top', selection="single"
-        )
+        output$IRFbrowse <- DT::renderDT({
+          DT::datatable(
+            dat.content, extensions = 'Buttons',
+            options = list(pageLength = 5, autoWidth = FALSE, lengthMenu = c(5, 10, 20, 30, 50, 100), 
+                           searchHighlight = TRUE, scrollX = TRUE,
+                           buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+                           columnDefs=list(list(targets="_all")),
+                           initComplete = DT::JS(
+                             "function(settings, json) {",
+                             "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                             "}")
+            ), rownames= FALSE, filter = 'top', selection="single"
+          )
+          
+        }, server = FALSE)
       } else {
         NULL
       }
@@ -131,25 +135,28 @@ shinyServer(function(input, output, session) {
         output$LIR_gene_op_title <- renderText(
           HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Overlaps between the selected LIR and genes:</b></font>')
         )
-        output$LIR_gene_op <- DT::renderDataTable({
+        output$LIR_gene_op <- DT::renderDT({
           if (file.exists(LIR.gene.op.file.path)) {
             LIR.gene.op <- data.table::fread(LIR.gene.op.file.path, data.table=F)
             LIR.gene.op <- LIR.gene.op[LIR.gene.op$ID %in% dat.content$ID[IRF.index], ]
             LIR.gene.op <- LIR.gene.op[, !colnames(LIR.gene.op) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
-            LIR.gene.op
           } else {
             LIR.gene.op <- data.frame("V1"="No data available!")
             colnames(LIR.gene.op) <- ""
-            LIR.gene.op
           }
-        }, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE,
-                          initComplete = DT::JS(
-                            "function(settings, json) {",
-                            "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
-                            "}")
-        ), 
-        escape = FALSE, rownames= FALSE, selection="none"
-        )
+          
+          DT::datatable(
+            LIR.gene.op,
+            options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, scrollX = TRUE,
+                           buttons = c('copy', 'csv', 'excel'), dom = 'Bfrtip',
+                           columnDefs=list(list(targets="_all")),
+                           initComplete = DT::JS(
+                             "function(settings, json) {",
+                             "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                             "}")
+            ), escape = FALSE, rownames= FALSE, selection="none", extensions = "Buttons"
+          )
+        }, server = FALSE)
         
         # sequence
         fasta.file.path <- gsub("HTML", "Fasta", HTML.file.path)
@@ -264,25 +271,35 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  output$LIRsearchRegResult <- DT::renderDataTable({
+  output$LIRsearchRegResult <- DT::renderDT({
     if (is.null(search.region.result())) {
-      
+      LIR.search.reg.table <- NULL
     } else {
-      searchedRegResults()[[1]]
+      LIR.search.reg.table <- searchedRegResults()[[1]]
     }
-  }, options = list(paging = TRUE, pageLength = 5, searching = TRUE, searchHighlight = TRUE, scrollX = TRUE, autoWidth = FALSE,
-                    initComplete = DT::JS(
-                      "function(settings, json) {",
-                      "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
-                      "}")
-                    ), 
-  rownames= FALSE, filter = 'top', selection = "single")
+    
+    DT::datatable(
+      LIR.search.reg.table,
+      options = list(lengthMenu = c(5, 10, 20, 30, 50), pageLength = 5, searching = TRUE, searchHighlight = TRUE, scrollX = TRUE, autoWidth = FALSE,
+                     buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+                     columnDefs=list(list(targets="_all")),
+                     initComplete = DT::JS(
+                       "function(settings, json) {",
+                       "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                       "}")
+      ), rownames= FALSE, filter = 'top', selection = "single", extensions = "Buttons"
+    )
+  }, server = FALSE)
   
   ## Download structure of LIRs in user searching result
   output$searchRegDownIRFresult.txt <- downloadHandler(
     filename <- function() { paste('LIRs_strucutre_search.txt') },
     content <- function(file) {
-      write.table(searchedRegResults()[[1]], file, sep="\t", quote=F, row.names = F)
+      if (is.null(search.region.result())) {
+        NULL
+      } else {
+        write.table(searchedRegResults()[[1]], file, sep="\t", quote=F, row.names = F)
+      }
     }, contentType = 'text/plain'
   )
   
@@ -290,7 +307,11 @@ shinyServer(function(input, output, session) {
   output$searchRegDownIRFfasta.txt <- downloadHandler(
     filename <- function() { paste('LIRs_sequence_search.fasta') },
     content <- function(file) {
-      Biostrings::writeXStringSet(searchedRegResults()[[2]], file)
+      if (is.null(search.region.result())) {
+        NULL
+      } else {
+        Biostrings::writeXStringSet(searchedRegResults()[[2]], file)
+      }
     }, contentType = 'text/plain'
   )
   
@@ -303,9 +324,9 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  output$Search_reg_LIR_gene_op <- DT::renderDataTable({
+  output$Search_reg_LIR_gene_op <- DT::renderDT({
     if (is.null(search.region.result()) || is.null(input$LIRsearchRegResult_rows_selected)) {
-      
+      LIR.gene.op <- NULL
     } else {
       if (file.exists(searchedRegResults()[[4]])) {
         LIR.gene.op <- data.table::fread(searchedRegResults()[[4]], data.table=F)
@@ -316,16 +337,22 @@ shinyServer(function(input, output, session) {
       } else {
         LIR.gene.op <- data.frame("V1"="No data available!")
         colnames(LIR.gene.op) <- ""
-        LIR.gene.op
       }
     }
-  }, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE,
-                    initComplete = DT::JS(
-                      "function(settings, json) {",
-                      "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
-                      "}")
-                    ), 
-  escape = FALSE, rownames= FALSE, selection="none")
+    
+    DT::datatable(
+      LIR.gene.op,
+      options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, scrollX = TRUE,
+                     buttons = c('copy', 'csv', 'excel'), dom = 'Bfrtip',
+                     columnDefs=list(list(targets="_all")),
+                     initComplete = DT::JS(
+                       "function(settings, json) {",
+                       "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                       "}")
+      ), 
+      escape = FALSE, rownames= FALSE, selection="none", extensions = "Buttons"
+    )
+  }, server = FALSE)
   
   ## Display LIR sequence
   output$LIR_detail_search_reg_fasta_title <- renderText({
@@ -443,21 +470,27 @@ shinyServer(function(input, output, session) {
     } else {NULL}
   })
   
-  output$LIRsearchIDResult <- DT::renderDataTable({
-      if (is.null(search.ID.result())) {
-        search.out <- data.frame("V1"="No LIRs found!")
-        colnames(search.out) <- ""
-        search.out
-      } else {
-        searchedIDResults()[[1]]
-      }
-    }, options = list(paging = TRUE, searching = TRUE, searchHighlight = TRUE, scrollX = TRUE, autoWidth = FALSE,
-                      initComplete = DT::JS(
-                        "function(settings, json) {",
-                        "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
-                        "}")
-                      ), 
-    rownames= FALSE, selection = "single")
+  output$LIRsearchIDResult <- DT::renderDT({
+    if (is.null(search.ID.result())) {
+      search.out <- data.frame("V1"="No LIRs found!")
+      colnames(search.out) <- ""
+    } else {
+      search.out <- searchedIDResults()[[1]]
+    }
+    
+    DT::datatable(
+      search.out,
+      options = list(paging = TRUE, searchHighlight = TRUE, scrollX = TRUE,
+                     searching = TRUE, autoWidth = FALSE, bSort=FALSE,
+                     buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+                     columnDefs=list(list(targets="_all")),
+                     initComplete = DT::JS(
+                       "function(settings, json) {",
+                       "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                       "}")
+      ), rownames= FALSE, selection = "single", extensions = "Buttons"
+    )
+  }, server = FALSE)
   
   ## Download structure of LIRs in user searching result
   output$searchIDDownIRFresult.txt <- downloadHandler(
@@ -484,29 +517,33 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  output$Search_ID_LIR_gene_op <- DT::renderDataTable({
+  output$Search_ID_LIR_gene_op <- DT::renderDT({
     if (is.null(search.ID.result()) || is.null(input$LIRsearchIDResult_rows_selected)) {
-      
+      LIR.gene.op <- NULL
     } else {
       if (file.exists(searchedIDResults()[[4]])) {
         LIR.gene.op <- data.table::fread(searchedIDResults()[[4]], data.table=F)
         LIR.ID <- searchedIDResults()[[1]]$ID[input$LIRsearchIDResult_rows_selected]
         LIR.gene.op <- LIR.gene.op[LIR.gene.op$ID %in% LIR.ID, ]
         LIR.gene.op <- LIR.gene.op[, !colnames(LIR.gene.op) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
-        LIR.gene.op
       } else {
         LIR.gene.op <- data.frame("V1"="No data available!")
         colnames(LIR.gene.op) <- ""
-        LIR.gene.op
       }
     }
-  }, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE,
-                    initComplete = DT::JS(
-                      "function(settings, json) {",
-                      "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
-                      "}")
-                    ), 
-  escape = FALSE, rownames= FALSE, selection="none")
+    
+    DT::datatable(
+      LIR.gene.op, 
+      options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, scrollX = TRUE,
+                     buttons = c('copy', 'csv', 'excel'), dom = 'Bfrtip',
+                     columnDefs=list(list(targets="_all")),
+                     initComplete = DT::JS(
+                       "function(settings, json) {",
+                       "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                       "}")
+      ), escape = FALSE, rownames= FALSE, selection="none", extensions = "Buttons"
+    )
+  }, server = FALSE)
   
   ## Display LIR sequence
   output$LIR_detail_search_ID_fasta_title <- renderText({
@@ -677,21 +714,27 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  output$BLASTresult <- DT::renderDataTable({
+  output$BLASTresult <- DT::renderDT({
     if (is.null(blast.result()) || is.null(blastedResults())) {
       blast.out <- data.frame("V1"="No BLAST hits found!")
       colnames(blast.out) <- ""
-      blast.out
     } else {
-      blastedResults()
+      blast.out <- blastedResults()
     }
-  }, escape = FALSE, rownames= FALSE, selection="single", filter = 'top',
-  options = list(pageLength = 5, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
-                 initComplete = DT::JS(
-                   "function(settings, json) {",
-                   "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
-                   "}")
-                 ))
+    
+    DT::datatable(
+      blast.out,
+      escape = FALSE, rownames= FALSE, selection="single", filter = 'top', extensions = "Buttons",
+      options = list(pageLength = 5, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
+                     buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+                     columnDefs=list(list(targets="_all")),
+                     initComplete = DT::JS(
+                       "function(settings, json) {",
+                       "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                       "}")
+      )
+    )
+  }, server = FALSE)
   
   # Update Tab Panel
   observe({
@@ -867,29 +910,34 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  output$Blast_LIR_gene_op <- DT::renderDataTable({
+  output$Blast_LIR_gene_op <- DT::renderDT({
     if ( is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) || is.null(blastedResults())) {
-      
+      LIR.gene.op <- NULL
     } else {
       if ( nrow(blastdbResults()[[4]])>0 ) {
         LIR.gene.op <- blastdbResults()[[4]]
         LIR.ID <- blastedResults()$sseqid[input$BLASTresult_rows_selected]
         LIR.gene.op <- LIR.gene.op[LIR.gene.op$ID %in% LIR.ID, ]
         LIR.gene.op <- LIR.gene.op[, !colnames(LIR.gene.op) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
-        LIR.gene.op
+        
       } else {
         LIR.gene.op <- data.frame("V1"="No data available!")
         colnames(LIR.gene.op) <- ""
-        LIR.gene.op
       }
     }
-  }, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE,
-                    initComplete = DT::JS(
-                      "function(settings, json) {",
-                      "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
-                      "}")
-                    ), 
-  escape = FALSE, rownames= FALSE, selection="none")
+    
+    DT::datatable(
+      LIR.gene.op,
+      options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, scrollX = TRUE,
+                     buttons = c('copy', 'csv', 'excel'), dom = 'Bfrtip',
+                     columnDefs=list(list(targets="_all")),
+                     initComplete = DT::JS(
+                       "function(settings, json) {",
+                       "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                       "}")
+      ), escape = FALSE, rownames= FALSE, selection="none"
+    )
+  }, server = FALSE)
   
   ## Display LIR sequence
   output$LIR_detail_blast_fasta_title <- renderText({
@@ -1110,20 +1158,26 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  output$prediction <- DT::renderDataTable({
+  output$prediction <- DT::renderDT({
     if (is.null(annotate.result())) {
-      NULL
+      annotate.table <- NULL
     } else {
-      annotateResults()[[1]]
+      annotate.table <- annotateResults()[[1]]
     }
-  }, escape = FALSE, rownames= FALSE, selection="single", 
-  options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
-                 initComplete = DT::JS(
-                   "function(settings, json) {",
-                   "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
-                   "}")
-                 )
-  )
+    
+    DT::datatable(
+      annotate.table,
+      escape = FALSE, rownames= FALSE, selection="single", 
+      options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
+                     buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+                     columnDefs=list(list(targets="_all")),
+                     initComplete = DT::JS(
+                       "function(settings, json) {",
+                       "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                       "}")
+      )
+    )
+  }, server = FALSE)
   
   output$downloadIRFresult.txt <- downloadHandler(
     filename <- function() { paste('LIRs_strucutre_by_IRF.txt') },
@@ -1371,20 +1425,26 @@ shinyServer(function(input, output, session) {
 	  }
 	})
 	
-	output$LIRreadCount <- DT::renderDataTable({
+	output$LIRreadCount <- DT::renderDT({
 	  if (is.null(align.result())) {
-	    NULL
+	    LIR.rc.table <- NULL
 	  } else {
-	    alignedResults()[[4]]
+	    LIR.rc.table <- alignedResults()[[4]]
 	  }
-	}, escape = FALSE, rownames= FALSE, selection="single", filter = 'top',
-	options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
-	               initComplete = DT::JS(
-	                 "function(settings, json) {",
-	                 "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
-	                 "}")
-	               )
-	)
+	  
+	  DT::datatable(
+	    LIR.rc.table,
+	    escape = FALSE, rownames= FALSE, selection="single", filter = 'top',
+	    options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
+	                   buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+	                   columnDefs=list(list(targets="_all")),
+	                   initComplete = DT::JS(
+	                     "function(settings, json) {",
+	                     "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+	                     "}")
+	    )
+	  )
+	}, server = FALSE)
 	
 	# Update Tab Panel
 	observe({
@@ -1763,29 +1823,33 @@ shinyServer(function(input, output, session) {
 	  }
 	})
 	
-	output$Quantify_LIR_gene_op <- DT::renderDataTable({
+	output$Quantify_LIR_gene_op <- DT::renderDT({
 	  if ( is.null(input$LIRreadCount_rows_selected) ) {
-	    
+	    LIR.gene.op <- NULL
 	  } else {
 	    if ( file.exists(alignedLIRResults()[[4]]) ) {
 	      LIR.gene.op <- data.table::fread(alignedLIRResults()[[4]], data.table = F)
 	      LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
 	      LIR.gene.op <- LIR.gene.op[LIR.gene.op$ID %in% LIR.ID, ]
 	      LIR.gene.op <- LIR.gene.op[, !colnames(LIR.gene.op) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
-	      LIR.gene.op
 	    } else {
 	      LIR.gene.op <- data.frame("V1"="No data available!")
 	      colnames(LIR.gene.op) <- ""
-	      LIR.gene.op
 	    }
 	  }
-	}, options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, dom = 't', scrollX = TRUE,
-	                  initComplete = DT::JS(
-	                    "function(settings, json) {",
-	                    "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
-	                    "}")
-	                  ),
-	escape = FALSE, rownames= FALSE, selection="none")
+	  
+	  DT::datatable(
+	    LIR.gene.op,
+	    options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, scrollX = TRUE,
+	                   buttons = c('copy', 'csv', 'excel'), dom = 'Bfrtip',
+	                   columnDefs=list(list(targets="_all")),
+	                   initComplete = DT::JS(
+	                     "function(settings, json) {",
+	                     "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+	                     "}")
+	    ), escape = FALSE, rownames= FALSE, selection="none", extensions = "Buttons"
+	  )
+	}, server = FALSE)
 	
 	## Display LIR sequence
 	output$LIR_detail_align_fasta_title <- renderText({
@@ -1967,31 +2031,26 @@ shinyServer(function(input, output, session) {
 	          DESeq2.res.table.dt <- DESeq2.res.table.dt[, c(7, 1:6)]
 	          DESeq2.res.table.dt <- DESeq2.res.table.dt[order(DESeq2.res.table.dt$padj), ]
 	          
-	          output$DESeqResult <- DT::renderDataTable({
+	          output$DESeqResult <- DT::renderDT({
 	            if (nrow(DESeq2.res.table) == 0) {
-	              NULL
+	              DESeqResult.table <- NULL
 	            } else {
-	              DESeq2.res.table.dt
+	              DESeqResult.table <- DESeq2.res.table.dt
 	            }
-	          }, escape = FALSE, rownames= FALSE, selection="none",
-	          options = list(pageLength = 5, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
-	                         initComplete = DT::JS(
-	                           "function(settings, json) {",
-	                           "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
-	                           "}")
-	          )
-	          )
-	          
-	          output$DESeq2_result_table.txt <- downloadHandler(
-	            filename <- function() { paste('DESeq2_result.txt') },
-	            content <- function(file) {
-	              if (nrow(DESeq2.res.table) == 0) {
-	                NULL
-	              } else {
-	                data.table::fwrite(DESeq2.res.table.dt, file, sep="\t", quote=F)
-	              }
-	            }, contentType = 'text/plain'
-	          )
+	            
+	            DT::datatable(
+	              DESeqResult.table,
+	              escape = FALSE, rownames= FALSE, selection="none", extensions = "Buttons",
+	              options = list(pageLength = 5, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
+	                             buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+	                             columnDefs=list(list(targets="_all")),
+	                             initComplete = DT::JS(
+	                               "function(settings, json) {",
+	                               "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+	                               "}")
+	              )
+	            )
+	          }, server = FALSE)
 	          
 	          # MA plot
 	          output$MA_plot <- renderPlot({
@@ -2076,6 +2135,8 @@ shinyServer(function(input, output, session) {
 	        }
 	      }
 	    })
+	  } else {
+	    NULL
 	  }
 	})
 	
@@ -2173,21 +2234,25 @@ shinyServer(function(input, output, session) {
 	          bowtie.cDNA.out.summ <- NULL
 	        }
 
-	        output$sRNATargetResult <- DT::renderDataTable({
+	        output$sRNATargetResult <- DT::renderDT({
 	          if (is.null(bowtie.cDNA.out.summ)) {
 	            bowtie.cDNA.out.summ <- data.frame("V1"="No targets found for the input small RNAs!")
 	            colnames(bowtie.cDNA.out.summ) <- ""
-	            bowtie.cDNA.out.summ
-	          } else {
-	            bowtie.cDNA.out.summ
 	          }
-	        }, escape = FALSE, rownames= FALSE, selection="none", filter = 'top',
-	        options = list(pageLength = 5, lengthMenu = c(5, 10, 20, 30, 50), autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
-	                       initComplete = DT::JS(
-	                         "function(settings, json) {",
-	                         "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
-	                         "}")
-	                       ))
+	          
+	          DT::datatable(
+	            bowtie.cDNA.out.summ,
+	            escape = FALSE, rownames= FALSE, selection="none", filter = 'top',
+	            options = list(pageLength = 5, lengthMenu = c(5, 10, 20, 30, 50), autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
+	                           buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+	                           columnDefs=list(list(targets="_all")),
+	                           initComplete = DT::JS(
+	                             "function(settings, json) {",
+	                             "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+	                             "}")
+	            )
+	          )
+	        }, server = FALSE)
 	        
 	        output$downloadTargetResult <- downloadHandler(
 	          filename <- function() { paste('gene_targets_of_sRNAs_encoded_by_a_LIR.txt') },
@@ -2208,7 +2273,19 @@ shinyServer(function(input, output, session) {
 	      }
 	    })
 	  } else {
-	    NULL
+	    output$downloadTargetResult <- downloadHandler(
+	      filename <- function() { paste('gene_targets_of_sRNAs_encoded_by_a_LIR.txt') },
+	      content <- function(file) {
+	        NULL
+	      }, contentType = 'text/plain'
+	    )
+	    
+	    output$downloadTargetAlignm <- downloadHandler(
+	      filename <- function() { paste('Alignment_of_small_RNAs_against_their_targets.txt') },
+	      content <- function(file) {
+	        NULL
+	      }, contentType = 'text/plain'
+	    )
 	  }
 	})
 	
@@ -2325,14 +2402,6 @@ shinyServer(function(input, output, session) {
 	              tags$img(src = png.file)
 	            })
 	            
-	            ## Download
-	            # output$downloadLIRstrText <- downloadHandler(
-	            #   filename <- function() { paste('LIR_hpRNA_2nd_structure.txt') },
-	            #   content <- function(file) {
-	            #     writeLines(rnafold.out, file)
-	            #   }, contentType = 'text/plain'
-	            # )
-	            
 	            output$downloadLIRstrPDF <- downloadHandler(
 	              filename <- function() { paste('LIR_hpRNA_2nd_structure.pdf') },
 	              content <- function(file) {
@@ -2350,7 +2419,12 @@ shinyServer(function(input, output, session) {
 	      }
 	    })
 	  } else {
-	    NULL
+	    output$downloadLIRstrPDF <- downloadHandler(
+	      filename <- function() { paste('LIR_hpRNA_2nd_structure.pdf') },
+	      content <- function(file) {
+	        NULL
+	      }, contentType = NULL
+	    )
 	  }
 	})
 	
@@ -2372,32 +2446,58 @@ shinyServer(function(input, output, session) {
 	
 	
 	# Annotated inverted repeats of 424 genomes
-	output$downloadTable = shiny::renderDataTable({
+	output$downloadTable = DT::renderDT({
 	  IRF_result <- read.csv("IRF_result.csv", head=T, as.is=T)
-	  IRF_result
-	}, options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
-	                  searching = TRUE, autoWidth = FALSE, bSort=FALSE), escape = FALSE)
+	  DT::datatable(
+	    IRF_result,
+	    options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
+	                   searching = TRUE, autoWidth = FALSE, bSort=FALSE,
+	                   buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+	                   columnDefs=list(list(targets="_all"))
+	    ), escape = FALSE, selection="none", rownames= FALSE, extensions = "Buttons"
+	  )
+	  
+	}, server = FALSE)
   
-	output$BLASTdbdownloadTable = shiny::renderDataTable({
+	output$BLASTdbdownloadTable = DT::renderDT({
 	  BLAST_db_down <- read.table("BLASTdb_download.txt", head=T, as.is=T, sep="\t")
-	  BLAST_db_down 
-	}, options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
-	                  searching = TRUE, autoWidth = FALSE, bSort=FALSE), escape = FALSE)
+	  DT::datatable(
+	    BLAST_db_down,
+	    options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
+	                   searching = TRUE, autoWidth = FALSE, bSort=FALSE,
+	                   buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+	                   columnDefs=list(list(targets="_all"))
+	    ), escape = FALSE, selection="none", rownames= FALSE, extensions = "Buttons"
+	  )
+	   
+	}, server = FALSE)
 	
-	output$BowtiedbdownloadTable = shiny::renderDataTable({
+	output$BowtiedbdownloadTable = DT::renderDT({
 	  Bowtie_db_down <- read.table("Bowtiedb_download.txt", head=T, as.is=T, sep="\t")
-	  Bowtie_db_down
-	}, options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
-	                  searching = TRUE, autoWidth = FALSE, bSort=FALSE), escape = FALSE)
+	  DT::datatable(
+	    Bowtie_db_down,
+	    options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
+	                   searching = TRUE, autoWidth = FALSE, bSort=FALSE,
+	                   buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+	                   columnDefs=list(list(targets="_all"))
+	    ), escape = FALSE, selection="none", rownames= FALSE, extensions = "Buttons"
+	  )
+	}, server = FALSE)
 	
 	# Information of 424 genomes
-	output$genomeTable = shiny::renderDataTable({
+	output$genomeTable = DT::renderDT({
 	  genomes <- read.csv("All_genomes.csv", head=T, as.is=T)
 	  genomes$Source <- paste0("<a href='", genomes$Source,"' target='_blank'>", genomes$Source,"</a>")
 	  genomes$Publication <- paste0("<a href='https://doi.org/", genomes$Publication,"' target='_blank'>", genomes$Publication,"</a>")
-	  genomes
-	}, options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
-	                    searching = TRUE, autoWidth = FALSE, bSort=FALSE), escape = FALSE)
+	  DT::datatable(
+	    genomes,
+	    options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
+	                   searching = TRUE, autoWidth = FALSE, bSort=FALSE,
+	                   buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+	                   columnDefs=list(list(targets="_all"))
+	                   ), escape = FALSE, selection="none", rownames= FALSE, extensions = "Buttons"
+	  )
+	}, server = FALSE)
 
 	
 })
