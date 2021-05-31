@@ -17,4 +17,5 @@
 - <font size=4>**RNAfold web server**: <a href="http://rna.tbi.univie.ac.at/cgi-bin/RNAWebSuite/RNAfold.cgi" target="_blank">predict secondary structures of single stranded RNA or DNA sequences online.</a></font>  
 - <font size=4>**miRBase**: <a href="http://www.mirbase.org/" target="_blank">the microRNA database.</a></font>  
 - <font size=4>**psRNATarget**: <a href="http://plantgrn.noble.org/psRNATarget" target="_blank">a plant small RNA target analysis server.</a></font>  
+- <font size=4>**ASRD**: <a href="http://ipf.sustech.edu.cn/pub/asrd/" target="_blank">The Arabidopsis SmallRNA Database.</a></font>  
 
