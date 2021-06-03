@@ -284,9 +284,11 @@ shinyUI(
                                  )
                           ),
                           column(6,
-                                 selectInput(inputId = "chooseChromosomeReg", 
+                                 shinyWidgets::pickerInput(inputId = "chooseChromosomeReg", 
                                              label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose chromosome</font>')),
-                                             choices = NULL, width = '100%'),
+                                             choices = NULL, width = '100%', selected = NULL, options = list(
+                                               `live-search` = TRUE
+                                             )),
                                  
                                  uiOutput("searchRegion"),
                                  br(),
@@ -1290,6 +1292,8 @@ shinyUI(
                ),
                
                mainPanel(
+                 downloadButton("DESeq2_result_table.txt", "Differentially expressed LIRs/sRNAs", style = "width:50%;", class = "buttDown"),
+                 br(),br(),
                  DT::dataTableOutput("DESeqResult"),
                  br(),
                  
@@ -1523,6 +1527,16 @@ shinyUI(
       ),
       
       
+      # Genomes
+      tabPanel(
+        HTML("<strong style='font-size:18px'>Genomes</strong>"),
+        icon = icon("info", class = NULL, lib = "font-awesome"),
+        
+        h3("Information of 424 genomes collected in LIRBase"),
+        DT::dataTableOutput("genomeTable"), width='100%'
+      ),
+      
+      
       # Download
       tabPanel(
         HTML("<strong style='font-size:18px'>Download</strong>"),
@@ -1541,14 +1555,6 @@ shinyUI(
         )
       ),
       
-      # Genomes
-      tabPanel(
-        HTML("<strong style='font-size:18px'>Genomes</strong>"),
-        icon = icon("info", class = NULL, lib = "font-awesome"),
-        
-        h3("Information of 424 genomes collected in LIRBase"),
-        DT::dataTableOutput("genomeTable"), width='100%'
-      ),
       
       ## Help
       navbarMenu(HTML("<strong style='font-size:18px'>Help</strong>"), icon = icon("book", class = NULL, lib = "font-awesome"),

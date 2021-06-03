@@ -99,7 +99,7 @@ shinyServer(function(input, output, session) {
             ), rownames= FALSE, filter = 'top', selection="single"
           )
           
-        }, server = FALSE)
+        }, server = TRUE)
       } else {
         NULL
       }
@@ -219,7 +219,7 @@ shinyServer(function(input, output, session) {
   })
   
   observeEvent(chromosome(), {
-    updateSelectInput(session, "chooseChromosomeReg", choices = unique(chromosome()$chr))
+    shinyWidgets::updatePickerInput(session, "chooseChromosomeReg", choices = unique(chromosome()$chr))
   })
   
   output$searchRegion <- renderUI({
@@ -289,7 +289,7 @@ shinyServer(function(input, output, session) {
                        "}")
       ), rownames= FALSE, filter = 'top', selection = "single", extensions = "Buttons"
     )
-  }, server = FALSE)
+  }, server = TRUE)
   
   ## Download structure of LIRs in user searching result
   output$searchRegDownIRFresult.txt <- downloadHandler(
@@ -490,7 +490,7 @@ shinyServer(function(input, output, session) {
                        "}")
       ), rownames= FALSE, selection = "single", extensions = "Buttons"
     )
-  }, server = FALSE)
+  }, server = TRUE)
   
   ## Download structure of LIRs in user searching result
   output$searchIDDownIRFresult.txt <- downloadHandler(
@@ -734,7 +734,7 @@ shinyServer(function(input, output, session) {
                        "}")
       )
     )
-  }, server = FALSE)
+  }, server = TRUE)
   
   # Update Tab Panel
   observe({
@@ -1444,7 +1444,7 @@ shinyServer(function(input, output, session) {
 	                     "}")
 	    )
 	  )
-	}, server = FALSE)
+	}, server = TRUE)
 	
 	# Update Tab Panel
 	observe({
@@ -2050,7 +2050,18 @@ shinyServer(function(input, output, session) {
 	                               "}")
 	              )
 	            )
-	          }, server = FALSE)
+	          }, server = TRUE)
+	          
+	          output$DESeq2_result_table.txt <- downloadHandler(
+	            filename <- function() { paste('DESeq2_result.txt') },
+	            content <- function(file) {
+	              if (is.null(DESeq2.res.table) || nrow(DESeq2.res.table) == 0) {
+	                NULL
+	              } else {
+	                data.table::fwrite(DESeq2.res.table.dt, file, sep="\t", quote=F)
+	              }
+	            }, contentType = 'text/plain'
+	          )
 	          
 	          # MA plot
 	          output$MA_plot <- renderPlot({
@@ -2136,7 +2147,12 @@ shinyServer(function(input, output, session) {
 	      }
 	    })
 	  } else {
-	    NULL
+	    output$DESeq2_result_table.txt <- downloadHandler(
+	      filename <- function() { paste('DESeq2_result.txt') },
+	      content <- function(file) {
+	        NULL
+	      }, contentType = 'text/plain'
+	    )
 	  }
 	})
 	
@@ -2446,12 +2462,12 @@ shinyServer(function(input, output, session) {
 	
 	
 	# Annotated inverted repeats of 424 genomes
-	output$downloadTable = DT::renderDT({
+	output$downloadTable = DT::renderDataTable({
 	  IRF_result <- read.csv("IRF_result.csv", head=T, as.is=T)
 	  DT::datatable(
 	    IRF_result,
-	    options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
-	                   searching = TRUE, autoWidth = FALSE, bSort=FALSE,
+	    options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = FALSE,
+	                   searching = TRUE, bSort=FALSE, autoWidth = FALSE,
 	                   buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
 	                   columnDefs=list(list(targets="_all"))
 	    ), escape = FALSE, selection="none", rownames= FALSE, extensions = "Buttons"
@@ -2459,7 +2475,7 @@ shinyServer(function(input, output, session) {
 	  
 	}, server = FALSE)
   
-	output$BLASTdbdownloadTable = DT::renderDT({
+	output$BLASTdbdownloadTable = DT::renderDataTable({
 	  BLAST_db_down <- read.table("BLASTdb_download.txt", head=T, as.is=T, sep="\t")
 	  DT::datatable(
 	    BLAST_db_down,
@@ -2472,7 +2488,7 @@ shinyServer(function(input, output, session) {
 	   
 	}, server = FALSE)
 	
-	output$BowtiedbdownloadTable = DT::renderDT({
+	output$BowtiedbdownloadTable = DT::renderDataTable({
 	  Bowtie_db_down <- read.table("Bowtiedb_download.txt", head=T, as.is=T, sep="\t")
 	  DT::datatable(
 	    Bowtie_db_down,
@@ -2485,7 +2501,7 @@ shinyServer(function(input, output, session) {
 	}, server = FALSE)
 	
 	# Information of 424 genomes
-	output$genomeTable = DT::renderDT({
+	output$genomeTable = DT::renderDataTable({
 	  genomes <- read.csv("All_genomes.csv", head=T, as.is=T)
 	  genomes$Source <- paste0("<a href='", genomes$Source,"' target='_blank'>", genomes$Source,"</a>")
 	  genomes$Publication <- paste0("<a href='https://doi.org/", genomes$Publication,"' target='_blank'>", genomes$Publication,"</a>")
