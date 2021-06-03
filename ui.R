@@ -1541,16 +1541,14 @@ shinyUI(
         )
       ),
       
-      
       # Genomes
       tabPanel(
         HTML("<strong style='font-size:18px'>Genomes</strong>"),
         icon = icon("info", class = NULL, lib = "font-awesome"),
         
-        h3("Information of 424 genomes collected in LIRBase."),
+        h3("Information of 424 genomes collected in LIRBase"),
         DT::dataTableOutput("genomeTable"), width='100%'
       ),
-      
       
       ## Help
       navbarMenu(HTML("<strong style='font-size:18px'>Help</strong>"), icon = icon("book", class = NULL, lib = "font-awesome"),

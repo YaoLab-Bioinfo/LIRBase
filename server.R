@@ -2492,7 +2492,7 @@ shinyServer(function(input, output, session) {
 	  DT::datatable(
 	    genomes,
 	    options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
-	                   searching = TRUE, autoWidth = FALSE, bSort=FALSE,
+	                   searching = TRUE, autoWidth = TRUE, bSort=FALSE,
 	                   buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
 	                   columnDefs=list(list(targets="_all"))
 	                   ), escape = FALSE, selection="none", rownames= FALSE, extensions = "Buttons"
