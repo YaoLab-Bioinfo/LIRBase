@@ -1488,12 +1488,12 @@ shinyUI(
                  conditionalPanel(condition = "input$submitVisualize > 0",
                                   fixedRow(
                                     column(6,
-                                           shinyWidgets::actionBttn("Visualize_LIR_str", "View LIR secondary structure in png format",
+                                           shinyWidgets::actionBttn("Visualize_LIR_str", "View LIR secondary structure in PNG format",
                                                                     icon = icon("eye", class = NULL, lib = "font-awesome"),
                                                                     block = TRUE, size = "sm", style="unite", color="default")
                                     ),
                                     column(6,
-                                           downloadButton("downloadLIRstrPDF", "Download secondary structure in PDF file", style = "width:100%;", class = "buttDown")
+                                           downloadButton("downloadLIRstrPDF", "Download LIR secondary structure in PDF file", style = "width:100%;", class = "buttDown")
                                     )
                                   )
                  ),
@@ -1518,7 +1518,7 @@ shinyUI(
                  
                  br(),
                  
-                 bsModal("VisualizeLIRstr", "View LIR secondary structure in png format", "Visualize_LIR_str", size = "large",
+                 bsModal("VisualizeLIRstr", "View LIR secondary structure in PNG format", "Visualize_LIR_str", size = "large",
                          uiOutput("RNAfold_pngview")
                  )
                  
@@ -1572,7 +1572,8 @@ shinyUI(
                           ),
                           
                           mainPanel(width = 9,
-                            includeMarkdown("Tutorial.md")
+                                    column(10, includeMarkdown("Tutorial.md")),
+                                    column(2)
                           )
                  ),
                  tabPanel(HTML("<strong style='font-size:15px'>Installation</strong>"),
