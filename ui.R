@@ -258,7 +258,7 @@ shinyUI(
         HTML("<strong style='font-size:18px'>Search</strong>"),
         icon = icon("search", class = NULL, lib = "font-awesome"),
         
-        tabPanel(HTML("<strong style='font-size:16px'>Search by genomic location</strong>"),
+        tabPanel(HTML("<strong style='font-size:17px'>Search by genomic location</strong>"), icon = icon("search-location"),
                  column(12,
                         fixedRow(
                           column(12,
@@ -391,7 +391,7 @@ shinyUI(
                  )
         ),
         
-        tabPanel(HTML("<strong style='font-size:16px'>Search by LIR identifier</strong>"),
+        tabPanel(HTML("<strong style='font-size:17px'>Search by LIR identifier</strong>"), icon = icon("id-card"),
                  column(12,
                         fixedRow(
                           column(6,
@@ -525,217 +525,216 @@ shinyUI(
                         
                         br(),br()
                  )
-        )
-      ),
-      
-      
-      # Blast
-      tabPanel(
-        HTML("<strong style='font-size:18px'>Blast</strong>"),
-        icon = icon("rocket", class = NULL, lib = "font-awesome"),
+        ),
         
-        tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Search LIRBase by sequence similarity using BLAST</b></font>'),
-                 bsButton("qBlastTitle", label="", icon=icon("question"), style="info", size="small")),
-        bsPopover("qBlastTitle", title = Blast_Info_Title, content = NULL, trigger = "focus"),
-        
-        column(12,
-               tabsetPanel(id = "BLAST_tab",
-                           tabPanel(HTML("<strong style='font-size:18px'>Input</strong>"),
-                                    fixedRow(
-                                      column(5,
-                                             selectInput("In_blast", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Paste or upload input data?</font>'),
-                                                                                      bsButton("qBlastIn", label="", icon=icon("question"), style="info", size="small")
-                                             ), choices = list("Paste input data" = "paste", 
-                                                               "Upload input data" = "upload"), 
-                                             selected = "paste"),
-                                             bsPopover("qBlastIn", "The input data must be DNA sequence in fasta format.", trigger = "focus"),
-                                             
-                                             conditionalPanel(condition="input.In_blast == 'paste'", 
-                                                              textAreaInput("BlastSeqPaste", label = h4("Input sequence"),
-                                                                            value = "", resize = "vertical", height='400px', width = '100%',
-                                                                            placeholder = "The sequence must be in fasta format")
-                                             ),
-                                             conditionalPanel(condition="input.In_blast == 'upload'", 
-                                                              fileInput("BlastSeqUpload",
-                                                                        label = h4("Upload file"), multiple = FALSE, width = "100%"),
-                                                              downloadButton("BLAST_Input.txt", "Example BLAST input data", style = "width:100%;", class = "buttDown")
-                                             )
-                                      ),
-                                      column(4,
-                                             shinyWidgets::multiInput(
-                                               inputId = "BLASTdb",
-                                               label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose BLAST databases</font>'),
-                                                                bsButton("qblastDB", label="", icon=icon("question"), style="info", size="small")
+        # Blast
+        tabPanel(
+          HTML("<strong style='font-size:17px'>BLAST</strong>"),
+          icon = icon("rocket", class = NULL, lib = "font-awesome"),
+          
+          tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Search LIRBase by sequence similarity using BLAST</b></font>'),
+                   bsButton("qBlastTitle", label="", icon=icon("question"), style="info", size="small")),
+          bsPopover("qBlastTitle", title = Blast_Info_Title, content = NULL, trigger = "focus"),
+          
+          column(12,
+                 tabsetPanel(id = "BLAST_tab",
+                             tabPanel(HTML("<strong style='font-size:18px'>Input</strong>"),
+                                      fixedRow(
+                                        column(5,
+                                               selectInput("In_blast", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Paste or upload input data?</font>'),
+                                                                                        bsButton("qBlastIn", label="", icon=icon("question"), style="info", size="small")
+                                               ), choices = list("Paste input data" = "paste", 
+                                                                 "Upload input data" = "upload"), 
+                                               selected = "paste"),
+                                               bsPopover("qBlastIn", "The input data must be DNA sequence in fasta format.", trigger = "focus"),
+                                               
+                                               conditionalPanel(condition="input.In_blast == 'paste'", 
+                                                                textAreaInput("BlastSeqPaste", label = h4("Input sequence"),
+                                                                              value = "", resize = "vertical", height='400px', width = '100%',
+                                                                              placeholder = "The sequence must be in fasta format")
                                                ),
-                                               choices = NULL, width = '100%', 
-                                               choiceNames = BLASTdb.fl$Accession,
-                                               choiceValues = BLASTdb.fl$Accession,
-                                               options = list(
-                                                 enable_search = TRUE,
-                                                 non_selected_header = "Choose from:",
-                                                 selected_header = "You have selected:"
+                                               conditionalPanel(condition="input.In_blast == 'upload'", 
+                                                                fileInput("BlastSeqUpload",
+                                                                          label = h4("Upload file"), multiple = FALSE, width = "100%"),
+                                                                downloadButton("BLAST_Input.txt", "Example BLAST input data", style = "width:100%;", class = "buttDown")
                                                )
-                                             ),
-                                             bsPopover("qblastDB", "Choose one or multiple BLAST database to search against.",
-                                                       trigger = "focus")
-                                      ),
-                                      column(3,
-                                             textInput("BLASTev", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">E-value cutoff</font>'),
-                                                                                   bsButton("qBLASTev", label="", icon=icon("question"), style="info", size="small")), 
-                                                       value = "10", width = NULL, placeholder = NULL),
-                                             bsPopover("qBLASTev", "Set E-value threshold to filter the BLAST output.",
-                                                       trigger = "focus"),
-                                             textInput("BLASTht", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Maximum no. of hits</font>'),
-                                                                                   bsButton("qBLASTht", label="", icon=icon("question"), style="info", size="small")), 
-                                                       value = "10", width = NULL, placeholder = NULL),
-                                             bsPopover("qBLASTht", "Maximum number of BLAST hits to report for each subject.",
-                                                       trigger = "focus"),
-                                             
-                                             br(),
-                                             
-                                             shinysky::actionButton("submitBLAST", strong("BLAST!",
-                                                                                          bsButton("qBLASTGO", label="", icon=icon("question"), style="info", size="small")
-                                             ), styleclass = "success"),
-                                             shinysky::actionButton("clear3", strong("Reset"), styleclass = "warning"),
-                                             shinysky::actionButton("blastExam", strong("Load example"), styleclass = "info"),
-                                             conditionalPanel(condition="input.submitBLAST != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
-                                             bsPopover("qBLASTGO", "Click this button to start the BLAST alignment!",
-                                                       trigger = "focus"),
-                                             
+                                        ),
+                                        column(4,
+                                               shinyWidgets::multiInput(
+                                                 inputId = "BLASTdb",
+                                                 label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose BLAST databases</font>'),
+                                                                  bsButton("qblastDB", label="", icon=icon("question"), style="info", size="small")
+                                                 ),
+                                                 choices = NULL, width = '100%', 
+                                                 choiceNames = BLASTdb.fl$Accession,
+                                                 choiceValues = BLASTdb.fl$Accession,
+                                                 options = list(
+                                                   enable_search = TRUE,
+                                                   non_selected_header = "Choose from:",
+                                                   selected_header = "You have selected:"
+                                                 )
+                                               ),
+                                               bsPopover("qblastDB", "Choose one or multiple BLAST database to search against.",
+                                                         trigger = "focus")
+                                        ),
+                                        column(3,
+                                               textInput("BLASTev", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">E-value cutoff</font>'),
+                                                                                     bsButton("qBLASTev", label="", icon=icon("question"), style="info", size="small")), 
+                                                         value = "10", width = NULL, placeholder = NULL),
+                                               bsPopover("qBLASTev", "Set E-value threshold to filter the BLAST output.",
+                                                         trigger = "focus"),
+                                               textInput("BLASTht", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Maximum no. of hits</font>'),
+                                                                                     bsButton("qBLASTht", label="", icon=icon("question"), style="info", size="small")), 
+                                                         value = "10", width = NULL, placeholder = NULL),
+                                               bsPopover("qBLASTht", "Maximum number of BLAST hits to report for each subject.",
+                                                         trigger = "focus"),
+                                               
+                                               br(),
+                                               
+                                               shinysky::actionButton("submitBLAST", strong("BLAST!",
+                                                                                            bsButton("qBLASTGO", label="", icon=icon("question"), style="info", size="small")
+                                               ), styleclass = "success"),
+                                               shinysky::actionButton("clear3", strong("Reset"), styleclass = "warning"),
+                                               shinysky::actionButton("blastExam", strong("Load example"), styleclass = "info"),
+                                               conditionalPanel(condition="input.submitBLAST != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
+                                               bsPopover("qBLASTGO", "Click this button to start the BLAST alignment!",
+                                                         trigger = "focus"),
+                                               
+                                        )
                                       )
-                                    )
-                           ),
-                           tabPanel(HTML("<strong style='font-size:18px'>Output</strong>"),
-                                    fixedRow(
-                                      column(4,
-                                             downloadButton("BLASTresult.txt", "BLAST result", style = "width:100%;", class = "buttDown")
+                             ),
+                             tabPanel(HTML("<strong style='font-size:18px'>Output</strong>"),
+                                      fixedRow(
+                                        column(4,
+                                               downloadButton("BLASTresult.txt", "BLAST result", style = "width:100%;", class = "buttDown")
+                                        ),
+                                        column(4,
+                                               downloadButton("blastDownIRFresult.txt", "Structure of LIRs in the BLAST result", style = "width:100%;", class = "buttDown")
+                                        ),
+                                        column(4,
+                                               downloadButton("blastDownIRFfasta.txt", "Sequence of LIRs in the BLAST result", style = "width:100%;", class = "buttDown")
+                                        )
                                       ),
-                                      column(4,
-                                             downloadButton("blastDownIRFresult.txt", "Structure of LIRs in the BLAST result", style = "width:100%;", class = "buttDown")
+                                      
+                                      br(),
+                                      
+                                      conditionalPanel(condition="input.submitBLAST > 0", 
+                                                       tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>BLAST output</b></font>'),
+                                                                bsButton("qBLASTresultHelp", label="", icon=icon("question"), style="info", size="small")),
+                                                       bsPopover("qBLASTresultHelp", title = "Click on a row to check the details of the LIR and the BLAST alignment!", trigger = "focus", content = NULL)
                                       ),
-                                      column(4,
-                                             downloadButton("blastDownIRFfasta.txt", "Sequence of LIRs in the BLAST result", style = "width:100%;", class = "buttDown")
-                                      )
-                                    ),
-                                    
-                                    br(),
-                                    
-                                    conditionalPanel(condition="input.submitBLAST > 0", 
-                                                     tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>BLAST output</b></font>'),
-                                                              bsButton("qBLASTresultHelp", label="", icon=icon("question"), style="info", size="small")),
-                                                     bsPopover("qBLASTresultHelp", title = "Click on a row to check the details of the LIR and the BLAST alignment!", trigger = "focus", content = NULL)
-                                    ),
-                                    
-                                    DT::dataTableOutput("BLASTresult"),
-                                    br(),
-                                    
-                                    conditionalPanel(condition = "typeof input.BLASTresult_rows_selected  !== 'undefined' && input.BLASTresult_rows_selected.length > 0",
-                                                     fixedRow(
-                                                       column(4,
-                                                              shinyWidgets::actionBttn("Blast_LIR_op", "Overlaps between the selected LIR and genes",
-                                                                                       icon = icon("eye", class = NULL, lib = "font-awesome"),
-                                                                                       block = TRUE, size = "sm", style="unite", color="default")
-                                                       ),
-                                                       column(4,
-                                                              shinyWidgets::actionBttn("Blast_LIR_seq", "Sequence of the selected LIR",
-                                                                                       icon = icon("eye", class = NULL, lib = "font-awesome"),
-                                                                                       block = TRUE, size = "sm", style="unite", color="default")
-                                                       ),
-                                                       column(4,
-                                                              shinyWidgets::actionBttn("Blast_LIR_detail", "Structure of the selected LIR",
-                                                                                       icon = icon("eye", class = NULL, lib = "font-awesome"),
-                                                                                       block = TRUE, size = "sm", style="unite", color="default")
+                                      
+                                      DT::dataTableOutput("BLASTresult"),
+                                      br(),
+                                      
+                                      conditionalPanel(condition = "typeof input.BLASTresult_rows_selected  !== 'undefined' && input.BLASTresult_rows_selected.length > 0",
+                                                       fixedRow(
+                                                         column(4,
+                                                                shinyWidgets::actionBttn("Blast_LIR_op", "Overlaps between the selected LIR and genes",
+                                                                                         icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                                                                         block = TRUE, size = "sm", style="unite", color="default")
+                                                         ),
+                                                         column(4,
+                                                                shinyWidgets::actionBttn("Blast_LIR_seq", "Sequence of the selected LIR",
+                                                                                         icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                                                                         block = TRUE, size = "sm", style="unite", color="default")
+                                                         ),
+                                                         column(4,
+                                                                shinyWidgets::actionBttn("Blast_LIR_detail", "Structure of the selected LIR",
+                                                                                         icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                                                                         block = TRUE, size = "sm", style="unite", color="default")
+                                                         )
                                                        )
-                                                     )
-                                    ),
-                                    br(),
-                                    
-                                    fixedRow(
-                                      htmlOutput("BLAST_hit_detail_title"),
-                                      tags$head(tags$style("#BLAST_hit_detail_title {
+                                      ),
+                                      br(),
+                                      
+                                      fixedRow(
+                                        htmlOutput("BLAST_hit_detail_title"),
+                                        tags$head(tags$style("#BLAST_hit_detail_title {
                                           color: red;
                                           font-size: 22px;
                                           font-style: bold;
                                         }"
-                                      ))
-                                    ),
-                                    
-                                    fixedRow(
-                                      column(5,
-                                             tableOutput("BLAST_hit_summary"),
-                                             tags$head(tags$style("#BLAST_hit_summary {
+                                        ))
+                                      ),
+                                      
+                                      fixedRow(
+                                        column(5,
+                                               tableOutput("BLAST_hit_summary"),
+                                               tags$head(tags$style("#BLAST_hit_summary {
                                           width = 100%;
                                           padding: 6px 12px;
                                           white-space: pre-wrap;
                                           height: 400px;
                                         }"
-                                             ))
+                                               ))
+                                        ),
+                                        
+                                        column(7,
+                                               shinycssloaders::withSpinner(verbatimTextOutput("BLAST_hit_detail")),
+                                               tags$head(tags$style("#BLAST_hit_detail {
+                                          width: 100%; 
+                                          padding: 6px 12px; 
+                                          white-space: pre-wrap;
+                                          height: 400px;
+                                          background: white;
+                                        }"
+                                               ))
+                                        )
                                       ),
                                       
-                                      column(7,
-                                             shinycssloaders::withSpinner(verbatimTextOutput("BLAST_hit_detail")),
-                                             tags$head(tags$style("#BLAST_hit_detail {
+                                      br()
+                             )
+                 ),
+                 
+                 bsModal("BlastLIRop", "Overlaps between the selected LIR and genes", "Blast_LIR_op", size = "large", 
+                         htmlOutput("Blast_LIR_gene_op_title"),
+                         tags$head(tags$style("#Blast_LIR_gene_op_title{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                         )),
+                         shinycssloaders::withSpinner(DT::dataTableOutput("Blast_LIR_gene_op"))
+                 ),
+                 
+                 bsModal("BlastLIRseq", "Sequence of the selected LIR", "Blast_LIR_seq", size = "large", 
+                         htmlOutput("LIR_detail_blast_fasta_title"),
+                         tags$head(tags$style("#LIR_detail_blast_fasta_title{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                         )),
+                         shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_blast_fasta")),
+                         tags$head(tags$style("#LIR_detail_blast_fasta {
                                           width: 100%; 
                                           padding: 6px 12px; 
                                           white-space: pre-wrap;
                                           height: 400px;
                                           background: white;
                                         }"
-                                             ))
-                                      )
-                                    ),
-                                    
-                                    br()
-                           )
-               ),
-               
-               bsModal("BlastLIRop", "Overlaps between the selected LIR and genes", "Blast_LIR_op", size = "large", 
-                       htmlOutput("Blast_LIR_gene_op_title"),
-                       tags$head(tags$style("#Blast_LIR_gene_op_title{color: red;
+                         ))
+                 ),
+                 
+                 bsModal("BlastLIRdetail", "Structure of the selected LIR", "Blast_LIR_detail", size = "large", 
+                         htmlOutput("LIR_detail_blast_title"),
+                         tags$head(tags$style("#LIR_detail_blast_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
-                       )),
-                       shinycssloaders::withSpinner(DT::dataTableOutput("Blast_LIR_gene_op"))
-               ),
-               
-               bsModal("BlastLIRseq", "Sequence of the selected LIR", "Blast_LIR_seq", size = "large", 
-                       htmlOutput("LIR_detail_blast_fasta_title"),
-                       tags$head(tags$style("#LIR_detail_blast_fasta_title{color: red;
-                                       font-size: 22px;
-                                       font-style: bold;
-                                      }"
-                       )),
-                       shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_blast_fasta")),
-                       tags$head(tags$style("#LIR_detail_blast_fasta {
+                         )),
+                         shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_blast")),
+                         tags$head(tags$style("#LIR_detail_blast {
                                           width: 100%; 
                                           padding: 6px 12px; 
                                           white-space: pre-wrap;
                                           height: 400px;
                                           background: white;
                                         }"
-                       ))
-               ),
-               
-               bsModal("BlastLIRdetail", "Structure of the selected LIR", "Blast_LIR_detail", size = "large", 
-                       htmlOutput("LIR_detail_blast_title"),
-                       tags$head(tags$style("#LIR_detail_blast_title{color: red;
-                                       font-size: 22px;
-                                       font-style: bold;
-                                      }"
-                       )),
-                       shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_blast")),
-                       tags$head(tags$style("#LIR_detail_blast {
-                                          width: 100%; 
-                                          padding: 6px 12px; 
-                                          white-space: pre-wrap;
-                                          height: 400px;
-                                          background: white;
-                                        }"
-                       ))
-               ),
-               
-               br(),br()
+                         ))
+                 ),
+                 
+                 br(),br()
+          )
         )
       ),
       
@@ -909,470 +908,474 @@ shinyUI(
       ),
       
       
-      # Quantification
-      tabPanel(
-        HTML("<strong style='font-size:18px'>Quantify</strong>"),
-        icon = icon("upload", class = NULL, lib = "font-awesome"),
+      navbarMenu(
+        HTML("<strong style='font-size:18px'>Expression</strong>"),
         
-        column(12,
-               tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Identify candidate LIRs encoding long hpRNAs by aligning sRNA sequencing data to LIRs</b></font>'),
-                        bsButton("qQuantifyTitle", label="", icon=icon("question"), style="info", size="small")),
-               bsPopover("qQuantifyTitle", "Align sRNA sequencing data to all the LIRs of a genome using Bowtie.", trigger = "focus"),
-               
-               tabsetPanel(id = "Quantify_tab",
-                           tabPanel(HTML("<strong style='font-size:18px'>Input</strong>"),
-                                    fixedRow(
-                                      column(6,
-                                             selectInput("In_align", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Input sRNA read count data</font>'),
-                                                                                      bsButton("qAlignIn", label="", icon=icon("question"), style="info", size="small")
-                                             ), choices = list("Paste input data" = "paste", 
-                                                               "Upload input data" = "upload"),
-                                             selected = "paste"),
-                                             bsPopover("qAlignIn", "The input data must be a table with two columns. The 1st column is the sequence of sRNAs and the 2nd column is the read count of each sRNA. The column name is optional. <br> The uploaded data can be a gzip compressed file.", trigger = "focus"),
-                                             conditionalPanel(condition="input.In_align == 'paste'", 
-                                                              textAreaInput("AlignInPaste", label = h4("Paste sRNA read count"),
-                                                                            value = "", resize = "vertical", height='400px', width = '100%',
-                                                                            placeholder = "The input data")
-                                             ),
-                                             conditionalPanel(condition="input.In_align == 'upload'", 
-                                                              fileInput("AlignInFile",
-                                                                        label = h4("Upload sRNA read count file"), multiple = FALSE, width = "100%"),
-                                                              downloadButton("Quantify_Input.txt", "Example input data", style = "width:100%;", class = "buttDown")
-                                             )
+        # Quantification
+        tabPanel(
+          HTML("<strong style='font-size:17px'>Quantify</strong>"),
+          icon = icon("upload", class = NULL, lib = "font-awesome"),
+          
+          column(12,
+                 tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Identify candidate LIRs encoding long hpRNAs by aligning sRNA sequencing data to LIRs</b></font>'),
+                          bsButton("qQuantifyTitle", label="", icon=icon("question"), style="info", size="small")),
+                 bsPopover("qQuantifyTitle", "Align sRNA sequencing data to all the LIRs of a genome using Bowtie.", trigger = "focus"),
+                 
+                 tabsetPanel(id = "Quantify_tab",
+                             tabPanel(HTML("<strong style='font-size:18px'>Input</strong>"),
+                                      fixedRow(
+                                        column(6,
+                                               selectInput("In_align", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Input sRNA read count data</font>'),
+                                                                                        bsButton("qAlignIn", label="", icon=icon("question"), style="info", size="small")
+                                               ), choices = list("Paste input data" = "paste", 
+                                                                 "Upload input data" = "upload"),
+                                               selected = "paste"),
+                                               bsPopover("qAlignIn", "The input data must be a table with two columns. The 1st column is the sequence of sRNAs and the 2nd column is the read count of each sRNA. The column name is optional. <br> The uploaded data can be a gzip compressed file.", trigger = "focus"),
+                                               conditionalPanel(condition="input.In_align == 'paste'", 
+                                                                textAreaInput("AlignInPaste", label = h4("Paste sRNA read count"),
+                                                                              value = "", resize = "vertical", height='400px', width = '100%',
+                                                                              placeholder = "The input data")
+                                               ),
+                                               conditionalPanel(condition="input.In_align == 'upload'", 
+                                                                fileInput("AlignInFile",
+                                                                          label = h4("Upload sRNA read count file"), multiple = FALSE, width = "100%"),
+                                                                downloadButton("Quantify_Input.txt", "Example input data", style = "width:100%;", class = "buttDown")
+                                               )
+                                        ),
+                                        
+                                        column(6,
+                                               shinyWidgets::pickerInput(
+                                                 inputId = "Aligndb",
+                                                 label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose a LIR database to align the sRNA data</font>'),
+                                                                  bsButton("qAligndb", label="", icon=icon("question"), style="info", size="small")),
+                                                 selected = NULL, width = '100%',
+                                                 choices = list(
+                                                   Metazoa = Bowtiedb.fl$Accession[Bowtiedb.fl$Division == "Metazoa"],
+                                                   Plant = Bowtiedb.fl$Accession[Bowtiedb.fl$Division == "Plant"],
+                                                   Vertebrate = Bowtiedb.fl$Accession[Bowtiedb.fl$Division == "Vertebrate"]
+                                                 ),
+                                                 options = list(
+                                                   `live-search` = TRUE
+                                                 )
+                                               ),
+                                               bsPopover("qAligndb", "Choose a single database to align the sRNA data.",
+                                                         trigger = "focus"),
+                                               
+                                               br(),
+                                               sliderInput("MaxAlignHit", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Max number of alignment hits of sRNA</font>'),
+                                                                                           bsButton("qMAH", label="", icon=icon("question"), style="info", size="small")
+                                               ), value = 50, min = 1, step = 1, max = 100),
+                                               bsPopover("qMAH", "Maximum number of alignments per read to report.",
+                                                         trigger = "focus"),
+                                               
+                                               br(),
+                                               
+                                               shinysky::actionButton("submitAlign", strong("Align!",
+                                                                                            bsButton("qAlign", label="", icon=icon("question"), style="info", size="small")
+                                               ), styleclass = "success"),
+                                               shinysky::actionButton("clearAlign", strong("Reset"), styleclass = "warning"),
+                                               shinysky::actionButton("alignExam", strong("Load example"), styleclass = "info"),
+                                               conditionalPanel(condition="input.submitAlign != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
+                                               conditionalPanel(condition="input.alignExam != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
+                                               bsPopover("qAlign", "Click this button to start the alignment!",
+                                                         trigger = "focus")
+                                        )
+                                      )
+                             ),
+                             tabPanel(HTML("<strong style='font-size:18px'>Output</strong>"),
+                                      fixedRow(
+                                        column(4,
+                                               downloadButton("sRNAalignSummary.txt", "sRNA alignment summary", style = "width:100%;", class = "buttDown")
+                                        ),
+                                        column(4,
+                                               downloadButton("sRNAalignResult.txt", "sRNA alignment result", style = "width:100%;", class = "buttDown")
+                                        ),
+                                        column(4,
+                                               downloadButton("sRNAalignLIRrc.txt", "sRNA read count of aligned LIRs", style = "width:100%;", class = "buttDown")
+                                        )
                                       ),
                                       
-                                      column(6,
-                                             shinyWidgets::pickerInput(
-                                               inputId = "Aligndb",
-                                               label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose a LIR database to align the sRNA data</font>'),
-                                                                bsButton("qAligndb", label="", icon=icon("question"), style="info", size="small")),
-                                               selected = NULL, width = '100%',
-                                               choices = list(
-                                                 Metazoa = Bowtiedb.fl$Accession[Bowtiedb.fl$Division == "Metazoa"],
-                                                 Plant = Bowtiedb.fl$Accession[Bowtiedb.fl$Division == "Plant"],
-                                                 Vertebrate = Bowtiedb.fl$Accession[Bowtiedb.fl$Division == "Vertebrate"]
+                                      br(),
+                                      
+                                      fixedRow(
+                                        column(12,
+                                               conditionalPanel(condition="input.submitAlign > 0", 
+                                                                tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment summary of sRNA sequencing data to each LIR</b></font>'),
+                                                                         bsButton("qLIRreadCountHelp", label="", icon=icon("question"), style="info", size="small")),
+                                                                bsPopover("qLIRreadCountHelp", title = Align_Info_Title, trigger = "focus", content = NULL)
                                                ),
-                                               options = list(
-                                                 `live-search` = TRUE
-                                               )
-                                             ),
-                                             bsPopover("qAligndb", "Choose a single database to align the sRNA data.",
-                                                       trigger = "focus"),
-                                             
-                                             br(),
-                                             sliderInput("MaxAlignHit", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Max number of alignment hits of sRNA</font>'),
-                                                                                         bsButton("qMAH", label="", icon=icon("question"), style="info", size="small")
-                                             ), value = 50, min = 1, step = 1, max = 100),
-                                             bsPopover("qMAH", "Maximum number of alignments per read to report.",
-                                                       trigger = "focus"),
-                                             
-                                             br(),
-                                             
-                                             shinysky::actionButton("submitAlign", strong("Align!",
-                                                                                          bsButton("qAlign", label="", icon=icon("question"), style="info", size="small")
-                                             ), styleclass = "success"),
-                                             shinysky::actionButton("clearAlign", strong("Reset"), styleclass = "warning"),
-                                             shinysky::actionButton("alignExam", strong("Load example"), styleclass = "info"),
-                                             conditionalPanel(condition="input.submitAlign != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
-                                             conditionalPanel(condition="input.alignExam != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
-                                             bsPopover("qAlign", "Click this button to start the alignment!",
-                                                       trigger = "focus")
-                                      )
-                                    )
-                           ),
-                           tabPanel(HTML("<strong style='font-size:18px'>Output</strong>"),
-                                    fixedRow(
-                                      column(4,
-                                             downloadButton("sRNAalignSummary.txt", "sRNA alignment summary", style = "width:100%;", class = "buttDown")
+                                               DT::dataTableOutput("LIRreadCount")
+                                        )
                                       ),
-                                      column(4,
-                                             downloadButton("sRNAalignResult.txt", "sRNA alignment result", style = "width:100%;", class = "buttDown")
-                                      ),
-                                      column(4,
-                                             downloadButton("sRNAalignLIRrc.txt", "sRNA read count of aligned LIRs", style = "width:100%;", class = "buttDown")
-                                      )
-                                    ),
-                                    
-                                    br(),
-                                    
-                                    fixedRow(
-                                      column(12,
-                                             conditionalPanel(condition="input.submitAlign > 0", 
-                                                              tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment summary of sRNA sequencing data to each LIR</b></font>'),
-                                                                       bsButton("qLIRreadCountHelp", label="", icon=icon("question"), style="info", size="small")),
-                                                              bsPopover("qLIRreadCountHelp", title = Align_Info_Title, trigger = "focus", content = NULL)
-                                             ),
-                                             DT::dataTableOutput("LIRreadCount")
-                                      )
-                                    ),
-                                    
-                                    br(),
-                                    
-                                    conditionalPanel(condition = "typeof input.LIRreadCount_rows_selected  !== 'undefined' && input.LIRreadCount_rows_selected.length > 0",
-                                                     fixedRow(
-                                                       column(3,
-                                                              shinyWidgets::actionBttn("Align_LIR_op", "Overlaps between the selected LIR and genes",
-                                                                                       icon = icon("eye", class = NULL, lib = "font-awesome"),
-                                                                                       block = TRUE, size = "sm", style="unite", color="default")
-                                                       ),
-                                                       column(3,
-                                                              shinyWidgets::actionBttn("Align_LIR_seq", "Sequence of the selected LIR",
-                                                                                       icon = icon("eye", class = NULL, lib = "font-awesome"),
-                                                                                       block = TRUE, size = "sm", style="unite", color="default")
-                                                       ),
-                                                       column(3,
-                                                              shinyWidgets::actionBttn("Align_LIR_detail", "Structure of the selected LIR",
-                                                                                       icon = icon("eye", class = NULL, lib = "font-awesome"),
-                                                                                       block = TRUE, size = "sm", style="unite", color="default")
-                                                       ),
-                                                       column(3,
-                                                              shinyWidgets::actionBttn("Align_LIR_sRNA", "Small RNAs derived from the selected LIR",
-                                                                                       icon = icon("eye", class = NULL, lib = "font-awesome"),
-                                                                                       block = TRUE, size = "sm", style="unite", color="default")
-                                                       )
-                                                     ),
-                                                     
-                                                     br(),
-                                                     
-                                                     fluidRow(
-                                                       column(8,
-                                                              htmlOutput("Quantify_plot_1_title"),
-                                                              tags$head(tags$style("#Quantify_plot_1_title{color: red;
-                                       font-size: 22px;
-                                       font-style: bold;
-                                      }"
-                                                              )),
-                                                              
-                                                              shinycssloaders::withSpinner(plotOutput("srna_expression", height = "600px", width = '95%'))
+                                      
+                                      br(),
+                                      
+                                      conditionalPanel(condition = "typeof input.LIRreadCount_rows_selected  !== 'undefined' && input.LIRreadCount_rows_selected.length > 0",
+                                                       fixedRow(
+                                                         column(3,
+                                                                shinyWidgets::actionBttn("Align_LIR_op", "Overlaps between the selected LIR and genes",
+                                                                                         icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                                                                         block = TRUE, size = "sm", style="unite", color="default")
+                                                         ),
+                                                         column(3,
+                                                                shinyWidgets::actionBttn("Align_LIR_seq", "Sequence of the selected LIR",
+                                                                                         icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                                                                         block = TRUE, size = "sm", style="unite", color="default")
+                                                         ),
+                                                         column(3,
+                                                                shinyWidgets::actionBttn("Align_LIR_detail", "Structure of the selected LIR",
+                                                                                         icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                                                                         block = TRUE, size = "sm", style="unite", color="default")
+                                                         ),
+                                                         column(3,
+                                                                shinyWidgets::actionBttn("Align_LIR_sRNA", "Small RNAs derived from the selected LIR",
+                                                                                         icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                                                                         block = TRUE, size = "sm", style="unite", color="default")
+                                                         )
                                                        ),
                                                        
-                                                       column(4,
-                                                              shinycssloaders::withSpinner(plotOutput("srna_size_align", height = "350px", width = '95%')),
-                                                              shinycssloaders::withSpinner(plotOutput("srna_reads_size_align", height = "350px", width = '95%'))
+                                                       br(),
+                                                       
+                                                       fluidRow(
+                                                         column(8,
+                                                                htmlOutput("Quantify_plot_1_title"),
+                                                                tags$head(tags$style("#Quantify_plot_1_title{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                                                                )),
+                                                                
+                                                                shinycssloaders::withSpinner(plotOutput("srna_expression", height = "600px", width = '95%'))
+                                                         ),
+                                                         
+                                                         column(4,
+                                                                shinycssloaders::withSpinner(plotOutput("srna_size_align", height = "350px", width = '95%')),
+                                                                shinycssloaders::withSpinner(plotOutput("srna_reads_size_align", height = "350px", width = '95%'))
+                                                         )
                                                        )
-                                                     )
-                                    ),
-                                    
-                                    conditionalPanel(condition="typeof input.LIRreadCount_rows_selected  !== 'undefined' && input.LIRreadCount_rows_selected.length > 0", 
-                                                     fixedRow(
-                                                       column(4,
-                                                              shinyWidgets::actionBttn("srna_expression_plot_options", "Options for sRNA expression level plot", 
-                                                                                       icon = icon("cogs", class = NULL, lib = "font-awesome"),
-                                                                                       block = TRUE, size = "sm", style="unite", color="default")
-                                                       ),
-                                                       column(4,
-                                                              shinyWidgets::actionBttn("srna_size_plot_options", "Options for sRNA size barplot", 
-                                                                                       icon = icon("cogs", class = NULL, lib = "font-awesome"),
-                                                                                       block = TRUE, size = "sm", style="unite", color="default")
-                                                       ),
-                                                       column(4,
-                                                              shinyWidgets::actionBttn("read_size_plot_options", "Options for sRNA read size barplot", 
-                                                                                       icon = icon("cogs", class = NULL, lib = "font-awesome"),
-                                                                                       block = TRUE, size = "sm", style="unite", color="default")
+                                      ),
+                                      
+                                      conditionalPanel(condition="typeof input.LIRreadCount_rows_selected  !== 'undefined' && input.LIRreadCount_rows_selected.length > 0", 
+                                                       fixedRow(
+                                                         column(4,
+                                                                shinyWidgets::actionBttn("srna_expression_plot_options", "Options for sRNA expression level plot", 
+                                                                                         icon = icon("cogs", class = NULL, lib = "font-awesome"),
+                                                                                         block = TRUE, size = "sm", style="unite", color="default")
+                                                         ),
+                                                         column(4,
+                                                                shinyWidgets::actionBttn("srna_size_plot_options", "Options for sRNA size barplot", 
+                                                                                         icon = icon("cogs", class = NULL, lib = "font-awesome"),
+                                                                                         block = TRUE, size = "sm", style="unite", color="default")
+                                                         ),
+                                                         column(4,
+                                                                shinyWidgets::actionBttn("read_size_plot_options", "Options for sRNA read size barplot", 
+                                                                                         icon = icon("cogs", class = NULL, lib = "font-awesome"),
+                                                                                         block = TRUE, size = "sm", style="unite", color="default")
+                                                         )
                                                        )
-                                                     )
-                                                     
-                                    ),
-                                    br(),
-                                    
-                                    bsModal("srnaexpplotoptions", "Expression of sRNAs aligned to the LIR", "srna_expression_plot_options", size = "large", 
-                                                                      fixedRow(
-                                                                        column(6,
-                                                                               checkboxInput("select_LIR_only", "Hide other LIRs overlap with the selected LIR", TRUE),
-                                                                               sliderInput("srnaexp_point_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Point size</font>')),
-                                                                                           min=0, max=10, value=2, step=0.01),
-                                                                               sliderInput("srnaexp_axis_tick_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis tick font size</font>')),
-                                                                                           min=0, max=30, value=15, step=0.01),
-                                                                               sliderInput("srnaexp_axis_label_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis label font size</font>')),
-                                                                                           min=0, max=30, value=19, step=0.01),
-                                                                               sliderInput("srnaexp_legend_title_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Legend title font size</font>')),
-                                                                                           min=0, max=30, value=13, step=0.01),
-                                                                               sliderInput("srnaexp_legend_text_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Legend text font size</font>')),
-                                                                                           min=0, max=30, value=14, step=0.01)
-                                                                        ),
-                                                                        column(6,
-                                                                               numericInput("srnaexp_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
-                                                                                            value = 550),
-                                                                               numericInput("srnaexp_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
-                                                                                            value = 850),
-                                                                               br(),
-                                                                               downloadButton("srnaexp_plot.pdf", "Download PDF-file")
-                                                                        )
-                                                                      )
-                                    ),
-                                    
-                                    bsModal("srnasizeplotoptions", "Size of all sRNAs aligned to the LIR", "srna_size_plot_options", size = "large", 
-                                                                      fixedRow(
-                                                                        column(6,
-                                                                               sliderInput("srnasize_axis_tick_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis tick font size</font>')),
-                                                                                           min=0, max=3, value=1.2, step=0.01),
-                                                                               sliderInput("srnasize_axis_label_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis label font size</font>')),
-                                                                                           min=0, max=3, value=1.5, step=0.01),
-                                                                               sliderInput("srnasize_bar_name_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Bar name font size</font>')),
-                                                                                           min=0, max=3, value=1.4, step=0.01)
-                                                                        ),
-                                                                        column(6,
-                                                                               numericInput("srnasize_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
-                                                                                            value = 350),
-                                                                               numericInput("srnasize_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
-                                                                                            value = 450),
-                                                                               br(),
-                                                                               downloadButton("srnasize_plot.pdf", "Download PDF-file")
-                                                                        )
-                                                                      )
-                                    ),
-                                    
-                                    bsModal("readsizeplotoptions", "Size of all sRNA reads aligned to the LIR", "read_size_plot_options", size = "large", 
-                                                                      fixedRow(
-                                                                        column(6,
-                                                                               sliderInput("readsize_axis_tick_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis tick font size</font>')),
-                                                                                           min=0, max=3, value=1.2, step=0.01),
-                                                                               sliderInput("readsize_axis_label_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis label font size</font>')),
-                                                                                           min=0, max=3, value=1.5, step=0.01),
-                                                                               sliderInput("readsize_bar_name_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Bar name font size</font>')),
-                                                                                           min=0, max=3, value=1.4, step=0.01)
-                                                                        ),
-                                                                        column(6,
-                                                                               numericInput("readsize_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
-                                                                                            value = 350),
-                                                                               numericInput("readsize_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
-                                                                                            value = 450),
-                                                                               br(),
-                                                                               downloadButton("readsize_plot.pdf", "Download PDF-file")
-                                                                        )
-                                                                      )
-                                    ),
-                                    
-                                    bsModal("AlignLIRop", "Overlaps between the selected LIR and genes", "Align_LIR_op", size = "large", 
-                                            htmlOutput("Quantify_LIR_gene_op_title"),
-                                            tags$head(tags$style("#Quantify_LIR_gene_op_title{color: red;
+                                                       
+                                      ),
+                                      br(),
+                                      
+                                      bsModal("srnaexpplotoptions", "Expression of sRNAs aligned to the LIR", "srna_expression_plot_options", size = "large", 
+                                              fixedRow(
+                                                column(6,
+                                                       checkboxInput("select_LIR_only", "Hide other LIRs overlap with the selected LIR", TRUE),
+                                                       sliderInput("srnaexp_point_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Point size</font>')),
+                                                                   min=0, max=10, value=2, step=0.01),
+                                                       sliderInput("srnaexp_axis_tick_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis tick font size</font>')),
+                                                                   min=0, max=30, value=15, step=0.01),
+                                                       sliderInput("srnaexp_axis_label_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis label font size</font>')),
+                                                                   min=0, max=30, value=19, step=0.01),
+                                                       sliderInput("srnaexp_legend_title_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Legend title font size</font>')),
+                                                                   min=0, max=30, value=13, step=0.01),
+                                                       sliderInput("srnaexp_legend_text_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Legend text font size</font>')),
+                                                                   min=0, max=30, value=14, step=0.01)
+                                                ),
+                                                column(6,
+                                                       numericInput("srnaexp_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
+                                                                    value = 550),
+                                                       numericInput("srnaexp_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
+                                                                    value = 850),
+                                                       br(),
+                                                       downloadButton("srnaexp_plot.pdf", "Download PDF-file")
+                                                )
+                                              )
+                                      ),
+                                      
+                                      bsModal("srnasizeplotoptions", "Size of all sRNAs aligned to the LIR", "srna_size_plot_options", size = "large", 
+                                              fixedRow(
+                                                column(6,
+                                                       sliderInput("srnasize_axis_tick_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis tick font size</font>')),
+                                                                   min=0, max=3, value=1.2, step=0.01),
+                                                       sliderInput("srnasize_axis_label_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis label font size</font>')),
+                                                                   min=0, max=3, value=1.5, step=0.01),
+                                                       sliderInput("srnasize_bar_name_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Bar name font size</font>')),
+                                                                   min=0, max=3, value=1.4, step=0.01)
+                                                ),
+                                                column(6,
+                                                       numericInput("srnasize_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
+                                                                    value = 350),
+                                                       numericInput("srnasize_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
+                                                                    value = 450),
+                                                       br(),
+                                                       downloadButton("srnasize_plot.pdf", "Download PDF-file")
+                                                )
+                                              )
+                                      ),
+                                      
+                                      bsModal("readsizeplotoptions", "Size of all sRNA reads aligned to the LIR", "read_size_plot_options", size = "large", 
+                                              fixedRow(
+                                                column(6,
+                                                       sliderInput("readsize_axis_tick_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis tick font size</font>')),
+                                                                   min=0, max=3, value=1.2, step=0.01),
+                                                       sliderInput("readsize_axis_label_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis label font size</font>')),
+                                                                   min=0, max=3, value=1.5, step=0.01),
+                                                       sliderInput("readsize_bar_name_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Bar name font size</font>')),
+                                                                   min=0, max=3, value=1.4, step=0.01)
+                                                ),
+                                                column(6,
+                                                       numericInput("readsize_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
+                                                                    value = 350),
+                                                       numericInput("readsize_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
+                                                                    value = 450),
+                                                       br(),
+                                                       downloadButton("readsize_plot.pdf", "Download PDF-file")
+                                                )
+                                              )
+                                      ),
+                                      
+                                      bsModal("AlignLIRop", "Overlaps between the selected LIR and genes", "Align_LIR_op", size = "large", 
+                                              htmlOutput("Quantify_LIR_gene_op_title"),
+                                              tags$head(tags$style("#Quantify_LIR_gene_op_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
-                                            )),
-                                            shinycssloaders::withSpinner(DT::dataTableOutput("Quantify_LIR_gene_op"))
-                                    ),
-                                    
-                                    bsModal("AlignLIRseq", "Sequence of the selected LIR", "Align_LIR_seq", size = "large", 
-                                            htmlOutput("LIR_detail_align_fasta_title"),
-                                            tags$head(tags$style("#LIR_detail_align_fasta_title{color: red;
+                                              )),
+                                              shinycssloaders::withSpinner(DT::dataTableOutput("Quantify_LIR_gene_op"))
+                                      ),
+                                      
+                                      bsModal("AlignLIRseq", "Sequence of the selected LIR", "Align_LIR_seq", size = "large", 
+                                              htmlOutput("LIR_detail_align_fasta_title"),
+                                              tags$head(tags$style("#LIR_detail_align_fasta_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
-                                            )),
-                                            shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_align_fasta")),
-                                            tags$head(tags$style("#LIR_detail_align_fasta {
+                                              )),
+                                              shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_align_fasta")),
+                                              tags$head(tags$style("#LIR_detail_align_fasta {
                                           width: 100%; 
                                           padding: 6px 12px; 
                                           white-space: pre-wrap;
                                           height: 400px;
                                           background: white;
                                         }"
-                                            ))
-                                    ),
-                                    
-                                    bsModal("AlignLIRdetail", "Structure of the selected LIR", "Align_LIR_detail", size = "large", 
-                                            htmlOutput("LIR_detail_align_title"),
-                                            tags$head(tags$style("#LIR_detail_align_title{color: red;
+                                              ))
+                                      ),
+                                      
+                                      bsModal("AlignLIRdetail", "Structure of the selected LIR", "Align_LIR_detail", size = "large", 
+                                              htmlOutput("LIR_detail_align_title"),
+                                              tags$head(tags$style("#LIR_detail_align_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
-                                            )),
-                                            shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_align")),
-                                            tags$head(tags$style("#LIR_detail_align {
+                                              )),
+                                              shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_align")),
+                                              tags$head(tags$style("#LIR_detail_align {
                                           width: 100%; 
                                           padding: 6px 12px; 
                                           white-space: pre-wrap;
                                           height: 400px;
                                           background: white;
                                         }"
-                                            ))
-                                    ),
-                                    
-                                    bsModal("AlignLIRsRNA", "Small RNAs derived from the selected LIR", "Align_LIR_sRNA", size = "large", 
-                                            htmlOutput("LIR_derived_sRNA_title"),
-                                            tags$head(tags$style("#LIR_derived_sRNA_title{color: red;
+                                              ))
+                                      ),
+                                      
+                                      bsModal("AlignLIRsRNA", "Small RNAs derived from the selected LIR", "Align_LIR_sRNA", size = "large", 
+                                              htmlOutput("LIR_derived_sRNA_title"),
+                                              tags$head(tags$style("#LIR_derived_sRNA_title{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
-                                            )),
-                                            shinycssloaders::withSpinner(verbatimTextOutput("LIR_derived_sRNA")),
-                                            tags$head(tags$style("#LIR_derived_sRNA {
+                                              )),
+                                              shinycssloaders::withSpinner(verbatimTextOutput("LIR_derived_sRNA")),
+                                              tags$head(tags$style("#LIR_derived_sRNA {
                                           width: 100%; 
                                           padding: 6px 12px; 
                                           white-space: pre-wrap;
                                           height: 400px;
                                           background: white;
                                         }"
-                                            ))
-                                    ),
-                                    
-                                    br(),br()
-                           )
-                           
-               )
-        )
-      ),
-      
-      
-      # DESeq2
-      tabPanel(
-        HTML("<strong style='font-size:18px'>DESeq</strong>"),
-        icon = icon("eercast", class = NULL, lib = "font-awesome"),
+                                              ))
+                                      ),
+                                      
+                                      br(),br()
+                             )
+                             
+                 )
+          )
+        ),
         
-        column(12,
-               sidebarPanel(
-                 tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Detect differentially expressed LIRs or sRNAs</b></font>'),
-                          bsButton("qDESeqTitle", label="", icon=icon("question"), style="info", size="small")),
-                 bsPopover("qDESeqTitle", "The R package DESeq2 is used to detect differentially expressed LIRs/sRNAs between samples.", trigger = "focus"),
-                 
-                 selectInput("In_deseq", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Paste or upload a count matrix?</font>'),
-                                                          bsButton("qDeseqIn", label="", icon=icon("question"), style="info", size="small")
-                 ), choices = list("Paste input data" = "paste", 
-                                   "Upload input data" = "upload"), 
-                 selected = "paste"),
-                 bsPopover("qDeseqIn", "The input data must be a count matrix. Check the example data for the format of a count matrix.", trigger = "focus"),
-                 conditionalPanel(condition="input.In_deseq == 'paste'", 
-                                  textAreaInput("DeseqPaste", label = h4("Input count matrix"),
-                                                value = "", resize = "vertical", height='180px', width = '100%',
-                                                placeholder = "A count matrix in correct format")
-                 ),
-                 conditionalPanel(condition="input.In_deseq == 'upload'", 
-                                  fileInput("DeseqUpload",
-                                            label = h4("Upload file"), multiple = FALSE, width = "100%"),
-                                  downloadButton("Count_matrix_Input.txt", "Example count matrix", style = "width:100%;", class = "buttDown")
-                 ),
-                 
-                 selectInput("In_deseq_table", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Paste or upload a sample information table?</font>'),
-                                                                bsButton("qDeseqInTable", label="", icon=icon("question"), style="info", size="small")
-                 ), choices = list("Paste input data" = "paste", 
-                                   "Upload input data" = "upload"), 
-                 selected = "paste"),
-                 bsPopover("qDeseqInTable", "The sample in the count matrix and the sample in the information table must be in the same order. Only two different conditions are allowed. Check the example data for the format of a sample information table.", trigger = "focus"),
-                 conditionalPanel(condition="input.In_deseq_table == 'paste'", 
-                                  textAreaInput("DeseqTablePaste", label = h4("Input sample information table"),
-                                                value = "", resize = "vertical", height='180px', width = '100%',
-                                                placeholder = "A sample information table in correct format")
-                 ),
-                 conditionalPanel(condition="input.In_deseq_table == 'upload'", 
-                                  fileInput("DeseqTableUpload",
-                                            label = h4("Upload file"), multiple = FALSE, width = "100%"),
-                                  downloadButton("Sample_info_table_Input.txt", "Example sample information table", style = "width:100%;", class = "buttDown")
-                 ),
-                 
-                 sliderInput("MinReadcount", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Min read count required for a row of the count matrix</font>'),
-                                                              bsButton("qMinReadcount", label="", icon=icon("question"), style="info", size="small")
-                 ), value = 10, min = 10, step = 1, max = 100),
-                 bsPopover("qMinReadcount", "Rows with total read count across all samples smaller than this value would be removed from the count matrix.",
-                           trigger = "focus"),
-                 
-                 br(),
-                 shinysky::actionButton("submitDeseq", strong("Submit!",
-                                                              bsButton("qsubmitDeseq", label="", icon=icon("question"), style="info", size="small")
-                 ), styleclass = "success"),
-                 shinysky::actionButton("clearDeseq", strong("Reset"), styleclass = "warning"),
-                 shinysky::actionButton("deseqExam", strong("Load example"), styleclass = "info"),
-                 conditionalPanel(condition="input.submitDeseq != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
-                 bsPopover("qsubmitDeseq", "Click this button to start the calculation!",
-                           trigger = "focus"),
-                 br(),br(),
-                 
-                 shinyWidgets::actionBttn("MA_plot_options", "Options for MA plot", 
-                                          icon = icon("cogs", class = NULL, lib = "font-awesome"),
-                                          block = TRUE, size = "sm", style="unite", color="default"),
-                 
-                 shinyWidgets::actionBttn("volcano_plot_options", "Options for volcano plot", 
-                                          icon = icon("cogs", class = NULL, lib = "font-awesome"),
-                                          block = TRUE, size = "sm", style="unite", color="default"),
-                 
-                 shinyWidgets::actionBttn("sample_dist_options", "Sample-to-sample distance plot", 
-                                          icon = icon("eye", class = NULL, lib = "font-awesome"),
-                                          block = TRUE, size = "sm", style="unite", color="default")
-                 
-               ),
-               
-               mainPanel(
-                 downloadButton("DESeq2_result_table.txt", "Differentially expressed LIRs/sRNAs", style = "width:50%;", class = "buttDown"),
-                 br(),br(),
-                 DT::dataTableOutput("DESeqResult"),
-                 br(),
-                 
-                 fluidRow(
-                   column(6,
-                          shinyjqui::jqui_resizable(plotOutput("MA_plot", height = "500px", width = '90%'))
+        # DESeq2
+        tabPanel(
+          HTML("<strong style='font-size:17px'>DESeq</strong>"),
+          icon = icon("eercast", class = NULL, lib = "font-awesome"),
+          
+          column(12,
+                 sidebarPanel(
+                   tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Detect differentially expressed LIRs or sRNAs</b></font>'),
+                            bsButton("qDESeqTitle", label="", icon=icon("question"), style="info", size="small")),
+                   bsPopover("qDESeqTitle", "The R package DESeq2 is used to detect differentially expressed LIRs/sRNAs between samples.", trigger = "focus"),
+                   
+                   selectInput("In_deseq", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Paste or upload a count matrix?</font>'),
+                                                            bsButton("qDeseqIn", label="", icon=icon("question"), style="info", size="small")
+                   ), choices = list("Paste input data" = "paste", 
+                                     "Upload input data" = "upload"), 
+                   selected = "paste"),
+                   bsPopover("qDeseqIn", "The input data must be a count matrix. Check the example data for the format of a count matrix.", trigger = "focus"),
+                   conditionalPanel(condition="input.In_deseq == 'paste'", 
+                                    textAreaInput("DeseqPaste", label = h4("Input count matrix"),
+                                                  value = "", resize = "vertical", height='180px', width = '100%',
+                                                  placeholder = "A count matrix in correct format")
+                   ),
+                   conditionalPanel(condition="input.In_deseq == 'upload'", 
+                                    fileInput("DeseqUpload",
+                                              label = h4("Upload file"), multiple = FALSE, width = "100%"),
+                                    downloadButton("Count_matrix_Input.txt", "Example count matrix", style = "width:100%;", class = "buttDown")
                    ),
                    
-                   column(6,
-                          shinyjqui::jqui_resizable(plotOutput("volcano_plot", height = "500px", width = '90%'))
+                   selectInput("In_deseq_table", label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Paste or upload a sample information table?</font>'),
+                                                                  bsButton("qDeseqInTable", label="", icon=icon("question"), style="info", size="small")
+                   ), choices = list("Paste input data" = "paste", 
+                                     "Upload input data" = "upload"), 
+                   selected = "paste"),
+                   bsPopover("qDeseqInTable", "The sample in the count matrix and the sample in the information table must be in the same order. Only two different conditions are allowed. Check the example data for the format of a sample information table.", trigger = "focus"),
+                   conditionalPanel(condition="input.In_deseq_table == 'paste'", 
+                                    textAreaInput("DeseqTablePaste", label = h4("Input sample information table"),
+                                                  value = "", resize = "vertical", height='180px', width = '100%',
+                                                  placeholder = "A sample information table in correct format")
+                   ),
+                   conditionalPanel(condition="input.In_deseq_table == 'upload'", 
+                                    fileInput("DeseqTableUpload",
+                                              label = h4("Upload file"), multiple = FALSE, width = "100%"),
+                                    downloadButton("Sample_info_table_Input.txt", "Example sample information table", style = "width:100%;", class = "buttDown")
+                   ),
+                   
+                   sliderInput("MinReadcount", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Min read count required for a row of the count matrix</font>'),
+                                                                bsButton("qMinReadcount", label="", icon=icon("question"), style="info", size="small")
+                   ), value = 10, min = 10, step = 1, max = 100),
+                   bsPopover("qMinReadcount", "Rows with total read count across all samples smaller than this value would be removed from the count matrix.",
+                             trigger = "focus"),
+                   
+                   br(),
+                   shinysky::actionButton("submitDeseq", strong("Submit!",
+                                                                bsButton("qsubmitDeseq", label="", icon=icon("question"), style="info", size="small")
+                   ), styleclass = "success"),
+                   shinysky::actionButton("clearDeseq", strong("Reset"), styleclass = "warning"),
+                   shinysky::actionButton("deseqExam", strong("Load example"), styleclass = "info"),
+                   conditionalPanel(condition="input.submitDeseq != '0'", shinysky::busyIndicator(HTML("<p style='color:red;font-size:30px;'>Calculation In progress...</p>"), wait = 0)),
+                   bsPopover("qsubmitDeseq", "Click this button to start the calculation!",
+                             trigger = "focus"),
+                   br(),br(),
+                   
+                   shinyWidgets::actionBttn("MA_plot_options", "Options for MA plot", 
+                                            icon = icon("cogs", class = NULL, lib = "font-awesome"),
+                                            block = TRUE, size = "sm", style="unite", color="default"),
+                   
+                   shinyWidgets::actionBttn("volcano_plot_options", "Options for volcano plot", 
+                                            icon = icon("cogs", class = NULL, lib = "font-awesome"),
+                                            block = TRUE, size = "sm", style="unite", color="default"),
+                   
+                   shinyWidgets::actionBttn("sample_dist_options", "Sample-to-sample distance plot", 
+                                            icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                            block = TRUE, size = "sm", style="unite", color="default")
+                   
+                 ),
+                 
+                 mainPanel(
+                   downloadButton("DESeq2_result_table.txt", "Differentially expressed LIRs/sRNAs", style = "width:50%;", class = "buttDown"),
+                   br(),br(),
+                   DT::dataTableOutput("DESeqResult"),
+                   br(),
+                   
+                   fluidRow(
+                     column(6,
+                            shinyjqui::jqui_resizable(plotOutput("MA_plot", height = "500px", width = '90%'))
+                     ),
+                     
+                     column(6,
+                            shinyjqui::jqui_resizable(plotOutput("volcano_plot", height = "500px", width = '90%'))
+                     )
+                   ),
+                   
+                   bsModal("MAplotoptions", "MA plot", "MA_plot_options", size = "large", 
+                           fixedRow(
+                             column(6,
+                                    sliderInput("MA_point_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Point size</font>')),
+                                                min=0, max=3, value=1, step=0.01),
+                                    sliderInput("MA_Y_axis", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Y axis limits</font>')), 
+                                                min = -10, max = 10, value = c(-2, 2))
+                             ),
+                             column(6,
+                                    numericInput("MA_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
+                                                 value = 550),
+                                    numericInput("MA_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
+                                                 value = 550),
+                                    br(),
+                                    downloadButton("MA_plot.pdf", "Download PDF-file")
+                             )
+                           )
+                   ),
+                   
+                   br(),br(),
+                   
+                   bsModal("Volcanoplotoptions", "Volcano plot", "volcano_plot_options", size = "large", 
+                           fixedRow(
+                             column(6,
+                                    sliderInput("sliderFoldchange", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">X axis limits of the volcano plot</font>')), 
+                                                min = -10, max = 10, value = c(-2, 2)),
+                                    sliderInput("sliderPvalue", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Y axis limits of the volcano plot</font>')), 
+                                                min = 0, max = 30, value = c(0, 10)),
+                                    sliderInput("volcano_point_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Point size</font>')),
+                                                min=0, max=3, value=1, step=0.01),
+                                    sliderInput("volcano_axis_tick_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis tick font size</font>')),
+                                                min=0, max=3, value=1, step=0.01),
+                                    sliderInput("volcano_axis_label_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis label font size</font>')),
+                                                min=0, max=3, value=1, step=0.01)
+                             ),
+                             column(6,
+                                    numericInput("volcano_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
+                                                 value = 550),
+                                    numericInput("volcano_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
+                                                 value = 550),
+                                    br(),
+                                    downloadButton("volcano_plot.pdf", "Download PDF-file")
+                             )
+                           )
+                   ),
+                   
+                   tags$head(tags$style("#sampledistoptions .modal-dialog{ width:1000px}")),
+                   bsModal("sampledistoptions", "Sample-to-sample distance plot", "sample_dist_options", size = "large", 
+                           fixedRow(
+                             column(5,
+                                    numericInput("dist_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
+                                                 value = 425),
+                                    numericInput("dist_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
+                                                 value = 550),
+                                    br(),
+                                    downloadButton("sample_dist_plot.pdf", "Download PDF-file")
+                             ),
+                             column(7,
+                                    plotOutput("sample_dist", height = "350px", width = '450px')
+                             )
+                           )
                    )
-                 ),
-                 
-                 bsModal("MAplotoptions", "MA plot", "MA_plot_options", size = "large", 
-                                                   fixedRow(
-                                                     column(6,
-                                                            sliderInput("MA_point_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Point size</font>')),
-                                                                        min=0, max=3, value=1, step=0.01),
-                                                            sliderInput("MA_Y_axis", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Y axis limits</font>')), 
-                                                                        min = -10, max = 10, value = c(-2, 2))
-                                                     ),
-                                                     column(6,
-                                                            numericInput("MA_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
-                                                                         value = 550),
-                                                            numericInput("MA_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
-                                                                         value = 550),
-                                                            br(),
-                                                            downloadButton("MA_plot.pdf", "Download PDF-file")
-                                                     )
-                                                   )
-                 ),
-                 
-                 br(),br(),
-                 
-                 bsModal("Volcanoplotoptions", "Volcano plot", "volcano_plot_options", size = "large", 
-                                                   fixedRow(
-                                                     column(6,
-                                                            sliderInput("sliderFoldchange", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">X axis limits of the volcano plot</font>')), 
-                                                                        min = -10, max = 10, value = c(-2, 2)),
-                                                            sliderInput("sliderPvalue", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Y axis limits of the volcano plot</font>')), 
-                                                                        min = 0, max = 30, value = c(0, 10)),
-                                                            sliderInput("volcano_point_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Point size</font>')),
-                                                                        min=0, max=3, value=1, step=0.01),
-                                                            sliderInput("volcano_axis_tick_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis tick font size</font>')),
-                                                                        min=0, max=3, value=1, step=0.01),
-                                                            sliderInput("volcano_axis_label_size", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Axis label font size</font>')),
-                                                                        min=0, max=3, value=1, step=0.01)
-                                                     ),
-                                                     column(6,
-                                                            numericInput("volcano_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
-                                                                         value = 550),
-                                                            numericInput("volcano_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
-                                                                         value = 550),
-                                                            br(),
-                                                            downloadButton("volcano_plot.pdf", "Download PDF-file")
-                                                     )
-                                                   )
-                 ),
-                 
-                 tags$head(tags$style("#sampledistoptions .modal-dialog{ width:1000px}")),
-                 bsModal("sampledistoptions", "Sample-to-sample distance plot", "sample_dist_options", size = "large", 
-                                                   fixedRow(
-                                                     column(5,
-                                                            numericInput("dist_plot_height", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Height of the PDF file (# pixels)</font>')),
-                                                                         value = 425),
-                                                            numericInput("dist_plot_width", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Width of the PDF file (# pixels)</font>')),
-                                                                         value = 550),
-                                                            br(),
-                                                            downloadButton("sample_dist_plot.pdf", "Download PDF-file")
-                                                     ),
-                                                     column(7,
-                                                            plotOutput("sample_dist", height = "350px", width = '450px')
-                                                     )
-                                                   )
+                   
                  )
-                 
-               )
+          )
         )
       ),
+      
       
       # Target
       tabPanel(
@@ -1527,43 +1530,14 @@ shinyUI(
       ),
       
       
-      # Genomes
-      tabPanel(
-        HTML("<strong style='font-size:18px'>Genomes</strong>"),
-        icon = icon("info", class = NULL, lib = "font-awesome"),
-        
-        h3("Information of 424 genomes collected in LIRBase"),
-        DT::dataTableOutput("genomeTable"), width='100%'
-      ),
-      
-      
-      # Download
-      tabPanel(
-        HTML("<strong style='font-size:18px'>Download</strong>"),
-        icon = icon("download", class = NULL, lib = "font-awesome"),
-        
-        tabsetPanel(id = "download_1",
-                    tabPanel(h4("Annotated long inverted repeats of 424 genomes"),
-                             DT::dataTableOutput("downloadTable")
-                    ),
-                    tabPanel(h4("BLASTN database"),
-                             DT::dataTableOutput("BLASTdbdownloadTable")
-                    ),
-                    tabPanel(h4("Bowtie database"),
-                             DT::dataTableOutput("BowtiedbdownloadTable")
-                    )
-        )
-      ),
-      
-      
       ## Help
       navbarMenu(HTML("<strong style='font-size:18px'>Help</strong>"), icon = icon("book", class = NULL, lib = "font-awesome"),
-                 tabPanel(HTML("<strong style='font-size:15px'>About</strong>"),
+                 tabPanel(HTML("<strong style='font-size:17px'>About</strong>"),
                           column(2),
                           column(8, includeMarkdown("About.md")),
                           column(2)
                  ),
-                 tabPanel(HTML("<strong style='font-size:15px'>Tutorial</strong>"),
+                 tabPanel(HTML("<strong style='font-size:17px'>Tutorial</strong>"),
                           sidebarPanel(
                             style = "position:fixed;width:23%;",
                             h4("Table of contents"),
@@ -1576,17 +1550,38 @@ shinyUI(
                                     column(2)
                           )
                  ),
-                 tabPanel(HTML("<strong style='font-size:15px'>Installation</strong>"),
+                 
+                 # Data
+                 tabPanel(
+                   HTML("<strong style='font-size:17px'>Data</strong>"),
+                   
+                   tabsetPanel(id = "download_1",
+                               tabPanel(h4("Information of 424 genomes"),
+                                        DT::dataTableOutput("genomeTable")
+                               ),
+                               tabPanel(h4("Annotated LIRs of 424 genomes"),
+                                        DT::dataTableOutput("downloadTable")
+                               ),
+                               tabPanel(h4("BLASTN database"),
+                                        DT::dataTableOutput("BLASTdbdownloadTable")
+                               ),
+                               tabPanel(h4("Bowtie database"),
+                                        DT::dataTableOutput("BowtiedbdownloadTable")
+                               )
+                   )
+                 ),
+                 
+                 tabPanel(HTML("<strong style='font-size:17px'>Installation</strong>"),
                           column(2),
                           column(8, includeMarkdown("README.md")),
                           column(2)
                  ),
-				         tabPanel(HTML("<strong style='font-size:15px'>Links</strong>"),
+				         tabPanel(HTML("<strong style='font-size:17px'>Links</strong>"),
 				                  column(2),
 				                  column(8, includeMarkdown("Links.md")),
 				                  column(2)
                  ),
-                 tabPanel(HTML("<strong style='font-size:15px'>Contact</strong>"),
+                 tabPanel(HTML("<strong style='font-size:17px'>Contact</strong>"),
                           column(3),
                           column(6, includeMarkdown("Contact.md")),
                           column(3)

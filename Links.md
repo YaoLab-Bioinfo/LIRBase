@@ -5,7 +5,7 @@
 - <font size=4>**Online use**: <a href="https://venyao.xyz/lirbase/" target="_blank">venyao.xyz/lirbase/</a></font> 
 - <font size=4>**Contact:** [yaowen@henau.edu.cn](mailto:yaowen@henau.edu.cn)</font>
 
-# Other tools and databases
+# Related tools and databases
 - <font size=4>**IRF**: <a href="https://tandem.bu.edu/irf/irf.download.html" target="_blank">Inverted Repeats Finder, a program to identify inverted repeats in the genome.</a></font>  
 - <font size=4>**P-MITE**: <a href="http://pmite.hzau.edu.cn/" target="_blank">Plant miniature inverted-repeat transposable elements (MITEs) Database.</a></font>  
 - <font size=4>**Gramene**: <a href="https://www.gramene.org/" target="_blank">a curated, open-source, integrated data resource for comparative functional genomics in crops and model plant species.</a></font>  

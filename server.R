@@ -8,15 +8,15 @@ shinyServer(function(input, output, session) {
   }, ignoreInit = TRUE)
   
   observeEvent(input$SearchByReg_butt, {
-    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:16px'>Search by genomic location</strong>"))
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:17px'>Search by genomic location</strong>"))
   }, ignoreInit = TRUE)
   
   observeEvent(input$SearchByLIRID_butt, {
-    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:16px'>Search by LIR identifier</strong>"))
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:17px'>Search by LIR identifier</strong>"))
   }, ignoreInit = TRUE)
   
   observeEvent(input$BLAST_butt, {
-    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Blast</strong>"))
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:17px'>BLAST</strong>"))
   }, ignoreInit = TRUE)
   
   observeEvent(input$Annotate_butt, {
@@ -24,11 +24,11 @@ shinyServer(function(input, output, session) {
   }, ignoreInit = TRUE)
   
   observeEvent(input$Quantify_butt, {
-    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Quantify</strong>"))
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:17px'>Quantify</strong>"))
   }, ignoreInit = TRUE)
   
   observeEvent(input$DESeq_butt, {
-    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>DESeq</strong>"))
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:17px'>DESeq</strong>"))
   }, ignoreInit = TRUE)
   
   observeEvent(input$Target_butt, {
@@ -2468,7 +2468,7 @@ shinyServer(function(input, output, session) {
 	  IRF_result <- read.csv("IRF_result.csv", head=T, as.is=T)
 	  DT::datatable(
 	    IRF_result,
-	    options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = FALSE,
+	    options = list(lengthMenu = c(20, 30, 50), pageLength = 15, scrollX = TRUE,
 	                   searching = TRUE, bSort=FALSE, autoWidth = FALSE,
 	                   buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
 	                   columnDefs=list(list(targets="_all"))
@@ -2481,7 +2481,7 @@ shinyServer(function(input, output, session) {
 	  BLAST_db_down <- read.table("BLASTdb_download.txt", head=T, as.is=T, sep="\t")
 	  DT::datatable(
 	    BLAST_db_down,
-	    options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
+	    options = list(lengthMenu = c(20, 30, 50), pageLength = 15, scrollX = TRUE,
 	                   searching = TRUE, autoWidth = FALSE, bSort=FALSE,
 	                   buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
 	                   columnDefs=list(list(targets="_all"))
@@ -2494,7 +2494,7 @@ shinyServer(function(input, output, session) {
 	  Bowtie_db_down <- read.table("Bowtiedb_download.txt", head=T, as.is=T, sep="\t")
 	  DT::datatable(
 	    Bowtie_db_down,
-	    options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
+	    options = list(lengthMenu = c(20, 30, 50), pageLength = 15, scrollX = TRUE,
 	                   searching = TRUE, autoWidth = FALSE, bSort=FALSE,
 	                   buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
 	                   columnDefs=list(list(targets="_all"))
@@ -2509,7 +2509,7 @@ shinyServer(function(input, output, session) {
 	  genomes$Publication <- paste0("<a href='https://doi.org/", genomes$Publication,"' target='_blank'>", genomes$Publication,"</a>")
 	  DT::datatable(
 	    genomes,
-	    options = list(lengthMenu = c(20, 30, 50), pageLength = 20, scrollX = TRUE,
+	    options = list(lengthMenu = c(20, 30, 50), pageLength = 15, scrollX = TRUE,
 	                   searching = TRUE, autoWidth = TRUE, bSort=FALSE,
 	                   buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
 	                   columnDefs=list(list(targets="_all"))

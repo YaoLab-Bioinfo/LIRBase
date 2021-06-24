@@ -9,7 +9,7 @@ Homepage <- dashboardPage(
       column(
         width = 10,
         offset = 1,
-        titleBox(title = "LIRBase: a comprehensive collection of long inverted repeats in eukaryotic genomes")
+        titleBox(title = "LIRBase: a comprehensive collection of long inverted repeats in 424 eukaryotic genomes")
       )
     ),
     
@@ -19,7 +19,7 @@ Homepage <- dashboardPage(
         offset = 1,
         textBox(
           width = 12,
-          p("We identified a total of 6,619,473", strong("long inverted repeats (LIR, longer than 800 nt)"), "in 424 eukaryotic genomes and implemented various functionalities for analysis of LIRs and small RNAs derived from LIRs.")
+          p("We identified a total of 6,619,473", strong("long inverted repeats (LIR, longer than 800 nt)"), "in 424 eukaryotic genomes and implemented various functionalities to facilitate the annotation and functional studies of LIRs and small RNAs derived from LIRs.")
         ),
         box(
           width = 12,
@@ -66,14 +66,14 @@ Homepage <- dashboardPage(
           
           box(width = 4,
               shinyWidgets::actionBttn("SearchByReg_butt", "Search by genomic location", 
-                         icon = icon("search", class = NULL, lib = "font-awesome"),
+                         icon = icon("search-location", class = NULL, lib = "font-awesome"),
                          block = TRUE, size = "lg", style="unite", color="default"),
               h4("Search LIRBase by genomic locations")
           ),
           
           box(width = 4,
               shinyWidgets::actionBttn("SearchByLIRID_butt", "Search by LIR identifier", 
-                         icon = icon("search", class = NULL, lib = "font-awesome"),
+                         icon = icon("id-card", class = NULL, lib = "font-awesome"),
                          block = TRUE, size = "lg", style="unite", color="default"),
               h4("Search LIRBase by the identifiers of LIRs")
           )
@@ -95,7 +95,7 @@ Homepage <- dashboardPage(
           ),
           
           box(width = 4,
-              shinyWidgets::actionBttn("Quantify_butt", "Quantify", 
+              shinyWidgets::actionBttn("Quantify_butt", "Expression - Quantify", 
                          icon = icon("upload", class = NULL, lib = "font-awesome"),
                          block = TRUE, size = "lg", style="unite", color="default"),
               h4("Identify candidate LIRs encoding long hpRNAs by aligning sRNA sequencing data to LIRs")
@@ -104,7 +104,7 @@ Homepage <- dashboardPage(
         
         fluidRow(
           box(width = 4,
-              shinyWidgets::actionBttn("DESeq_butt", "DESeq", 
+              shinyWidgets::actionBttn("DESeq_butt", "Expression - DESeq", 
                          icon = icon("eercast", class = NULL, lib = "font-awesome"),
                          block = TRUE, size = "lg", style="unite", color="default"),
               h4("Differential expression analysis of LIRs or small RNAs between different biological samples/tissues")
