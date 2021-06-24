@@ -1,15 +1,15 @@
 LIRBase
 ========
 
->A total of 424 eukaryote genomes were collected and the **long inverted repeats (longer than 800 nt)** in these genomes were systematically identified. The following functionalities are implemented in LIRBase.  
+>A total of 424 eukaryote genomes were collected and the **long inverted repeats (LIR, longer than 800 nt)** in these genomes were systematically identified. The following functionalities are implemented in LIRBase.  
 
->1. **Browse long inverted repeats (LIR) identified in 424 eukaryotic genomes** for the sequences, structures of LIRs, and the overlaps between LIRs and genes.  
->2. **Search** LIRBase for **long inverted repeats** in a specific genome **by genomic locations**.  
->3. **Search** LIRBase for **long inverted repeats** in a specific genome **by the identifiers** of long inverted repeats.  
+>1. **Browse LIRs identified in 424 eukaryotic genomes** for the sequences, structures of LIRs, and the overlaps between LIRs and genes.  
+>2. **Search** LIRBase for **LIRs** in a specific genome **by genomic locations**.  
+>3. **Search** LIRBase for **LIRs** in a specific genome **by the identifiers** of LIRs.  
 >4. Search LIRBase by sequence similarity using **BLAST**.  
->5. **Detect and annotate long inverted repeats** in user-uploaded DNA sequences.  
->6. **Align small RNA sequencing data to long inverted repeats** of a specific genome to detect the origination of small RNAs from long inverted repeats and quantify the expression level of small RNAs and long inverted repeats.  
->7. Perform **differential expression analysis of long inverted repeats or small RNAs** between different biological samples/tissues.  
+>5. **Detect and annotate LIRs** in user-uploaded DNA sequences.  
+>6. **Align small RNA sequencing data to LIRs** of a specific genome to detect the origination of small RNAs from LIRs and quantify the expression level of small RNAs and LIRs.  
+>7. Perform **differential expression analysis of LIRs or small RNAs** between different biological samples/tissues.  
 >8. **Identify protein-coding genes targeted by the small RNAs derived from a LIR** through detecting the complementary matches between small RNAs and the cDNA sequence of protein-coding genes.  
 >9. Predict and visualize the **secondary structure of potential hpRNA encoded by a LIR** using RNAfold.  
 
@@ -51,12 +51,13 @@ install.packages("shinyWidgets")
 install.packages("stringr")
 install.packages("tidyr")
 install.packages("dplyr")
+install.packages("XML")
 
 install.packages("BiocManager")
 BiocManager::install("apeglm")
 BiocManager::install("Biostrings")
 BiocManager::install("DESeq2")
-BiocManager::install("IRanges")
+BiocManager::install("GenomicRanges")
 
 # install shinysky
 install.packages("devtools")
@@ -87,11 +88,11 @@ devtools::install_github("venyao/ShinySky", force=TRUE)
 **Step 6: Upload source files of LIRBase**
 
 >Put the directory containing the code and data of LIRBase to /srv/shiny-server.  
-The BLASTN database files downloaded from the **Download menu of LIRBase** should be placed in the **LIRBase_blastdb** directory under the **www** directory of LIRBase.  
-The downloaded Bowtie index files downloaded from the **Download menu of LIRBase** should be placed in the **LIRBase_bowtiedb** directory under the **www** directory of LIRBase.  
-The downloaded **Inverted_repeat_structure** files downloaded from the **Download menu of LIRBase** should be placed in the **Table** directory under the **www** directory of LIRBase.  
-The downloaded **Inverted_repeat_sequence** files downloaded from the **Download menu of LIRBase** should be placed in the **Fasta** directory under the **www** directory of LIRBase.  
-The downloaded **IRF_stem_alignment** files downloaded from the **Download menu of LIRBase** should be placed in the **HTML** directory under the **www** directory of LIRBase.
+The BLASTN database files downloaded from the **Data menu of LIRBase** should be placed in the **LIRBase_blastdb** directory under the **www** directory of LIRBase.  
+The downloaded Bowtie index files downloaded from the **Data menu of LIRBase** should be placed in the **LIRBase_bowtiedb** directory under the **www** directory of LIRBase.  
+The downloaded **Inverted_repeat_structure** files downloaded from the **Data menu of LIRBase** should be placed in the **Table** directory under the **www** directory of LIRBase.  
+The downloaded **Inverted_repeat_sequence** files downloaded from the **Data menu of LIRBase** should be placed in the **Fasta** directory under the **www** directory of LIRBase.  
+The downloaded **IRF_stem_alignment** files downloaded from the **Data menu of LIRBase** should be placed in the **HTML** directory under the **www** directory of LIRBase.
 
 
 **Step 7: Configure shiny server (/etc/shiny-server/shiny-server.conf)**

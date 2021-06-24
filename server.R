@@ -1030,122 +1030,134 @@ shinyServer(function(input, output, session) {
       irf.in.file <- paste0(irf.in.file, ".fasta")
       writeLines(pre.Seq, con=irf.in.file)
       
-      pre.Match <- input$Match
-      pre.Mismatch <- input$Mismatch
-      pre.Delta <- input$Delta
-      pre.PM <- input$PM
-      pre.PI <- input$PI
-      pre.Minscore <- input$Minscore
-      pre.MaxLength <- input$MaxLength
-      pre.MaxLoop <- input$MaxLoop
-      pre.flankLen <- input$flankSeqLen
-      
-      irf.cmds <- paste("irf305.linux.exe", irf.in.file, pre.Match, pre.Mismatch, pre.Delta, pre.PM,
-                        pre.PI, pre.Minscore, pre.MaxLength, pre.MaxLoop, "-d -f", pre.flankLen)
-      system(irf.cmds, ignore.stdout = TRUE, ignore.stderr = TRUE)
-      
-      # The result .dat file
-      dat.file <- paste(irf.in.file, pre.Match, pre.Mismatch, pre.Delta, pre.PM,
-                        pre.PI, pre.Minscore, pre.MaxLength, pre.MaxLoop, "dat", sep=".")
-      
-      if (!file.exists(dat.file)) {
+      ## test sequence ID
+      pre.Seq.test <- Biostrings::readDNAStringSet(irf.in.file)
+      names(pre.Seq.test) <- gsub("^\\s+", "", names(pre.Seq.test))
+      names(pre.Seq.test) <- gsub("\\s+$", "", names(pre.Seq.test))
+      if (any(names(pre.Seq.test) == "")) {
         shinyWidgets::sendSweetAlert(
           session = session,
           title = "Wrong input data!", type = "error",
-          text = "Please check the content and the format of your input data!"
+          text = "Empty sequence ID is not allowed!"
         )
       } else {
-        dat <- readLines(dat.file)
-        dat <- dat[-c(1:8)]
-        dat.seq.idx <- which(grepl("^Sequence:", dat))
-        dat.seq.idx <- c(dat.seq.idx, length(dat) + 1)
+        pre.Match <- input$Match
+        pre.Mismatch <- input$Mismatch
+        pre.Delta <- input$Delta
+        pre.PM <- input$PM
+        pre.PI <- input$PI
+        pre.Minscore <- input$Minscore
+        pre.MaxLength <- input$MaxLength
+        pre.MaxLoop <- input$MaxLoop
+        pre.flankLen <- input$flankSeqLen
         
-        dat.cont <- lapply(1:(length(dat.seq.idx)-1), function(i){
-          i.seq.id <- dat[dat.seq.idx[i]]
-          i.seq.id <- gsub("Sequence:\\s", "", i.seq.id)
-          i.cont <- dat[dat.seq.idx[i]:(dat.seq.idx[i+1] - 1)]
-          i.cont <- i.cont[grepl("^\\d", i.cont)]
-          if (length(i.cont)>=1) {
-            i.cont <- cbind(i.seq.id, i.cont)
-            return(i.cont)
+        irf.cmds <- paste("irf305.linux.exe", irf.in.file, pre.Match, pre.Mismatch, pre.Delta, pre.PM,
+                          pre.PI, pre.Minscore, pre.MaxLength, pre.MaxLoop, "-d -f", pre.flankLen)
+        system(irf.cmds, ignore.stdout = TRUE, ignore.stderr = TRUE)
+        
+        # The result .dat file
+        dat.file <- paste(irf.in.file, pre.Match, pre.Mismatch, pre.Delta, pre.PM,
+                          pre.PI, pre.Minscore, pre.MaxLength, pre.MaxLoop, "dat", sep=".")
+        
+        if (!file.exists(dat.file)) {
+          shinyWidgets::sendSweetAlert(
+            session = session,
+            title = "Wrong input data!", type = "error",
+            text = "Please check the content and the format of your input data!"
+          )
+        } else {
+          dat <- readLines(dat.file)
+          dat <- dat[-c(1:8)]
+          dat.seq.idx <- which(grepl("^Sequence:", dat))
+          dat.seq.idx <- c(dat.seq.idx, length(dat) + 1)
+          
+          dat.cont <- lapply(1:(length(dat.seq.idx)-1), function(i){
+            i.seq.id <- dat[dat.seq.idx[i]]
+            i.seq.id <- gsub("Sequence:\\s", "", i.seq.id)
+            i.cont <- dat[dat.seq.idx[i]:(dat.seq.idx[i+1] - 1)]
+            i.cont <- i.cont[grepl("^\\d", i.cont)]
+            if (length(i.cont)>=1) {
+              i.cont <- cbind(i.seq.id, i.cont)
+              return(i.cont)
+            } else {
+              return(NULL)
+            }
+          })
+          
+          dat.cont.df <- do.call(rbind, dat.cont)
+          
+          if (file.exists(dat.file) && !is.null(dat.cont.df) && nrow(dat.cont.df) > 0) {
+            # process the HTML file
+            html.lst <- list.files(patter=paste0(irf.in.file, ".*.txt.html$"), full=T)
+            html.all.lst <- list.files(patter=paste0(irf.in.file, ".*.html$"), full=T)
+            
+            dat.html <- sapply(html.lst, function(i) {
+              d <- readLines(i)
+              x.name <- which(grepl("NAME=", d))
+              x.stat <- which(grepl("Statistics", d))
+              x.chr.id <- gsub("Sequence: ", "", d[10])
+              
+              LIR.align <- lapply(1:length(x.name), function(i) {
+                i.con <- d[(x.name[i] + 5) : (x.stat[i]-4)]
+                return(i.con)
+              })
+              
+              x.name <- d[x.name + 1]
+              x.name <- gsub("\\s+Loop:.+", "", x.name)
+              x.name <- gsub(".+\\s", "", x.name)
+              names(LIR.align) <- x.name
+              names(LIR.align) <- paste0(x.chr.id, ":", names(LIR.align))
+              
+              return(LIR.align)
+            }, USE.NAMES = FALSE)
+            dat.html <- do.call(c, dat.html)
+            unlink(html.all.lst)
+            
+            # process the dat file
+            write.table(dat.cont.df, file=dat.file, sep="\t", quote=F, row.names=F, col.names=F)
+            dat.cont.df <- read.table(dat.file, head=F, as.is=T)
+            dat.cont.df <- dat.cont.df[, c(1:11)]
+            names(dat.cont.df) <- c("chr", "Left_start", "Left_end", "Left_len", "Right_start", "Right_end", "Right_len",
+                                    "Loop_len", "Match_per", "Indel_per", "Score")
+            dat.cont.df.bak <- dat.cont.df
+            dat.cont.df.bak$ID = paste0(dat.cont.df.bak$chr, ":", dat.cont.df.bak$Left_start, "--", dat.cont.df.bak$Left_end, ",",
+                                        dat.cont.df.bak$Right_start, "--", dat.cont.df.bak$Right_end)
+            dat.cont.df.bak <- dat.cont.df.bak[, c(12, 1:11)]
+            dat.cont.df.bak <- dat.cont.df.bak[dat.cont.df.bak$Left_len >= 400 & dat.cont.df.bak$Right_len >= 400, ]
+            
+            unlink(dat.file)
+            
+            # extract the fasta sequence
+            fa <- Biostrings::readDNAStringSet(irf.in.file)
+            dat.cont.df$Loop_start <- dat.cont.df$Left_end + 1
+            dat.cont.df$Loop_end <- dat.cont.df$Right_start - 1
+            
+            fa.len <- Biostrings::width(fa)
+            names(fa.len) <- names(fa)
+            dat.cont.df$chr_len <- fa.len[dat.cont.df$chr]
+            
+            dat.cont.df$Left_start_N <- pmax(1, dat.cont.df$Left_start - pre.flankLen)
+            dat.cont.df$Right_end_N <- pmin(dat.cont.df$chr_len, dat.cont.df$Right_end + pre.flankLen)
+            
+            dat.cont.df.LF <- Biostrings::subseq(fa[dat.cont.df$chr], dat.cont.df$Left_start_N, dat.cont.df$Left_start - 1)
+            dat.cont.df.RF <- Biostrings::subseq(fa[dat.cont.df$chr], dat.cont.df$Right_end + 1, dat.cont.df$Right_end_N)
+            dat.cont.df.LF <- tolower(dat.cont.df.LF)
+            dat.cont.df.RF <- tolower(dat.cont.df.RF)
+            dat.cont.df.L <- Biostrings::subseq(fa[dat.cont.df$chr], dat.cont.df$Left_start, dat.cont.df$Left_end)
+            dat.cont.df.R <- Biostrings::subseq(fa[dat.cont.df$chr], dat.cont.df$Right_start, dat.cont.df$Right_end)
+            dat.cont.df.Loop <- Biostrings::subseq(fa[dat.cont.df$chr], dat.cont.df$Loop_start, dat.cont.df$Loop_end)
+            dat.cont.df.Loop <- tolower(dat.cont.df.Loop)
+            
+            dat.cont.df.fa <- paste0(dat.cont.df.LF, dat.cont.df.L, dat.cont.df.Loop, dat.cont.df.R, dat.cont.df.RF)
+            dat.cont.df.fa <- Biostrings::BStringSet(dat.cont.df.fa)
+            names(dat.cont.df.fa) <- paste0(dat.cont.df$chr, ":", dat.cont.df$Left_start, "--", dat.cont.df$Left_end, ",",
+                                            dat.cont.df$Right_start, "--", dat.cont.df$Right_end)
+            dat.cont.df.fa <- dat.cont.df.fa[names(dat.cont.df.fa) %in% dat.cont.df.bak$ID, ]
+            
+            return(list(dat.cont.df.bak, dat.cont.df.fa, dat.html))
           } else {
             return(NULL)
           }
-        })
-        
-        dat.cont.df <- do.call(rbind, dat.cont)
-        
-        if (file.exists(dat.file) && !is.null(dat.cont.df) && nrow(dat.cont.df) > 0) {
-          # process the HTML file
-          html.lst <- list.files(patter=paste0(irf.in.file, ".*.txt.html$"), full=T)
-          html.all.lst <- list.files(patter=paste0(irf.in.file, ".*.html$"), full=T)
-          
-          dat.html <- sapply(html.lst, function(i) {
-            d <- readLines(i)
-            x.name <- which(grepl("NAME=", d))
-            x.stat <- which(grepl("Statistics", d))
-            x.chr.id <- gsub("Sequence: ", "", d[10])
-            
-            LIR.align <- lapply(1:length(x.name), function(i) {
-              i.con <- d[(x.name[i] + 5) : (x.stat[i]-4)]
-              return(i.con)
-            })
-            
-            x.name <- d[x.name + 1]
-            x.name <- gsub("\\s+Loop:.+", "", x.name)
-            x.name <- gsub(".+\\s", "", x.name)
-            names(LIR.align) <- x.name
-            names(LIR.align) <- paste0(x.chr.id, ":", names(LIR.align))
-            
-            return(LIR.align)
-          }, USE.NAMES = FALSE)
-          dat.html <- do.call(c, dat.html)
-          unlink(html.all.lst)
-          
-          # process the dat file
-          write.table(dat.cont.df, file=dat.file, sep="\t", quote=F, row.names=F, col.names=F)
-          dat.cont.df <- read.table(dat.file, head=F, as.is=T)
-          dat.cont.df <- dat.cont.df[, c(1:11)]
-          names(dat.cont.df) <- c("chr", "Left_start", "Left_end", "Left_len", "Right_start", "Right_end", "Right_len",
-                                  "Loop_len", "Match_per", "Indel_per", "Score")
-          dat.cont.df.bak <- dat.cont.df
-          dat.cont.df.bak$ID = paste0(dat.cont.df.bak$chr, ":", dat.cont.df.bak$Left_start, "--", dat.cont.df.bak$Left_end, ",",
-                                      dat.cont.df.bak$Right_start, "--", dat.cont.df.bak$Right_end)
-          dat.cont.df.bak <- dat.cont.df.bak[, c(12, 1:11)]
-          dat.cont.df.bak <- dat.cont.df.bak[dat.cont.df.bak$Left_len >= 400 & dat.cont.df.bak$Right_len >= 400, ]
-          
-          unlink(dat.file)
-          
-          # extract the fasta sequence
-          fa <- Biostrings::readDNAStringSet(irf.in.file)
-          dat.cont.df$Loop_start <- dat.cont.df$Left_end + 1
-          dat.cont.df$Loop_end <- dat.cont.df$Right_start - 1
-          
-          fa.len <- Biostrings::width(fa)
-          names(fa.len) <- names(fa)
-          dat.cont.df$chr_len <- fa.len[dat.cont.df$chr]
-          
-          dat.cont.df$Left_start_N <- pmax(1, dat.cont.df$Left_start - pre.flankLen)
-          dat.cont.df$Right_end_N <- pmin(dat.cont.df$chr_len, dat.cont.df$Right_end + pre.flankLen)
-          
-          dat.cont.df.LF <- Biostrings::subseq(fa[dat.cont.df$chr], dat.cont.df$Left_start_N, dat.cont.df$Left_start - 1)
-          dat.cont.df.RF <- Biostrings::subseq(fa[dat.cont.df$chr], dat.cont.df$Right_end + 1, dat.cont.df$Right_end_N)
-          dat.cont.df.LF <- tolower(dat.cont.df.LF)
-          dat.cont.df.RF <- tolower(dat.cont.df.RF)
-          dat.cont.df.L <- Biostrings::subseq(fa[dat.cont.df$chr], dat.cont.df$Left_start, dat.cont.df$Left_end)
-          dat.cont.df.R <- Biostrings::subseq(fa[dat.cont.df$chr], dat.cont.df$Right_start, dat.cont.df$Right_end)
-          dat.cont.df.Loop <- Biostrings::subseq(fa[dat.cont.df$chr], dat.cont.df$Loop_start, dat.cont.df$Loop_end)
-          dat.cont.df.Loop <- tolower(dat.cont.df.Loop)
-          
-          dat.cont.df.fa <- paste0(dat.cont.df.LF, dat.cont.df.L, dat.cont.df.Loop, dat.cont.df.R, dat.cont.df.RF)
-          dat.cont.df.fa <- Biostrings::BStringSet(dat.cont.df.fa)
-          names(dat.cont.df.fa) <- paste0(dat.cont.df$chr, ":", dat.cont.df$Left_start, "--", dat.cont.df$Left_end, ",",
-                                          dat.cont.df$Right_start, "--", dat.cont.df$Right_end)
-          dat.cont.df.fa <- dat.cont.df.fa[names(dat.cont.df.fa) %in% dat.cont.df.bak$ID, ]
-          
-          return(list(dat.cont.df.bak, dat.cont.df.fa, dat.html))
-        } else {
-          return(NULL)
         }
       }
     }
@@ -2355,83 +2367,95 @@ shinyServer(function(input, output, session) {
 	        rnafold.in.file <- file.path(tempdir(), rnafold.in.file)
 	        writeLines(vis.Seq, con=rnafold.in.file)
 	        
-	        vis.Seq.fa <- Biostrings::readDNAStringSet(rnafold.in.file)
-	        if (length(vis.Seq.fa) > 1) {
+	        ## test sequence ID
+	        vis.Seq.test <- Biostrings::readDNAStringSet(rnafold.in.file)
+	        names(vis.Seq.test) <- gsub("^\\s+", "", names(vis.Seq.test))
+	        names(vis.Seq.test) <- gsub("\\s+$", "", names(vis.Seq.test))
+	        if (any(names(vis.Seq.test) == "")) {
 	          shinyWidgets::sendSweetAlert(
 	            session = session,
-	            title = "Only one input sequence is allowed at one time!", type = "error",
-	            text = NULL
+	            title = "Wrong input data!", type = "error",
+	            text = "Empty sequence ID is not allowed!"
 	          )
 	        } else {
-	          if (names(vis.Seq.fa) == "") {
-	            names(vis.Seq.fa) <- gsub(".fasta$", "", rnafold.in.file)
-	            Biostrings::writeXStringSet(vis.Seq.fa, file=rnafold.in.file)
-	            vis.Seq.fa <- Biostrings::readDNAStringSet(rnafold.in.file)
-	          }
-	          vis.Seq.fa.name <- gsub("\\s.+", "", names(vis.Seq.fa))
-	          
-	          RNAfold.cmds <- paste0("cat ", rnafold.in.file, " | RNAfold ", " -T ", input$temperature)
-	          if (input$noGU) {
-	            RNAfold.cmds <- paste0(RNAfold.cmds, " --noGU")
-	          }
-	          if (input$noClosingGU) {
-	            RNAfold.cmds <- paste0(RNAfold.cmds, " --noClosingGU")
-	          }
-	          
-	          rnafold.out <- system(RNAfold.cmds, intern = TRUE)
-	          
-	          ps.file <- paste0(vis.Seq.fa.name, "_ss.ps")
-	          system(paste0("ps2pdf ", ps.file))
-	          pdf.file <- paste0(vis.Seq.fa.name, "_ss.pdf")
-	          
-	          # RNAfold result file
-	          if (length(rnafold.out) < 3) {
+	          vis.Seq.fa <- Biostrings::readDNAStringSet(rnafold.in.file)
+	          if (length(vis.Seq.fa) > 1) {
 	            shinyWidgets::sendSweetAlert(
 	              session = session,
-	              title = "Wrong input data!", type = "error",
-	              text = "Please check the content and the format of your input data!"
+	              title = "Only one input sequence is allowed at one time!", type = "error",
+	              text = NULL
 	            )
 	          } else {
-	            ## Display RNAfold result in text
-	            output$RNAfold_2nd_structure_text_title <- renderText({
-	              HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Predicted secondary structure of the potential RNA encoded by the LIR:</b></font>')
-	            })
+	            if (names(vis.Seq.fa) == "") {
+	              names(vis.Seq.fa) <- gsub(".fasta$", "", rnafold.in.file)
+	              Biostrings::writeXStringSet(vis.Seq.fa, file=rnafold.in.file)
+	              vis.Seq.fa <- Biostrings::readDNAStringSet(rnafold.in.file)
+	            }
+	            vis.Seq.fa.name <- gsub("\\s.+", "", names(vis.Seq.fa))
 	            
-	            output$RNAfold_textview <- renderUI({
-	              verbatimTextOutput("RNAfold_2nd_structure_text")
-	            })
+	            RNAfold.cmds <- paste0("cat ", rnafold.in.file, " | RNAfold ", " -T ", input$temperature)
+	            if (input$noGU) {
+	              RNAfold.cmds <- paste0(RNAfold.cmds, " --noGU")
+	            }
+	            if (input$noClosingGU) {
+	              RNAfold.cmds <- paste0(RNAfold.cmds, " --noClosingGU")
+	            }
 	            
-	            output$RNAfold_2nd_structure_text <- renderText({
-	              tmp.fl <- file.path(tempdir(), "rnafold.out.fa")
-	              rnafold.out.BS <- Biostrings::BStringSet(rnafold.out)
-	              Biostrings::writeXStringSet(rnafold.out.BS, file = tmp.fl, width = 120)
-	              rnafold.out.format <- readLines(tmp.fl)
-	              rnafold.out.format <- rnafold.out.format[rnafold.out.format != ">"]
-	              rnafold.out.format
-	            }, sep = "\n")
+	            rnafold.out <- system(RNAfold.cmds, intern = TRUE)
 	            
-	            oopt = animation::ani.options(autobrowse = FALSE)
-	            png.file <- gsub("pdf$", "png", pdf.file)
-	            animation::im.convert(pdf.file, output = png.file, extra.opts="-density 5000")
-	            file.copy(from=png.file, to="www", overwrite = TRUE)
-	            file.remove(png.file)
+	            ps.file <- paste0(vis.Seq.fa.name, "_ss.ps")
+	            system(paste0("ps2pdf ", ps.file))
+	            pdf.file <- paste0(vis.Seq.fa.name, "_ss.pdf")
 	            
-	            output$RNAfold_pngview <- renderUI({
-	              tags$img(src = png.file)
-	            })
-	            
-	            output$downloadLIRstrPDF <- downloadHandler(
-	              filename <- function() { paste('LIR_hpRNA_2nd_structure.pdf') },
-	              content <- function(file) {
-	                if (file.exists(pdf.file)) {
-	                  file.copy(pdf.file, file)
-	                  file.remove(pdf.file)
-	                } else {
-	                  NULL
-	                }
-	              }, contentType = NULL
-	            )
-	            
+	            # RNAfold result file
+	            if (length(rnafold.out) < 3) {
+	              shinyWidgets::sendSweetAlert(
+	                session = session,
+	                title = "Wrong input data!", type = "error",
+	                text = "Please check the content and the format of your input data!"
+	              )
+	            } else {
+	              ## Display RNAfold result in text
+	              output$RNAfold_2nd_structure_text_title <- renderText({
+	                HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Predicted secondary structure of the potential RNA encoded by the LIR:</b></font>')
+	              })
+	              
+	              output$RNAfold_textview <- renderUI({
+	                verbatimTextOutput("RNAfold_2nd_structure_text")
+	              })
+	              
+	              output$RNAfold_2nd_structure_text <- renderText({
+	                tmp.fl <- file.path(tempdir(), "rnafold.out.fa")
+	                rnafold.out.BS <- Biostrings::BStringSet(rnafold.out)
+	                Biostrings::writeXStringSet(rnafold.out.BS, file = tmp.fl, width = 120)
+	                rnafold.out.format <- readLines(tmp.fl)
+	                rnafold.out.format <- rnafold.out.format[rnafold.out.format != ">"]
+	                rnafold.out.format
+	              }, sep = "\n")
+	              
+	              oopt = animation::ani.options(autobrowse = FALSE)
+	              png.file <- gsub("pdf$", "png", pdf.file)
+	              animation::im.convert(pdf.file, output = png.file, extra.opts="-density 5000")
+	              file.copy(from=png.file, to="www", overwrite = TRUE)
+	              file.remove(png.file)
+	              
+	              output$RNAfold_pngview <- renderUI({
+	                tags$img(src = png.file)
+	              })
+	              
+	              output$downloadLIRstrPDF <- downloadHandler(
+	                filename <- function() { paste('LIR_hpRNA_2nd_structure.pdf') },
+	                content <- function(file) {
+	                  if (file.exists(pdf.file)) {
+	                    file.copy(pdf.file, file)
+	                    file.remove(pdf.file)
+	                  } else {
+	                    NULL
+	                  }
+	                }, contentType = NULL
+	              )
+	              
+	            }
 	          }
 	        }
 	      }
