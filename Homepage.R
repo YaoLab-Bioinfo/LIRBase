@@ -95,7 +95,7 @@ Homepage <- dashboardPage(
           ),
           
           box(width = 4,
-              shinyWidgets::actionBttn("Quantify_butt", "Expression - Quantify", 
+              shinyWidgets::actionBttn("Quantify_butt", "Expression -> Quantify", 
                          icon = icon("upload", class = NULL, lib = "font-awesome"),
                          block = TRUE, size = "lg", style="unite", color="default"),
               h4("Identify candidate LIRs encoding long hpRNAs by aligning sRNA sequencing data to LIRs")
@@ -104,7 +104,7 @@ Homepage <- dashboardPage(
         
         fluidRow(
           box(width = 4,
-              shinyWidgets::actionBttn("DESeq_butt", "Expression - DESeq", 
+              shinyWidgets::actionBttn("DESeq_butt", "Expression -> DESeq", 
                          icon = icon("eercast", class = NULL, lib = "font-awesome"),
                          block = TRUE, size = "lg", style="unite", color="default"),
               h4("Differential expression analysis of LIRs or small RNAs between different biological samples/tissues")
