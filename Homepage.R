@@ -9,7 +9,7 @@ Homepage <- dashboardPage(
       column(
         width = 10,
         offset = 1,
-        titleBox(title = "LIRBase: A web application for comprehensive analysis of siRNAs derived from long inverted repeat in 424 eukaryotic genomes")
+        titleBox(title = "LIRBase: a comprehensive collection of long inverted repeats in eukaryotic genomes")
       )
     ),
     

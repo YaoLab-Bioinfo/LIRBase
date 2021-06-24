@@ -420,7 +420,9 @@ shinyServer(function(input, output, session) {
         if (file.exists(dat.file)) {
           dat.search.result <- data.table::fread(dat.file, data.table = FALSE)
           
-          if (all(LIR.id %in% dat.search.result$ID)) {
+          LIR.id <- intersect(LIR.id, dat.search.result$ID)
+          
+          if (length(LIR.id)>0) {
             dat.search.result <- dat.search.result[dat.search.result$ID %in% LIR.id, ]
             fasta.ID <- Biostrings::readBStringSet(fasta.file)
             fasta.ID <- fasta.ID[LIR.id]
@@ -430,7 +432,7 @@ shinyServer(function(input, output, session) {
           } else {
             shinyWidgets::sendSweetAlert(
               session = session,
-              title = "Wrong LIR identifier found!", type = "error",
+              title = "Wrong LIR identifiers!", type = "error",
               text = "Please check the identifier of all input LIRs!"
             )
             result <- NULL
@@ -2219,7 +2221,7 @@ shinyServer(function(input, output, session) {
 	        if (grepl(">", target.Seq)) {
 	          writeLines(target.Seq, con = srna.tin.name.file)
 	        } else {
-	          target.Seq.fa <- Biostrings::DNAStringSet(unlist(strsplit(target.Seq, split="\n")))
+	          target.Seq.fa <- Biostrings::DNAStringSet(gsub("\\s+", "", unlist(strsplit(target.Seq, split="\n"))))
 	          names(target.Seq.fa) <- 1:length(target.Seq.fa)
 	          Biostrings::writeXStringSet(target.Seq.fa, file = srna.tin.name.file)
 	        }
