@@ -36,3 +36,9 @@ library(shinydashboard)
 
 BLASTdb.fl <- read.table("BLASTdb.txt", head=T, as.is=T)
 
+footerTagList <- list(
+  tags$footer(id = "myFooter",
+              shiny::includeHTML("www/footer.html")
+  )
+)
+

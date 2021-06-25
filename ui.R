@@ -65,6 +65,16 @@ source("box_format.R")
 
 shinyUI(
   fluidPage(
+    titlePanel(title=div(
+             img(src="headerN.png"),
+             span("LIRBase:", style = "font-size:40px;color:white;"), 
+             span("a comprehensive collection of LIRs in 424 eukaryotic genomes", style = "font-size:30px;color:white;"),
+             style = "background-color:#0073B7;margin-left: -15px;margin-right: -15px;margin-top: -20px;margin-bottom: -10px;"
+      ), windowTitle = "Welcome to LIRBase!"
+    ),
+    
+    includeCSS("www/footer.css"),
+    
     shinydisconnect::disconnectMessage(
       text = "Your session timed out, reload the application!",
       refresh = "Reload now",
@@ -79,7 +89,8 @@ shinyUI(
     htmlwidgets::getDependency('sparkline'),
     
     navbarPage(id = "The_page",
-      title = HTML("<strong style='font-size:18px'>LIRBase</strong>"), 
+      # title = HTML("<strong style='font-size:18px'>LIRBase</strong>"), 
+      title = "",
       windowTitle = "Welcome to LIRBase!",
       
       ## Home
@@ -658,11 +669,11 @@ shinyUI(
                                         ))
                                       ),
                                       
-                                      fixedRow(
+                                      fluidRow(
                                         column(5,
                                                tableOutput("BLAST_hit_summary"),
                                                tags$head(tags$style("#BLAST_hit_summary {
-                                          width = 100%;
+                                          width: 100%;
                                           padding: 6px 12px;
                                           white-space: pre-wrap;
                                           height: 400px;
@@ -673,7 +684,7 @@ shinyUI(
                                         column(7,
                                                shinycssloaders::withSpinner(verbatimTextOutput("BLAST_hit_detail")),
                                                tags$head(tags$style("#BLAST_hit_detail {
-                                          width: 100%; 
+                                          width: 800px;
                                           padding: 6px 12px; 
                                           white-space: pre-wrap;
                                           height: 400px;
@@ -980,7 +991,9 @@ shinyUI(
                                                bsPopover("qAlign", "Click this button to start the alignment!",
                                                          trigger = "focus")
                                         )
-                                      )
+                                      ),
+                                      
+                                      br(), br()
                              ),
                              tabPanel(HTML("<strong style='font-size:18px'>Output</strong>"),
                                       fixedRow(
@@ -1445,7 +1458,8 @@ shinyUI(
                  
                  DT::dataTableOutput("sRNATargetResult")
                )
-        )
+        ),
+        br(), br()
       ),
       
       
@@ -1586,8 +1600,9 @@ shinyUI(
                           column(6, includeMarkdown("Contact.md")),
                           column(3)
                  )
-      )
+      ),
       
+      footer = footerTagList
     )
   )
 

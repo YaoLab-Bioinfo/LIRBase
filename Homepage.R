@@ -5,13 +5,13 @@ Homepage <- dashboardPage(
   
   dashboardBody(
     tags$head(tags$style("section.content { overflow-y: hidden; }")),
-    fluidRow(
-      column(
-        width = 10,
-        offset = 1,
-        titleBox(title = "LIRBase: a comprehensive collection of long inverted repeats in 424 eukaryotic genomes")
-      )
-    ),
+    # fluidRow(
+    #   column(
+    #     width = 10,
+    #     offset = 1,
+    #     titleBox(title = "LIRBase: a comprehensive collection of long inverted repeats in 424 eukaryotic genomes")
+    #   )
+    # ),
     
     fluidRow(
       column(
@@ -23,7 +23,7 @@ Homepage <- dashboardPage(
         ),
         box(
           width = 12,
-          HTML("<p class='aligncenter'><img src='header.png' width='100%' height='100%' /></p>
+          HTML("<p class='aligncenter'><img src='demon.png' width='100%' height='100%' /></p>
             <style>
             .aligncenter {
               text-align: center;
