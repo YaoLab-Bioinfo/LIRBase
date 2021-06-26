@@ -1,6 +1,6 @@
 <div align='center' ><font size='70'>Tutorial of LIRBase</font></div>
 
->&emsp;&emsp;**LIRBase** is a web application for comprehensive analysis of **siRNAs** (small interfering RNA) derived from **long inverted repeat** in eukaryotic genomes.
+>&emsp;&emsp;**LIRBase** is a database with comprehensive collection of **long inverted repeats** in 424 eukaryotic genomes.
 
 >&emsp;&emsp;Using IRF ([https://tandem.bu.edu/irf/irf.download.html](https://tandem.bu.edu/irf/irf.download.html)), we identified a total of 6,619,473 long inverted repeats in the whole genomes of 424 eukaryotes, including 297,317 LIRs in 77 metazoa genomes, 1,731,978 LIRs in 139 plant genomes and 4,585,178 LIRs in 208 vertebrate genomes. **LIRBase** is deployed at [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/) for online use.
 
@@ -30,9 +30,9 @@
 
 
 <div align=center><img src="Fig3.png" width="100%" height="100%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 3. List of all the LIRs identified by IRF for a selected genome.</font></div>  
+<div align=center><font color=blue size=5>Figure 3. List of all the LIRs identified for a selected genome.</font></div>  
 
->&emsp;&emsp;The three buttons below the table can be clicked to display the sequence, structure of the selected LIR and the overlaps between the selected LIR and genes (**Figure 4**).
+>&emsp;&emsp;The three buttons below the table can be clicked to display the sequence, structure of the selected LIR and the overlaps between the selected LIR and genes, respectively (**Figure 4**).
 
 <div align=center><img src="Fig4.png" width="100%" height="100%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 4. Detailed information of a selected LIR.</font></div>  
@@ -42,7 +42,7 @@
 >&emsp;&emsp;**LIRBase** allows searching for LIRs identified in any of the 424 eukaryotic genomes by genomic locations (**Figure 5**).
 
 <div align=center><img src="Fig5.png" width="100%" height="100%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 5. The <b>Search by genomic location</b> submenu of the <b>Search</b> menu.</font></div>  
+<div align=center><font color=blue size=5>Figure 5. The <b>Search by genomic location</b> submenu under the <b>Search</b> menu.</font></div>  
 
 >&emsp;&emsp;The detailed steps to **search LIRBase by genomic locations** are shown in **Figure 6**. The search results are displayed as a data table (**Figure 6**). Each row of the data table represents a LIR in the search result. Three buttons would be displayed below the table if any row of the table was selected. The detailed information of a LIR including the sequence, structure of the selected LIR and the overlaps between the selected LIR and genes, can be viewed by clicking the three buttons (**Figure 6**)
 
@@ -54,7 +54,7 @@
 >&emsp;&emsp;**LIRBase** allows searching for LIRs identified in any of the 424 eukaryotic genomes by the identifiers (IDs) of long inverted repeats (**Figure 7**).
 
 <div align=center><img src="Fig7.png" width="100%" height="100%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 7. The <b>Search by LIR identifier</b> submenu of the <b>Search</b> menu.</font></div>  
+<div align=center><font color=blue size=5>Figure 7. The <b>Search by LIR identifier</b> submenu under the <b>Search</b> menu.</font></div>  
 
 >&emsp;&emsp;The detailed steps to **search LIRBase by the identifiers of LIRs** are shown in **Figure 8**.
 
@@ -76,7 +76,7 @@
 >&emsp;&emsp;Once the **BLAST** alignment is finished, you would be taken to the **Output** panel of the **Blast** menu, which displays the **BLAST** result in a data table (**Figure 11**). The whole **BLAST** results can be downloaded by clicking the download buttons on top of the data table. Each row of the data table represents a **BLAST** hit. By clicking a row of this table, the detailed information of the selected **BLAST** hit would be displayed, including the alignment of a query sequence and a subject LIR sequence in the **BLAST** database. Three buttons would also be displayed below the table if any row of the table was clicked. The structure, sequence of the LIR in this **BLAST** hit and the overlaps between this LIR and genes in the corresponding genome, can be viewed by clicking the three buttons (**Figure 11**).
 
 <div align=center><img src="Fig11.png" width="100%" height="100%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 11. The <b>Output</b> panel of the <b>Blast</b> menu.</font></div>  
+<div align=center><font color=blue size=5>Figure 11. The <b>Output</b> panel of the <b>Blast</b> submenu.</font></div>  
 
 ## **5. Annotate long inverted repeats in user-uploaded DNA sequences** <a name="tp5"></a>
 
@@ -94,12 +94,12 @@
 >&emsp;&emsp;To facilitate the annotation of small RNAs derived from LIRs, we implemented a functionality in **LIRBase** allowing alignment of user-uploaded small RNA sequencing data to all the identified LIRs of a genome by **Bowtie** (**Figure 13**). **The input data should be read count of small RNAs** rather than the raw small sequencing data as shown in **Figure 13**. The input small RNA read count data can be pasted in a text area provided or be uploaded from a local text file.
 
 <div align=center><img src="Fig13.png" width="100%" height="100%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 13. The <b>Quantify</b> menu of LIRBase to align small RNA sequencing data to a LIR database.</font></div>  
+<div align=center><font color=blue size=5>Figure 13. The <b>Quantify</b> submenu under the Expression menu of LIRBase to align small RNA sequencing data to a LIR database.</font></div>  
 
->&emsp;&emsp;After clicking the **Align!** button, the alignment would be performed by **Bowtie**. The alignment results would be displayed in the **Output** panel of the **Quantify** menu (**Figure 14**). The detailed alignment result, the summary of the alignment and the sRNA read count of aligned LIRs can be downloaded. What&#39;s more, the summary of alignment result for all aligned LIRs can be viewed as a data table. By clicking on a single row of the data table, the size distributions of sRNAs and the alignment of sRNAs to the LIR would be plotted. The detailed information of the chosen LIR would be displayed by clicking the four buttons below the table of sRNA alignment summary.
+>&emsp;&emsp;After clicking the **Align!** button, the alignment would be performed by **Bowtie**. The alignment results would be displayed in the **Output** panel of the **Quantify** submenu (**Figure 14**). The detailed alignment result, the summary of the alignment and the sRNA read count of aligned LIRs can be downloaded. What&#39;s more, the summary of alignment result for all aligned LIRs can be viewed as a data table. By clicking on a single row of the data table, the size distributions of sRNAs and the alignment of sRNAs to the LIR would be plotted. The detailed information of the chosen LIR would be displayed by clicking the four buttons below the table of sRNA alignment summary.
 
 <div align=center><img src="Fig14.png" width="100%" height="100%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 14. The <b>Output</b> panel of the <b>Quantify</b> menu of LIRBase.</font></div>  
+<div align=center><font color=blue size=5>Figure 14. The <b>Output</b> panel of the <b>Quantify</b> submenu of LIRBase.</font></div>  
 
 >&emsp;&emsp;For each LIR in the data table of sRNA alignment summary, the following information are displayed as different columns.  
 
@@ -121,9 +121,9 @@
 >&emsp;&emsp;By aligning small RNA sequencing data to **LIRBase**, we can obtain the small RNA read count for each LIR in a genome. With multiple biological samples/tissues, we can perform **differential expression analysis of long inverted repeats** between different biological samples/tissues (**Figure 16**). The R package **DESeq2** ([http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html](http://www.bioconductor.org/packages/release/bioc/html/DESeq2.html)) was utilized to perform differential expression analysis. A read count matrix and a sample information table are required as input data for the differential expression analysis. **The sample names in the count matrix and the sample names in the information table must be in the same order**. Check the example data provided by **LIRBase** for the format of a sample information table.
 
 <div align=center><img src="Fig16.png" width="100%" height="100%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 16. The <b>DESeq</b> menu of LIRBase to perform differential expression analysis of LIRs/sRNAs.</font></div>  
+<div align=center><font color=blue size=5>Figure 16. The <b>DESeq</b> submenu under the Expression menu of LIRBase to perform differential expression analysis of LIRs/sRNAs.</font></div>  
 
->&emsp;&emsp;The results of **DESeq2** can be downloaded as a plain text file or can be viewed in a data table (**Figure 16**). In addition, the MA-plot and the volcano plot showing the identified differentially expressed LIRs/sRNAs are also generated. A heatmap displaying the sample-to-sample distances can be viewed by clicking the button at the bottom of the sidebar panel under the **DESeq** menu.
+>&emsp;&emsp;The results of **DESeq2** can be downloaded as a plain text file or can be viewed in a data table (**Figure 16**). In addition, the MA-plot and the volcano plot showing the identified differentially expressed LIRs/sRNAs are also generated. A heatmap displaying the sample-to-sample distances can be viewed by clicking the button at the bottom of the sidebar panel under the **DESeq** submenu.
 
 ## **8. Predict mRNA targets of small RNAs encoded by a LIR** <a name="tp8"></a>
 
@@ -141,28 +141,28 @@
 
 ## **10. Information of 424 genomes collected in LIRBase** <a name="tp10"></a>
 
->&emsp;&emsp;The information of 424 genomes collected in **LIRBase** is displayed in the **Genomes** menu of **LIRBase** (**Figure 19**).
+>&emsp;&emsp;The information of 424 genomes collected in **LIRBase** is displayed in the **Data** submenu under the **Help** menu of **LIRBase** (**Figure 19**).
 
 <div align=center><img src="Fig19.png" width="100%" height="100%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 19. The <b>Genomes</b> menu of LIRBase.</font></div>  
+<div align=center><font color=blue size=5>Figure 19. The <b>Data</b> submenu under the <b>Help</b> menu of LIRBase.</font></div>  
 
 ## **11. Download LIRs identified in 424 eukaryotic genomes, and the corresponding BLAST/Bowtie index database** <a name="tp11"></a>
 
->&emsp;&emsp;In addition to be used online at [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/), **LIRBase** can be deployed on a personal local or web Linux server. Deployment of **LIRBase** is platform independent, i.e., **LIRBase** can be deployed on any platform with the R environment available. The detailed steps are described in the **Installation** submenu of the **Help** menu (**Figure 20**).
+>&emsp;&emsp;In addition to be used online at [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/), **LIRBase** can be deployed on a personal local or web Linux server. Deployment of **LIRBase** is platform independent, i.e., **LIRBase** can be deployed on any platform with the R environment available. The detailed steps are described in the **Installation** submenu under the **Help** menu of LIRBase (**Figure 20**).
 
 <div align=center><img src="Fig20.png" width="100%" height="100%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 20. The <b>Installation</b> submenu of the <b>Help</b> menu of LIRBase.</font></div>  
+<div align=center><font color=blue size=5>Figure 20. The <b>Installation</b> submenu under the <b>Help</b> menu of LIRBase.</font></div>  
 
->The source code of **LIRBase** is deposited in **GitHub** ([https://github.com/venyao/LIRBase](https://github.com/venyao/LIRBase)). As the file size of identified LIRs and the corresponding BLAST/Bowtie databases of the 424 eukaryotic genomes are too large, these datasets were not deposited in **GitHub**. Instead, these data can be downloaded from [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/) through the **Download** menu (**Figure 21**).
+>The source code of **LIRBase** is deposited in **GitHub** ([https://github.com/venyao/LIRBase](https://github.com/venyao/LIRBase)). As the file size of identified LIRs and the corresponding BLAST/Bowtie databases of the 424 eukaryotic genomes are too large, these datasets were not deposited in **GitHub**. Instead, these data can be downloaded from [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/) through the **Data** submenu under the **Help** menu (**Figure 21**).
 
 <div align=center><img src="Fig21.png" width="100%" height="100%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 21. The <b>Download</b> menu of LIRBase.</font></div>  
+<div align=center><font color=blue size=5>Figure 21. The <b>Data</b> submenu under the <b>Help</b> menu of LIRBase.</font></div>  
 
 ## **12. About LIR and LIRBase** <a name="tp12"></a>
 
->&emsp;&emsp;The definition of long inverted repeat, the biogenesis pathway of siRNAs from long inverted repeat and the biological roles of siRNAs generated in this pathway are elaborated in the **About** submenu of the **Help** menu (**Figure 22**). These results implied that a platform for comprehensive annotation and analysis of siRNAs derived from long inverted repeat is in urgent need.
+>&emsp;&emsp;The definition of long inverted repeat, the biogenesis pathway of siRNAs from long inverted repeat and the biological roles of siRNAs generated in this pathway are elaborated in the **About** submenu under the **Help** menu of LIRBase (**Figure 22**). These results implied that a platform for comprehensive annotation and analysis of siRNAs derived from long inverted repeat is in urgent need.
 
 <div align=center><img src="Fig22.png" width="100%" height="100%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 22. The <b>About</b> submenu of the <b>Help</b> menu.</font></div>  
+<div align=center><font color=blue size=5>Figure 22. The <b>About</b> submenu under the <b>Help</b> menu of LIRBase.</font></div>  
 
 <br/>
