@@ -1456,10 +1456,10 @@ shinyUI(
                    )
                  ),
                  
-                 DT::dataTableOutput("sRNATargetResult")
+                 DT::dataTableOutput("sRNATargetResult"),
+                 br(), br()
                )
-        ),
-        br(), br()
+        )
       ),
       
       

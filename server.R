@@ -90,7 +90,11 @@ shinyServer(function(input, output, session) {
             dat.content, extensions = 'Buttons',
             options = list(pageLength = 5, autoWidth = FALSE, lengthMenu = c(5, 10, 20, 30, 50, 100), 
                            searchHighlight = TRUE, scrollX = TRUE,
-                           buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+                           buttons = list('pageLength', 'copy', 
+                                       list(extend = 'csv',   filename =  paste("LIRs", gsub(".dat.gz$", "", basename(dat.file.path)), sep = "_")),
+                                       list(extend = 'excel', filename =  paste("LIRs", gsub(".dat.gz$", "", basename(dat.file.path)), sep = "_"))
+                                       ), 
+                           dom = 'Bfrtip',
                            columnDefs=list(list(targets="_all")),
                            initComplete = DT::JS(
                              "function(settings, json) {",
@@ -148,7 +152,11 @@ shinyServer(function(input, output, session) {
           DT::datatable(
             LIR.gene.op,
             options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, scrollX = TRUE,
-                           buttons = c('copy', 'csv', 'excel'), dom = 'Bfrtip',
+                           buttons = list('copy', 
+                                       list(extend = 'csv',   filename =  "LIR_gene_overlap_in_Browse_result"),
+                                       list(extend = 'excel', filename =  "LIR_gene_overlap_in_Browse_result")
+                                       ),
+                           dom = 'Bfrtip',
                            columnDefs=list(list(targets="_all")),
                            initComplete = DT::JS(
                              "function(settings, json) {",
@@ -281,7 +289,11 @@ shinyServer(function(input, output, session) {
     DT::datatable(
       LIR.search.reg.table,
       options = list(lengthMenu = c(5, 10, 20, 30, 50), pageLength = 5, searching = TRUE, searchHighlight = TRUE, scrollX = TRUE, autoWidth = FALSE,
-                     buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+                     buttons = list('pageLength', 'copy', 
+                                 list(extend = 'csv',   filename = "LIRs_in_searched_regions"),
+                                 list(extend = 'excel', filename = "LIRs_in_searched_regions")
+                                 ),
+                     dom = 'Bfrtip',
                      columnDefs=list(list(targets="_all")),
                      initComplete = DT::JS(
                        "function(settings, json) {",
@@ -343,7 +355,11 @@ shinyServer(function(input, output, session) {
     DT::datatable(
       LIR.gene.op,
       options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, scrollX = TRUE,
-                     buttons = c('copy', 'csv', 'excel'), dom = 'Bfrtip',
+                     buttons = list('copy', 
+                                 list(extend = 'csv',   filename = "genes_overlap_with_LIR_in_searched_region"),
+                                 list(extend = 'excel', filename = "genes_overlap_with_LIR_in_searched_region")
+                                 ),
+                     dom = 'Bfrtip',
                      columnDefs=list(list(targets="_all")),
                      initComplete = DT::JS(
                        "function(settings, json) {",
@@ -484,7 +500,11 @@ shinyServer(function(input, output, session) {
       search.out,
       options = list(paging = TRUE, searchHighlight = TRUE, scrollX = TRUE,
                      searching = TRUE, autoWidth = FALSE, bSort=FALSE,
-                     buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+                     buttons = list('pageLength', 'copy', 
+                                 list(extend = 'csv',   filename = "LIRs_searched_by_ID"),
+                                 list(extend = 'excel', filename = "LIRs_searched_by_ID")
+                                 ),
+                     dom = 'Bfrtip',
                      columnDefs=list(list(targets="_all")),
                      initComplete = DT::JS(
                        "function(settings, json) {",
@@ -537,7 +557,11 @@ shinyServer(function(input, output, session) {
     DT::datatable(
       LIR.gene.op, 
       options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, scrollX = TRUE,
-                     buttons = c('copy', 'csv', 'excel'), dom = 'Bfrtip',
+                     buttons = list('copy',
+                                 list(extend = 'csv',   filename = "genes_overlap_with_LIR_searched_by_ID"),
+                                 list(extend = 'excel', filename = "genes_overlap_with_LIR_searched_by_ID")
+                                 ),
+                     dom = 'Bfrtip',
                      columnDefs=list(list(targets="_all")),
                      initComplete = DT::JS(
                        "function(settings, json) {",
@@ -728,7 +752,11 @@ shinyServer(function(input, output, session) {
       blast.out,
       escape = FALSE, rownames= FALSE, selection="single", filter = 'top', extensions = "Buttons",
       options = list(pageLength = 5, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
-                     buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+                     buttons = list('pageLength', 'copy', 
+                                 list(extend = 'csv',   filename = "BLAST_result"),
+                                 list(extend = 'excel', filename = "BLAST_result")
+                                 ),
+                     dom = 'Bfrtip',
                      columnDefs=list(list(targets="_all")),
                      initComplete = DT::JS(
                        "function(settings, json) {",
@@ -931,7 +959,11 @@ shinyServer(function(input, output, session) {
     DT::datatable(
       LIR.gene.op,
       options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, scrollX = TRUE,
-                     buttons = c('copy', 'csv', 'excel'), dom = 'Bfrtip',
+                     buttons = list('copy', 
+                                 list(extend = 'csv',   filename = "genes_overlap_with_LIR_in_BLAST_result"),
+                                 list(extend = 'excel', filename = "genes_overlap_with_LIR_in_BLAST_result")
+                                 ),
+                     dom = 'Bfrtip',
                      columnDefs=list(list(targets="_all")),
                      initComplete = DT::JS(
                        "function(settings, json) {",
@@ -1183,7 +1215,11 @@ shinyServer(function(input, output, session) {
       annotate.table,
       escape = FALSE, rownames= FALSE, selection="single", 
       options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
-                     buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+                     buttons = list('pageLength', 'copy', 
+                                 list(extend = 'csv',   filename = "LIRs_annotated_in_user_input_seq"),
+                                 list(extend = 'excel', filename = "LIRs_annotated_in_user_input_seq")
+                                 ),
+                     dom = 'Bfrtip',
                      columnDefs=list(list(targets="_all")),
                      initComplete = DT::JS(
                        "function(settings, json) {",
@@ -1450,7 +1486,11 @@ shinyServer(function(input, output, session) {
 	    LIR.rc.table,
 	    escape = FALSE, rownames= FALSE, selection="single", filter = 'top',
 	    options = list(pageLength = 10, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
-	                   buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+	                   buttons = list('pageLength', 'copy', 
+	                               list(extend = 'csv',   filename = "sRNA_read_count_of_LIRs"),
+	                               list(extend = 'excel', filename = "sRNA_read_count_of_LIRs")
+	                               ),
+	                   dom = 'Bfrtip',
 	                   columnDefs=list(list(targets="_all")),
 	                   initComplete = DT::JS(
 	                     "function(settings, json) {",
@@ -1855,7 +1895,11 @@ shinyServer(function(input, output, session) {
 	  DT::datatable(
 	    LIR.gene.op,
 	    options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, scrollX = TRUE,
-	                   buttons = c('copy', 'csv', 'excel'), dom = 'Bfrtip',
+	                   buttons = list('copy', 
+	                               list(extend = 'csv',   filename = "genes_overlap_with_LIRs_in_quantify_result"),
+	                               list(extend = 'excel', filename = "genes_overlap_with_LIRs_in_quantify_result")
+	                               ),
+	                   dom = 'Bfrtip',
 	                   columnDefs=list(list(targets="_all")),
 	                   initComplete = DT::JS(
 	                     "function(settings, json) {",
@@ -2056,7 +2100,11 @@ shinyServer(function(input, output, session) {
 	              DESeqResult.table,
 	              escape = FALSE, rownames= FALSE, selection="none", extensions = "Buttons",
 	              options = list(pageLength = 5, autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
-	                             buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+	                             buttons = list('pageLength', 'copy', 
+	                                         list(extend = 'csv',   filename = "DESeq2_result"),
+	                                         list(extend = 'excel', filename = "DESeq2_result")
+	                                         ),
+	                             dom = 'Bfrtip',
 	                             columnDefs=list(list(targets="_all")),
 	                             initComplete = DT::JS(
 	                               "function(settings, json) {",
@@ -2271,10 +2319,14 @@ shinyServer(function(input, output, session) {
 	          }
 	          
 	          DT::datatable(
-	            bowtie.cDNA.out.summ,
+	            bowtie.cDNA.out.summ, extensions = 'Buttons',
 	            escape = FALSE, rownames= FALSE, selection="none", filter = 'top',
 	            options = list(pageLength = 5, lengthMenu = c(5, 10, 20, 30, 50), autoWidth = FALSE, bSort=TRUE, scrollX = TRUE,
-	                           buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+	                           buttons = list('pageLength', 'copy',
+	                                       list(extend = 'csv',   filename = "mRNA_target_of_sRNAs_derived_from_LIR"),
+	                                       list(extend = 'excel', filename = "mRNA_target_of_sRNAs_derived_from_LIR")
+	                                       ),
+	                           dom = 'Bfrtip',
 	                           columnDefs=list(list(targets="_all")),
 	                           initComplete = DT::JS(
 	                             "function(settings, json) {",
@@ -2494,7 +2546,11 @@ shinyServer(function(input, output, session) {
 	    IRF_result,
 	    options = list(lengthMenu = c(20, 30, 50), pageLength = 15, scrollX = TRUE,
 	                   searching = TRUE, bSort=FALSE, autoWidth = FALSE,
-	                   buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+	                   buttons = list('pageLength', 'copy', 
+	                               list(extend = 'csv',   filename = "LIRs_identified_in_424_genomes_basic_info"),
+	                               list(extend = 'excel', filename = "LIRs_identified_in_424_genomes_basic_info")
+	                               ),
+	                   dom = 'Bfrtip',
 	                   columnDefs=list(list(targets="_all"))
 	    ), escape = FALSE, selection="none", rownames= FALSE, extensions = "Buttons"
 	  )
@@ -2507,7 +2563,11 @@ shinyServer(function(input, output, session) {
 	    BLAST_db_down,
 	    options = list(lengthMenu = c(20, 30, 50), pageLength = 15, scrollX = TRUE,
 	                   searching = TRUE, autoWidth = FALSE, bSort=FALSE,
-	                   buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+	                   buttons = list('pageLength', 'copy', 
+	                               list(extend = 'csv',   filename = "BLAST_databasse"),
+	                               list(extend = 'excel', filename = "BLAST_databasse")
+	                               ), 
+	                   dom = 'Bfrtip',
 	                   columnDefs=list(list(targets="_all"))
 	    ), escape = FALSE, selection="none", rownames= FALSE, extensions = "Buttons"
 	  )
@@ -2520,7 +2580,11 @@ shinyServer(function(input, output, session) {
 	    Bowtie_db_down,
 	    options = list(lengthMenu = c(20, 30, 50), pageLength = 15, scrollX = TRUE,
 	                   searching = TRUE, autoWidth = FALSE, bSort=FALSE,
-	                   buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+	                   buttons = list('pageLength', 'copy',
+	                               list(extend = 'csv',   filename = "Bowtie_databasse"),
+	                               list(extend = 'excel', filename = "Bowtie_databasse")
+	                               ), 
+	                   dom = 'Bfrtip',
 	                   columnDefs=list(list(targets="_all"))
 	    ), escape = FALSE, selection="none", rownames= FALSE, extensions = "Buttons"
 	  )
@@ -2535,7 +2599,11 @@ shinyServer(function(input, output, session) {
 	    genomes,
 	    options = list(lengthMenu = c(20, 30, 50), pageLength = 15, scrollX = TRUE,
 	                   searching = TRUE, autoWidth = TRUE, bSort=FALSE,
-	                   buttons = c('pageLength', 'copy', 'csv', 'excel'), dom = 'Bfrtip',
+	                   buttons = list('pageLength', 'copy', 
+	                               list(extend = 'csv',   filename = "424_genomes_info"),
+	                               list(extend = 'excel', filename = "424_genomes_info")
+	                               ), 
+	                   dom = 'Bfrtip',
 	                   columnDefs=list(list(targets="_all"))
 	                   ), escape = FALSE, selection="none", rownames= FALSE, extensions = "Buttons"
 	  )
