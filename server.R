@@ -170,17 +170,45 @@ shinyServer(function(input, output, session) {
         fasta.file.path <- gsub("HTML", "Fasta", HTML.file.path)
         fasta.file.path <- gsub("IRFresult.RData", "LIR.fa.gz", fasta.file.path)
         fasta.content <- Biostrings::readBStringSet(fasta.file.path)
-        LIR.seq.select <- fasta.content[dat.content$ID[IRF.index]]
+        LIR.seq.select.fa <- fasta.content[dat.content$ID[IRF.index]]
         tmp.fl <- file.path(tempdir(), "LIR.seq.select.fasta")
-        Biostrings::writeXStringSet(LIR.seq.select, file = tmp.fl, width=20000)
+        Biostrings::writeXStringSet(LIR.seq.select.fa, file = tmp.fl, width=20000)
         LIR.seq.select <- readLines(tmp.fl)
         
         output$LIR_sequence_title <- renderText(
-          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop sequence in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
+          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <b>Sequence of the selected LIR (<font size="4" color="blue">left flanking sequence in lower case</font> - <font size="4" color="darkcyan">left arm sequence in upper case</font> - <font size="4" color="lightcoral">loop sequence in lower case</font> - <font size="4" color="darkcyan">right arm sequence in upper case</font> - <font size="4" color="blue">right flanking sequence in lower case</font>):</b>')
         )
-        output$LIR_sequence <- renderText(
-          LIR.seq.select, sep = "\n"
-        )
+        output$LIR_sequence <- renderText({
+          fa <- LIR.seq.select.fa
+          fa.len <- Biostrings::width(fa)
+          names(fa.len) <- names(fa)
+          
+          fa.L <- stringr::str_locate_all(as.character(fa), "[ACGT]+")
+          fa.L.nrow <- sapply(fa.L, nrow)
+          fa.arm <- do.call(rbind, fa.L)
+          fa.arm <- data.frame(fa.arm, stringsAsFactors = FALSE)
+          fa.arm$LIR <- rep(names(fa), fa.L.nrow)
+          fa.arm$length <- fa.len[fa.arm$LIR]
+          fa.arm <- fa.arm[, c("LIR", "start", "end", "length")]
+          names(fa.arm) <- c("LIR", "arm_start", "arm_end", "length")
+          
+          fa.flank <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(flank_start = c(1, max(arm_end) + 1), flank_end = c(min(arm_start) - 1, max(length)))
+          
+          fa.loop <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(loop_start = min(arm_end)+1, loop_end = max(arm_start)-1)
+          fa.loop <- fa.loop[fa.loop$loop_start < fa.loop$loop_end, ]
+          
+          fa.arm.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.arm))], fa.arm$arm_start, fa.arm$arm_end)
+          fa.flank.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.flank))], fa.flank$flank_start, fa.flank$flank_end)
+          fa.loop.fa <- Biostrings::subseq(fa, fa.loop$loop_start, fa.loop$loop_end)
+          
+          paste0(">", names(fa), "<br>",
+		        '<p style = "word-wrap: break-word;"><font color="blue"><b>', as.character(fa.flank.fa[1]), "</b></font>",
+                '<font color="darkcyan"><b>', as.character(fa.arm.fa[1]), "</b></font>",
+                '<font color="lightcoral"><b>', as.character(fa.loop.fa), "</b></font>",
+                '<font color="darkcyan"><b>', as.character(fa.arm.fa[2]), "</b></font>",
+                '<font color="blue"><b>', as.character(fa.flank.fa[2]), "</b></font></p>"
+          )
+        })
         
         # alignment of left against right arm
         LIR.align.select <- LIR.align[[dat.content$ID[IRF.index]]]
@@ -375,7 +403,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchRegResult_rows_selected)) {
       
     } else {
-      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop sequence in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <b>Sequence of the selected LIR (<font size="4" color="blue">left flanking sequence in lower case</font> - <font size="4" color="darkcyan">left arm sequence in upper case</font> - <font size="4" color="lightcoral">loop sequence in lower case</font> - <font size="4" color="darkcyan">right arm sequence in upper case</font> - <font size="4" color="blue">right flanking sequence in lower case</font>):</b>')
     }
   })
   
@@ -384,9 +412,39 @@ shinyServer(function(input, output, session) {
       
     } else {
       LIR.ID <- searchedRegResults()[[1]]$ID[input$LIRsearchRegResult_rows_selected]
-      tmp.fl <- file.path(tempdir(), "t1.fa")
-      Biostrings::writeXStringSet(searchedRegResults()[[2]][LIR.ID], file = tmp.fl, width=20000)
-      readLines(tmp.fl)
+      # tmp.fl <- file.path(tempdir(), "t1.fa")
+      # Biostrings::writeXStringSet(searchedRegResults()[[2]][LIR.ID], file = tmp.fl, width=20000)
+      # readLines(tmp.fl)
+      
+      fa <- searchedRegResults()[[2]][LIR.ID]
+      fa.len <- Biostrings::width(fa)
+      names(fa.len) <- names(fa)
+      
+      fa.L <- stringr::str_locate_all(as.character(fa), "[ACGT]+")
+      fa.L.nrow <- sapply(fa.L, nrow)
+      fa.arm <- do.call(rbind, fa.L)
+      fa.arm <- data.frame(fa.arm, stringsAsFactors = FALSE)
+      fa.arm$LIR <- rep(names(fa), fa.L.nrow)
+      fa.arm$length <- fa.len[fa.arm$LIR]
+      fa.arm <- fa.arm[, c("LIR", "start", "end", "length")]
+      names(fa.arm) <- c("LIR", "arm_start", "arm_end", "length")
+      
+      fa.flank <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(flank_start = c(1, max(arm_end) + 1), flank_end = c(min(arm_start) - 1, max(length)))
+      
+      fa.loop <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(loop_start = min(arm_end)+1, loop_end = max(arm_start)-1)
+      fa.loop <- fa.loop[fa.loop$loop_start < fa.loop$loop_end, ]
+      
+      fa.arm.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.arm))], fa.arm$arm_start, fa.arm$arm_end)
+      fa.flank.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.flank))], fa.flank$flank_start, fa.flank$flank_end)
+      fa.loop.fa <- Biostrings::subseq(fa, fa.loop$loop_start, fa.loop$loop_end)
+      
+      paste0(">", LIR.ID, "<br>",
+	         '<p style = "word-wrap: break-word;"><font color="blue"><b>', as.character(fa.flank.fa[1]), "</b></font>",
+             '<font color="darkcyan"><b>', as.character(fa.arm.fa[1]), "</b></font>",
+             '<font color="lightcoral"><b>', as.character(fa.loop.fa), "</b></font>",
+             '<font color="darkcyan"><b>', as.character(fa.arm.fa[2]), "</b></font>",
+             '<font color="blue"><b>', as.character(fa.flank.fa[2]), "</b></font></p>"
+      )
     }
   }, sep = "\n")
   
@@ -576,7 +634,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$LIRsearchIDResult_rows_selected) || is.null(search.ID.result())) {
       
     } else {
-      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop sequence in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <b>Sequence of the selected LIR (<font size="4" color="blue">left flanking sequence in lower case</font> - <font size="4" color="darkcyan">left arm sequence in upper case</font> - <font size="4" color="lightcoral">loop sequence in lower case</font> - <font size="4" color="darkcyan">right arm sequence in upper case</font> - <font size="4" color="blue">right flanking sequence in lower case</font>):</b>')
     }
   })
   
@@ -585,9 +643,39 @@ shinyServer(function(input, output, session) {
       
     } else {
       LIR.ID <- searchedIDResults()[[1]]$ID[input$LIRsearchIDResult_rows_selected]
-      tmp.fl <- file.path(tempdir(), "t2.fa")
-      Biostrings::writeXStringSet(searchedIDResults()[[2]][LIR.ID], file = tmp.fl, width=20000)
-      readLines(tmp.fl)
+      # tmp.fl <- file.path(tempdir(), "t2.fa")
+      # Biostrings::writeXStringSet(searchedIDResults()[[2]][LIR.ID], file = tmp.fl, width=20000)
+      # readLines(tmp.fl)
+      
+      fa <- searchedIDResults()[[2]][LIR.ID]
+      fa.len <- Biostrings::width(fa)
+      names(fa.len) <- names(fa)
+      
+      fa.L <- stringr::str_locate_all(as.character(fa), "[ACGT]+")
+      fa.L.nrow <- sapply(fa.L, nrow)
+      fa.arm <- do.call(rbind, fa.L)
+      fa.arm <- data.frame(fa.arm, stringsAsFactors = FALSE)
+      fa.arm$LIR <- rep(names(fa), fa.L.nrow)
+      fa.arm$length <- fa.len[fa.arm$LIR]
+      fa.arm <- fa.arm[, c("LIR", "start", "end", "length")]
+      names(fa.arm) <- c("LIR", "arm_start", "arm_end", "length")
+      
+      fa.flank <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(flank_start = c(1, max(arm_end) + 1), flank_end = c(min(arm_start) - 1, max(length)))
+      
+      fa.loop <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(loop_start = min(arm_end)+1, loop_end = max(arm_start)-1)
+      fa.loop <- fa.loop[fa.loop$loop_start < fa.loop$loop_end, ]
+      
+      fa.arm.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.arm))], fa.arm$arm_start, fa.arm$arm_end)
+      fa.flank.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.flank))], fa.flank$flank_start, fa.flank$flank_end)
+      fa.loop.fa <- Biostrings::subseq(fa, fa.loop$loop_start, fa.loop$loop_end)
+      
+      paste0(">", LIR.ID, "<br>",
+	         '<p style = "word-wrap: break-word;"><font color="blue"><b>', as.character(fa.flank.fa[1]), "</b></font>",
+             '<font color="darkcyan"><b>', as.character(fa.arm.fa[1]), "</b></font>",
+             '<font color="lightcoral"><b>', as.character(fa.loop.fa), "</b></font>",
+             '<font color="darkcyan"><b>', as.character(fa.arm.fa[2]), "</b></font>",
+             '<font color="blue"><b>', as.character(fa.flank.fa[2]), "</b></font></p>"
+      )
     }
   }, sep = "\n")
   
@@ -978,7 +1066,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$BLASTresult_rows_selected) || is.null(blast.result()) || is.null(blastedResults())) {
       
     } else {
-      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop sequence in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <b>Sequence of the selected LIR (<font size="4" color="blue">left flanking sequence in lower case</font> - <font size="4" color="darkcyan">left arm sequence in upper case</font> - <font size="4" color="lightcoral">loop sequence in lower case</font> - <font size="4" color="darkcyan">right arm sequence in upper case</font> - <font size="4" color="blue">right flanking sequence in lower case</font>):</b>')
     }
   })
   
@@ -987,9 +1075,39 @@ shinyServer(function(input, output, session) {
       
     } else {
       LIR.ID <- blastedResults()$sseqid[input$BLASTresult_rows_selected]
-      tmp.fl <- file.path(tempdir(), "t3.fa")
-      Biostrings::writeXStringSet(blastdbResults()[[2]][LIR.ID], file = tmp.fl, width=20000)
-      readLines(tmp.fl)
+      # tmp.fl <- file.path(tempdir(), "t3.fa")
+      # Biostrings::writeXStringSet(blastdbResults()[[2]][LIR.ID], file = tmp.fl, width=20000)
+      # readLines(tmp.fl)
+      
+      fa <- blastdbResults()[[2]][LIR.ID]
+      fa.len <- Biostrings::width(fa)
+      names(fa.len) <- names(fa)
+      
+      fa.L <- stringr::str_locate_all(as.character(fa), "[ACGT]+")
+      fa.L.nrow <- sapply(fa.L, nrow)
+      fa.arm <- do.call(rbind, fa.L)
+      fa.arm <- data.frame(fa.arm, stringsAsFactors = FALSE)
+      fa.arm$LIR <- rep(names(fa), fa.L.nrow)
+      fa.arm$length <- fa.len[fa.arm$LIR]
+      fa.arm <- fa.arm[, c("LIR", "start", "end", "length")]
+      names(fa.arm) <- c("LIR", "arm_start", "arm_end", "length")
+      
+      fa.flank <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(flank_start = c(1, max(arm_end) + 1), flank_end = c(min(arm_start) - 1, max(length)))
+      
+      fa.loop <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(loop_start = min(arm_end)+1, loop_end = max(arm_start)-1)
+      fa.loop <- fa.loop[fa.loop$loop_start < fa.loop$loop_end, ]
+      
+      fa.arm.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.arm))], fa.arm$arm_start, fa.arm$arm_end)
+      fa.flank.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.flank))], fa.flank$flank_start, fa.flank$flank_end)
+      fa.loop.fa <- Biostrings::subseq(fa, fa.loop$loop_start, fa.loop$loop_end)
+      
+      paste0(">", LIR.ID, "<br>",
+	         '<p style = "word-wrap: break-word;"><font color="blue"><b>', as.character(fa.flank.fa[1]), "</b></font>",
+             '<font color="darkcyan"><b>', as.character(fa.arm.fa[1]), "</b></font>",
+             '<font color="lightcoral"><b>', as.character(fa.loop.fa), "</b></font>",
+             '<font color="darkcyan"><b>', as.character(fa.arm.fa[2]), "</b></font>",
+             '<font color="blue"><b>', as.character(fa.flank.fa[2]), "</b></font></p>"
+      )
     }
   }, sep = "\n")
   
@@ -1248,7 +1366,7 @@ shinyServer(function(input, output, session) {
     if (is.null(input$prediction_rows_selected)) {
       
     } else {
-      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop sequence in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
+      HTML('<i class="fa fa-circle" aria-hidden="true"></i> <b>Sequence of the selected LIR (<font size="4" color="blue">left flanking sequence in lower case</font> - <font size="4" color="darkcyan">left arm sequence in upper case</font> - <font size="4" color="lightcoral">loop sequence in lower case</font> - <font size="4" color="darkcyan">right arm sequence in upper case</font> - <font size="4" color="blue">right flanking sequence in lower case</font>):</b>')
     }
   })
   
@@ -1257,9 +1375,39 @@ shinyServer(function(input, output, session) {
       
     } else {
       LIR.ID <- annotateResults()[[1]]$ID[input$prediction_rows_selected]
-      tmp.fl <- file.path(tempdir(), "Anno1.fa")
-      Biostrings::writeXStringSet(annotateResults()[[2]][LIR.ID], file = tmp.fl, width=20000)
-      readLines(tmp.fl)
+      # tmp.fl <- file.path(tempdir(), "Anno1.fa")
+      # Biostrings::writeXStringSet(annotateResults()[[2]][LIR.ID], file = tmp.fl, width=20000)
+      # readLines(tmp.fl)
+      
+      fa <- annotateResults()[[2]][LIR.ID]
+      fa.len <- Biostrings::width(fa)
+      names(fa.len) <- names(fa)
+      
+      fa.L <- stringr::str_locate_all(as.character(fa), "[ACGT]+")
+      fa.L.nrow <- sapply(fa.L, nrow)
+      fa.arm <- do.call(rbind, fa.L)
+      fa.arm <- data.frame(fa.arm, stringsAsFactors = FALSE)
+      fa.arm$LIR <- rep(names(fa), fa.L.nrow)
+      fa.arm$length <- fa.len[fa.arm$LIR]
+      fa.arm <- fa.arm[, c("LIR", "start", "end", "length")]
+      names(fa.arm) <- c("LIR", "arm_start", "arm_end", "length")
+      
+      fa.flank <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(flank_start = c(1, max(arm_end) + 1), flank_end = c(min(arm_start) - 1, max(length)))
+      
+      fa.loop <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(loop_start = min(arm_end)+1, loop_end = max(arm_start)-1)
+      fa.loop <- fa.loop[fa.loop$loop_start < fa.loop$loop_end, ]
+      
+      fa.arm.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.arm))], fa.arm$arm_start, fa.arm$arm_end)
+      fa.flank.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.flank))], fa.flank$flank_start, fa.flank$flank_end)
+      fa.loop.fa <- Biostrings::subseq(fa, fa.loop$loop_start, fa.loop$loop_end)
+      
+      paste0(">", LIR.ID, "<br>",
+	         '<p style = "word-wrap: break-word;"><font color="blue"><b>', as.character(fa.flank.fa[1]), "</b></font>",
+             '<font color="darkcyan"><b>', as.character(fa.arm.fa[1]), "</b></font>",
+             '<font color="lightcoral"><b>', as.character(fa.loop.fa), "</b></font>",
+             '<font color="darkcyan"><b>', as.character(fa.arm.fa[2]), "</b></font>",
+             '<font color="blue"><b>', as.character(fa.flank.fa[2]), "</b></font></p>"
+      )
     }
   }, sep = "\n")
   
@@ -1914,7 +2062,7 @@ shinyServer(function(input, output, session) {
 	  if (is.null(input$LIRreadCount_rows_selected)) {
 	    
 	  } else {
-	    HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Sequence of the selected LIR (left flanking sequence in lower case - left arm sequence in upper case - loop sequence in lower case - right arm sequence in upper case - right flanking sequence in lower case):</b></font>')
+	    HTML('<i class="fa fa-circle" aria-hidden="true"></i> <b>Sequence of the selected LIR (<font size="4" color="blue">left flanking sequence in lower case</font> - <font size="4" color="darkcyan">left arm sequence in upper case</font> - <font size="4" color="lightcoral">loop sequence in lower case</font> - <font size="4" color="darkcyan">right arm sequence in upper case</font> - <font size="4" color="blue">right flanking sequence in lower case</font>):</b>')
 	  }
 	})
 	
@@ -1923,9 +2071,39 @@ shinyServer(function(input, output, session) {
 	    
 	  } else {
 	    LIR.ID <- alignedResults()[[4]]$LIR[input$LIRreadCount_rows_selected]
-	    tmp.fl <- file.path(tempdir(), "t4.fa")
-	    Biostrings::writeXStringSet(alignedLIRResults()[[2]][LIR.ID], file = tmp.fl, width=20000)
-	    readLines(tmp.fl)
+	    # tmp.fl <- file.path(tempdir(), "t4.fa")
+	    # Biostrings::writeXStringSet(alignedLIRResults()[[2]][LIR.ID], file = tmp.fl, width=20000)
+	    # readLines(tmp.fl)
+	    
+	    fa <- alignedLIRResults()[[2]][LIR.ID]
+	    fa.len <- Biostrings::width(fa)
+	    names(fa.len) <- names(fa)
+	    
+	    fa.L <- stringr::str_locate_all(as.character(fa), "[ACGT]+")
+	    fa.L.nrow <- sapply(fa.L, nrow)
+	    fa.arm <- do.call(rbind, fa.L)
+	    fa.arm <- data.frame(fa.arm, stringsAsFactors = FALSE)
+	    fa.arm$LIR <- rep(names(fa), fa.L.nrow)
+	    fa.arm$length <- fa.len[fa.arm$LIR]
+	    fa.arm <- fa.arm[, c("LIR", "start", "end", "length")]
+	    names(fa.arm) <- c("LIR", "arm_start", "arm_end", "length")
+	    
+	    fa.flank <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(flank_start = c(1, max(arm_end) + 1), flank_end = c(min(arm_start) - 1, max(length)))
+	    
+	    fa.loop <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(loop_start = min(arm_end)+1, loop_end = max(arm_start)-1)
+	    fa.loop <- fa.loop[fa.loop$loop_start < fa.loop$loop_end, ]
+	    
+	    fa.arm.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.arm))], fa.arm$arm_start, fa.arm$arm_end)
+	    fa.flank.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.flank))], fa.flank$flank_start, fa.flank$flank_end)
+	    fa.loop.fa <- Biostrings::subseq(fa, fa.loop$loop_start, fa.loop$loop_end)
+	    
+	    paste0(">", LIR.ID, "<br>",
+		       '<p style = "word-wrap: break-word;"><font color="blue"><b>', as.character(fa.flank.fa[1]), "</b></font>",
+	           '<font color="darkcyan"><b>', as.character(fa.arm.fa[1]), "</b></font>",
+	           '<font color="lightcoral"><b>', as.character(fa.loop.fa), "</b></font>",
+	           '<font color="darkcyan"><b>', as.character(fa.arm.fa[2]), "</b></font>",
+	           '<font color="blue"><b>', as.character(fa.flank.fa[2]), "</b></font></p>"
+	    )
 	  }
 	}, sep = "\n")
 	
@@ -2175,7 +2353,7 @@ shinyServer(function(input, output, session) {
 	          
 	          # volcano plot
 	          DESeq2.res.table.dt.vp <- DESeq2.res.table.dt
-	          DESeq2.res.table.dt.vp$col <- "black"
+	          DESeq2.res.table.dt.vp$col <- "lightcoral"
 	          DESeq2.res.table.dt.vp$col[DESeq2.res.table.dt.vp$padj <= 0.05] <- "red"
 	          output$volcano_plot <- renderPlot({
 	            plot(x=DESeq2.res.table.dt.vp$log2FoldChange, y= -log10(DESeq2.res.table.dt.vp$padj),

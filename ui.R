@@ -67,8 +67,8 @@ shinyUI(
   fluidPage(
     titlePanel(title=div(
              img(src="headerN.png"),
-             span("LIRBase:", style = "font-size:40px;color:white;"), 
-             span("a comprehensive collection of LIRs in 424 eukaryotic genomes", style = "font-size:30px;color:white;"),
+             span("LIRBase:", style = "font-size:36px;color:white;"), 
+             span("a comprehensive collection of long inverted repeats in eukaryotes", style = "font-size:28px;color:white;"),
              style = "background-color:#0073B7;margin-left: -15px;margin-right: -15px;margin-top: -20px;margin-bottom: -10px;"
       ), windowTitle = "Welcome to LIRBase!"
     ),
@@ -230,13 +230,14 @@ shinyUI(
                                        font-style: bold;
                                       }"
                   )),
-                  shinycssloaders::withSpinner(verbatimTextOutput("LIR_sequence", placeholder = FALSE)),
+                  shinycssloaders::withSpinner(htmlOutput("LIR_sequence", placeholder = FALSE)),
                   tags$head(tags$style("#LIR_sequence {
                                         width: 100%; 
                                         padding: 6px 12px; 
                                         height: 400px;
                                         white-space: pre-wrap;
                                         background: white;
+                                        overflow: auto;
                                       }"
                   ))
           ),
@@ -369,13 +370,14 @@ shinyUI(
                                        font-style: bold;
                                       }"
                                 )),
-                                verbatimTextOutput("LIR_detail_search_reg_fasta"),
+                                htmlOutput("LIR_detail_search_reg_fasta"),
                                 tags$head(tags$style("#LIR_detail_search_reg_fasta {
                               width: 100%; 
                               padding: 6px 12px; 
                               white-space: pre-wrap;
                               height: 400px;
                               background: white;
+                              overflow: auto;
                             }"
                                 ))
                         ),
@@ -505,13 +507,14 @@ shinyUI(
                                                             font-style: bold;
                                                           }"
                                 )),
-                                shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_search_ID_fasta")),
+                                shinycssloaders::withSpinner(htmlOutput("LIR_detail_search_ID_fasta")),
                                 tags$head(tags$style("#LIR_detail_search_ID_fasta {
                                                     width: 100%; 
                                                     padding: 6px 12px; 
                                                     white-space: pre-wrap;
                                                     height: 400px;
                                                     background: white;
+                                                    overflow: auto;
                                                   }"
                                 ))
                         ),
@@ -715,13 +718,14 @@ shinyUI(
                                        font-style: bold;
                                       }"
                          )),
-                         shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_blast_fasta")),
+                         shinycssloaders::withSpinner(htmlOutput("LIR_detail_blast_fasta")),
                          tags$head(tags$style("#LIR_detail_blast_fasta {
                                           width: 100%; 
                                           padding: 6px 12px; 
                                           white-space: pre-wrap;
                                           height: 400px;
                                           background: white;
+                                          overflow: auto;
                                         }"
                          ))
                  ),
@@ -884,13 +888,14 @@ shinyUI(
                                        font-style: bold;
                                       }"
                          )),
-                         verbatimTextOutput("LIR_detail_annotate_fasta"),
+                         htmlOutput("LIR_detail_annotate_fasta"),
                          tags$head(tags$style("#LIR_detail_annotate_fasta {
                     width: 100%; 
                     padding: 6px 12px; 
                     white-space: pre-wrap;
                     height: 400px;
                     background: white;
+                    overflow: auto;
                     }"
                          ))
                  ),
@@ -1175,13 +1180,14 @@ shinyUI(
                                        font-style: bold;
                                       }"
                                               )),
-                                              shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_align_fasta")),
+                                              shinycssloaders::withSpinner(htmlOutput("LIR_detail_align_fasta")),
                                               tags$head(tags$style("#LIR_detail_align_fasta {
                                           width: 100%; 
                                           padding: 6px 12px; 
                                           white-space: pre-wrap;
                                           height: 400px;
                                           background: white;
+                                          overflow: auto;
                                         }"
                                               ))
                                       ),

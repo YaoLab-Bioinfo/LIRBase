@@ -19,7 +19,7 @@ Homepage <- dashboardPage(
         offset = 1,
         textBox(
           width = 12,
-          p("We identified a total of 6,619,473", strong("long inverted repeats (LIR, longer than 800 nt)"), "in 424 eukaryotic genomes and implemented various functionalities to facilitate the annotation and functional studies of LIRs and small RNAs derived from LIRs.")
+          p("LIRBase houses a total of 6,619,473", strong("long inverted repeats (LIR, longer than 800 nt)"), "in 424 eukaryotic genomes and provides various functionalities to facilitate the annotation and functional studies of LIRs and their derived small RNAs.")
         ),
         box(
           width = 12,
