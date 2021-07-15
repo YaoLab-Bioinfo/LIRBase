@@ -44,9 +44,24 @@ Homepage <- dashboardPage(
           valueBox(374, "Species", width = 4, color="blue")
         ),
         fluidRow(
-          valueBox("297,317", "LIRs in 77 metazoa genomes", width = 4, color="blue"),
-          valueBox("1,731,978", "LIRs in 139 plant genomes", width = 4, color="blue"),
-          valueBox("4,590,178", "LIRs in 208 vertebrate genomes", width = 4, color="blue"),
+          # valueBox("297,317", "LIRs in 77 metazoa genomes", width = 4, color="blue"),
+          box(width = 4,
+              shinyWidgets::actionBttn("metazoa_butt", "297,317", 
+                                       block = TRUE, size = "lg", style="unite", color="default"),
+              h4("LIRs in 77 metazoa genomes"), color="blue"
+          ),
+          # valueBox("1,731,978", "LIRs in 139 plant genomes", width = 4, color="blue"),
+          box(width = 4,
+              shinyWidgets::actionBttn("plant_butt", "1,731,978", 
+                                       block = TRUE, size = "lg", style="unite", color="default"),
+              h4("LIRs in 139 plant genomes"), color="blue"
+          ),
+          # valueBox("4,590,178", "LIRs in 208 vertebrate genomes", width = 4, color="blue"),
+          box(width = 4,
+              shinyWidgets::actionBttn("vertebrate_butt", "4,590,178", 
+                                       block = TRUE, size = "lg", style="unite", color="default"),
+              h4("LIRs in 208 vertebrate genomes"), color="blue"
+          )
         )
       )
     ),

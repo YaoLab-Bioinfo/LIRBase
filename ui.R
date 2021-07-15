@@ -122,23 +122,10 @@ shinyUI(
                  tags$script(HTML('Shiny.addCustomMessageHandler("jsCode",function(message) {eval(message.value);});'))
                ),
                
-               icon = icon("home", class = NULL, lib = "font-awesome"),
-               
-               source("Homepage.R", local = TRUE)$value
-               
-               # htmlwidgets::getDependency('sparkline'),
-               # dataTableOutput("IRFsummary")
-      ),
-      
-      # Browse
-      tabPanel(
-        HTML("<strong style='font-size:18px'>Browse</strong>"),
-        icon = icon("folder-open-o", class = NULL, lib = "font-awesome"),
-        
-        tags$head(tags$script(HTML('Shiny.addCustomMessageHandler("jsCode",function(message) {eval(message.value);});')),
-                  tags$style(
-                    HTML(
-                      "
+               tags$head(tags$script(HTML('Shiny.addCustomMessageHandler("jsCode",function(message) {eval(message.value);});')),
+                         tags$style(
+                           HTML(
+                             "
             #inputs-table {
               border-collapse: collapse;
             }
@@ -160,78 +147,92 @@ shinyUI(
               -webkit-margin-after: 1px !important; 
             }
             "
-                    ) #/ HTML
-                  ) #/ style
-        ), #/ head
+                           ) #/ HTML
+                         ) #/ style
+               ), #/ head
+               
+               icon = icon("home", class = NULL, lib = "font-awesome"),
+               
+               source("Homepage.R", local = TRUE)$value
+               
+               # htmlwidgets::getDependency('sparkline'),
+               # dataTableOutput("IRFsummary")
+      ),
+      
+      # Browse
+      navbarMenu(
+        HTML("<strong style='font-size:18px'>Browse</strong>"),
+        icon = icon("folder-open-o", class = NULL, lib = "font-awesome"),
         
-        column(12,
-          fixedRow(
-            column(12,
-                   tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Browse long inverted repeats identified in 424 eukaryotic genomes</b></font>'),
-                            bsButton("qLIRInfoTitle", label="", icon=icon("question"), style="info", size="small")),
-                   bsPopover("qLIRInfoTitle", title = LIR_Info_Title, content = NULL, trigger = "focus", options = list(container = "body"))
-            )
-          ),
-          
-          tabsetPanel(id = "browser_1",
-                      tabPanel(title = HTML("<strong style='font-size:18px'>Species</strong>"), id = "browser_Species",
-                               DT::dataTableOutput('HTMLtable')
-                      ),
-                      
-                      tabPanel(title = HTML("<strong style='font-size:18px'>LIRs annotated by IRF</strong>"), id = "browser_LIR",
-                               shinycssloaders::withSpinner(DT::dataTableOutput("LIR_info_num")),
-                               br(),
-                               
-                               htmlOutput("IRFbrowse_title"),
-                               tags$head(tags$style("#IRFbrowse_title{color: red;
+        tabPanel(HTML("<strong style='font-size:17px'>Metazoa</strong>"), icon = icon("folder-open-o", class = NULL, lib = "font-awesome"),
+          column(12,
+                 fixedRow(
+                   column(12,
+                          tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Browse long inverted repeats identified in 77 Metazoa genomes</b></font>'),
+                                   bsButton("qLIRInfoTitle_Metazoa", label="", icon=icon("question"), style="info", size="small")),
+                          bsPopover("qLIRInfoTitle_Metazoa", title = LIR_Info_Title, content = NULL, trigger = "focus", options = list(container = "body"))
+                   )
+                 ),
+                 
+                 tabsetPanel(id = "browser_Metazoa",
+                             tabPanel(title = HTML("<strong style='font-size:18px'>Species</strong>"), id = "browser_Metazoa_Species",
+                                      DT::dataTableOutput('HTMLtable_Metazoa')
+                             ),
+                             
+                             tabPanel(title = HTML("<strong style='font-size:18px'>LIRs of Metazoa</strong>"), id = "browser_LIR_Metazoa",
+                                      shinycssloaders::withSpinner(DT::dataTableOutput("LIR_info_num_Metazoa")),
+                                      br(),
+                                      
+                                      htmlOutput("IRFbrowse_title_Metazoa"),
+                                      tags$head(tags$style("#IRFbrowse_title_Metazoa{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
-                               )),
-                               shinycssloaders::withSpinner(DT::dataTableOutput("IRFbrowse")),
-                               br(),
-                               
-                               conditionalPanel(condition = "typeof input.IRFbrowse_rows_selected  !== 'undefined' && input.IRFbrowse_rows_selected.length > 0",
-                                                fixedRow(
-                                                  column(4,
-                                                         shinyWidgets::actionBttn("Browse_LIR_op", "Overlaps between the selected LIR and genes",
-                                                                                  icon = icon("eye", class = NULL, lib = "font-awesome"),
-                                                                                  block = TRUE, size = "sm", style="unite", color="default")
-                                                  ),
-                                                  column(4,
-                                                         shinyWidgets::actionBttn("Browse_LIR_seq", "Sequence of the selected LIR",
-                                                                                  icon = icon("eye", class = NULL, lib = "font-awesome"),
-                                                                                  block = TRUE, size = "sm", style="unite", color="default")
-                                                  ),
-                                                  column(4,
-                                                         shinyWidgets::actionBttn("Browse_LIR_detail", "Structure of the selected LIR",
-                                                                                  icon = icon("eye", class = NULL, lib = "font-awesome"),
-                                                                                  block = TRUE, size = "sm", style="unite", color="default")
-                                                  )
-                                                )
-                               )
-                      )
-          ),
-          
-          bsModal("BrowseLIRop", "Overlaps between the selected LIR and genes", "Browse_LIR_op", size = "large", 
-                  htmlOutput("LIR_gene_op_title"),
-                  tags$head(tags$style("#LIR_gene_op_title{color: red;
+                                      )),
+                                      shinycssloaders::withSpinner(DT::dataTableOutput("IRFbrowse_Metazoa")),
+                                      br(),
+                                      
+                                      conditionalPanel(condition = "typeof input.IRFbrowse_Metazoa_rows_selected  !== 'undefined' && input.IRFbrowse_Metazoa_rows_selected.length > 0",
+                                                       fixedRow(
+                                                         column(4,
+                                                                shinyWidgets::actionBttn("Browse_LIR_op_Metazoa", "Overlaps between the selected LIR and genes",
+                                                                                         icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                                                                         block = TRUE, size = "sm", style="unite", color="default")
+                                                         ),
+                                                         column(4,
+                                                                shinyWidgets::actionBttn("Browse_LIR_seq_Metazoa", "Sequence of the selected LIR",
+                                                                                         icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                                                                         block = TRUE, size = "sm", style="unite", color="default")
+                                                         ),
+                                                         column(4,
+                                                                shinyWidgets::actionBttn("Browse_LIR_detail_Metazoa", "Structure of the selected LIR",
+                                                                                         icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                                                                         block = TRUE, size = "sm", style="unite", color="default")
+                                                         )
+                                                       )
+                                      )
+                             )
+                 ),
+                 
+                 bsModal("BrowseLIRop_Metazoa", "Overlaps between the selected LIR and genes", "Browse_LIR_op_Metazoa", size = "large", 
+                         htmlOutput("LIR_gene_op_title_Metazoa"),
+                         tags$head(tags$style("#LIR_gene_op_title_Metazoa{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
-                  )),
-                  shinycssloaders::withSpinner(DT::dataTableOutput("LIR_gene_op"))
-          ),
-          
-          bsModal("BrowseLIRseq", "Sequence of the selected LIR", "Browse_LIR_seq", size = "large", 
-                  htmlOutput("LIR_sequence_title"),
-                  tags$head(tags$style("#LIR_sequence_title{color: red;
+                         )),
+                         shinycssloaders::withSpinner(DT::dataTableOutput("LIR_gene_op_Metazoa"))
+                 ),
+                 
+                 bsModal("BrowseLIRseq_Metazoa", "Sequence of the selected LIR", "Browse_LIR_seq_Metazoa", size = "large", 
+                         htmlOutput("LIR_sequence_title_Metazoa"),
+                         tags$head(tags$style("#LIR_sequence_title_Metazoa{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
-                  )),
-                  shinycssloaders::withSpinner(htmlOutput("LIR_sequence", placeholder = FALSE)),
-                  tags$head(tags$style("#LIR_sequence {
+                         )),
+                         shinycssloaders::withSpinner(htmlOutput("LIR_sequence_Metazoa", placeholder = FALSE)),
+                         tags$head(tags$style("#LIR_sequence_Metazoa {
                                         width: 100%; 
                                         padding: 6px 12px; 
                                         height: 400px;
@@ -239,28 +240,231 @@ shinyUI(
                                         background: white;
                                         overflow: auto;
                                       }"
-                  ))
-          ),
-          
-          bsModal("BrowseLIRdetail", "Structure of the selected LIR", "Browse_LIR_detail", size = "large", 
-                  htmlOutput("LIR_detail_title"),
-                  tags$head(tags$style("#LIR_detail_title{color: red;
+                         ))
+                 ),
+                 
+                 bsModal("BrowseLIRdetail_Metazoa", "Structure of the selected LIR", "Browse_LIR_detail_Metazoa", size = "large", 
+                         htmlOutput("LIR_detail_title_Metazoa"),
+                         tags$head(tags$style("#LIR_detail_title_Metazoa{color: red;
                                        font-size: 22px;
                                        font-style: bold;
                                       }"
-                  )),
-                  shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail")),
-                  tags$head(tags$style("#LIR_detail {
+                         )),
+                         shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_Metazoa")),
+                         tags$head(tags$style("#LIR_detail_Metazoa {
                                         width: 100%; 
                                         padding: 6px 12px; 
                                         white-space: pre-wrap;
                                         height: 400px;
                                         background: white;
                                       }"
-                  ))
-          ),
-          
-          br(),br()
+                         ))
+                 ),
+                 
+                 br(),br()
+          )
+        ),
+        
+        tabPanel(HTML("<strong style='font-size:17px'>Plant</strong>"), icon = icon("folder-open-o", class = NULL, lib = "font-awesome"),
+                 column(12,
+                        fixedRow(
+                          column(12,
+                                 tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Browse long inverted repeats identified in 139 Plant genomes</b></font>'),
+                                          bsButton("qLIRInfoTitle_Plant", label="", icon=icon("question"), style="info", size="small")),
+                                 bsPopover("qLIRInfoTitle_Plant", title = LIR_Info_Title, content = NULL, trigger = "focus", options = list(container = "body"))
+                          )
+                        ),
+                        
+                        tabsetPanel(id = "browser_Plant",
+                                    tabPanel(title = HTML("<strong style='font-size:18px'>Species</strong>"), id = "browser_Plant_Species",
+                                             DT::dataTableOutput('HTMLtable_Plant')
+                                    ),
+                                    
+                                    tabPanel(title = HTML("<strong style='font-size:18px'>LIRs of Plant</strong>"), id = "browser_LIR_Plant",
+                                             shinycssloaders::withSpinner(DT::dataTableOutput("LIR_info_num_Plant")),
+                                             br(),
+                                             
+                                             htmlOutput("IRFbrowse_title_Plant"),
+                                             tags$head(tags$style("#IRFbrowse_title_Plant{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                                             )),
+                                             shinycssloaders::withSpinner(DT::dataTableOutput("IRFbrowse_Plant")),
+                                             br(),
+                                             
+                                             conditionalPanel(condition = "typeof input.IRFbrowse_Plant_rows_selected  !== 'undefined' && input.IRFbrowse_Plant_rows_selected.length > 0",
+                                                              fixedRow(
+                                                                column(4,
+                                                                       shinyWidgets::actionBttn("Browse_LIR_op_Plant", "Overlaps between the selected LIR and genes",
+                                                                                                icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                                                                                block = TRUE, size = "sm", style="unite", color="default")
+                                                                ),
+                                                                column(4,
+                                                                       shinyWidgets::actionBttn("Browse_LIR_seq_Plant", "Sequence of the selected LIR",
+                                                                                                icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                                                                                block = TRUE, size = "sm", style="unite", color="default")
+                                                                ),
+                                                                column(4,
+                                                                       shinyWidgets::actionBttn("Browse_LIR_detail_Plant", "Structure of the selected LIR",
+                                                                                                icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                                                                                block = TRUE, size = "sm", style="unite", color="default")
+                                                                )
+                                                              )
+                                             )
+                                    )
+                        ),
+                        
+                        bsModal("BrowseLIRop_Plant", "Overlaps between the selected LIR and genes", "Browse_LIR_op_Plant", size = "large", 
+                                htmlOutput("LIR_gene_op_title_Plant"),
+                                tags$head(tags$style("#LIR_gene_op_title_Plant{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                                )),
+                                shinycssloaders::withSpinner(DT::dataTableOutput("LIR_gene_op_Plant"))
+                        ),
+                        
+                        bsModal("BrowseLIRseq_Plant", "Sequence of the selected LIR", "Browse_LIR_seq_Plant", size = "large", 
+                                htmlOutput("LIR_sequence_title_Plant"),
+                                tags$head(tags$style("#LIR_sequence_title_Plant{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                                )),
+                                shinycssloaders::withSpinner(htmlOutput("LIR_sequence_Plant", placeholder = FALSE)),
+                                tags$head(tags$style("#LIR_sequence_Plant {
+                                        width: 100%; 
+                                        padding: 6px 12px; 
+                                        height: 400px;
+                                        white-space: pre-wrap;
+                                        background: white;
+                                        overflow: auto;
+                                      }"
+                                ))
+                        ),
+                        
+                        bsModal("BrowseLIRdetail_Plant", "Structure of the selected LIR", "Browse_LIR_detail_Plant", size = "large", 
+                                htmlOutput("LIR_detail_title_Plant"),
+                                tags$head(tags$style("#LIR_detail_title_Plant{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                                )),
+                                shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_Plant")),
+                                tags$head(tags$style("#LIR_detail_Plant {
+                                        width: 100%; 
+                                        padding: 6px 12px; 
+                                        white-space: pre-wrap;
+                                        height: 400px;
+                                        background: white;
+                                      }"
+                                ))
+                        ),
+                        
+                        br(),br()
+                 )
+        ),
+        
+        tabPanel(HTML("<strong style='font-size:17px'>Vertebrate</strong>"), icon = icon("folder-open-o", class = NULL, lib = "font-awesome"),
+                 column(12,
+                        fixedRow(
+                          column(12,
+                                 tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Browse long inverted repeats identified in 208 Vertebrate genomes</b></font>'),
+                                          bsButton("qLIRInfoTitle_Vertebrate", label="", icon=icon("question"), style="info", size="small")),
+                                 bsPopover("qLIRInfoTitle_Vertebrate", title = LIR_Info_Title, content = NULL, trigger = "focus", options = list(container = "body"))
+                          )
+                        ),
+                        
+                        tabsetPanel(id = "browser_Vertebrate",
+                                    tabPanel(title = HTML("<strong style='font-size:18px'>Species</strong>"), id = "browser_Vertebrate_Species",
+                                             DT::dataTableOutput('HTMLtable_Vertebrate')
+                                    ),
+                                    
+                                    tabPanel(title = HTML("<strong style='font-size:18px'>LIRs of Vertebrate</strong>"), id = "browser_LIR_Vertebrate",
+                                             shinycssloaders::withSpinner(DT::dataTableOutput("LIR_info_num_Vertebrate")),
+                                             br(),
+                                             
+                                             htmlOutput("IRFbrowse_title_Vertebrate"),
+                                             tags$head(tags$style("#IRFbrowse_title_Vertebrate{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                                             )),
+                                             shinycssloaders::withSpinner(DT::dataTableOutput("IRFbrowse_Vertebrate")),
+                                             br(),
+                                             
+                                             conditionalPanel(condition = "typeof input.IRFbrowse_Vertebrate_rows_selected  !== 'undefined' && input.IRFbrowse_Vertebrate_rows_selected.length > 0",
+                                                              fixedRow(
+                                                                column(4,
+                                                                       shinyWidgets::actionBttn("Browse_LIR_op_Vertebrate", "Overlaps between the selected LIR and genes",
+                                                                                                icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                                                                                block = TRUE, size = "sm", style="unite", color="default")
+                                                                ),
+                                                                column(4,
+                                                                       shinyWidgets::actionBttn("Browse_LIR_seq_Vertebrate", "Sequence of the selected LIR",
+                                                                                                icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                                                                                block = TRUE, size = "sm", style="unite", color="default")
+                                                                ),
+                                                                column(4,
+                                                                       shinyWidgets::actionBttn("Browse_LIR_detail_Vertebrate", "Structure of the selected LIR",
+                                                                                                icon = icon("eye", class = NULL, lib = "font-awesome"),
+                                                                                                block = TRUE, size = "sm", style="unite", color="default")
+                                                                )
+                                                              )
+                                             )
+                                    )
+                        ),
+                        
+                        bsModal("BrowseLIRop_Vertebrate", "Overlaps between the selected LIR and genes", "Browse_LIR_op_Vertebrate", size = "large", 
+                                htmlOutput("LIR_gene_op_title_Vertebrate"),
+                                tags$head(tags$style("#LIR_gene_op_title_Vertebrate{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                                )),
+                                shinycssloaders::withSpinner(DT::dataTableOutput("LIR_gene_op_Vertebrate"))
+                        ),
+                        
+                        bsModal("BrowseLIRseq_Vertebrate", "Sequence of the selected LIR", "Browse_LIR_seq_Vertebrate", size = "large", 
+                                htmlOutput("LIR_sequence_title_Vertebrate"),
+                                tags$head(tags$style("#LIR_sequence_title_Vertebrate{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                                )),
+                                shinycssloaders::withSpinner(htmlOutput("LIR_sequence_Vertebrate", placeholder = FALSE)),
+                                tags$head(tags$style("#LIR_sequence_Vertebrate {
+                                        width: 100%; 
+                                        padding: 6px 12px; 
+                                        height: 400px;
+                                        white-space: pre-wrap;
+                                        background: white;
+                                        overflow: auto;
+                                      }"
+                                ))
+                        ),
+                        
+                        bsModal("BrowseLIRdetail_Vertebrate", "Structure of the selected LIR", "Browse_LIR_detail_Vertebrate", size = "large", 
+                                htmlOutput("LIR_detail_title_Vertebrate"),
+                                tags$head(tags$style("#LIR_detail_title_Vertebrate{color: red;
+                                       font-size: 22px;
+                                       font-style: bold;
+                                      }"
+                                )),
+                                shinycssloaders::withSpinner(verbatimTextOutput("LIR_detail_Vertebrate")),
+                                tags$head(tags$style("#LIR_detail_Vertebrate {
+                                        width: 100%; 
+                                        padding: 6px 12px; 
+                                        white-space: pre-wrap;
+                                        height: 400px;
+                                        background: white;
+                                      }"
+                                ))
+                        ),
+                        
+                        br(),br()
+                 )
         )
       ),
       

@@ -21,12 +21,14 @@
 
 ## **1. Browse LIRBase for long inverted repeats identified in 424 eukaryotic genomes** <a name="tp1"></a>
 
->&emsp;&emsp;The images and the species names of 424 eukaryotic genomes are listed in the **Species** panel of the **Browse** menu (**Figure 2**).
+>&emsp;&emsp;The images and the species names of 77 metazoa genomes are listed in the **Species** panel of the Metazoa submenu under the **Browse** menu (**Figure 2**).
+>&emsp;&emsp;The images and the species names of 139 plant genomes are listed in the **Species** panel of the Plant submenu under the **Browse** menu.
+>&emsp;&emsp;The images and the species names of 208 vertebrate genomes are listed in the **Species** of under the Vertebrate submenu under the **Browse** menu.
 
 <div align=center><img src="Fig2.png" width="100%" height="100%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 2. Species name and images of 424 eukaryotic genomes listed in the <b>Species</b> panel of the <b>Browse</b> menu.</font></div>  
+<div align=center><font color=blue size=5>Figure 2. Species name and images of 77 metazoa genomes listed in the <b>Species</b> panel of the Metazoa submenu under the <b>Browse</b> menu.</font></div>  
 
->&emsp;&emsp;Click of the image or the species name of any genome would take you to the **LIRs annotated by IRF** panel of the **Browse** menu, which displays all the LIRs identified in the selected genome (**Figure 3**). A brief summary of all the LIRs identified in the selected genome and a table of all the LIRs showing the structure of each LIR are demonstrated in the **LIRs annotated by IRF** panel. Three buttons would be displayed below the table if any row of the table was clicked (**Figure 3**).
+>&emsp;&emsp;Click of the image or the species name of any genome would take you to the **LIRs of Metazoa** panel of the Metazoa submenu under the **Browse** menu, which displays all the LIRs identified in the selected genome (**Figure 3**). A brief summary of all the LIRs identified in the selected genome and a table of all the LIRs showing the structure of each LIR are demonstrated in the **LIRs of Metazoa** panel. Three buttons would be displayed below the table if any row of the table was clicked (**Figure 3**).
 
 
 <div align=center><img src="Fig3.png" width="100%" height="100%" align=center /></div>

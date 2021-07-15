@@ -4,7 +4,19 @@ shinyServer(function(input, output, session) {
 
   # Home
   observeEvent(input$Browse_butt, {
-    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Browse</strong>"))
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:17px'>Metazoa</strong>"))
+  }, ignoreInit = TRUE)
+  
+  observeEvent(input$metazoa_butt, {
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:17px'>Metazoa</strong>"))
+  }, ignoreInit = TRUE)
+  
+  observeEvent(input$plant_butt, {
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:17px'>Plant</strong>"))
+  }, ignoreInit = TRUE)
+  
+  observeEvent(input$vertebrate_butt, {
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:17px'>Vertebrate</strong>"))
   }, ignoreInit = TRUE)
   
   observeEvent(input$SearchByReg_butt, {
@@ -39,10 +51,11 @@ shinyServer(function(input, output, session) {
     updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:18px'>Visualize</strong>"))
   }, ignoreInit = TRUE)
   
-  # Browse
-  HTML.tab <- read.table("icon.tab.txt", head=F, as.is=T, fill=NA, sep="\t")
-  colnames(HTML.tab) <- rep("", 8)
-  output$HTMLtable <- DT::renderDataTable(HTML.tab,
+  
+  # Browse Metazoa
+  HTML.tab_Metazoa <- read.table("icon.tab_Metazoa.txt", head=F, as.is=T, fill=NA, sep="\t")
+  colnames(HTML.tab_Metazoa) <- rep("", 8)
+  output$HTMLtable_Metazoa <- DT::renderDataTable(HTML.tab_Metazoa,
                                           options = list(pageLength = 10, scrollX = TRUE, lengthMenu = c(5, 10, 20, 30, 50, 55), 
                                                          searchHighlight = TRUE, autoWidth = FALSE, bSort=FALSE),
                                           escape = FALSE, selection=list(mode="single", target="cell"), 
@@ -50,27 +63,27 @@ shinyServer(function(input, output, session) {
   )
   
   observe({
-    if(length(input$HTMLtable_cells_selected) > 0) {
-      HTML.index <- input$HTMLtable_cells_selected
+    if(length(input$HTMLtable_Metazoa_cells_selected) > 0) {
+      HTML.index <- input$HTMLtable_Metazoa_cells_selected
       HTML.index[, 2] <- HTML.index[, 2] + 1
-      if(!is.na(HTML.tab[HTML.index])) {
-        updateTabsetPanel(session, 'browser_1', selected = HTML("<strong style='font-size:18px'>LIRs annotated by IRF</strong>"))
+      if(!is.na(HTML.tab_Metazoa[HTML.index]) && HTML.tab_Metazoa[HTML.index] != "") {
+        updateTabsetPanel(session, 'browser_Metazoa', selected = HTML("<strong style='font-size:18px'>LIRs of Metazoa</strong>"))
         
-        dat.file.path <<- gsub("\\sheight.+", "", HTML.tab[HTML.index])
-        dat.file.path <- gsub(".+src=", "", dat.file.path)
-        dat.file.path <- gsub("Icon", "Table", dat.file.path)
-        dat.file.path <- gsub("png", "dat.gz", dat.file.path)
-        dat.file.path <- paste0("www/", dat.file.path)
+        dat.file.path_Metazoa <<- gsub("\\sheight.+", "", HTML.tab_Metazoa[HTML.index])
+        dat.file.path_Metazoa <- gsub(".+src=", "", dat.file.path_Metazoa)
+        dat.file.path_Metazoa <- gsub("Icon", "Table", dat.file.path_Metazoa)
+        dat.file.path_Metazoa <- gsub("png", "dat.gz", dat.file.path_Metazoa)
+        dat.file.path_Metazoa <- paste0("www/", dat.file.path_Metazoa)
         
-        HTML.file.path <<- dat.file.path
-        dat.content <<- data.table::fread(dat.file.path, data.table = F)
+        HTML.file.path_Metazoa <<- dat.file.path_Metazoa
+        dat.content_Metazoa <<- data.table::fread(dat.file.path_Metazoa, data.table = F)
         
-        dat.spark.path <- gsub("Table", "Spark_data", dat.file.path)
-        dat.spark.path <- gsub("dat.gz", "RData", dat.spark.path)
-        load(dat.spark.path)
+        dat.spark.path_Metazoa <- gsub("Table", "Spark_data", dat.file.path_Metazoa)
+        dat.spark.path_Metazoa <- gsub("dat.gz", "RData", dat.spark.path_Metazoa)
+        load(dat.spark.path_Metazoa)
         dat.spark.target$AN <- NULL
 
-        output$LIR_info_num <- DT::renderDataTable(
+        output$LIR_info_num_Metazoa <- DT::renderDataTable(
           dat.spark.target,
           options = list(
             scrollX = TRUE, searching = FALSE, autoWidth = FALSE, bSort=FALSE,
@@ -82,17 +95,17 @@ shinyServer(function(input, output, session) {
           ), escape = FALSE, rownames= FALSE, selection="none"
         )
         
-        output$IRFbrowse_title <- renderText(
+        output$IRFbrowse_title_Metazoa <- renderText(
           HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>List of all the LIRs identified by IRF (Click on a row to check the details of the selected LIR):</b></font>')
           )
-        output$IRFbrowse <- DT::renderDT({
+        output$IRFbrowse_Metazoa <- DT::renderDT({
           DT::datatable(
-            dat.content, extensions = 'Buttons',
+            dat.content_Metazoa, extensions = 'Buttons',
             options = list(pageLength = 5, autoWidth = FALSE, lengthMenu = c(5, 10, 20, 30, 50, 100), 
                            searchHighlight = TRUE, scrollX = TRUE,
                            buttons = list('pageLength', 'copy', 
-                                       list(extend = 'csv',   filename =  paste("LIRs", gsub(".dat.gz$", "", basename(dat.file.path)), sep = "_")),
-                                       list(extend = 'excel', filename =  paste("LIRs", gsub(".dat.gz$", "", basename(dat.file.path)), sep = "_"))
+                                       list(extend = 'csv',   filename =  paste("LIRs", gsub(".dat.gz$", "", basename(dat.file.path_Metazoa)), sep = "_")),
+                                       list(extend = 'excel', filename =  paste("LIRs", gsub(".dat.gz$", "", basename(dat.file.path_Metazoa)), sep = "_"))
                                        ), 
                            dom = 'Bfrtip',
                            columnDefs=list(list(targets="_all")),
@@ -108,15 +121,15 @@ shinyServer(function(input, output, session) {
         NULL
       }
     } else {
-      output$LIR_info_num <- DT::renderDataTable(
+      output$LIR_info_num_Metazoa <- DT::renderDataTable(
         NULL
       )
       
-      output$IRFbrowse_title <- renderText(
+      output$IRFbrowse_title_Metazoa <- renderText(
         NULL
       )
       
-      output$IRFbrowse <- DT::renderDataTable(
+      output$IRFbrowse_Metazoa <- DT::renderDataTable(
         NULL
       )
       
@@ -124,33 +137,33 @@ shinyServer(function(input, output, session) {
   })
   
   observe({
-    if (length(input$IRFbrowse_rows_selected) > 0) {
-      IRF.index <- input$IRFbrowse_rows_selected
+    if (length(input$IRFbrowse_Metazoa_rows_selected) > 0) {
+      IRF.index <- input$IRFbrowse_Metazoa_rows_selected
       
-      if (!is.na(dat.content$ID[IRF.index])) {
-        HTML.file.path <- gsub("Table", "HTML", HTML.file.path)
-        HTML.file.path <- gsub("dat.gz", "IRFresult.RData", HTML.file.path)
-        load(HTML.file.path)
+      if (!is.na(dat.content_Metazoa$ID[IRF.index])) {
+        HTML.file.path_Metazoa <- gsub("Table", "HTML", HTML.file.path_Metazoa)
+        HTML.file.path_Metazoa <- gsub("dat.gz", "IRFresult.RData", HTML.file.path_Metazoa)
+        load(HTML.file.path_Metazoa)
         
-        LIR.gene.op.file.path <- gsub("IRFresult.RData", "LIR_gene_op.txt.gz", HTML.file.path)
-        LIR.gene.op.file.path <- gsub("HTML", "LIR_gene_op", LIR.gene.op.file.path)
+        LIR.gene.op.file.path_Metazoa <- gsub("IRFresult.RData", "LIR_gene_op.txt.gz", HTML.file.path_Metazoa)
+        LIR.gene.op.file.path_Metazoa <- gsub("HTML", "LIR_gene_op", LIR.gene.op.file.path_Metazoa)
         
         # Overlap between LIRs and genes
-        output$LIR_gene_op_title <- renderText(
+        output$LIR_gene_op_title_Metazoa <- renderText(
           HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Overlaps between the selected LIR and genes:</b></font>')
         )
-        output$LIR_gene_op <- DT::renderDT({
-          if (file.exists(LIR.gene.op.file.path)) {
-            LIR.gene.op <- data.table::fread(LIR.gene.op.file.path, data.table=F)
-            LIR.gene.op <- LIR.gene.op[LIR.gene.op$ID %in% dat.content$ID[IRF.index], ]
-            LIR.gene.op <- LIR.gene.op[, !colnames(LIR.gene.op) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
+        output$LIR_gene_op_Metazoa <- DT::renderDT({
+          if (file.exists(LIR.gene.op.file.path_Metazoa)) {
+            LIR.gene.op_Metazoa <- data.table::fread(LIR.gene.op.file.path_Metazoa, data.table=F)
+            LIR.gene.op_Metazoa <- LIR.gene.op_Metazoa[LIR.gene.op_Metazoa$ID %in% dat.content_Metazoa$ID[IRF.index], ]
+            LIR.gene.op_Metazoa <- LIR.gene.op_Metazoa[, !colnames(LIR.gene.op_Metazoa) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
           } else {
-            LIR.gene.op <- data.frame("V1"="No data available!")
-            colnames(LIR.gene.op) <- ""
+            LIR.gene.op_Metazoa <- data.frame("V1"="No data available!")
+            colnames(LIR.gene.op_Metazoa) <- ""
           }
           
           DT::datatable(
-            LIR.gene.op,
+            LIR.gene.op_Metazoa,
             options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, scrollX = TRUE,
                            buttons = list('copy', 
                                        list(extend = 'csv',   filename =  "LIR_gene_overlap_in_Browse_result"),
@@ -167,18 +180,233 @@ shinyServer(function(input, output, session) {
         }, server = FALSE)
         
         # sequence
-        fasta.file.path <- gsub("HTML", "Fasta", HTML.file.path)
-        fasta.file.path <- gsub("IRFresult.RData", "LIR.fa.gz", fasta.file.path)
-        fasta.content <- Biostrings::readBStringSet(fasta.file.path)
-        LIR.seq.select.fa <- fasta.content[dat.content$ID[IRF.index]]
+        fasta.file.path_Metazoa <- gsub("HTML", "Fasta", HTML.file.path_Metazoa)
+        fasta.file.path_Metazoa <- gsub("IRFresult.RData", "LIR.fa.gz", fasta.file.path_Metazoa)
+        fasta.content_Metazoa <- Biostrings::readBStringSet(fasta.file.path_Metazoa)
+        LIR.seq.select.fa <- fasta.content_Metazoa[dat.content_Metazoa$ID[IRF.index]]
         tmp.fl <- file.path(tempdir(), "LIR.seq.select.fasta")
         Biostrings::writeXStringSet(LIR.seq.select.fa, file = tmp.fl, width=20000)
         LIR.seq.select <- readLines(tmp.fl)
         
-        output$LIR_sequence_title <- renderText(
+        output$LIR_sequence_title_Metazoa <- renderText(
           HTML('<i class="fa fa-circle" aria-hidden="true"></i> <b>Sequence of the selected LIR (<font size="4" color="blue">left flanking sequence in lower case</font> - <font size="4" color="darkcyan">left arm sequence in upper case</font> - <font size="4" color="lightcoral">loop sequence in lower case</font> - <font size="4" color="darkcyan">right arm sequence in upper case</font> - <font size="4" color="blue">right flanking sequence in lower case</font>):</b>')
         )
-        output$LIR_sequence <- renderText({
+        output$LIR_sequence_Metazoa <- renderText({
+          fa <- LIR.seq.select.fa
+          fa.len <- Biostrings::width(fa)
+          names(fa.len) <- names(fa)
+          
+          fa.L <- stringr::str_locate_all(as.character(fa), "[ACGT]+")
+          fa.L.nrow <- sapply(fa.L, nrow)
+          fa.arm <- do.call(rbind, fa.L)
+          fa.arm <- data.frame(fa.arm, stringsAsFactors = FALSE)
+          fa.arm$LIR <- rep(names(fa), fa.L.nrow)
+          fa.arm$length <- fa.len[fa.arm$LIR]
+          fa.arm <- fa.arm[, c("LIR", "start", "end", "length")]
+          names(fa.arm) <- c("LIR", "arm_start", "arm_end", "length")
+          
+          fa.flank <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(flank_start = c(1, max(arm_end) + 1), flank_end = c(min(arm_start) - 1, max(length)))
+          
+          fa.loop <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(loop_start = min(arm_end)+1, loop_end = max(arm_start)-1)
+          fa.loop <- fa.loop[fa.loop$loop_start <= fa.loop$loop_end, ]
+          
+          fa.arm.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.arm))], fa.arm$arm_start, fa.arm$arm_end)
+          fa.flank.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.flank))], fa.flank$flank_start, fa.flank$flank_end)
+          if (nrow(fa.loop) >0) {
+            fa.loop.fa <- Biostrings::subseq(fa, fa.loop$loop_start, fa.loop$loop_end)
+            paste0(">", names(fa), "<br>",
+                   '<p style = "word-wrap: break-word;"><font color="blue"><b>', as.character(fa.flank.fa[1]), "</b></font>",
+                   '<font color="darkcyan"><b>', as.character(fa.arm.fa[1]), "</b></font>",
+                   '<font color="lightcoral"><b>', as.character(fa.loop.fa), "</b></font>",
+                   '<font color="darkcyan"><b>', as.character(fa.arm.fa[2]), "</b></font>",
+                   '<font color="blue"><b>', as.character(fa.flank.fa[2]), "</b></font></p>"
+            )
+          } else {
+            paste0(">", names(fa), "<br>",
+                   '<p style = "word-wrap: break-word;"><font color="blue"><b>', as.character(fa.flank.fa[1]), "</b></font>",
+                   '<font color="darkcyan"><b>', as.character(fa.arm.fa), "</b></font>",
+                   '<font color="blue"><b>', as.character(fa.flank.fa[2]), "</b></font></p>"
+            )
+          }
+        })
+        
+        # alignment of left against right arm
+        LIR.align.select <- LIR.align[[dat.content_Metazoa$ID[IRF.index]]]
+        output$LIR_detail_title_Metazoa <- renderText(
+          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary match):</b></font>')
+        )
+        output$LIR_detail_Metazoa <- renderText(
+          LIR.align.select, sep = "\n"
+        )
+      } else {
+        NULL
+      }
+    } else {
+      output$LIR_gene_op_title_Metazoa <- renderText(
+        NULL
+      )
+      output$LIR_gene_op_Metazoa <- DT::renderDataTable(
+        NULL
+      )
+      
+      output$LIR_sequence_title_Metazoa <- renderText(
+        NULL
+      )
+      output$LIR_sequence_Metazoa <- renderText(
+        NULL
+      )
+      
+      output$LIR_detail_title_Metazoa <- renderText(
+        NULL
+      )
+      output$LIR_detail_Metazoa <- renderText(
+        NULL
+      )
+      
+    }
+  })
+  
+  
+  # Browse Plant
+  HTML.tab_Plant <- read.table("icon.tab_Plant.txt", head=F, as.is=T, fill=NA, sep="\t")
+  colnames(HTML.tab_Plant) <- rep("", 8)
+  output$HTMLtable_Plant <- DT::renderDataTable(HTML.tab_Plant,
+                                                  options = list(pageLength = 10, scrollX = TRUE, lengthMenu = c(5, 10, 20, 30, 50, 55), 
+                                                                 searchHighlight = TRUE, autoWidth = FALSE, bSort=FALSE),
+                                                  escape = FALSE, selection=list(mode="single", target="cell"), 
+                                                  rownames= FALSE
+  )
+  
+  observe({
+    if(length(input$HTMLtable_Plant_cells_selected) > 0) {
+      HTML.index <- input$HTMLtable_Plant_cells_selected
+      HTML.index[, 2] <- HTML.index[, 2] + 1
+      if(!is.na(HTML.tab_Plant[HTML.index]) && HTML.tab_Plant[HTML.index] != "") {
+        updateTabsetPanel(session, 'browser_Plant', selected = HTML("<strong style='font-size:18px'>LIRs of Plant</strong>"))
+        
+        dat.file.path_Plant <<- gsub("\\sheight.+", "", HTML.tab_Plant[HTML.index])
+        dat.file.path_Plant <- gsub(".+src=", "", dat.file.path_Plant)
+        dat.file.path_Plant <- gsub("Icon", "Table", dat.file.path_Plant)
+        dat.file.path_Plant <- gsub("png", "dat.gz", dat.file.path_Plant)
+        dat.file.path_Plant <- paste0("www/", dat.file.path_Plant)
+        
+        HTML.file.path_Plant <<- dat.file.path_Plant
+        dat.content_Plant <<- data.table::fread(dat.file.path_Plant, data.table = F)
+        
+        dat.spark.path_Plant <- gsub("Table", "Spark_data", dat.file.path_Plant)
+        dat.spark.path_Plant <- gsub("dat.gz", "RData", dat.spark.path_Plant)
+        load(dat.spark.path_Plant)
+        dat.spark.target$AN <- NULL
+        
+        output$LIR_info_num_Plant <- DT::renderDataTable(
+          dat.spark.target,
+          options = list(
+            scrollX = TRUE, searching = FALSE, autoWidth = FALSE, bSort=FALSE,
+            drawCallback = htmlwidgets::JS('function(){debugger;HTMLWidgets.staticRender();}'),
+            initComplete = DT::JS(
+              "function(settings, json) {",
+              "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+              "}")
+          ), escape = FALSE, rownames= FALSE, selection="none"
+        )
+        
+        output$IRFbrowse_title_Plant <- renderText(
+          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>List of all the LIRs identified by IRF (Click on a row to check the details of the selected LIR):</b></font>')
+        )
+        output$IRFbrowse_Plant <- DT::renderDT({
+          DT::datatable(
+            dat.content_Plant, extensions = 'Buttons',
+            options = list(pageLength = 5, autoWidth = FALSE, lengthMenu = c(5, 10, 20, 30, 50, 100), 
+                           searchHighlight = TRUE, scrollX = TRUE,
+                           buttons = list('pageLength', 'copy', 
+                                          list(extend = 'csv',   filename =  paste("LIRs", gsub(".dat.gz$", "", basename(dat.file.path_Plant)), sep = "_")),
+                                          list(extend = 'excel', filename =  paste("LIRs", gsub(".dat.gz$", "", basename(dat.file.path_Plant)), sep = "_"))
+                           ), 
+                           dom = 'Bfrtip',
+                           columnDefs=list(list(targets="_all")),
+                           initComplete = DT::JS(
+                             "function(settings, json) {",
+                             "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                             "}")
+            ), rownames= FALSE, filter = 'top', selection="single"
+          )
+          
+        }, server = TRUE)
+      } else {
+        NULL
+      }
+    } else {
+      output$LIR_info_num_Plant <- DT::renderDataTable(
+        NULL
+      )
+      
+      output$IRFbrowse_title_Plant <- renderText(
+        NULL
+      )
+      
+      output$IRFbrowse_Plant <- DT::renderDataTable(
+        NULL
+      )
+      
+    }
+  })
+  
+  observe({
+    if (length(input$IRFbrowse_Plant_rows_selected) > 0) {
+      IRF.index <- input$IRFbrowse_Plant_rows_selected
+      
+      if (!is.na(dat.content_Plant$ID[IRF.index])) {
+        HTML.file.path_Plant <- gsub("Table", "HTML", HTML.file.path_Plant)
+        HTML.file.path_Plant <- gsub("dat.gz", "IRFresult.RData", HTML.file.path_Plant)
+        load(HTML.file.path_Plant)
+        
+        LIR.gene.op.file.path_Plant <- gsub("IRFresult.RData", "LIR_gene_op.txt.gz", HTML.file.path_Plant)
+        LIR.gene.op.file.path_Plant <- gsub("HTML", "LIR_gene_op", LIR.gene.op.file.path_Plant)
+        
+        # Overlap between LIRs and genes
+        output$LIR_gene_op_title_Plant <- renderText(
+          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Overlaps between the selected LIR and genes:</b></font>')
+        )
+        output$LIR_gene_op_Plant <- DT::renderDT({
+          if (file.exists(LIR.gene.op.file.path_Plant)) {
+            LIR.gene.op_Plant <- data.table::fread(LIR.gene.op.file.path_Plant, data.table=F)
+            LIR.gene.op_Plant <- LIR.gene.op_Plant[LIR.gene.op_Plant$ID %in% dat.content_Plant$ID[IRF.index], ]
+            LIR.gene.op_Plant <- LIR.gene.op_Plant[, !colnames(LIR.gene.op_Plant) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
+          } else {
+            LIR.gene.op_Plant <- data.frame("V1"="No data available!")
+            colnames(LIR.gene.op_Plant) <- ""
+          }
+          
+          DT::datatable(
+            LIR.gene.op_Plant,
+            options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, scrollX = TRUE,
+                           buttons = list('copy', 
+                                          list(extend = 'csv',   filename =  "LIR_gene_overlap_in_Browse_result"),
+                                          list(extend = 'excel', filename =  "LIR_gene_overlap_in_Browse_result")
+                           ),
+                           dom = 'Bfrtip',
+                           columnDefs=list(list(targets="_all")),
+                           initComplete = DT::JS(
+                             "function(settings, json) {",
+                             "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                             "}")
+            ), escape = FALSE, rownames= FALSE, selection="none", extensions = "Buttons"
+          )
+        }, server = FALSE)
+        
+        # sequence
+        fasta.file.path_Plant <- gsub("HTML", "Fasta", HTML.file.path_Plant)
+        fasta.file.path_Plant <- gsub("IRFresult.RData", "LIR.fa.gz", fasta.file.path_Plant)
+        fasta.content_Plant <- Biostrings::readBStringSet(fasta.file.path_Plant)
+        LIR.seq.select.fa <- fasta.content_Plant[dat.content_Plant$ID[IRF.index]]
+        tmp.fl <- file.path(tempdir(), "LIR.seq.select.fasta")
+        Biostrings::writeXStringSet(LIR.seq.select.fa, file = tmp.fl, width=20000)
+        LIR.seq.select <- readLines(tmp.fl)
+        
+        output$LIR_sequence_title_Plant <- renderText(
+          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <b>Sequence of the selected LIR (<font size="4" color="blue">left flanking sequence in lower case</font> - <font size="4" color="darkcyan">left arm sequence in upper case</font> - <font size="4" color="lightcoral">loop sequence in lower case</font> - <font size="4" color="darkcyan">right arm sequence in upper case</font> - <font size="4" color="blue">right flanking sequence in lower case</font>):</b>')
+        )
+        output$LIR_sequence_Plant <- renderText({
           fa <- LIR.seq.select.fa
           fa.len <- Biostrings::width(fa)
           names(fa.len) <- names(fa)
@@ -199,47 +427,269 @@ shinyServer(function(input, output, session) {
           
           fa.arm.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.arm))], fa.arm$arm_start, fa.arm$arm_end)
           fa.flank.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.flank))], fa.flank$flank_start, fa.flank$flank_end)
-          fa.loop.fa <- Biostrings::subseq(fa, fa.loop$loop_start, fa.loop$loop_end)
-          
-          paste0(">", names(fa), "<br>",
-		        '<p style = "word-wrap: break-word;"><font color="blue"><b>', as.character(fa.flank.fa[1]), "</b></font>",
-                '<font color="darkcyan"><b>', as.character(fa.arm.fa[1]), "</b></font>",
-                '<font color="lightcoral"><b>', as.character(fa.loop.fa), "</b></font>",
-                '<font color="darkcyan"><b>', as.character(fa.arm.fa[2]), "</b></font>",
-                '<font color="blue"><b>', as.character(fa.flank.fa[2]), "</b></font></p>"
-          )
+          if (nrow(fa.loop) >0) {
+            fa.loop.fa <- Biostrings::subseq(fa, fa.loop$loop_start, fa.loop$loop_end)
+            paste0(">", names(fa), "<br>",
+                   '<p style = "word-wrap: break-word;"><font color="blue"><b>', as.character(fa.flank.fa[1]), "</b></font>",
+                   '<font color="darkcyan"><b>', as.character(fa.arm.fa[1]), "</b></font>",
+                   '<font color="lightcoral"><b>', as.character(fa.loop.fa), "</b></font>",
+                   '<font color="darkcyan"><b>', as.character(fa.arm.fa[2]), "</b></font>",
+                   '<font color="blue"><b>', as.character(fa.flank.fa[2]), "</b></font></p>"
+            )
+          } else {
+            paste0(">", names(fa), "<br>",
+                   '<p style = "word-wrap: break-word;"><font color="blue"><b>', as.character(fa.flank.fa[1]), "</b></font>",
+                   '<font color="darkcyan"><b>', as.character(fa.arm.fa), "</b></font>",
+                   '<font color="blue"><b>', as.character(fa.flank.fa[2]), "</b></font></p>"
+            )
+          }
         })
         
         # alignment of left against right arm
-        LIR.align.select <- LIR.align[[dat.content$ID[IRF.index]]]
-        output$LIR_detail_title <- renderText(
+        LIR.align.select <- LIR.align[[dat.content_Plant$ID[IRF.index]]]
+        output$LIR_detail_title_Plant <- renderText(
           HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary match):</b></font>')
         )
-        output$LIR_detail <- renderText(
+        output$LIR_detail_Plant <- renderText(
           LIR.align.select, sep = "\n"
         )
       } else {
         NULL
       }
     } else {
-      output$LIR_gene_op_title <- renderText(
+      output$LIR_gene_op_title_Plant <- renderText(
         NULL
       )
-      output$LIR_gene_op <- DT::renderDataTable(
-        NULL
-      )
-      
-      output$LIR_sequence_title <- renderText(
-        NULL
-      )
-      output$LIR_sequence <- renderText(
+      output$LIR_gene_op_Plant <- DT::renderDataTable(
         NULL
       )
       
-      output$LIR_detail_title <- renderText(
+      output$LIR_sequence_title_Plant <- renderText(
         NULL
       )
-      output$LIR_detail <- renderText(
+      output$LIR_sequence_Plant <- renderText(
+        NULL
+      )
+      
+      output$LIR_detail_title_Plant <- renderText(
+        NULL
+      )
+      output$LIR_detail_Plant <- renderText(
+        NULL
+      )
+      
+    }
+  })
+  
+  
+  # Browse Vertebrate
+  HTML.tab_Vertebrate <- read.table("icon.tab_Vertebrate.txt", head=F, as.is=T, fill=NA, sep="\t")
+  colnames(HTML.tab_Vertebrate) <- rep("", 8)
+  output$HTMLtable_Vertebrate <- DT::renderDataTable(HTML.tab_Vertebrate,
+                                                options = list(pageLength = 10, scrollX = TRUE, lengthMenu = c(5, 10, 20, 30, 50, 55), 
+                                                               searchHighlight = TRUE, autoWidth = FALSE, bSort=FALSE),
+                                                escape = FALSE, selection=list(mode="single", target="cell"), 
+                                                rownames= FALSE
+  )
+  
+  observe({
+    if(length(input$HTMLtable_Vertebrate_cells_selected) > 0) {
+      HTML.index <- input$HTMLtable_Vertebrate_cells_selected
+      HTML.index[, 2] <- HTML.index[, 2] + 1
+      if(!is.na(HTML.tab_Vertebrate[HTML.index]) && HTML.tab_Vertebrate[HTML.index] != "") {
+        updateTabsetPanel(session, 'browser_Vertebrate', selected = HTML("<strong style='font-size:18px'>LIRs of Vertebrate</strong>"))
+        
+        dat.file.path_Vertebrate <<- gsub("\\sheight.+", "", HTML.tab_Vertebrate[HTML.index])
+        dat.file.path_Vertebrate <- gsub(".+src=", "", dat.file.path_Vertebrate)
+        dat.file.path_Vertebrate <- gsub("Icon", "Table", dat.file.path_Vertebrate)
+        dat.file.path_Vertebrate <- gsub("png", "dat.gz", dat.file.path_Vertebrate)
+        dat.file.path_Vertebrate <- paste0("www/", dat.file.path_Vertebrate)
+        
+        HTML.file.path_Vertebrate <<- dat.file.path_Vertebrate
+        dat.content_Vertebrate <<- data.table::fread(dat.file.path_Vertebrate, data.table = F)
+        
+        dat.spark.path_Vertebrate <- gsub("Table", "Spark_data", dat.file.path_Vertebrate)
+        dat.spark.path_Vertebrate <- gsub("dat.gz", "RData", dat.spark.path_Vertebrate)
+        load(dat.spark.path_Vertebrate)
+        dat.spark.target$AN <- NULL
+        
+        output$LIR_info_num_Vertebrate <- DT::renderDataTable(
+          dat.spark.target,
+          options = list(
+            scrollX = TRUE, searching = FALSE, autoWidth = FALSE, bSort=FALSE,
+            drawCallback = htmlwidgets::JS('function(){debugger;HTMLWidgets.staticRender();}'),
+            initComplete = DT::JS(
+              "function(settings, json) {",
+              "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+              "}")
+          ), escape = FALSE, rownames= FALSE, selection="none"
+        )
+        
+        output$IRFbrowse_title_Vertebrate <- renderText(
+          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>List of all the LIRs identified by IRF (Click on a row to check the details of the selected LIR):</b></font>')
+        )
+        output$IRFbrowse_Vertebrate <- DT::renderDT({
+          DT::datatable(
+            dat.content_Vertebrate, extensions = 'Buttons',
+            options = list(pageLength = 5, autoWidth = FALSE, lengthMenu = c(5, 10, 20, 30, 50, 100), 
+                           searchHighlight = TRUE, scrollX = TRUE,
+                           buttons = list('pageLength', 'copy', 
+                                          list(extend = 'csv',   filename =  paste("LIRs", gsub(".dat.gz$", "", basename(dat.file.path_Vertebrate)), sep = "_")),
+                                          list(extend = 'excel', filename =  paste("LIRs", gsub(".dat.gz$", "", basename(dat.file.path_Vertebrate)), sep = "_"))
+                           ), 
+                           dom = 'Bfrtip',
+                           columnDefs=list(list(targets="_all")),
+                           initComplete = DT::JS(
+                             "function(settings, json) {",
+                             "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                             "}")
+            ), rownames= FALSE, filter = 'top', selection="single"
+          )
+          
+        }, server = TRUE)
+      } else {
+        NULL
+      }
+    } else {
+      output$LIR_info_num_Vertebrate <- DT::renderDataTable(
+        NULL
+      )
+      
+      output$IRFbrowse_title_Vertebrate <- renderText(
+        NULL
+      )
+      
+      output$IRFbrowse_Vertebrate <- DT::renderDataTable(
+        NULL
+      )
+      
+    }
+  })
+  
+  observe({
+    if (length(input$IRFbrowse_Vertebrate_rows_selected) > 0) {
+      IRF.index <- input$IRFbrowse_Vertebrate_rows_selected
+      
+      if (!is.na(dat.content_Vertebrate$ID[IRF.index])) {
+        HTML.file.path_Vertebrate <- gsub("Table", "HTML", HTML.file.path_Vertebrate)
+        HTML.file.path_Vertebrate <- gsub("dat.gz", "IRFresult.RData", HTML.file.path_Vertebrate)
+        load(HTML.file.path_Vertebrate)
+        
+        LIR.gene.op.file.path_Vertebrate <- gsub("IRFresult.RData", "LIR_gene_op.txt.gz", HTML.file.path_Vertebrate)
+        LIR.gene.op.file.path_Vertebrate <- gsub("HTML", "LIR_gene_op", LIR.gene.op.file.path_Vertebrate)
+        
+        # Overlap between LIRs and genes
+        output$LIR_gene_op_title_Vertebrate <- renderText(
+          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Overlaps between the selected LIR and genes:</b></font>')
+        )
+        output$LIR_gene_op_Vertebrate <- DT::renderDT({
+          if (file.exists(LIR.gene.op.file.path_Vertebrate)) {
+            LIR.gene.op_Vertebrate <- data.table::fread(LIR.gene.op.file.path_Vertebrate, data.table=F)
+            LIR.gene.op_Vertebrate <- LIR.gene.op_Vertebrate[LIR.gene.op_Vertebrate$ID %in% dat.content_Vertebrate$ID[IRF.index], ]
+            LIR.gene.op_Vertebrate <- LIR.gene.op_Vertebrate[, !colnames(LIR.gene.op_Vertebrate) %in% c("Match_per", "Indel_per", "Score", "gene.chr")]
+          } else {
+            LIR.gene.op_Vertebrate <- data.frame("V1"="No data available!")
+            colnames(LIR.gene.op_Vertebrate) <- ""
+          }
+          
+          DT::datatable(
+            LIR.gene.op_Vertebrate,
+            options = list(paging = FALSE, searching = FALSE, autoWidth = FALSE, bSort=FALSE, scrollX = TRUE,
+                           buttons = list('copy', 
+                                          list(extend = 'csv',   filename =  "LIR_gene_overlap_in_Browse_result"),
+                                          list(extend = 'excel', filename =  "LIR_gene_overlap_in_Browse_result")
+                           ),
+                           dom = 'Bfrtip',
+                           columnDefs=list(list(targets="_all")),
+                           initComplete = DT::JS(
+                             "function(settings, json) {",
+                             "$(this.api().table().header()).css({'background-color': '#000', 'color': '#fff'});",
+                             "}")
+            ), escape = FALSE, rownames= FALSE, selection="none", extensions = "Buttons"
+          )
+        }, server = FALSE)
+        
+        # sequence
+        fasta.file.path_Vertebrate <- gsub("HTML", "Fasta", HTML.file.path_Vertebrate)
+        fasta.file.path_Vertebrate <- gsub("IRFresult.RData", "LIR.fa.gz", fasta.file.path_Vertebrate)
+        fasta.content_Vertebrate <- Biostrings::readBStringSet(fasta.file.path_Vertebrate)
+        LIR.seq.select.fa <- fasta.content_Vertebrate[dat.content_Vertebrate$ID[IRF.index]]
+        tmp.fl <- file.path(tempdir(), "LIR.seq.select.fasta")
+        Biostrings::writeXStringSet(LIR.seq.select.fa, file = tmp.fl, width=20000)
+        LIR.seq.select <- readLines(tmp.fl)
+        
+        output$LIR_sequence_title_Vertebrate <- renderText(
+          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <b>Sequence of the selected LIR (<font size="4" color="blue">left flanking sequence in lower case</font> - <font size="4" color="darkcyan">left arm sequence in upper case</font> - <font size="4" color="lightcoral">loop sequence in lower case</font> - <font size="4" color="darkcyan">right arm sequence in upper case</font> - <font size="4" color="blue">right flanking sequence in lower case</font>):</b>')
+        )
+        output$LIR_sequence_Vertebrate <- renderText({
+          fa <- LIR.seq.select.fa
+          fa.len <- Biostrings::width(fa)
+          names(fa.len) <- names(fa)
+          
+          fa.L <- stringr::str_locate_all(as.character(fa), "[ACGT]+")
+          fa.L.nrow <- sapply(fa.L, nrow)
+          fa.arm <- do.call(rbind, fa.L)
+          fa.arm <- data.frame(fa.arm, stringsAsFactors = FALSE)
+          fa.arm$LIR <- rep(names(fa), fa.L.nrow)
+          fa.arm$length <- fa.len[fa.arm$LIR]
+          fa.arm <- fa.arm[, c("LIR", "start", "end", "length")]
+          names(fa.arm) <- c("LIR", "arm_start", "arm_end", "length")
+          
+          fa.flank <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(flank_start = c(1, max(arm_end) + 1), flank_end = c(min(arm_start) - 1, max(length)))
+          
+          fa.loop <- fa.arm %>% dplyr::group_by(LIR) %>% dplyr::summarise(loop_start = min(arm_end)+1, loop_end = max(arm_start)-1)
+          fa.loop <- fa.loop[fa.loop$loop_start < fa.loop$loop_end, ]
+          
+          fa.arm.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.arm))], fa.arm$arm_start, fa.arm$arm_end)
+          fa.flank.fa <- Biostrings::subseq(fa[rep(1, nrow(fa.flank))], fa.flank$flank_start, fa.flank$flank_end)
+          if (nrow(fa.loop) >0) {
+            fa.loop.fa <- Biostrings::subseq(fa, fa.loop$loop_start, fa.loop$loop_end)
+            paste0(">", names(fa), "<br>",
+                   '<p style = "word-wrap: break-word;"><font color="blue"><b>', as.character(fa.flank.fa[1]), "</b></font>",
+                   '<font color="darkcyan"><b>', as.character(fa.arm.fa[1]), "</b></font>",
+                   '<font color="lightcoral"><b>', as.character(fa.loop.fa), "</b></font>",
+                   '<font color="darkcyan"><b>', as.character(fa.arm.fa[2]), "</b></font>",
+                   '<font color="blue"><b>', as.character(fa.flank.fa[2]), "</b></font></p>"
+            )
+          } else {
+            paste0(">", names(fa), "<br>",
+                   '<p style = "word-wrap: break-word;"><font color="blue"><b>', as.character(fa.flank.fa[1]), "</b></font>",
+                   '<font color="darkcyan"><b>', as.character(fa.arm.fa), "</b></font>",
+                   '<font color="blue"><b>', as.character(fa.flank.fa[2]), "</b></font></p>"
+            )
+          }
+        })
+        
+        # alignment of left against right arm
+        LIR.align.select <- LIR.align[[dat.content_Vertebrate$ID[IRF.index]]]
+        output$LIR_detail_title_Vertebrate <- renderText(
+          HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Alignment of the left and right arms of the selected LIR (* indicates complementary match):</b></font>')
+        )
+        output$LIR_detail_Vertebrate <- renderText(
+          LIR.align.select, sep = "\n"
+        )
+      } else {
+        NULL
+      }
+    } else {
+      output$LIR_gene_op_title_Vertebrate <- renderText(
+        NULL
+      )
+      output$LIR_gene_op_Vertebrate <- DT::renderDataTable(
+        NULL
+      )
+      
+      output$LIR_sequence_title_Vertebrate <- renderText(
+        NULL
+      )
+      output$LIR_sequence_Vertebrate <- renderText(
+        NULL
+      )
+      
+      output$LIR_detail_title_Vertebrate <- renderText(
+        NULL
+      )
+      output$LIR_detail_Vertebrate <- renderText(
         NULL
       )
       
