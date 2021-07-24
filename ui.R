@@ -1753,6 +1753,25 @@ shinyUI(
         )
       ),
       
+      # Download
+      tabPanel(
+        HTML("<strong style='font-size:17px'>Download</strong>"),
+        
+        tabsetPanel(id = "download_1",
+                    tabPanel(h4("Information of 424 genomes"),
+                             DT::dataTableOutput("genomeTable")
+                    ),
+                    tabPanel(h4("Annotated LIRs of 424 genomes"),
+                             DT::dataTableOutput("downloadTable")
+                    ),
+                    tabPanel(h4("BLASTN database"),
+                             DT::dataTableOutput("BLASTdbdownloadTable")
+                    ),
+                    tabPanel(h4("Bowtie database"),
+                             DT::dataTableOutput("BowtiedbdownloadTable")
+                    )
+        )
+      ),
       
       ## Help
       navbarMenu(HTML("<strong style='font-size:18px'>Help</strong>"), icon = icon("book", class = NULL, lib = "font-awesome"),
@@ -1773,26 +1792,6 @@ shinyUI(
                                     column(10, includeMarkdown("Tutorial.md")),
                                     column(2)
                           )
-                 ),
-                 
-                 # Data
-                 tabPanel(
-                   HTML("<strong style='font-size:17px'>Data</strong>"),
-                   
-                   tabsetPanel(id = "download_1",
-                               tabPanel(h4("Information of 424 genomes"),
-                                        DT::dataTableOutput("genomeTable")
-                               ),
-                               tabPanel(h4("Annotated LIRs of 424 genomes"),
-                                        DT::dataTableOutput("downloadTable")
-                               ),
-                               tabPanel(h4("BLASTN database"),
-                                        DT::dataTableOutput("BLASTdbdownloadTable")
-                               ),
-                               tabPanel(h4("Bowtie database"),
-                                        DT::dataTableOutput("BowtiedbdownloadTable")
-                               )
-                   )
                  ),
                  
                  tabPanel(HTML("<strong style='font-size:17px'>Installation</strong>"),

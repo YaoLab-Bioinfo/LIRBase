@@ -143,10 +143,10 @@
 
 ## **10. Information of 424 genomes collected in LIRBase** <a name="tp10"></a>
 
->&emsp;&emsp;The information of 424 genomes collected in **LIRBase** is displayed in the **Data** submenu under the **Help** menu of **LIRBase** (**Figure 19**).
+>&emsp;&emsp;The information of 424 genomes collected in **LIRBase** is displayed in the **Download** menu of **LIRBase** (**Figure 19**).
 
 <div align=center><img src="Fig19.png" width="100%" height="100%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 19. The <b>Data</b> submenu under the <b>Help</b> menu of LIRBase.</font></div>  
+<div align=center><font color=blue size=5>Figure 19. The <b>Download</b> menu of LIRBase.</font></div>  
 
 ## **11. Download LIRs identified in 424 eukaryotic genomes, and the corresponding BLAST/Bowtie index database** <a name="tp11"></a>
 
@@ -155,10 +155,10 @@
 <div align=center><img src="Fig20.png" width="100%" height="100%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 20. The <b>Installation</b> submenu under the <b>Help</b> menu of LIRBase.</font></div>  
 
->The source code of **LIRBase** is deposited in **GitHub** ([https://github.com/venyao/LIRBase](https://github.com/venyao/LIRBase)). As the file size of identified LIRs and the corresponding BLAST/Bowtie databases of the 424 eukaryotic genomes are too large, these datasets were not deposited in **GitHub**. Instead, these data can be downloaded from [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/) through the **Data** submenu under the **Help** menu (**Figure 21**).
+>The source code of **LIRBase** is deposited in **GitHub** ([https://github.com/venyao/LIRBase](https://github.com/venyao/LIRBase)). As the file size of identified LIRs and the corresponding BLAST/Bowtie databases of the 424 eukaryotic genomes are too large, these datasets were not deposited in **GitHub**. Instead, these data can be downloaded from [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/) through the **Download** menu (**Figure 21**).
 
 <div align=center><img src="Fig21.png" width="100%" height="100%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 21. The <b>Data</b> submenu under the <b>Help</b> menu of LIRBase.</font></div>  
+<div align=center><font color=blue size=5>Figure 21. The <b>Download</b> menu of LIRBase.</font></div>  
 
 ## **12. About LIR and LIRBase** <a name="tp12"></a>
 
