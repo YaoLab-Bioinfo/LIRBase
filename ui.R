@@ -59,7 +59,7 @@ Target_Info_Title <- paste("Identify protein-coding genes targeted by the small 
                           sep = "<br>")
 
 Bowtiedb.fl <- read.table("Bowtiedb.txt", head=T, as.is=T)
-Bowtiedb.cDNA.fl <- read.table("Bowtiedb_cDNA.txt", head=T, as.is=T)
+Bowtiedb.cDNA.fl <- read.table("Bowtiedb_cDNA.txt", head=T, as.is=T, sep="\t")
 
 source("box_format.R")
 
@@ -1187,6 +1187,12 @@ shinyUI(
                                                ), value = 50, min = 1, step = 1, max = 100),
                                                bsPopover("qMAH", "Maximum number of alignments per read to report.",
                                                          trigger = "focus"),
+                                               br(),
+                                               sliderInput("MaxAlignMismatch", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Max number of mismatches allowed</font>'),
+                                                                                           bsButton("qMAM", label="", icon=icon("question"), style="info", size="small")
+                                               ), value = 0, min = 0, step = 1, max = 2),
+                                               bsPopover("qMAM", "Maximum number of mismatches allowed for each alignment.",
+                                                         trigger = "focus"),
                                                
                                                br(),
                                                
@@ -1619,7 +1625,7 @@ shinyUI(
                             
                             shinyWidgets::pickerInput(
                               inputId = "Targetdb",
-                              label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose a cDNA database</font>'),
+                              label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose a cDNA or CDS database</font>'),
                                                bsButton("qTargetdb", label="", icon=icon("question"), style="info", size="small")),
                               selected = NULL, width = '100%',
                               choices = list(
@@ -1631,7 +1637,7 @@ shinyUI(
                                 `live-search` = TRUE
                               )
                             ),
-                            bsPopover("qTargetdb", "Choose a single cDNA database to align the small RNA sequences.",
+                            bsPopover("qTargetdb", "Choose a single cDNA or CDS database to align the small RNA sequences.",
                                       trigger = "focus"),
                             
                             sliderInput("MaxTargetHit", label = tags$div(HTML('<i class="fa fa-play"></i> <font size="3" color="red">Max number of complementary alignment hits for each sRNA</font>'),

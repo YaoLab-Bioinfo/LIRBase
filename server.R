@@ -1967,7 +1967,7 @@ shinyServer(function(input, output, session) {
 	    bowtie.db <- paste0("www/LIRBase_bowtiedb/", input$Aligndb)
 	    srna.bowtie <- paste0(srna.fa.name, ".bowtie")
 	    
-	    bowtie.cmd <- paste0("bowtie -x ", bowtie.db, " -f ", srna.fa.name, " -v 0 -p 5 -k ", input$MaxAlignHit, " > ", srna.bowtie)
+	    bowtie.cmd <- paste0("bowtie -x ", bowtie.db, " -f ", srna.fa.name, " -v ", input$MaxAlignMismatch, " -p 5 -k ", input$MaxAlignHit, " > ", srna.bowtie)
 	    system(bowtie.cmd, wait = TRUE, timeout = 0)
 	    
 	    if (file.exists(srna.bowtie) && file.size(srna.bowtie) >0) {
@@ -2914,7 +2914,7 @@ shinyServer(function(input, output, session) {
 	          Biostrings::writeXStringSet(target.Seq.fa, file = srna.tin.name.file)
 	        }
 
-	        bowtie.cDNA.db <- paste0("www/LIRBase_cDNA_bowtiedb/", input$Targetdb)
+	        bowtie.cDNA.db <- paste0("www/LIRBase_cDNA_bowtiedb/", gsub("\\s\\(.+", "", input$Targetdb))
 	        srna.cDNA.bowtie <- paste0(srna.tin.name.file, ".bowtie")
 
 	        bowtie.cDNA.cmd <- paste0("bowtie -x ", bowtie.cDNA.db, " -f ", srna.tin.name.file, " -v ", input$MaxTargetMismatch, " -p 5 -k ", input$MaxTargetHit, " > ", srna.cDNA.bowtie)
@@ -2932,7 +2932,7 @@ shinyServer(function(input, output, session) {
 	                                                                                   sRNA_22_num = length(size[size==22]), sRNA_24_num = length(size[size==24])
 	                                                                                   ) %>% dplyr::arrange(dplyr::desc(sRNA_num))
 	          
-	          cDNA.info <- data.table::fread(paste0("www/LIRBase_cDNA_bowtiedb/", input$Targetdb, ".cDNA.info.gz"), data.table = F)
+	          cDNA.info <- data.table::fread(paste0("www/LIRBase_cDNA_bowtiedb/", gsub("\\s\\(.+", "", input$Targetdb), ".cDNA.info.gz"), data.table = F)
 	          bowtie.cDNA.out.summ <- merge(bowtie.cDNA.out.summ, cDNA.info, by.x="mRNA", by.y="gene")
 	          bowtie.cDNA.out.summ <- bowtie.cDNA.out.summ[order(-bowtie.cDNA.out.summ$sRNA_num), ]
 	          names(bowtie.cDNA.out.summ)[6] <- "mRNA_annotation"
@@ -3012,7 +3012,7 @@ shinyServer(function(input, output, session) {
 	  if (input$TargetExam >0) {
 	    isolate({
 	      updateTextAreaInput(session, "TargetPaste", value = paste(readLines("exam_sRNA_4_target.txt"), collapse = "\n"))
-	      shinyWidgets::updatePickerInput(session, "Targetdb", selected = "Oryza_sativa.MH63")
+	      shinyWidgets::updatePickerInput(session, "Targetdb", selected = "Oryza_sativa.MH63 (CDS + UTR)")
 	    })
 	  } else {NULL}
 	})

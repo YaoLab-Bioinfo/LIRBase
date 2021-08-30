@@ -1,193 +1,193 @@
 Accession	Division
-Aedes_aegypti	Metazoa
-Anopheles_gambiae	Metazoa
-Apis_mellifera	Metazoa
-Belgica_antarctica	Metazoa
-Bombus_terrestris	Metazoa
-Brugia_malayi	Metazoa
-Caenorhabditis_brenneri	Metazoa
-Caenorhabditis_briggsae	Metazoa
-Caenorhabditis_elegans	Metazoa
-Culex_quinquefasciatus	Metazoa
-Danaus_plexippus	Metazoa
-Daphnia_magna	Metazoa
-Dendroctonus_ponderosae	Metazoa
-Dinothrombium_tinctorium	Metazoa
-Drosophila_ananassae	Metazoa
-Drosophila_melanogaster	Metazoa
-Drosophila_mojavensis	Metazoa
-Drosophila_pseudoobscura	Metazoa
-Drosophila_sechellia	Metazoa
-Drosophila_simulans	Metazoa
-Drosophila_willistoni	Metazoa
-Drosophila_yakuba	Metazoa
-Folsomia_candida	Metazoa
-Heliconius_melpomene	Metazoa
-Ixodes_scapularis	Metazoa
-Lepeophtheirus_salmonis	Metazoa
-Lingula_anatina	Metazoa
-Loa_loa	Metazoa
-Lottia_gigantea	Metazoa
-Mayetiola_destructor	Metazoa
-Megaselia_scalaris	Metazoa
-Nasonia_vitripennis	Metazoa
-Nematostella_vectensis	Metazoa
-Onchocerca_volvulus	Metazoa
-Orchesella_cincta	Metazoa
-Pediculus_humanus	Metazoa
-Pristionchus_pacificus	Metazoa
-Schistosoma_mansoni	Metazoa
-Solenopsis_invicta	Metazoa
-Stegodyphus_mimosarum	Metazoa
-Strigamia_maritima	Metazoa
-Strongyloides_ratti	Metazoa
-Teleopsis_dalmanni	Metazoa
-Tetranychus_urticae	Metazoa
-Tribolium_castaneum	Metazoa
-Trichinella_spiralis	Metazoa
-Trichoplax_adhaerens	Metazoa
-Zootermopsis_nevadensis	Metazoa
-Aegilops_tauschii	Plant
-Amborella_trichopoda	Plant
-Ananas_bracteatus	Plant
-Arabidopsis_halleri	Plant
-Arabidopsis_lyrata	Plant
-Arabidopsis_thaliana	Plant
-Asparagus_officinalis	Plant
-Beta_vulgaris	Plant
-Brachypodium_distachyon	Plant
-Brassica_napus	Plant
-Brassica_oleracea	Plant
-Brassica_rapa	Plant
-Cajanus_cajan	Plant
-Camelina_sativa	Plant
-Chlamydomonas_reinhardtii	Plant
-Cucumis_sativus.ChineseLong	Plant
-Cucurbita_maxima	Plant
-Cucurbita_moschata	Plant
-Cucurbita_pepo	Plant
-Cyanidioschyzon_merolae	Plant
-Daucus_carota	Plant
-Dioscorea_rotundata	Plant
-Eucalyptus_grandis	Plant
-Fragaria_orientalis	Plant
-Fragaria_vesca	Plant
-Glycine_max.Williams_82	Plant
-Glycine_max.Zhonghuang_13	Plant
-Helianthus_annuus	Plant
-Leersia_perrieri	Plant
-Lupinus_angustifolius	Plant
-Malus_x_domestica.HFTH1	Plant
-Manihot_esculenta	Plant
-Musa_acuminata.Pahang	Plant
-Musa_balbisiana	Plant
-Nicotiana_attenuata	Plant
-Olea_europaea	Plant
-Oryza_barthii	Plant
-Oryza_brachyantha	Plant
-Oryza_glaberrima	Plant
-Oryza_glumaepatula	Plant
-Oryza_meridionalis	Plant
-Oryza_nivara	Plant
-Oryza_punctata	Plant
-Oryza_rufipogon	Plant
-Oryza_sativa.MH63	Plant
-Oryza_sativa.Nipponbare	Plant
-Oryza_sativa.R498	Plant
-Oryza_sativa.ZS97	Plant
-Ostreococcus_lucimarinus	Plant
-Panicum_hallii.FIL2	Plant
-Phaseolus_vulgaris.PhaVulg1_0	Plant
-Physcomitrella_patens	Plant
-Pisum_sativum	Plant
-Populus_trichocarpa	Plant
-Prunus_avium	Plant
-Prunus_dulcis.Texas	Plant
-Prunus_persica	Plant
-Pyrus_communis	Plant
-Rosa_chinensis	Plant
-Setaria_italica	Plant
-Solanum_lycopersicum	Plant
-Sorghum_bicolor	Plant
-Theobroma_cacao	Plant
-Trifolium_pratense	Plant
-Vigna_angularis.Vigan1	Plant
-Vigna_radiata	Plant
-Zea_mays.B73	Plant
-Zea_mays.W22	Plant
-Ailuropoda_melanoleuca	Vertebrate
-Amphiprion_percula	Vertebrate
-Anas_platyrhynchos_platyrhynchos	Vertebrate
-Anolis_carolinensis	Vertebrate
-Apteryx_haastii	Vertebrate
-Astatotilapia_calliptera	Vertebrate
-Astyanax_mexicanus	Vertebrate
-Betta_splendens	Vertebrate
-Bison_bison_bison	Vertebrate
-Bos_indicus_hybrid	Vertebrate
-Bos_mutus	Vertebrate
-Bos_taurus	Vertebrate
-Calidris_pugnax	Vertebrate
-Callorhinchus_milii	Vertebrate
-Canis_familiaris	Vertebrate
-Capra_hircus	Vertebrate
-Chelonoidis_abingdonii	Vertebrate
-Chlorocebus_sabaeus	Vertebrate
-Chrysemys_picta_bellii	Vertebrate
-Ciona_intestinalis	Vertebrate
-Cottoperca_gobio	Vertebrate
-Coturnix_japonica	Vertebrate
-Cricetulus_griseus_picr	Vertebrate
-Cynoglossus_semilaevis	Vertebrate
-Denticeps_clupeoides	Vertebrate
-Equus_caballus	Vertebrate
-Erpetoichthys_calabaricus	Vertebrate
-Esox_lucius	Vertebrate
-Felis_catus	Vertebrate
-Gallus_gallus	Vertebrate
-Gasterosteus_aculeatus	Vertebrate
-Gorilla_gorilla	Vertebrate
-Gouania_willdenowi	Vertebrate
-Heterocephalus_glaber_male	Vertebrate
-Homo_sapiens	Vertebrate
-Ictalurus_punctatus	Vertebrate
-Larimichthys_crocea	Vertebrate
-Lepisosteus_oculatus	Vertebrate
-Macaca_fascicularis	Vertebrate
-Macaca_mulatta	Vertebrate
-Maylandia_zebra	Vertebrate
-Meleagris_gallopavo	Vertebrate
-Microcebus_murinus	Vertebrate
-Microtus_ochrogaster	Vertebrate
-Monodelphis_domestica	Vertebrate
-Mus_caroli	Vertebrate
-Mus_musculus_129s1svimj	Vertebrate
-Mus_musculus_aj	Vertebrate
-Mus_musculus_akrj	Vertebrate
-Mus_pahari	Vertebrate
-Mus_spretus	Vertebrate
-Nomascus_leucogenys	Vertebrate
-Numida_meleagris	Vertebrate
-Oreochromis_niloticus	Vertebrate
-Ornithorhynchus_anatinus	Vertebrate
-Oryctolagus_cuniculus	Vertebrate
-Oryzias_latipes	Vertebrate
-Ovis_aries	Vertebrate
-Pan_paniscus	Vertebrate
-Pan_troglodytes	Vertebrate
-Papio_anubis	Vertebrate
-Parambassis_ranga	Vertebrate
-Parus_major	Vertebrate
-Peromyscus_maniculatus_bairdii	Vertebrate
-Poecilia_reticulata	Vertebrate
-Pongo_abelii	Vertebrate
-Rattus_norvegicus	Vertebrate
-Scophthalmus_maximus	Vertebrate
-Sus_scrofa	Vertebrate
-Taeniopygia_guttata	Vertebrate
-Takifugu_rubripes	Vertebrate
-Tetraodon_nigroviridis	Vertebrate
-Theropithecus_gelada	Vertebrate
-Xenopus_tropicalis	Vertebrate
-Xiphophorus_maculatus	Vertebrate
-Zonotrichia_albicollis	Vertebrate
+Aedes_aegypti (CDS + UTR)	Metazoa
+Anopheles_gambiae (CDS + UTR)	Metazoa
+Apis_mellifera (CDS + UTR)	Metazoa
+Belgica_antarctica (CDS + UTR)	Metazoa
+Bombus_terrestris (CDS + UTR)	Metazoa
+Brugia_malayi (CDS + UTR)	Metazoa
+Caenorhabditis_brenneri (CDS + UTR)	Metazoa
+Caenorhabditis_briggsae (CDS + UTR)	Metazoa
+Caenorhabditis_elegans (CDS + UTR)	Metazoa
+Culex_quinquefasciatus (CDS + UTR)	Metazoa
+Danaus_plexippus (CDS + UTR)	Metazoa
+Daphnia_magna (CDS + UTR)	Metazoa
+Dendroctonus_ponderosae (CDS + UTR)	Metazoa
+Dinothrombium_tinctorium (CDS + UTR)	Metazoa
+Drosophila_ananassae (CDS + UTR)	Metazoa
+Drosophila_melanogaster (CDS + UTR)	Metazoa
+Drosophila_mojavensis (CDS + UTR)	Metazoa
+Drosophila_pseudoobscura (CDS + UTR)	Metazoa
+Drosophila_sechellia (CDS + UTR)	Metazoa
+Drosophila_simulans (CDS + UTR)	Metazoa
+Drosophila_willistoni (CDS + UTR)	Metazoa
+Drosophila_yakuba (CDS + UTR)	Metazoa
+Folsomia_candida (CDS + UTR)	Metazoa
+Heliconius_melpomene (CDS + UTR)	Metazoa
+Ixodes_scapularis (CDS + UTR)	Metazoa
+Lepeophtheirus_salmonis (CDS + UTR)	Metazoa
+Lingula_anatina (CDS + UTR)	Metazoa
+Loa_loa (CDS + UTR)	Metazoa
+Lottia_gigantea (CDS + UTR)	Metazoa
+Mayetiola_destructor (CDS + UTR)	Metazoa
+Megaselia_scalaris (CDS + UTR)	Metazoa
+Nasonia_vitripennis (CDS + UTR)	Metazoa
+Nematostella_vectensis (CDS + UTR)	Metazoa
+Onchocerca_volvulus (CDS + UTR)	Metazoa
+Orchesella_cincta (CDS + UTR)	Metazoa
+Pediculus_humanus (CDS + UTR)	Metazoa
+Pristionchus_pacificus (CDS + UTR)	Metazoa
+Schistosoma_mansoni (CDS + UTR)	Metazoa
+Solenopsis_invicta (CDS + UTR)	Metazoa
+Stegodyphus_mimosarum (CDS + UTR)	Metazoa
+Strigamia_maritima (CDS + UTR)	Metazoa
+Strongyloides_ratti (CDS + UTR)	Metazoa
+Teleopsis_dalmanni (CDS + UTR)	Metazoa
+Tetranychus_urticae (CDS + UTR)	Metazoa
+Tribolium_castaneum (CDS + UTR)	Metazoa
+Trichinella_spiralis (CDS + UTR)	Metazoa
+Trichoplax_adhaerens (CDS + UTR)	Metazoa
+Zootermopsis_nevadensis (CDS + UTR)	Metazoa
+Aegilops_tauschii (CDS + UTR)	Plant
+Amborella_trichopoda (CDS + UTR)	Plant
+Ananas_bracteatus (CDS)	Plant
+Arabidopsis_halleri (CDS + UTR)	Plant
+Arabidopsis_lyrata (CDS + UTR)	Plant
+Arabidopsis_thaliana (CDS + UTR)	Plant
+Asparagus_officinalis (CDS)	Plant
+Beta_vulgaris (CDS + UTR)	Plant
+Brachypodium_distachyon (CDS + UTR)	Plant
+Brassica_napus (CDS + UTR)	Plant
+Brassica_oleracea (CDS + UTR)	Plant
+Brassica_rapa (CDS)	Plant
+Cajanus_cajan (CDS)	Plant
+Camelina_sativa (CDS)	Plant
+Chlamydomonas_reinhardtii (CDS + UTR)	Plant
+Cucumis_sativus.ChineseLong (CDS)	Plant
+Cucurbita_maxima (CDS)	Plant
+Cucurbita_moschata (CDS)	Plant
+Cucurbita_pepo (CDS)	Plant
+Cyanidioschyzon_merolae (CDS + UTR)	Plant
+Daucus_carota (CDS)	Plant
+Dioscorea_rotundata (CDS + UTR)	Plant
+Eucalyptus_grandis (CDS)	Plant
+Fragaria_orientalis (CDS)	Plant
+Fragaria_vesca (CDS)	Plant
+Glycine_max.Williams_82 (CDS + UTR)	Plant
+Glycine_max.Zhonghuang_13 (CDS)	Plant
+Helianthus_annuus (CDS + UTR)	Plant
+Leersia_perrieri (CDS + UTR)	Plant
+Lupinus_angustifolius (CDS + UTR)	Plant
+Malus_x_domestica.HFTH1 (CDS)	Plant
+Manihot_esculenta (CDS + UTR)	Plant
+Musa_acuminata.Pahang (CDS)	Plant
+Musa_balbisiana (CDS)	Plant
+Nicotiana_attenuata (CDS + UTR)	Plant
+Olea_europaea (CDS)	Plant
+Oryza_barthii (CDS + UTR)	Plant
+Oryza_brachyantha (CDS + UTR)	Plant
+Oryza_glaberrima (CDS + UTR)	Plant
+Oryza_glumaepatula (CDS + UTR)	Plant
+Oryza_meridionalis (CDS + UTR)	Plant
+Oryza_nivara (CDS + UTR)	Plant
+Oryza_punctata (CDS + UTR)	Plant
+Oryza_rufipogon (CDS + UTR)	Plant
+Oryza_sativa.MH63 (CDS + UTR)	Plant
+Oryza_sativa.Nipponbare (CDS + UTR)	Plant
+Oryza_sativa.R498 (CDS)	Plant
+Oryza_sativa.ZS97 (CDS + UTR)	Plant
+Ostreococcus_lucimarinus (CDS + UTR)	Plant
+Panicum_hallii.FIL2 (CDS + UTR)	Plant
+Phaseolus_vulgaris.PhaVulg1_0 (CDS + UTR)	Plant
+Physcomitrella_patens (CDS + UTR)	Plant
+Pisum_sativum (CDS)	Plant
+Populus_trichocarpa (CDS + UTR)	Plant
+Prunus_avium (CDS)	Plant
+Prunus_dulcis.Texas (CDS)	Plant
+Prunus_persica (CDS)	Plant
+Pyrus_communis (CDS)	Plant
+Rosa_chinensis (CDS)	Plant
+Setaria_italica (CDS + UTR)	Plant
+Solanum_lycopersicum (CDS + UTR)	Plant
+Sorghum_bicolor (CDS + UTR)	Plant
+Theobroma_cacao (CDS)	Plant
+Trifolium_pratense (CDS)	Plant
+Vigna_angularis.Vigan1 (CDS + UTR)	Plant
+Vigna_radiata (CDS + UTR)	Plant
+Zea_mays.B73 (CDS + UTR)	Plant
+Zea_mays.W22 (CDS + UTR)	Plant
+Ailuropoda_melanoleuca (CDS + UTR)	Vertebrate
+Amphiprion_percula (CDS + UTR)	Vertebrate
+Anas_platyrhynchos_platyrhynchos (CDS + UTR)	Vertebrate
+Anolis_carolinensis (CDS + UTR)	Vertebrate
+Apteryx_haastii (CDS + UTR)	Vertebrate
+Astatotilapia_calliptera (CDS + UTR)	Vertebrate
+Astyanax_mexicanus (CDS + UTR)	Vertebrate
+Betta_splendens (CDS + UTR)	Vertebrate
+Bison_bison_bison (CDS + UTR)	Vertebrate
+Bos_indicus_hybrid (CDS + UTR)	Vertebrate
+Bos_mutus (CDS + UTR)	Vertebrate
+Bos_taurus (CDS + UTR)	Vertebrate
+Calidris_pugnax (CDS + UTR)	Vertebrate
+Callorhinchus_milii (CDS + UTR)	Vertebrate
+Canis_familiaris (CDS + UTR)	Vertebrate
+Capra_hircus (CDS + UTR)	Vertebrate
+Chelonoidis_abingdonii (CDS + UTR)	Vertebrate
+Chlorocebus_sabaeus (CDS + UTR)	Vertebrate
+Chrysemys_picta_bellii (CDS + UTR)	Vertebrate
+Ciona_intestinalis (CDS + UTR)	Vertebrate
+Cottoperca_gobio (CDS + UTR)	Vertebrate
+Coturnix_japonica (CDS + UTR)	Vertebrate
+Cricetulus_griseus_picr (CDS + UTR)	Vertebrate
+Cynoglossus_semilaevis (CDS + UTR)	Vertebrate
+Denticeps_clupeoides (CDS + UTR)	Vertebrate
+Equus_caballus (CDS + UTR)	Vertebrate
+Erpetoichthys_calabaricus (CDS + UTR)	Vertebrate
+Esox_lucius (CDS + UTR)	Vertebrate
+Felis_catus (CDS + UTR)	Vertebrate
+Gallus_gallus (CDS + UTR)	Vertebrate
+Gasterosteus_aculeatus (CDS + UTR)	Vertebrate
+Gorilla_gorilla (CDS + UTR)	Vertebrate
+Gouania_willdenowi (CDS + UTR)	Vertebrate
+Heterocephalus_glaber_male (CDS + UTR)	Vertebrate
+Homo_sapiens (CDS + UTR)	Vertebrate
+Ictalurus_punctatus (CDS + UTR)	Vertebrate
+Larimichthys_crocea (CDS + UTR)	Vertebrate
+Lepisosteus_oculatus (CDS + UTR)	Vertebrate
+Macaca_fascicularis (CDS + UTR)	Vertebrate
+Macaca_mulatta (CDS + UTR)	Vertebrate
+Maylandia_zebra (CDS + UTR)	Vertebrate
+Meleagris_gallopavo (CDS + UTR)	Vertebrate
+Microcebus_murinus (CDS + UTR)	Vertebrate
+Microtus_ochrogaster (CDS + UTR)	Vertebrate
+Monodelphis_domestica (CDS + UTR)	Vertebrate
+Mus_caroli (CDS + UTR)	Vertebrate
+Mus_musculus_129s1svimj (CDS + UTR)	Vertebrate
+Mus_musculus_aj (CDS + UTR)	Vertebrate
+Mus_musculus_akrj (CDS + UTR)	Vertebrate
+Mus_pahari (CDS + UTR)	Vertebrate
+Mus_spretus (CDS + UTR)	Vertebrate
+Nomascus_leucogenys (CDS + UTR)	Vertebrate
+Numida_meleagris (CDS + UTR)	Vertebrate
+Oreochromis_niloticus (CDS + UTR)	Vertebrate
+Ornithorhynchus_anatinus (CDS + UTR)	Vertebrate
+Oryctolagus_cuniculus (CDS + UTR)	Vertebrate
+Oryzias_latipes (CDS + UTR)	Vertebrate
+Ovis_aries (CDS + UTR)	Vertebrate
+Pan_paniscus (CDS + UTR)	Vertebrate
+Pan_troglodytes (CDS + UTR)	Vertebrate
+Papio_anubis (CDS + UTR)	Vertebrate
+Parambassis_ranga (CDS + UTR)	Vertebrate
+Parus_major (CDS + UTR)	Vertebrate
+Peromyscus_maniculatus_bairdii (CDS + UTR)	Vertebrate
+Poecilia_reticulata (CDS + UTR)	Vertebrate
+Pongo_abelii (CDS + UTR)	Vertebrate
+Rattus_norvegicus (CDS + UTR)	Vertebrate
+Scophthalmus_maximus (CDS + UTR)	Vertebrate
+Sus_scrofa (CDS + UTR)	Vertebrate
+Taeniopygia_guttata (CDS + UTR)	Vertebrate
+Takifugu_rubripes (CDS + UTR)	Vertebrate
+Tetraodon_nigroviridis (CDS + UTR)	Vertebrate
+Theropithecus_gelada (CDS + UTR)	Vertebrate
+Xenopus_tropicalis (CDS + UTR)	Vertebrate
+Xiphophorus_maculatus (CDS + UTR)	Vertebrate
+Zonotrichia_albicollis (CDS + UTR)	Vertebrate
