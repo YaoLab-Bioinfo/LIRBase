@@ -2,7 +2,7 @@
 
 >&emsp;&emsp;**LIRBase** is a database with comprehensive collection of **long inverted repeats** in 424 eukaryotic genomes.
 
->&emsp;&emsp;Using IRF ([https://tandem.bu.edu/irf/irf.download.html](https://tandem.bu.edu/irf/irf.download.html)), we identified a total of 6,619,473 long inverted repeats in the whole genomes of 424 eukaryotes, including 297,317 LIRs in 77 metazoa genomes, 1,731,978 LIRs in 139 plant genomes and 4,585,178 LIRs in 208 vertebrate genomes. **LIRBase** is deployed at [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/) for online use.
+>&emsp;&emsp;Using IRF ([https://tandem.bu.edu/irf/irf.download.html](https://tandem.bu.edu/irf/irf.download.html)), we identified a total of 6,619,473 long inverted repeats in the whole genomes of 424 eukaryotes, including 297,317 LIRs in 77 invertebrate metazoa genomes, 1,731,978 LIRs in 139 plant genomes and 4,585,178 LIRs in 208 vertebrate genomes. **LIRBase** is deployed at [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/) for online use.
 
 >&emsp;&emsp;The homepage of **LIRBase** displays the main functionalities of **LIRBase** (**Figure 1**).
 
@@ -21,14 +21,14 @@
 
 ## **1. Browse LIRBase for long inverted repeats identified in 424 eukaryotic genomes** <a name="tp1"></a>
 
->&emsp;&emsp;The images and the species names of 77 metazoa genomes are listed in the **Species** panel of the Metazoa submenu under the **Browse** menu (**Figure 2**).
+>&emsp;&emsp;The images and the species names of 77 invertebrate metazoa genomes are listed in the **Species** panel of the Invertebrate metazoa submenu under the **Browse** menu (**Figure 2**).
 >&emsp;&emsp;The images and the species names of 139 plant genomes are listed in the **Species** panel of the Plant submenu under the **Browse** menu.
 >&emsp;&emsp;The images and the species names of 208 vertebrate genomes are listed in the **Species** of under the Vertebrate submenu under the **Browse** menu.
 
 <div align=center><img src="Fig2.png" width="100%" height="100%" align=center /></div>
-<div align=center><font color=blue size=5>Figure 2. Species name and images of 77 metazoa genomes listed in the <b>Species</b> panel of the Metazoa submenu under the <b>Browse</b> menu.</font></div>  
+<div align=center><font color=blue size=5>Figure 2. Species name and images of 77 Invertebrate metazoa genomes listed in the <b>Species</b> panel of the Invertebrate metazoa submenu under the <b>Browse</b> menu.</font></div>  
 
->&emsp;&emsp;Click of the image or the species name of any genome would take you to the **LIRs of Metazoa** panel of the Metazoa submenu under the **Browse** menu, which displays all the LIRs identified in the selected genome (**Figure 3**). A brief summary of all the LIRs identified in the selected genome and a table of all the LIRs showing the structure of each LIR are demonstrated in the **LIRs of Metazoa** panel. Three buttons would be displayed below the table if any row of the table was clicked (**Figure 3**).
+>&emsp;&emsp;Click of the image or the species name of any genome would take you to the **LIRs of Invertebrate metazoa** panel of the Invertebrate metazoa submenu under the **Browse** menu, which displays all the LIRs identified in the selected genome (**Figure 3**). A brief summary of all the LIRs identified in the selected genome and a table of all the LIRs showing the structure of each LIR are demonstrated in the **LIRs of Invertebrate metazoa** panel. Three buttons would be displayed below the table if any row of the table was clicked (**Figure 3**).
 
 
 <div align=center><img src="Fig3.png" width="100%" height="100%" align=center /></div>

@@ -4,11 +4,11 @@ shinyServer(function(input, output, session) {
 
   # Home
   observeEvent(input$Browse_butt, {
-    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:17px'>Metazoa</strong>"))
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:17px'>Invertebrate metazoa</strong>"))
   }, ignoreInit = TRUE)
   
   observeEvent(input$metazoa_butt, {
-    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:17px'>Metazoa</strong>"))
+    updateNavbarPage(session, "The_page", selected = HTML("<strong style='font-size:17px'>Invertebrate metazoa</strong>"))
   }, ignoreInit = TRUE)
   
   observeEvent(input$plant_butt, {
@@ -67,7 +67,7 @@ shinyServer(function(input, output, session) {
       HTML.index <- input$HTMLtable_Metazoa_cells_selected
       HTML.index[, 2] <- HTML.index[, 2] + 1
       if(!is.na(HTML.tab_Metazoa[HTML.index]) && HTML.tab_Metazoa[HTML.index] != "") {
-        updateTabsetPanel(session, 'browser_Metazoa', selected = HTML("<strong style='font-size:18px'>LIRs of Metazoa</strong>"))
+        updateTabsetPanel(session, 'browser_Metazoa', selected = HTML("<strong style='font-size:18px'>LIRs of Invertebrate metazoa</strong>"))
         
         dat.file.path_Metazoa <<- gsub("\\sheight.+", "", HTML.tab_Metazoa[HTML.index])
         dat.file.path_Metazoa <- gsub(".+src=", "", dat.file.path_Metazoa)

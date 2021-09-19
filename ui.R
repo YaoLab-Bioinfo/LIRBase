@@ -164,11 +164,11 @@ shinyUI(
         HTML("<strong style='font-size:18px'>Browse</strong>"),
         icon = icon("folder-open-o", class = NULL, lib = "font-awesome"),
         
-        tabPanel(HTML("<strong style='font-size:17px'>Metazoa</strong>"), icon = icon("folder-open-o", class = NULL, lib = "font-awesome"),
+        tabPanel(HTML("<strong style='font-size:17px'>Invertebrate metazoa</strong>"), icon = icon("folder-open-o", class = NULL, lib = "font-awesome"),
           column(12,
                  fixedRow(
                    column(12,
-                          tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Browse long inverted repeats identified in 77 Metazoa genomes</b></font>'),
+                          tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Browse long inverted repeats identified in 77 Invertebrate metazoa genomes</b></font>'),
                                    bsButton("qLIRInfoTitle_Metazoa", label="", icon=icon("question"), style="info", size="small")),
                           bsPopover("qLIRInfoTitle_Metazoa", title = LIR_Info_Title, content = NULL, trigger = "focus", options = list(container = "body"))
                    )
@@ -179,7 +179,7 @@ shinyUI(
                                       DT::dataTableOutput('HTMLtable_Metazoa')
                              ),
                              
-                             tabPanel(title = HTML("<strong style='font-size:18px'>LIRs of Metazoa</strong>"), id = "browser_LIR_Metazoa",
+                             tabPanel(title = HTML("<strong style='font-size:18px'>LIRs of Invertebrate metazoa</strong>"), id = "browser_LIR_Metazoa",
                                       shinycssloaders::withSpinner(DT::dataTableOutput("LIR_info_num_Metazoa")),
                                       br(),
                                       
@@ -632,7 +632,7 @@ shinyUI(
                                                         label = tags$div(HTML('<i class="fa fa-play" aria-hidden="true"></i> <font size="4" color="red">Choose genome</font>')),
                                                         width = '100%', selected = NULL,
                                                         choices = list(
-                                                          Metazoa = BLASTdb.fl$Accession[BLASTdb.fl$Division == "Metazoa"],
+                                                          `Invertebrate metazoa` = BLASTdb.fl$Accession[BLASTdb.fl$Division == "Metazoa"],
                                                           Plant = BLASTdb.fl$Accession[BLASTdb.fl$Division == "Plant"],
                                                           Vertebrate = BLASTdb.fl$Accession[BLASTdb.fl$Division == "Vertebrate"]
                                                         ),
@@ -1170,7 +1170,7 @@ shinyUI(
                                                                   bsButton("qAligndb", label="", icon=icon("question"), style="info", size="small")),
                                                  selected = NULL, width = '100%',
                                                  choices = list(
-                                                   Metazoa = Bowtiedb.fl$Accession[Bowtiedb.fl$Division == "Metazoa"],
+                                                   `Invertebrate metazoa` = Bowtiedb.fl$Accession[Bowtiedb.fl$Division == "Metazoa"],
                                                    Plant = Bowtiedb.fl$Accession[Bowtiedb.fl$Division == "Plant"],
                                                    Vertebrate = Bowtiedb.fl$Accession[Bowtiedb.fl$Division == "Vertebrate"]
                                                  ),
@@ -1629,7 +1629,7 @@ shinyUI(
                                                bsButton("qTargetdb", label="", icon=icon("question"), style="info", size="small")),
                               selected = NULL, width = '100%',
                               choices = list(
-                                Metazoa = Bowtiedb.cDNA.fl$Accession[Bowtiedb.cDNA.fl$Division == "Metazoa"],
+                                `Invertebrate metazoa` = Bowtiedb.cDNA.fl$Accession[Bowtiedb.cDNA.fl$Division == "Metazoa"],
                                 Plant = Bowtiedb.cDNA.fl$Accession[Bowtiedb.cDNA.fl$Division == "Plant"],
                                 Vertebrate = Bowtiedb.cDNA.fl$Accession[Bowtiedb.cDNA.fl$Division == "Vertebrate"]
                               ),

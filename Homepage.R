@@ -48,7 +48,7 @@ Homepage <- dashboardPage(
           box(width = 4,
               shinyWidgets::actionBttn("metazoa_butt", "297,317", 
                                        block = TRUE, size = "lg", style="unite", color="default"),
-              h4("LIRs in 77 metazoa genomes"), color="blue"
+              h4("LIRs in 77 invertebrate metazoa genomes"), color="blue"
           ),
           # valueBox("1,731,978", "LIRs in 139 plant genomes", width = 4, color="blue"),
           box(width = 4,

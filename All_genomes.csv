@@ -1,81 +1,81 @@
 Genome,Species,Division,Assembly,Abbreviation,Source,Publication
-Acyrthosiphon_pisum,Acyrthosiphon pisum,Metazoa,Acyr_2.0,acpm,http://metazoa.ensembl.org/Acyrthosiphon_pisum/Info/Index,10.1371/journal.pbio.1000313
-Adineta_vaga,Adineta vaga,Metazoa,AMS_PRJEB1171_v1,advm,http://metazoa.ensembl.org/Adineta_vaga/Info/Index,10.1038/nature12326
-Aedes_aegypti,Aedes aegypti,Metazoa,AaegL3,aeam,http://metazoa.ensembl.org/Aedes_aegypti/Info/Index,10.1126/science.1138878
-Amphimedon_queenslandica,Amphimedon queenslandica,Metazoa,Aqu1,amqm,http://metazoa.ensembl.org/Amphimedon_queenslandica/Info/Index,10.1038/nature09201
-Anopheles_darlingi,Anopheles darlingi,Metazoa,AdarC3,andm,http://metazoa.ensembl.org/Anopheles_darlingi/Info/Index,10.1093/nar/gkt484
-Anopheles_gambiae,Anopheles gambiae,Metazoa,AgamP4,angm,http://metazoa.ensembl.org/Anopheles_gambiae/Info/Index,10.1126/science.1076181
-Anoplophora_glabripennis,Anoplophora glabripennis,Metazoa,Agla_1.0,anlm,http://metazoa.ensembl.org/Anoplophora_glabripennis/Info/Index,10.1186/s13059-016-1088-8
-Apis_mellifera,Apis mellifera,Metazoa,Amel_4.5,apmm,http://metazoa.ensembl.org/Apis_mellifera/Info/Index,10.1038/nature05260
-Atta_cephalotes,Atta cephalotes,Metazoa,Attacep1.0,atcm,http://metazoa.ensembl.org/Atta_cephalotes/Info/Index,10.1371/journal.pgen.1002007
-Belgica_antarctica,Belgica antarctica,Metazoa,ASM77530v1,beam,http://metazoa.ensembl.org/Belgica_antarctica/Info/Index,10.1038/ncomms5611
-Bombus_impatiens,Bombus impatiens,Metazoa,BIMP_2.0,boim,http://metazoa.ensembl.org/Bombus_impatiens/Info/Index,10.1186/s13059-015-0623-3
-Bombus_terrestris,Bombus terrestris,Metazoa,Bter_1.0,botm,http://metazoa.ensembl.org/Bombus_terrestris/Info/Index,10.1186/s13059-015-0623-3
-Bombyx_mori,Bombyx mori,Metazoa,ASM15162v1,bomm,http://metazoa.ensembl.org/Bombyx_mori/Info/Index,10.1016/j.ibmb.2008.11.004
-Branchiostoma_lanceolatum,Branchiostoma lanceolatum,Metazoa,BraLan2,brlm,http://metazoa.ensembl.org/Branchiostoma_lanceolatum/Info/Index,10.1038/s41586-018-0734-6
-Brugia_malayi,Brugia malayi,Metazoa,Bmal-4.0,brmm,http://metazoa.ensembl.org/Brugia_malayi/Info/Index,10.1126/science.1145406
-Caenorhabditis_brenneri,Caenorhabditis brenneri,Metazoa,C_brenneri-6.0.1b,cabm,http://metazoa.ensembl.org/Caenorhabditis_brenneri/Info/Index,
-Caenorhabditis_briggsae,Caenorhabditis briggsae,Metazoa,CB4,caim,http://metazoa.ensembl.org/Caenorhabditis_briggsae/Info/Index,10.1371/journal.pbio.0000045
-Caenorhabditis_elegans,Caenorhabditis elegans,Metazoa,WBcel235,caem,http://metazoa.ensembl.org/Caenorhabditis_elegans/Info/Index,10.1126/science.282.5396.2012
-Caenorhabditis_japonica,Caenorhabditis japonica,Metazoa,C_japonica-7.0.1,cajm,http://metazoa.ensembl.org/Caenorhabditis_japonica/Info/Index,10.1895/wormbook.1.37.1
-Caenorhabditis_remanei,Caenorhabditis remanei,Metazoa,C_remanei-15.0.1,carm,http://metazoa.ensembl.org/Caenorhabditis_remanei/Info/Index,
-Capitella_teleta,Capitella teleta,Metazoa,Capitella teleta v1.0,catm,http://metazoa.ensembl.org/Capitella_teleta/Info/Index,10.1038/nature11696
-Crassostrea_gigas,Crassostrea gigas,Metazoa,oyster_v9,crgm,http://metazoa.ensembl.org/Crassostrea_gigas/Info/Index,10.1038/nature11413
-Culex_quinquefasciatus,Culex quinquefasciatus,Metazoa,CpipJ2,cuqm,http://metazoa.ensembl.org/Culex_quinquefasciatus/Info/Index,10.1126/science.1191864
-Culicoides_sonorensis,Culicoides sonorensis,Metazoa,Cson1,cusm,http://metazoa.ensembl.org/Culicoides_sonorensis/Info/Index,10.1186/s12864-018-5014-1
-Danaus_plexippus,Danaus plexippus,Metazoa,Dpv3,dapm,http://metazoa.ensembl.org/Danaus_plexippus/Info/Index,10.1016/j.cell.2011.09.052
-Daphnia_magna,Daphnia magna,Metazoa,daphmag2.4,damm,http://metazoa.ensembl.org/Daphnia_magna/Info/Index,10.1186/1471-2105-6-45
-Daphnia_pulex,Daphnia pulex,Metazoa,V1.0,daum,http://metazoa.ensembl.org/Daphnia_pulex/Info/Index,10.1126/science.1197761
-Dendroctonus_ponderosae,Dendroctonus ponderosae,Metazoa,DendPond_male_1.0,depm,http://metazoa.ensembl.org/Dendroctonus_ponderosae/Info/Index,10.1186/gb-2013-14-3-r27
-Dinothrombium_tinctorium,Dinothrombium tinctorium,Metazoa,DtinU1,ditm,http://metazoa.ensembl.org/Dinothrombium_tinctorium/Info/Index,10.1093/gigascience/giy127
-Drosophila_ananassae,Drosophila ananassae,Metazoa,dana_caf1,dram,http://metazoa.ensembl.org/Drosophila_ananassae/Info/Index,10.1038/nature06341
-Drosophila_erecta,Drosophila erecta,Metazoa,dere_caf1,drem,http://metazoa.ensembl.org/Drosophila_erecta/Info/Index,10.1038/nature06341
-Drosophila_grimshawi,Drosophila grimshawi,Metazoa,dgri_caf1,drgm,http://metazoa.ensembl.org/Drosophila_grimshawi/Info/Index,10.1038/nature06341
-Drosophila_melanogaster,Drosophila melanogaster,Metazoa,BDGP6.28,drmm,http://metazoa.ensembl.org/Drosophila_melanogaster/Info/Index,10.1126/science.287.5461.2185
-Drosophila_mojavensis,Drosophila mojavensis,Metazoa,dmoj_caf1,drom,http://metazoa.ensembl.org/Drosophila_mojavensis/Info/Index,10.1038/nature06341
-Drosophila_persimilis,Drosophila persimilis,Metazoa,dper_caf1,drpm,http://metazoa.ensembl.org/Drosophila_persimilis/Info/Index,10.1038/nature06341
-Drosophila_pseudoobscura,Drosophila pseudoobscura,Metazoa,Dpse_3.0,drsm,http://metazoa.ensembl.org/Drosophila_pseudoobscura/Info/Index,10.1038/nature06341
-Drosophila_sechellia,Drosophila sechellia,Metazoa,dsec_caf1,drcm,http://metazoa.ensembl.org/Drosophila_sechellia/Info/Index,10.1038/nature06341
-Drosophila_simulans,Drosophila simulans,Metazoa,ASM75419v3,drim,http://metazoa.ensembl.org/Drosophila_simulans/Info/Index,10.1101/gr.141689.112
-Drosophila_virilis,Drosophila virilis,Metazoa,dvir_caf1,drvm,http://metazoa.ensembl.org/Drosophila_virilis/Info/Index,10.1038/nature06341
-Drosophila_willistoni,Drosophila willistoni,Metazoa,dwil_caf1,drwm,http://metazoa.ensembl.org/Drosophila_willistoni/Info/Index,10.1038/nature06341
-Drosophila_yakuba,Drosophila yakuba,Metazoa,dyak_caf1,drym,http://metazoa.ensembl.org/Drosophila_yakuba/Info/Index,10.1038/nature06341
-Folsomia_candida,Folsomia candida,Metazoa,ASM221717v1,focm,http://metazoa.ensembl.org/Folsomia_candida/Info/Index,10.1186/s12864-017-3852-x
-Heliconius_melpomene,Heliconius melpomene,Metazoa,Hmel1,hemm,http://metazoa.ensembl.org/Heliconius_melpomene/Info/Index,10.1038/nature11041
-Helobdella_robusta,Helobdella robusta,Metazoa,Helro1,herm,http://metazoa.ensembl.org/Helobdella_robusta/Info/Index,10.1038/nature11696
-Hofstenia_miamia,Hofstenia miamia,Metazoa,HmiaM1,homm,http://metazoa.ensembl.org/Hofstenia_miamia/Info/Index,10.1126/science.aau6173
-Ixodes_scapularis,Ixodes scapularis,Metazoa,IscaW1,ixsm,http://metazoa.ensembl.org/Ixodes_scapularis/Info/Index,10.1038/ncomms10507
-Lepeophtheirus_salmonis,Lepeophtheirus salmonis,Metazoa,LSalAtl2s,lesm,http://metazoa.ensembl.org/Lepeophtheirus_salmonis/Info/Index,
-Leptotrombidium_deliense,Leptotrombidium deliense,Metazoa,LdelU1,ledm,http://metazoa.ensembl.org/Leptotrombidium_deliense/Info/Index,10.1093/gigascience/giy127
-Lingula_anatina,Lingula anatina,Metazoa,LinAna1.0,liam,http://metazoa.ensembl.org/Lingula_anatina/Info/Index,10.1038/ncomms9301
-Loa_loa,Loa loa,Metazoa,Loa_loa_V3,lolm,http://metazoa.ensembl.org/Loa_loa/Info/Index,10.1038/ng.2585
-Lottia_gigantea,Lottia gigantea,Metazoa,Lotgi1,logm,http://metazoa.ensembl.org/Lottia_gigantea/Info/Index,10.1038/nature11696
-Lucilia_cuprina,Lucilia cuprina,Metazoa,ASM118794v1,lucm,http://metazoa.ensembl.org/Lucilia_cuprina/Info/Index,10.1038/ncomms8344
-Mayetiola_destructor,Mayetiola destructor,Metazoa,Mdes_1.0,madm,http://metazoa.ensembl.org/Mayetiola_destructor/Info/Index,10.1093/nar/gku983
-Megaselia_scalaris,Megaselia scalaris,Metazoa,Msca1,mesm,http://metazoa.ensembl.org/Megaselia_scalaris/Info/Index,10.1073/pnas.1012675108
-Melitaea_cinxia,Melitaea cinxia,Metazoa,MelCinx1.0,mecm,http://metazoa.ensembl.org/Melitaea_cinxia/Info/Index,10.1038/ncomms5737
-Mnemiopsis_leidyi,Mnemiopsis leidyi,Metazoa,MneLei_Aug2011,mnlm,http://metazoa.ensembl.org/Mnemiopsis_leidyi/Info/Index,10.1126/science.1242592
-Nasonia_vitripennis,Nasonia vitripennis,Metazoa,Nvit_2.1,navm,http://metazoa.ensembl.org/Nasonia_vitripennis/Info/Index,10.1126/science.1178028
-Nematostella_vectensis,Nematostella vectensis,Metazoa,ASM20922v1,nevm,http://metazoa.ensembl.org/Nematostella_vectensis/Info/Index,10.1126/science.1139158
-Onchocerca_volvulus,Onchocerca volvulus,Metazoa,ASM49940v2,onvm,http://metazoa.ensembl.org/Onchocerca_volvulus/Info/Index,
-Orchesella_cincta,Orchesella cincta,Metazoa,ASM171814v1,orcm,http://metazoa.ensembl.org/Orchesella_cincta/Info/Index,
-Pediculus_humanus,Pediculus humanus,Metazoa,PhumU2,pehm,http://metazoa.ensembl.org/Pediculus_humanus/Info/Index,10.1073/pnas.1003379107
-Pristionchus_pacificus,Pristionchus pacificus,Metazoa,El_Paco,prpm,http://metazoa.ensembl.org/Pristionchus_pacificus/Info/Index,10.1038/ng.227
-Rhodnius_prolixus,Rhodnius prolixus,Metazoa,RproC3,rhpm,http://metazoa.ensembl.org/Rhodnius_prolixus/Info/Index,10.1073/pnas.1506226112
-Sarcoptes_scabiei,Sarcoptes scabiei,Metazoa,SscaA1,sasm,http://metazoa.ensembl.org/Sarcoptes_scabiei/Info/Index,10.1186/s13071-015-1198-2
-Schistosoma_mansoni,Schistosoma mansoni,Metazoa,ASM23792v2,scmm,http://metazoa.ensembl.org/Schistosoma_mansoni/Info/Index,10.1371/journal.pntd.0001455
-Solenopsis_invicta,Solenopsis invicta,Metazoa,Si_gnG,soim,http://metazoa.ensembl.org/Solenopsis_invicta/Info/Index,10.1073/pnas.1009690108
-Stegodyphus_mimosarum,Stegodyphus mimosarum,Metazoa,Stegodyphus_mimosarum_v1,stmm,http://metazoa.ensembl.org/Stegodyphus_mimosarum/Info/Index,10.1038/ncomms4765
-Strigamia_maritima,Strigamia maritima,Metazoa,Smar1,stam,http://metazoa.ensembl.org/Strigamia_maritima/Info/Index,10.1371/journal.pbio.1002005
-Strongylocentrotus_purpuratus,Strongylocentrotus purpuratus,Metazoa,Spur_3.1,stpm,http://metazoa.ensembl.org/Strongylocentrotus_purpuratus/Info/Index,10.1126/science.1133609
-Strongyloides_ratti,Strongyloides ratti,Metazoa,S_ratti_ED321_v5_0_4,strm,http://metazoa.ensembl.org/Strongyloides_ratti/Info/Index,10.1038/ng.3495
-Teleopsis_dalmanni,Teleopsis dalmanni,Metazoa,Tel_dalmanni_2A_v1.0,tedm,http://metazoa.ensembl.org/Teleopsis_dalmanni/Info/Index,10.1371/journal.pgen.1004362
-Tetranychus_urticae,Tetranychus urticae,Metazoa,ASM23943v1,teum,http://metazoa.ensembl.org/Tetranychus_urticae/Info/Index,10.1038/nature10640
-Thelohanellus_kitauei,Thelohanellus kitauei,Metazoa,ASM82789v1,thkm,http://metazoa.ensembl.org/Thelohanellus_kitauei/Info/Index,10.1093/gbe/evu247
-Tribolium_castaneum,Tribolium castaneum,Metazoa,Tcas5.2,trcm,http://metazoa.ensembl.org/Tribolium_castaneum/Info/Index,10.1038/nature06784
-Trichinella_spiralis,Trichinella spiralis,Metazoa,Tspiralis1,trsm,http://metazoa.ensembl.org/Trichinella_spiralis/Info/Index,10.1038/ng.769
-Trichoplax_adhaerens,Trichoplax adhaerens,Metazoa,ASM15027v1,tram,http://metazoa.ensembl.org/Trichoplax_adhaerens/Info/Index,10.1038/nature07191
-Zootermopsis_nevadensis,Zootermopsis nevadensis,Metazoa,ZooNev1.0,zonm,http://metazoa.ensembl.org/Zootermopsis_nevadensis/Info/Index,10.1038/ncomms4636
+Acyrthosiphon_pisum,Acyrthosiphon pisum,Invertebrate metazoa,Acyr_2.0,acpm,http://metazoa.ensembl.org/Acyrthosiphon_pisum/Info/Index,10.1371/journal.pbio.1000313
+Adineta_vaga,Adineta vaga,Invertebrate metazoa,AMS_PRJEB1171_v1,advm,http://metazoa.ensembl.org/Adineta_vaga/Info/Index,10.1038/nature12326
+Aedes_aegypti,Aedes aegypti,Invertebrate metazoa,AaegL3,aeam,http://metazoa.ensembl.org/Aedes_aegypti/Info/Index,10.1126/science.1138878
+Amphimedon_queenslandica,Amphimedon queenslandica,Invertebrate metazoa,Aqu1,amqm,http://metazoa.ensembl.org/Amphimedon_queenslandica/Info/Index,10.1038/nature09201
+Anopheles_darlingi,Anopheles darlingi,Invertebrate metazoa,AdarC3,andm,http://metazoa.ensembl.org/Anopheles_darlingi/Info/Index,10.1093/nar/gkt484
+Anopheles_gambiae,Anopheles gambiae,Invertebrate metazoa,AgamP4,angm,http://metazoa.ensembl.org/Anopheles_gambiae/Info/Index,10.1126/science.1076181
+Anoplophora_glabripennis,Anoplophora glabripennis,Invertebrate metazoa,Agla_1.0,anlm,http://metazoa.ensembl.org/Anoplophora_glabripennis/Info/Index,10.1186/s13059-016-1088-8
+Apis_mellifera,Apis mellifera,Invertebrate metazoa,Amel_4.5,apmm,http://metazoa.ensembl.org/Apis_mellifera/Info/Index,10.1038/nature05260
+Atta_cephalotes,Atta cephalotes,Invertebrate metazoa,Attacep1.0,atcm,http://metazoa.ensembl.org/Atta_cephalotes/Info/Index,10.1371/journal.pgen.1002007
+Belgica_antarctica,Belgica antarctica,Invertebrate metazoa,ASM77530v1,beam,http://metazoa.ensembl.org/Belgica_antarctica/Info/Index,10.1038/ncomms5611
+Bombus_impatiens,Bombus impatiens,Invertebrate metazoa,BIMP_2.0,boim,http://metazoa.ensembl.org/Bombus_impatiens/Info/Index,10.1186/s13059-015-0623-3
+Bombus_terrestris,Bombus terrestris,Invertebrate metazoa,Bter_1.0,botm,http://metazoa.ensembl.org/Bombus_terrestris/Info/Index,10.1186/s13059-015-0623-3
+Bombyx_mori,Bombyx mori,Invertebrate metazoa,ASM15162v1,bomm,http://metazoa.ensembl.org/Bombyx_mori/Info/Index,10.1016/j.ibmb.2008.11.004
+Branchiostoma_lanceolatum,Branchiostoma lanceolatum,Invertebrate metazoa,BraLan2,brlm,http://metazoa.ensembl.org/Branchiostoma_lanceolatum/Info/Index,10.1038/s41586-018-0734-6
+Brugia_malayi,Brugia malayi,Invertebrate metazoa,Bmal-4.0,brmm,http://metazoa.ensembl.org/Brugia_malayi/Info/Index,10.1126/science.1145406
+Caenorhabditis_brenneri,Caenorhabditis brenneri,Invertebrate metazoa,C_brenneri-6.0.1b,cabm,http://metazoa.ensembl.org/Caenorhabditis_brenneri/Info/Index,
+Caenorhabditis_briggsae,Caenorhabditis briggsae,Invertebrate metazoa,CB4,caim,http://metazoa.ensembl.org/Caenorhabditis_briggsae/Info/Index,10.1371/journal.pbio.0000045
+Caenorhabditis_elegans,Caenorhabditis elegans,Invertebrate metazoa,WBcel235,caem,http://metazoa.ensembl.org/Caenorhabditis_elegans/Info/Index,10.1126/science.282.5396.2012
+Caenorhabditis_japonica,Caenorhabditis japonica,Invertebrate metazoa,C_japonica-7.0.1,cajm,http://metazoa.ensembl.org/Caenorhabditis_japonica/Info/Index,10.1895/wormbook.1.37.1
+Caenorhabditis_remanei,Caenorhabditis remanei,Invertebrate metazoa,C_remanei-15.0.1,carm,http://metazoa.ensembl.org/Caenorhabditis_remanei/Info/Index,
+Capitella_teleta,Capitella teleta,Invertebrate metazoa,Capitella teleta v1.0,catm,http://metazoa.ensembl.org/Capitella_teleta/Info/Index,10.1038/nature11696
+Crassostrea_gigas,Crassostrea gigas,Invertebrate metazoa,oyster_v9,crgm,http://metazoa.ensembl.org/Crassostrea_gigas/Info/Index,10.1038/nature11413
+Culex_quinquefasciatus,Culex quinquefasciatus,Invertebrate metazoa,CpipJ2,cuqm,http://metazoa.ensembl.org/Culex_quinquefasciatus/Info/Index,10.1126/science.1191864
+Culicoides_sonorensis,Culicoides sonorensis,Invertebrate metazoa,Cson1,cusm,http://metazoa.ensembl.org/Culicoides_sonorensis/Info/Index,10.1186/s12864-018-5014-1
+Danaus_plexippus,Danaus plexippus,Invertebrate metazoa,Dpv3,dapm,http://metazoa.ensembl.org/Danaus_plexippus/Info/Index,10.1016/j.cell.2011.09.052
+Daphnia_magna,Daphnia magna,Invertebrate metazoa,daphmag2.4,damm,http://metazoa.ensembl.org/Daphnia_magna/Info/Index,10.1186/1471-2105-6-45
+Daphnia_pulex,Daphnia pulex,Invertebrate metazoa,V1.0,daum,http://metazoa.ensembl.org/Daphnia_pulex/Info/Index,10.1126/science.1197761
+Dendroctonus_ponderosae,Dendroctonus ponderosae,Invertebrate metazoa,DendPond_male_1.0,depm,http://metazoa.ensembl.org/Dendroctonus_ponderosae/Info/Index,10.1186/gb-2013-14-3-r27
+Dinothrombium_tinctorium,Dinothrombium tinctorium,Invertebrate metazoa,DtinU1,ditm,http://metazoa.ensembl.org/Dinothrombium_tinctorium/Info/Index,10.1093/gigascience/giy127
+Drosophila_ananassae,Drosophila ananassae,Invertebrate metazoa,dana_caf1,dram,http://metazoa.ensembl.org/Drosophila_ananassae/Info/Index,10.1038/nature06341
+Drosophila_erecta,Drosophila erecta,Invertebrate metazoa,dere_caf1,drem,http://metazoa.ensembl.org/Drosophila_erecta/Info/Index,10.1038/nature06341
+Drosophila_grimshawi,Drosophila grimshawi,Invertebrate metazoa,dgri_caf1,drgm,http://metazoa.ensembl.org/Drosophila_grimshawi/Info/Index,10.1038/nature06341
+Drosophila_melanogaster,Drosophila melanogaster,Invertebrate metazoa,BDGP6.28,drmm,http://metazoa.ensembl.org/Drosophila_melanogaster/Info/Index,10.1126/science.287.5461.2185
+Drosophila_mojavensis,Drosophila mojavensis,Invertebrate metazoa,dmoj_caf1,drom,http://metazoa.ensembl.org/Drosophila_mojavensis/Info/Index,10.1038/nature06341
+Drosophila_persimilis,Drosophila persimilis,Invertebrate metazoa,dper_caf1,drpm,http://metazoa.ensembl.org/Drosophila_persimilis/Info/Index,10.1038/nature06341
+Drosophila_pseudoobscura,Drosophila pseudoobscura,Invertebrate metazoa,Dpse_3.0,drsm,http://metazoa.ensembl.org/Drosophila_pseudoobscura/Info/Index,10.1038/nature06341
+Drosophila_sechellia,Drosophila sechellia,Invertebrate metazoa,dsec_caf1,drcm,http://metazoa.ensembl.org/Drosophila_sechellia/Info/Index,10.1038/nature06341
+Drosophila_simulans,Drosophila simulans,Invertebrate metazoa,ASM75419v3,drim,http://metazoa.ensembl.org/Drosophila_simulans/Info/Index,10.1101/gr.141689.112
+Drosophila_virilis,Drosophila virilis,Invertebrate metazoa,dvir_caf1,drvm,http://metazoa.ensembl.org/Drosophila_virilis/Info/Index,10.1038/nature06341
+Drosophila_willistoni,Drosophila willistoni,Invertebrate metazoa,dwil_caf1,drwm,http://metazoa.ensembl.org/Drosophila_willistoni/Info/Index,10.1038/nature06341
+Drosophila_yakuba,Drosophila yakuba,Invertebrate metazoa,dyak_caf1,drym,http://metazoa.ensembl.org/Drosophila_yakuba/Info/Index,10.1038/nature06341
+Folsomia_candida,Folsomia candida,Invertebrate metazoa,ASM221717v1,focm,http://metazoa.ensembl.org/Folsomia_candida/Info/Index,10.1186/s12864-017-3852-x
+Heliconius_melpomene,Heliconius melpomene,Invertebrate metazoa,Hmel1,hemm,http://metazoa.ensembl.org/Heliconius_melpomene/Info/Index,10.1038/nature11041
+Helobdella_robusta,Helobdella robusta,Invertebrate metazoa,Helro1,herm,http://metazoa.ensembl.org/Helobdella_robusta/Info/Index,10.1038/nature11696
+Hofstenia_miamia,Hofstenia miamia,Invertebrate metazoa,HmiaM1,homm,http://metazoa.ensembl.org/Hofstenia_miamia/Info/Index,10.1126/science.aau6173
+Ixodes_scapularis,Ixodes scapularis,Invertebrate metazoa,IscaW1,ixsm,http://metazoa.ensembl.org/Ixodes_scapularis/Info/Index,10.1038/ncomms10507
+Lepeophtheirus_salmonis,Lepeophtheirus salmonis,Invertebrate metazoa,LSalAtl2s,lesm,http://metazoa.ensembl.org/Lepeophtheirus_salmonis/Info/Index,
+Leptotrombidium_deliense,Leptotrombidium deliense,Invertebrate metazoa,LdelU1,ledm,http://metazoa.ensembl.org/Leptotrombidium_deliense/Info/Index,10.1093/gigascience/giy127
+Lingula_anatina,Lingula anatina,Invertebrate metazoa,LinAna1.0,liam,http://metazoa.ensembl.org/Lingula_anatina/Info/Index,10.1038/ncomms9301
+Loa_loa,Loa loa,Invertebrate metazoa,Loa_loa_V3,lolm,http://metazoa.ensembl.org/Loa_loa/Info/Index,10.1038/ng.2585
+Lottia_gigantea,Lottia gigantea,Invertebrate metazoa,Lotgi1,logm,http://metazoa.ensembl.org/Lottia_gigantea/Info/Index,10.1038/nature11696
+Lucilia_cuprina,Lucilia cuprina,Invertebrate metazoa,ASM118794v1,lucm,http://metazoa.ensembl.org/Lucilia_cuprina/Info/Index,10.1038/ncomms8344
+Mayetiola_destructor,Mayetiola destructor,Invertebrate metazoa,Mdes_1.0,madm,http://metazoa.ensembl.org/Mayetiola_destructor/Info/Index,10.1093/nar/gku983
+Megaselia_scalaris,Megaselia scalaris,Invertebrate metazoa,Msca1,mesm,http://metazoa.ensembl.org/Megaselia_scalaris/Info/Index,10.1073/pnas.1012675108
+Melitaea_cinxia,Melitaea cinxia,Invertebrate metazoa,MelCinx1.0,mecm,http://metazoa.ensembl.org/Melitaea_cinxia/Info/Index,10.1038/ncomms5737
+Mnemiopsis_leidyi,Mnemiopsis leidyi,Invertebrate metazoa,MneLei_Aug2011,mnlm,http://metazoa.ensembl.org/Mnemiopsis_leidyi/Info/Index,10.1126/science.1242592
+Nasonia_vitripennis,Nasonia vitripennis,Invertebrate metazoa,Nvit_2.1,navm,http://metazoa.ensembl.org/Nasonia_vitripennis/Info/Index,10.1126/science.1178028
+Nematostella_vectensis,Nematostella vectensis,Invertebrate metazoa,ASM20922v1,nevm,http://metazoa.ensembl.org/Nematostella_vectensis/Info/Index,10.1126/science.1139158
+Onchocerca_volvulus,Onchocerca volvulus,Invertebrate metazoa,ASM49940v2,onvm,http://metazoa.ensembl.org/Onchocerca_volvulus/Info/Index,
+Orchesella_cincta,Orchesella cincta,Invertebrate metazoa,ASM171814v1,orcm,http://metazoa.ensembl.org/Orchesella_cincta/Info/Index,
+Pediculus_humanus,Pediculus humanus,Invertebrate metazoa,PhumU2,pehm,http://metazoa.ensembl.org/Pediculus_humanus/Info/Index,10.1073/pnas.1003379107
+Pristionchus_pacificus,Pristionchus pacificus,Invertebrate metazoa,El_Paco,prpm,http://metazoa.ensembl.org/Pristionchus_pacificus/Info/Index,10.1038/ng.227
+Rhodnius_prolixus,Rhodnius prolixus,Invertebrate metazoa,RproC3,rhpm,http://metazoa.ensembl.org/Rhodnius_prolixus/Info/Index,10.1073/pnas.1506226112
+Sarcoptes_scabiei,Sarcoptes scabiei,Invertebrate metazoa,SscaA1,sasm,http://metazoa.ensembl.org/Sarcoptes_scabiei/Info/Index,10.1186/s13071-015-1198-2
+Schistosoma_mansoni,Schistosoma mansoni,Invertebrate metazoa,ASM23792v2,scmm,http://metazoa.ensembl.org/Schistosoma_mansoni/Info/Index,10.1371/journal.pntd.0001455
+Solenopsis_invicta,Solenopsis invicta,Invertebrate metazoa,Si_gnG,soim,http://metazoa.ensembl.org/Solenopsis_invicta/Info/Index,10.1073/pnas.1009690108
+Stegodyphus_mimosarum,Stegodyphus mimosarum,Invertebrate metazoa,Stegodyphus_mimosarum_v1,stmm,http://metazoa.ensembl.org/Stegodyphus_mimosarum/Info/Index,10.1038/ncomms4765
+Strigamia_maritima,Strigamia maritima,Invertebrate metazoa,Smar1,stam,http://metazoa.ensembl.org/Strigamia_maritima/Info/Index,10.1371/journal.pbio.1002005
+Strongylocentrotus_purpuratus,Strongylocentrotus purpuratus,Invertebrate metazoa,Spur_3.1,stpm,http://metazoa.ensembl.org/Strongylocentrotus_purpuratus/Info/Index,10.1126/science.1133609
+Strongyloides_ratti,Strongyloides ratti,Invertebrate metazoa,S_ratti_ED321_v5_0_4,strm,http://metazoa.ensembl.org/Strongyloides_ratti/Info/Index,10.1038/ng.3495
+Teleopsis_dalmanni,Teleopsis dalmanni,Invertebrate metazoa,Tel_dalmanni_2A_v1.0,tedm,http://metazoa.ensembl.org/Teleopsis_dalmanni/Info/Index,10.1371/journal.pgen.1004362
+Tetranychus_urticae,Tetranychus urticae,Invertebrate metazoa,ASM23943v1,teum,http://metazoa.ensembl.org/Tetranychus_urticae/Info/Index,10.1038/nature10640
+Thelohanellus_kitauei,Thelohanellus kitauei,Invertebrate metazoa,ASM82789v1,thkm,http://metazoa.ensembl.org/Thelohanellus_kitauei/Info/Index,10.1093/gbe/evu247
+Tribolium_castaneum,Tribolium castaneum,Invertebrate metazoa,Tcas5.2,trcm,http://metazoa.ensembl.org/Tribolium_castaneum/Info/Index,10.1038/nature06784
+Trichinella_spiralis,Trichinella spiralis,Invertebrate metazoa,Tspiralis1,trsm,http://metazoa.ensembl.org/Trichinella_spiralis/Info/Index,10.1038/ng.769
+Trichoplax_adhaerens,Trichoplax adhaerens,Invertebrate metazoa,ASM15027v1,tram,http://metazoa.ensembl.org/Trichoplax_adhaerens/Info/Index,10.1038/nature07191
+Zootermopsis_nevadensis,Zootermopsis nevadensis,Invertebrate metazoa,ZooNev1.0,zonm,http://metazoa.ensembl.org/Zootermopsis_nevadensis/Info/Index,10.1038/ncomms4636
 Actinidia_chinensis.Hongyang,Actinidia chinensis,Plant,Kiwifruit; Hongyang,achp,http://bioinfo.bti.cornell.edu/cgi-bin/kiwi/download.cgi,10.1038/ncomms3640
 Actinidia_chinensis.Red5,Actinidia chinensis,Plant,Kiwifruit; Red5_PS1_1.69.0,acrp,http://ensembl.gramene.org/Actinidia_chinensis/Info/Index,10.1186/s12864-018-4656-3
 Aegilops_tauschii,Aegilops tauschii,Plant,Rough-spike hard grass; Aet_v4.0,aetp,http://ensembl.gramene.org/Aegilops_tauschii/Info/Index,10.1038/nature24486
