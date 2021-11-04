@@ -125,6 +125,9 @@ Galdieria_sulphuraria	Plant
 Gastrodia_elata	Plant
 Glycine_max.Williams_82	Plant
 Glycine_max.Zhonghuang_13	Plant
+Gossypium_arboreum	Plant
+Gossypium_herbaceum	Plant
+Gossypium_raimondii	Plant
 Helianthus_annuus	Plant
 Klebsormidium_flaccidum	Plant
 Leersia_perrieri	Plant

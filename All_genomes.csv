@@ -125,6 +125,9 @@ Galdieria_sulphuraria,Galdieria sulphuraria,Plant,Red algae; ASM34128v1,gasp,htt
 Gastrodia_elata,Gastrodia elata,Plant,,gaep,https://bigd.big.ac.cn/gwh/Assembly/129/show,10.1038/s41467-018-03423-5
 Glycine_max.Williams_82,Glycine max,Plant,Soybean; Glycine_max_v2.1,gmwp,http://ensembl.gramene.org/Glycine_max/Info/Index,10.1038/nature08670
 Glycine_max.Zhonghuang_13,Glycine max,Plant,Soybean; Gmax_ZH13_v2.0,gmzp,https://bigd.big.ac.cn/gwh/Assembly/652/show,10.1007/s11427-019-9822-2
+Gossypium_arboreum,Gossypium arboreum,Plant,Cotton,goar,https://www.cottongen.org/Analysis/6607283
+Gossypium_herbaceum,Gossypium herbaceum,Plant,Cotton,gohe,https://www.cottongen.org/species/Gossypium_herbaceum/A1_WHU
+Gossypium_raimondii,Gossypium raimondii,Plant,Cotton,gora,https://www.cottongen.org/Analysis/6607284
 Helianthus_annuus,Helianthus annuus,Plant,Sunflower; HanXRQr1.0,heap,http://ensembl.gramene.org/Helianthus_annuus/Info/Index,10.1038/nature22380
 Klebsormidium_flaccidum,Klebsormidium flaccidum,Plant,,klfp,http://www.plantmorphogenesis.bio.titech.ac.jp/~algae_genome_project/klebsormidium/index.html,10.1038/ncomms4978
 Leersia_perrieri,Leersia perrieri,Plant,Lperr_V1.4,lepp,http://ensembl.gramene.org/Leersia_perrieri/Info/Index,10.1038/s41588-018-0040-0

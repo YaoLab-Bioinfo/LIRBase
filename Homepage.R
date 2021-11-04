@@ -9,7 +9,7 @@ Homepage <- dashboardPage(
     #   column(
     #     width = 10,
     #     offset = 1,
-    #     titleBox(title = "LIRBase: a comprehensive collection of long inverted repeats in 424 eukaryotic genomes")
+    #     titleBox(title = "LIRBase: a comprehensive collection of long inverted repeats in 427 eukaryotic genomes")
     #   )
     # ),
     
@@ -19,7 +19,7 @@ Homepage <- dashboardPage(
         offset = 1,
         textBox(
           width = 12,
-          p("LIRBase houses a total of 6,619,473", strong("long inverted repeats (LIR, longer than 800 nt)"), "in 424 eukaryotic genomes and provides various functionalities to facilitate the annotation and functional studies of LIRs and their derived small RNAs.")
+          p("LIRBase houses a total of 6,789,791", strong("long inverted repeats (LIR, longer than 800 nt)"), "in 427 eukaryotic genomes and provides various functionalities to facilitate the annotation and functional studies of LIRs and their derived small RNAs.")
         ),
         box(
           width = 12,
@@ -39,8 +39,8 @@ Homepage <- dashboardPage(
       sectionBox(
         title = "Statistics",
         fluidRow(
-          valueBox("6,619,473", "Long inverted repeats", width = 4, color="blue"),
-          valueBox("424", "Eukaryotic genomes", width = 4, color="blue"),
+          valueBox("6,789,791", "Long inverted repeats", width = 4, color="blue"),
+          valueBox("427", "Eukaryotic genomes", width = 4, color="blue"),
           valueBox(374, "Species", width = 4, color="blue")
         ),
         fluidRow(
@@ -50,11 +50,11 @@ Homepage <- dashboardPage(
                                        block = TRUE, size = "lg", style="unite", color="default"),
               h4("LIRs in 77 invertebrate metazoa genomes"), color="blue"
           ),
-          # valueBox("1,731,978", "LIRs in 139 plant genomes", width = 4, color="blue"),
+          # valueBox("1,902,296", "LIRs in 142 plant genomes", width = 4, color="blue"),
           box(width = 4,
-              shinyWidgets::actionBttn("plant_butt", "1,731,978", 
+              shinyWidgets::actionBttn("plant_butt", "1,902,296", 
                                        block = TRUE, size = "lg", style="unite", color="default"),
-              h4("LIRs in 139 plant genomes"), color="blue"
+              h4("LIRs in 142 plant genomes"), color="blue"
           ),
           # valueBox("4,590,178", "LIRs in 208 vertebrate genomes", width = 4, color="blue"),
           box(width = 4,

@@ -269,7 +269,7 @@ shinyUI(
                  column(12,
                         fixedRow(
                           column(12,
-                                 tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Browse long inverted repeats identified in 139 Plant genomes</b></font>'),
+                                 tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Browse long inverted repeats identified in 142 Plant genomes</b></font>'),
                                           bsButton("qLIRInfoTitle_Plant", label="", icon=icon("question"), style="info", size="small")),
                                  bsPopover("qLIRInfoTitle_Plant", title = LIR_Info_Title, content = NULL, trigger = "focus", options = list(container = "body"))
                           )
@@ -480,7 +480,7 @@ shinyUI(
                           column(12,
                                  tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Search by genomic location</b></font>'),
                                           bsButton("qSearchRegTitle", label="", icon=icon("question"), style="info", size="small")),
-                                 bsPopover("qSearchRegTitle", "Search for the information of long inverted repeats identified in any of the 424 genomes by genomic locations!", trigger = "focus")
+                                 bsPopover("qSearchRegTitle", "Search for the information of long inverted repeats identified in any of the 427 genomes by genomic locations!", trigger = "focus")
                           )
                         ),
                         
@@ -614,7 +614,7 @@ shinyUI(
                           column(6,
                                  tags$div(HTML('<i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Search by LIR identifier</b></font>'),
                                           bsButton("qSearchIDTitle", label="", icon=icon("question"), style="info", size="small")),
-                                 bsPopover("qSearchIDTitle", "Search for the information of long inverted repeats identified in any of the 424 genomes by the identifier of LIRs!", trigger = "focus")
+                                 bsPopover("qSearchIDTitle", "Search for the information of long inverted repeats identified in any of the 427 genomes by the identifier of LIRs!", trigger = "focus")
                           )
                         ),
                         
@@ -1764,10 +1764,10 @@ shinyUI(
         HTML("<strong style='font-size:17px'>Download</strong>"),
         
         tabsetPanel(id = "download_1",
-                    tabPanel(h4("Information of 424 genomes"),
+                    tabPanel(h4("Information of 427 genomes"),
                              DT::dataTableOutput("genomeTable")
                     ),
-                    tabPanel(h4("Annotated LIRs of 424 genomes"),
+                    tabPanel(h4("Annotated LIRs of 427 genomes"),
                              DT::dataTableOutput("downloadTable")
                     ),
                     tabPanel(h4("BLASTN database"),

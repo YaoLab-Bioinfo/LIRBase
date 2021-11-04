@@ -50,7 +50,7 @@
 >However, genome-wide identification and annotation of long inverted repeats were only conducted in very few organisms.
 >None database or web server for annotation and analysis of long inverted repeats and long hpRNAs exist up to now.
 
->Using <a href="https://tandem.bu.edu/irf/irf.download.html" target="_blank">Inverted Repeats Finder (IRF)</a> (**Warburton et al. 2004 Genome Research**), we identified a total of 6,619,473 long inverted repeats in the whole genomes of 424 eukaryotes, including 297,317 LIRs in 77 invertebrate metazoa genomes, 1,731,978 LIRs in 139 plant genomes and 4,590,178 LIRs in 208 vertebrate genomes.
+>Using <a href="https://tandem.bu.edu/irf/irf.download.html" target="_blank">Inverted Repeats Finder (IRF)</a> (**Warburton et al. 2004 Genome Research**), we identified a total of 6,789,791 long inverted repeats in the whole genomes of 424 eukaryotes, including 297,317 LIRs in 77 invertebrate metazoa genomes, 1,902,296 LIRs in 142 plant genomes and 4,590,178 LIRs in 208 vertebrate genomes.
 >We requested a minimum length of 400 nt for both arms of the long inverted repeat identified by IRF, to remove potential miniature inverted-repeat transposable element (MITE) or Alu element from the result of IRF.
 
 <i class="fa fa-circle" aria-hidden="true"></i> <font size="4" color="red"><b>Nomenclature of a long inverted repeat in LIRBase</b></font>  

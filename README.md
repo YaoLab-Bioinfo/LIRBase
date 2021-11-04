@@ -1,9 +1,9 @@
 LIRBase
 ========
 
->A total of 424 eukaryote genomes were collected and the **long inverted repeats (LIR, longer than 800 nt)** in these genomes were systematically identified. The following functionalities are implemented in LIRBase.  
+>A total of 427 eukaryote genomes were collected and the **long inverted repeats (LIR, longer than 800 nt)** in these genomes were systematically identified. The following functionalities are implemented in LIRBase.  
 
->1. **Browse LIRs identified in 424 eukaryotic genomes** for the sequences, structures of LIRs, and the overlaps between LIRs and genes.  
+>1. **Browse LIRs identified in 427 eukaryotic genomes** for the sequences, structures of LIRs, and the overlaps between LIRs and genes.  
 >2. **Search** LIRBase for **LIRs** in a specific genome **by genomic locations**.  
 >3. **Search** LIRBase for **LIRs** in a specific genome **by the identifiers** of LIRs.  
 >4. Search LIRBase by sequence similarity using **BLAST**.  

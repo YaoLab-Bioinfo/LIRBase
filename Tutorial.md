@@ -1,12 +1,12 @@
 <div align='center' ><font size='70'>Tutorial of LIRBase</font></div>
 
->&emsp;&emsp;**LIRBase** is a database with comprehensive collection of **long inverted repeats** in 424 eukaryotic genomes.
+>&emsp;&emsp;**LIRBase** is a database with comprehensive collection of **long inverted repeats** in 427 eukaryotic genomes.
 
->&emsp;&emsp;Using IRF ([https://tandem.bu.edu/irf/irf.download.html](https://tandem.bu.edu/irf/irf.download.html)), we identified a total of 6,619,473 long inverted repeats in the whole genomes of 424 eukaryotes, including 297,317 LIRs in 77 invertebrate metazoa genomes, 1,731,978 LIRs in 139 plant genomes and 4,585,178 LIRs in 208 vertebrate genomes. **LIRBase** is deployed at [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/) for online use.
+>&emsp;&emsp;Using IRF ([https://tandem.bu.edu/irf/irf.download.html](https://tandem.bu.edu/irf/irf.download.html)), we identified a total of 6,789,791 long inverted repeats in the whole genomes of 427 eukaryotes, including 297,317 LIRs in 77 invertebrate metazoa genomes, 1,902,296 LIRs in 142 plant genomes and 4,585,178 LIRs in 208 vertebrate genomes. **LIRBase** is deployed at [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/) for online use.
 
 >&emsp;&emsp;The homepage of **LIRBase** displays the main functionalities of **LIRBase** (**Figure 1**).
 
->1. **Browse long inverted repeats (LIR) identified in 424 eukaryotic genomes** for the sequences, structures of LIRs, and the overlaps between LIRs and genes.  
+>1. **Browse long inverted repeats (LIR) identified in 427 eukaryotic genomes** for the sequences, structures of LIRs, and the overlaps between LIRs and genes.  
 >2. **Search** LIRBase for **long inverted repeats** in a specific genome **by genomic locations**.  
 >3. **Search** LIRBase for **long inverted repeats** in a specific genome **by the identifiers** of long inverted repeats.  
 >4. Search LIRBase by sequence similarity using **BLAST**.  
@@ -19,9 +19,9 @@
 <div align=center><img src="Fig1.png" width="100%" height="100%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 1. The homepage of LIRBase.</font></div>  
 
-## **1. Browse LIRBase for long inverted repeats identified in 424 eukaryotic genomes** <a name="tp1"></a>
+## **1. Browse LIRBase for long inverted repeats identified in 427 eukaryotic genomes** <a name="tp1"></a>
 
->&emsp;&emsp;The images and the species names of 77 invertebrate metazoa genomes are listed in the **Species** panel of the Invertebrate metazoa submenu under the **Browse** menu (**Figure 2**). The images and the species names of 139 plant genomes are listed in the **Species** panel of the Plant submenu under the **Browse** menu. The images and the species names of 208 vertebrate genomes are listed in the **Species** of under the Vertebrate submenu under the **Browse** menu.  
+>&emsp;&emsp;The images and the species names of 77 invertebrate metazoa genomes are listed in the **Species** panel of the Invertebrate metazoa submenu under the **Browse** menu (**Figure 2**). The images and the species names of 142 plant genomes are listed in the **Species** panel of the Plant submenu under the **Browse** menu. The images and the species names of 208 vertebrate genomes are listed in the **Species** of under the Vertebrate submenu under the **Browse** menu.  
 
 <div align=center><img src="Fig2.png" width="100%" height="100%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 2. Species name and images of 77 Invertebrate metazoa genomes listed in the <b>Species</b> panel of the Invertebrate metazoa submenu under the <b>Browse</b> menu.</font></div>  
@@ -39,7 +39,7 @@
 
 ## **2. Search LIRBase by genomic locations** <a name="tp2"></a>
 
->&emsp;&emsp;**LIRBase** allows searching for LIRs identified in any of the 424 eukaryotic genomes by genomic locations (**Figure 5**).
+>&emsp;&emsp;**LIRBase** allows searching for LIRs identified in any of the 427 eukaryotic genomes by genomic locations (**Figure 5**).
 
 <div align=center><img src="Fig5.png" width="100%" height="100%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 5. The <b>Search by genomic location</b> submenu under the <b>Search</b> menu.</font></div>  
@@ -51,7 +51,7 @@
 
 ## **3. Search LIRBase by the identifiers of LIRs** <a name="tp3"></a>
 
->&emsp;&emsp;**LIRBase** allows searching for LIRs identified in any of the 424 eukaryotic genomes by the identifiers (IDs) of long inverted repeats (**Figure 7**).
+>&emsp;&emsp;**LIRBase** allows searching for LIRs identified in any of the 427 eukaryotic genomes by the identifiers (IDs) of long inverted repeats (**Figure 7**).
 
 <div align=center><img src="Fig7.png" width="100%" height="100%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 7. The <b>Search by LIR identifier</b> submenu under the <b>Search</b> menu.</font></div>  
@@ -68,7 +68,7 @@
 
 ## **4. Search LIRBase using BLAST** <a name="tp4"></a>
 
->&emsp;&emsp;Users can also search **LIRBase** by sequence similarity using **BLAST** (**Figure 10**). A graphical interface was implemented in **LIRBase** for users to perform **BLAST** alignment through the NCBI BLAST+ program. **BLASTN** databases were constructed for all the LIRs identified in each of the 424 eukaryotic genomes. Users can choose to **BLAST** against any one or more **BLASTN** databases. The detailed steps to perform **BLAST** in **LIRBase** in shown in **Figure 10**.
+>&emsp;&emsp;Users can also search **LIRBase** by sequence similarity using **BLAST** (**Figure 10**). A graphical interface was implemented in **LIRBase** for users to perform **BLAST** alignment through the NCBI BLAST+ program. **BLASTN** databases were constructed for all the LIRs identified in each of the 427 eukaryotic genomes. Users can choose to **BLAST** against any one or more **BLASTN** databases. The detailed steps to perform **BLAST** in **LIRBase** in shown in **Figure 10**.
 
 <div align=center><img src="Fig10.png" width="100%" height="100%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 10. Steps to BLAST in LIRBase.</font></div>  
@@ -80,7 +80,7 @@
 
 ## **5. Annotate long inverted repeats in user-uploaded DNA sequences** <a name="tp5"></a>
 
->&emsp;&emsp;The software **IRF** ([https://tandem.bu.edu/irf/irf.download.html](https://tandem.bu.edu/irf/irf.download.html)) was utilized to identify long inverted repeats in the 424 eukaryotic genomes collected in **LIRBase**. **IRF** can only be used in the command line. We implemented a graphical interface for users to annotate long inverted repeats in user-uploaded DNA sequences by **IRF** (**Figure 12**). The detailed steps to annotate LIRs in user-uploaded DNA sequences are shown in **Figure 12**. The input DNA sequences for **IRF** can be pasted in a text area or be uploaded from a local text file. The input data must be DNA sequences in fasta format. Each sequence should have a unique ID start with ">".
+>&emsp;&emsp;The software **IRF** ([https://tandem.bu.edu/irf/irf.download.html](https://tandem.bu.edu/irf/irf.download.html)) was utilized to identify long inverted repeats in the 427 eukaryotic genomes collected in **LIRBase**. **IRF** can only be used in the command line. We implemented a graphical interface for users to annotate long inverted repeats in user-uploaded DNA sequences by **IRF** (**Figure 12**). The detailed steps to annotate LIRs in user-uploaded DNA sequences are shown in **Figure 12**. The input DNA sequences for **IRF** can be pasted in a text area or be uploaded from a local text file. The input data must be DNA sequences in fasta format. Each sequence should have a unique ID start with ">".
 
 <div align=center><img src="Fig12.png" width="100%" height="100%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 12. The <b>Annotate</b> menu of LIRBase to annotate LIRs in user-uploaded DNA sequences.</font></div>  
@@ -139,21 +139,21 @@
 <div align=center><img src="Fig18.png" width="100%" height="100%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 18. The <b>Visualize</b> menu of LIRBase.</font></div>  
 
-## **10. Information of 424 genomes collected in LIRBase** <a name="tp10"></a>
+## **10. Information of 427 genomes collected in LIRBase** <a name="tp10"></a>
 
->&emsp;&emsp;The information of 424 genomes collected in **LIRBase** is displayed in the **Download** menu of **LIRBase** (**Figure 19**).
+>&emsp;&emsp;The information of 427 genomes collected in **LIRBase** is displayed in the **Download** menu of **LIRBase** (**Figure 19**).
 
 <div align=center><img src="Fig19.png" width="100%" height="100%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 19. The <b>Download</b> menu of LIRBase.</font></div>  
 
-## **11. Download LIRs identified in 424 eukaryotic genomes, and the corresponding BLAST/Bowtie index database** <a name="tp11"></a>
+## **11. Download LIRs identified in 427 eukaryotic genomes, and the corresponding BLAST/Bowtie index database** <a name="tp11"></a>
 
 >&emsp;&emsp;In addition to be used online at [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/), **LIRBase** can be deployed on a personal local or web Linux server. Deployment of **LIRBase** is platform independent, i.e., **LIRBase** can be deployed on any platform with the R environment available. The detailed steps are described in the **Installation** submenu under the **Help** menu of LIRBase (**Figure 20**).
 
 <div align=center><img src="Fig20.png" width="100%" height="100%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 20. The <b>Installation</b> submenu under the <b>Help</b> menu of LIRBase.</font></div>  
 
->The source code of **LIRBase** is deposited in **GitHub** ([https://github.com/venyao/LIRBase](https://github.com/venyao/LIRBase)). As the file size of identified LIRs and the corresponding BLAST/Bowtie databases of the 424 eukaryotic genomes are too large, these datasets were not deposited in **GitHub**. Instead, these data can be downloaded from [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/) through the **Download** menu (**Figure 21**).
+>The source code of **LIRBase** is deposited in **GitHub** ([https://github.com/venyao/LIRBase](https://github.com/venyao/LIRBase)). As the file size of identified LIRs and the corresponding BLAST/Bowtie databases of the 427 eukaryotic genomes are too large, these datasets were not deposited in **GitHub**. Instead, these data can be downloaded from [https://venyao.xyz/lirbase/](https://venyao.xyz/lirbase/) through the **Download** menu (**Figure 21**).
 
 <div align=center><img src="Fig21.png" width="100%" height="100%" align=center /></div>
 <div align=center><font color=blue size=5>Figure 21. The <b>Download</b> menu of LIRBase.</font></div>  

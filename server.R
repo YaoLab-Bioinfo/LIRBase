@@ -3167,7 +3167,7 @@ shinyServer(function(input, output, session) {
 	})
 	
 	
-	# Annotated inverted repeats of 424 genomes
+	# Annotated inverted repeats of 427 genomes
 	output$downloadTable = DT::renderDataTable({
 	  IRF_result <- read.csv("IRF_result.csv", head=T, as.is=T)
 	  DT::datatable(
@@ -3175,8 +3175,8 @@ shinyServer(function(input, output, session) {
 	    options = list(lengthMenu = c(20, 30, 50), pageLength = 15, scrollX = TRUE,
 	                   searching = TRUE, bSort=FALSE, autoWidth = FALSE,
 	                   buttons = list('pageLength', 'copy', 
-	                               list(extend = 'csv',   filename = "LIRs_identified_in_424_genomes_basic_info"),
-	                               list(extend = 'excel', filename = "LIRs_identified_in_424_genomes_basic_info")
+	                               list(extend = 'csv',   filename = "LIRs_identified_in_427_genomes_basic_info"),
+	                               list(extend = 'excel', filename = "LIRs_identified_in_427_genomes_basic_info")
 	                               ),
 	                   dom = 'Bfrtip',
 	                   columnDefs=list(list(targets="_all"))
@@ -3218,7 +3218,7 @@ shinyServer(function(input, output, session) {
 	  )
 	}, server = FALSE)
 	
-	# Information of 424 genomes
+	# Information of 427 genomes
 	output$genomeTable = DT::renderDataTable({
 	  genomes <- read.csv("All_genomes.csv", head=T, as.is=T)
 	  genomes$Source <- paste0("<a href='", genomes$Source,"' target='_blank'>", genomes$Source,"</a>")
@@ -3228,8 +3228,8 @@ shinyServer(function(input, output, session) {
 	    options = list(lengthMenu = c(20, 30, 50), pageLength = 15, scrollX = TRUE,
 	                   searching = TRUE, autoWidth = TRUE, bSort=FALSE,
 	                   buttons = list('pageLength', 'copy', 
-	                               list(extend = 'csv',   filename = "424_genomes_info"),
-	                               list(extend = 'excel', filename = "424_genomes_info")
+	                               list(extend = 'csv',   filename = "427_genomes_info"),
+	                               list(extend = 'excel', filename = "427_genomes_info")
 	                               ), 
 	                   dom = 'Bfrtip',
 	                   columnDefs=list(list(targets="_all"))

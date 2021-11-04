@@ -8,7 +8,7 @@
 - [**7. Differential expression analysis of LIRs and small RNAs**](#tp7)
 - [**8. Predict mRNA targets of small RNAs encoded by a LIR**](#tp8)
 - [**9. Predict and visualize the secondary structure of hpRNA encoded by a LIR**](#tp9)
-- [**10. Information of 424 genomes collected in LIRBase**](#tp10)
+- [**10. Information of 427 genomes collected in LIRBase**](#tp10)
 - [**11. Download data from LIRBase**](#tp11)
 - [**12. About LIR and LIRBase**](#tp12)
 

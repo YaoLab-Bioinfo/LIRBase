@@ -125,6 +125,9 @@ Galdieria_sulphuraria	Plant	gasp
 Gastrodia_elata	Plant	gaep
 Glycine_max.Williams_82	Plant	gmwp
 Glycine_max.Zhonghuang_13	Plant	gmzp
+Gossypium_arboreum	Plant	goar
+Gossypium_herbaceum	Plant	gohe
+Gossypium_raimondii	Plant	gora
 Helianthus_annuus	Plant	heap
 Klebsormidium_flaccidum	Plant	klfp
 Leersia_perrieri	Plant	lepp
